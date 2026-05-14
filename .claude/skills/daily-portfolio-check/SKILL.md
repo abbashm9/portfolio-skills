@@ -17,23 +17,51 @@ A post-NYSE-close daily review skill for Abbas's halal stock portfolio. Outputs 
 - **Halal compliance:** AAOIFI standards (verify quarterly, but don't include daily halal education — he doesn't want this)
 - **Disclosure:** Research, not financial advice
 
-## Current portfolio (baseline — update when positions change)
+## Source of truth: portfolio.json
 
-| Ticker | Shares | Entry | Cost Basis | Stop-Loss | TP1 | TP2 | TP3 | Catalyst |
-|--------|--------|-------|------------|-----------|-----|-----|-----|----------|
-| NVDA | 1.3799 | $217.40 | $300.06 | $204 (-6.4%) | $240 sell 30% | $260 sell 40% | $285+ hold 30% | Earnings May 20, 2026 |
-| LLY | 0.1407 | $994.87 | $139.98 | $915 (-8%) | $1,114 sell 30% | $1,243 sell 40% | $1,393 hold 30% | Foundayo Q2 launch |
-| AVGO | 0.315 | $412.04 | $129.79 | $379 (-8%) | $474 sell 50% | $536 hold 50% | — | Earnings early June |
-| TSM | 0.224 | $388.35 | $86.99 | $357 (-8%) | $435 sell 50% | $485 hold 50% | — | Taiwan geopolitical risk |
-| AMD | 0.117 | $428.84 | $50.17 | $386 (-10%) | $493 sell 50% | $558 hold 50% | — | Q2 earnings ~Aug 4, 2026 |
+**The portfolio is NOT hardcoded in this skill.** Read it fresh at the start of every run from the GitHub repo:
 
-**Total cost basis: $706.99**
+```
+https://raw.githubusercontent.com/abbashm9/portfolio-skills/main/portfolio.json
+```
+
+If the routine has GitHub connector access, use it. Otherwise fetch via web_fetch on the raw URL above (works for public repos).
+
+The file structure includes:
+- `positions[]` — list of holdings with shares, entry, stops, TPs, catalysts
+- `cash_available` — uninvested USD
+- `total_cost_basis` — total invested
+- `totals` — concentration warnings, sectors, etc.
+- `history` — past transactions for context
+
+Use this data dynamically. If a position has been added since the last run, include it. If one has been sold, exclude it. **Never use stale hardcoded data — always read the file.**
+
+If the file can't be read for any reason (repo down, file deleted, JSON malformed):
+1. STOP the run
+2. Email Abbas a short notice: "⚠️ portfolio.json could not be read — daily check skipped. Please verify the file exists at https://github.com/abbashm9/portfolio-skills/blob/main/portfolio.json"
+3. Do not proceed with stale or assumed data
 
 ## Workflow — every daily check
 
+### Step 0: Read portfolio.json
+
+**BEFORE doing anything else**, fetch the current portfolio state from:
+```
+https://raw.githubusercontent.com/abbashm9/portfolio-skills/main/portfolio.json
+```
+
+Parse the JSON. Extract:
+- `positions[]` array (the live holdings)
+- `cash_available` (dry powder)
+- `total_cost_basis` (total invested)
+- `totals.concentration_warning` (if any)
+- `last_updated` timestamp (so report can note when portfolio was last changed)
+
+This is the dynamic input for everything that follows. The position table, exit checks, rotation suggestions — all derived from this file.
+
 ### Step 1: Fetch live closing prices
 
-Use `web_search` for each ticker. **Required:** verified close prices for ALL 5 positions. If a price can't be confirmed from a reliable source (Yahoo Finance, Google Finance, Bloomberg, CNBC, Reuters), flag it explicitly — do NOT estimate. Estimated data is worse than missing data.
+Use `web_search` for each ticker **currently in `positions[]`** (from Step 0). **Required:** verified close prices for ALL positions. If a price can't be confirmed from a reliable source (Yahoo Finance, Google Finance, Bloomberg, CNBC, Reuters), flag it explicitly — do NOT estimate. Estimated data is worse than missing data.
 
 ### Step 2: Build the data tables
 
@@ -97,7 +125,11 @@ Build a responsive HTML email with the structure in `references/email-template.m
 - Education section in a colored box at the bottom
 - Footer with disclaimer in 10px grey
 
-### Step 7: Send via Gmail connector
+### Step 7: SEND via Gmail connector (not draft)
+
+**CRITICAL:** Use the Gmail `send_email` function (or equivalent send action). DO NOT use `create_draft`. The email must arrive in Abbas's inbox — drafts are useless because he won't see them at 11:05 PM and the whole purpose is automated delivery.
+
+If `send_email` fails for any reason, retry once. If it fails twice consecutively, then (and only then) fall back to `create_draft` AND explicitly note in the routine output: "EMAIL SEND FAILED - saved as draft, check Gmail send permissions."
 
 Send the HTML email to Abbas's configured email address (he'll set this in the routine).
 
@@ -137,11 +169,12 @@ If NYSE was closed today (weekend, US holiday), send a SHORT email:
 
 ## Position updates
 
-When Abbas reports new buys/sells in chat, update the position table in this SKILL.md or note in conversation. Always confirm:
-- Exact shares bought/sold
-- Exact fill price
-- Updated cost basis
-- New stop/TP levels if needed
+When Abbas reports new buys/sells in chat, he should use the **`portfolio-manager` skill** (or any Claude chat will trigger it) — that skill is responsible for updating `portfolio.json`. This daily-portfolio-check skill only READS the file. Never writes to it. The two skills are separated to keep concerns clean:
+
+- `portfolio-manager` — handles updates (buys, sells, deposits, stop changes)
+- `daily-portfolio-check` — reads state and produces daily report
+
+If Abbas mentions a trade in conversation with this skill, redirect him: "I'll handle the daily review. To log that trade, just say something like 'I bought X at $Y' and the portfolio-manager skill will record it."
 
 ## Reference files
 
