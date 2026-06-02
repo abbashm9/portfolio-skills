@@ -5,9 +5,12 @@ All notable changes to the portfolio skills.
 ## [Unreleased]
 
 ### Pending
-- Add transaction cost framework ($6 commission) to all rotation suggestions
 - Add portfolio.json verification step
 - Add net P&L (after commission) to all sell/trim recommendations
+
+## [1.3.0] — 2026-06-01
+### Added
+- daily-portfolio-check: transaction cost framework — $6 commission gates on all sell/trim/rotation suggestions, net P&L display required, small-position (<$75) partial trim ban
 
 ## [1.2.0] — 2026-05-15
 ### Changed
