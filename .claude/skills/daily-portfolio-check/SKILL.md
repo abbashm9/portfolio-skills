@@ -193,7 +193,6 @@ https://hook.eu1.make.com/t1b90xh2eob9egzy7r4u1r443bmh1gsd
 Payload (JSON):
 ```json
 {
-  "to": "almadani.abbas@gmail.com",
   "subject": "<subject line>",
   "html_body": "<full HTML email string>"
 }
