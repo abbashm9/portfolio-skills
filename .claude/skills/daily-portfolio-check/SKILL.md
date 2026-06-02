@@ -113,15 +113,48 @@ Status emoji per position:
 - 🔔 ACTION — hit a level, recommend trim/exit
 - 🚨 ALERT — stop hit or thesis broken, exit now
 
-### Step 4: Rotation suggestions (aggressive)
+### Step 3.5: Screen halal universe for opportunities
+
+Apply the five-pillar screening logic from `.claude/skills/halal-stock-picker/SKILL.md` to the Tier A/B/C halal universe in `references/rotation-playbook.md`.
+
+For each candidate, evaluate all five pillars (valuation gap, growth trajectory, financial strength, momentum, catalyst). A stock needs 3 of 5 to be shortlisted.
+
+**Scope:** You are NOT running the full monthly picker workflow. You are doing a quick pass on the pre-vetted universe to surface the 2–3 names with the strongest near-term setup vs Abbas's current holdings.
+
+Output (text, not a widget): rank the top 2–3 by conviction with format:
+> `[TICKER] — [1-line rationale: which 3 pillars it passes and why it beats current holdings right now]`
+
+Feed into Step 4 (rotation suggestions) and the Intelligence Layer in Step 6.
+
+### Step 3.6: Risk-score current holdings
+
+Apply the three-sub-score risk scoring algorithm from `.claude/skills/stock-risk-report/SKILL.md` to each position in `positions[]`.
+
+Calculate for each position:
+- **Valuation Risk** (40% weight): Forward P/E, P/S, P/B, PEG vs sector norms
+- **Growth Risk** (35% weight): revenue trend, margin direction, concentration, binary events
+- **Financial Health Risk** (25% weight): D/E, ROE, net cash/debt position
+- **Overall score** = weighted average → map to: LOW (0–30) / MODERATE (31–50) / HIGH (51–70) / EXTREME (71–100)
+
+**Scope:** You are NOT rendering the full HTML widget. Output a per-position summary table:
+> `[TICKER] | [SCORE]/100 | [LABEL] | [1-line driver]`
+
+Any position scoring HIGH or EXTREME feeds into Step 4 as a rotation candidate.
+Feed the full table into the Intelligence Layer in Step 6.
+
+### Step 4: Rotation suggestions (intelligence-driven)
 
 Since Abbas isn't withdrawing money, propose moves when:
-- A position hits TP1/TP2 → suggest where to redeploy
+- A position hits TP1/TP2 → suggest where to redeploy (use Step 3.5 top candidates)
 - A new high-conviction halal name has a near-term catalyst → suggest trimming a winner to fund a starter position
 - A position is dead money (flat 30+ days) → suggest a rotation
 - Pre-binary-event (earnings within 5 days) → suggest a risk-management trim
 
-Format rotation suggestions with: exact shares to sell, exact $ freed, exact shares of replacement to buy, 1-line rationale, 1-line risk, end with "Your call."
+**When a HIGH-risk current position and a high-conviction screener candidate exist simultaneously, lead with a comparative rotation:**
+
+> "[TICKER_HELD] is flagged HIGH risk ([reason from Step 3.6]) — [CANDIDATE] has [catalyst] in [N] days with [valuation note from Step 3.5]. Consider trimming [X] shares of [TICKER_HELD] (Net: +$Y after $6 commission) to buy [Z] shares of [CANDIDATE]."
+
+Format all rotation suggestions with: exact shares to sell, exact $ freed, exact shares of replacement to buy, 1-line rationale, 1-line risk, end with "Your call."
 
 ### Step 5: Select today's education concept
 
@@ -147,13 +180,26 @@ Build a responsive HTML email with the structure in `references/email-template.m
 - Education section in a colored box at the bottom
 - Footer with disclaimer in 10px grey
 
-### Step 7: SEND via Gmail connector (not draft)
+### Step 7: SEND via Make webhook
 
-**CRITICAL:** Use the Gmail `send_email` function (or equivalent send action). DO NOT use `create_draft`. The email must arrive in Abbas's inbox — drafts are useless because he won't see them at 11:05 PM and the whole purpose is automated delivery.
+The Gmail connector can only create drafts — use the Make (make.com) webhook to actually send the email.
 
-If `send_email` fails for any reason, retry once. If it fails twice consecutively, then (and only then) fall back to `create_draft` AND explicitly note in the routine output: "EMAIL SEND FAILED - saved as draft, check Gmail send permissions."
+Make an HTTP POST request to:
+```
+https://hook.eu1.make.com/t1b90xh2eob9egzy7r4u1r443bmh1gsd
+```
+*(Replace with the real URL from the Make scenario — see setup instructions in CLAUDE.md)*
 
-Send the HTML email to Abbas's configured email address (he'll set this in the routine).
+Payload (JSON):
+```json
+{
+  "to": "almadani.abbas@gmail.com",
+  "subject": "<subject line>",
+  "html_body": "<full HTML email string>"
+}
+```
+
+If the POST returns a non-200 status, retry once after 5 seconds. If it fails twice, log **"EMAIL DELIVERY FAILED via Make — check scenario is ON at make.com"** in the routine output. Do NOT fall back to `create_draft`. A silent draft is worse than a visible failure — Abbas won't see it.
 
 **Subject line format:**
 ```

@@ -173,6 +173,34 @@ Accent (link):    #2563eb
           </td>
         </tr>
         
+        <!-- INTELLIGENCE LAYER -->
+        <tr>
+          <td style="padding: 0 24px 24px 24px;">
+            <p style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600;">🔍 Intelligence Layer</p>
+            
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #0f172a; border-radius: 8px; overflow: hidden;">
+              <tr>
+                <td style="padding: 16px 20px; border-left: 3px solid #f59e0b;">
+                  <!-- Top screener candidate -->
+                  <p style="margin: 0 0 10px 0; font-size: 11px; color: #f59e0b; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Top Opportunity</p>
+                  <p style="margin: 0 0 16px 0; font-size: 13px; color: #e2e8f0; line-height: 1.6;">
+                    <strong style="color: #f1f5f9;">[CANDIDATE TICKER]</strong> — [1-line rationale from Step 3.5: catalyst, valuation edge, momentum vs current holdings]
+                  </p>
+                  
+                  <!-- Risk flags from Step 3.6 -->
+                  <p style="margin: 0 0 10px 0; font-size: 11px; color: #f59e0b; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Risk Flags</p>
+                  <p style="margin: 0; font-size: 13px; color: #94a3b8; line-height: 1.6;">
+                    <!-- One line per MEDIUM or HIGH flag. E.g.: -->
+                    <!-- NVDA — HIGH: 42% concentration + earnings in 3 days -->
+                    <!-- AMD — MEDIUM: below 20-day MA, volume fading -->
+                    [Per-position risk notes from Step 3.6 — only MEDIUM and HIGH. If all LOW, write "No flags today."]
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        
         <!-- WHAT TO DO TOMORROW -->
         <tr>
           <td style="padding: 0 24px 24px 24px;">
