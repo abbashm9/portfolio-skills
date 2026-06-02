@@ -1,0 +1,19 @@
+name: Send Portfolio Email
+
+on:
+  push:
+    paths:
+      - 'outbox/email.json'
+    branches:
+      - main
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Send email via Gmail SMTP
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python3 .github/scripts/send_email.py

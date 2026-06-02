@@ -180,17 +180,14 @@ Build a responsive HTML email with the structure in `references/email-template.m
 - Education section in a colored box at the bottom
 - Footer with disclaimer in 10px grey
 
-### Step 7: SEND via Make webhook
+### Step 7: SEND via GitHub outbox relay
 
-The Gmail connector can only create drafts — use the Make (make.com) webhook to actually send the email.
+The routine environment blocks outbound HTTP to external webhooks. Instead, write
+the email to the GitHub repo — a GitHub Action picks it up and sends via Gmail SMTP.
 
-Make an HTTP POST request to:
-```
-https://hook.eu1.make.com/t1b90xh2eob9egzy7r4u1r443bmh1gsd
-```
-*(Replace with the real URL from the Make scenario — see setup instructions in CLAUDE.md)*
+Use the **GitHub connector** to create or update the file `outbox/email.json` in
+the `abbashm9/portfolio-skills` repo on the `main` branch:
 
-Payload (JSON):
 ```json
 {
   "subject": "<subject line>",
@@ -198,7 +195,14 @@ Payload (JSON):
 }
 ```
 
-If the POST returns a non-200 status, retry once after 5 seconds. If it fails twice, log **"EMAIL DELIVERY FAILED via Make — check scenario is ON at make.com"** in the routine output. Do NOT fall back to `create_draft`. A silent draft is worse than a visible failure — Abbas won't see it.
+Commit message: `"chore: daily portfolio email"`
+
+The GitHub Action at `.github/workflows/send-email.yml` triggers automatically on
+every push to `outbox/email.json` and emails `almadani.abbas@gmail.com` via Gmail SMTP.
+
+If the GitHub connector write fails, fall back to `create_draft` via the Gmail
+connector and log **"GITHUB WRITE FAILED — email saved as draft"** in the routine
+output.
 
 **Subject line format:**
 ```
