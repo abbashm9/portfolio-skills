@@ -19,22 +19,22 @@ A post-NYSE-close daily review skill for Abbas's halal stock portfolio. Outputs 
 
 ## Transaction cost framework
 
-**Broker commission:** $6.00 per trade (buy or sell). Factor this into every recommendation.
+**Broker commission:** $3.00 per trade (buy or sell). Entry commission already paid — only exit commission ($3) remains on open positions. Round-trip total = $6.
 
 ### Rules that override all exit suggestions
 
-1. **Minimum profit threshold for any sell/trim:** Gross P&L on the shares sold must exceed $6. If it doesn't, recommend HOLD — selling at a loss to fees is worse than holding.
-   - Formula: `(current_price − entry_price) × shares_to_sell > $6`
-   - If the result is ≤ $6: show the math, label it "HOLD (commission eats profit)", move on.
+1. **Minimum profit threshold for any sell/trim:** Gross P&L on the shares sold must exceed $3 (the exit commission). Entry cost already sunk.
+   - Formula: `(current_price − entry_price) × shares_to_sell > $3`
+   - If the result is ≤ $3: show the math, label it "HOLD (commission eats profit)", move on.
 
-2. **Minimum profit threshold for a rotation:** Full round-trip costs $12 minimum (sell + buy). Expected gain from the new position must justify $12 in friction.
-   - If the rotation doesn't clear $12 in projected upside: skip it or note "commission drag too high for this move."
+2. **Minimum profit threshold for a rotation:** Full round-trip costs $6 (sell $3 + buy $3). Expected gain from the new position must justify $6 in friction.
+   - If the rotation doesn't clear $6 in projected upside: skip it or note "commission drag too high for this move."
 
 3. **Small positions (<$75 market value):** Never suggest a partial trim. The position is too small to split — either hold or exit fully.
-   - Example: a $70 position trimmed 50% frees ~$35 but the $6 commission is ~17% of proceeds.
+   - Example: a $70 position trimmed 50% frees ~$35 but the $3 exit commission is ~9% of proceeds.
 
 4. **Always show net P&L:** In every sell, trim, or rotation suggestion, display both gross and net:
-   - `Gross: +$18.40 | Commission: −$6.00 | Net: +$12.40`
+   - `Gross: +$18.40 | Exit commission: −$3.00 | Net: +$15.40`
    - Never present a gross P&L without the commission line.
 
 5. **Cash deployment minimum:** Don't suggest buying into a new position if the cash being deployed (after commission) would result in a position worth < $30. Too small to be meaningful.

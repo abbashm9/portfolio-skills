@@ -8,7 +8,7 @@ This repository contains personal Claude skills for Abbas Al Madani's halal stoc
 - **Trading background:** 8 years in forex and indices, new to single-name US equities
 - **Tone preference:** Pragmatic, direct, no condescension. Treat as an experienced trader.
 - **Strategy:** Halal-compliant (AAOIFI), aggressive growth, no withdrawals
-- **Broker commission:** $6.00 per trade (every recommendation must factor this in)
+- **Broker commission:** $3.00 per trade (buy or sell). Entry already paid — only $3 exit commission remains on open positions.
 
 ## Repository structure
 
@@ -39,12 +39,12 @@ When Abbas asks you to make changes:
 
 ### For the daily-portfolio-check skill:
 
-1. **Commission accounting:** Every trim/sell/rotation must show NET P&L after $6 commission
-2. **No money-losing trims:** If gross profit < $6, recommend HOLD, not partial trim
-3. **No money-losing rotations:** Round-trip costs $12 minimum
+1. **Commission accounting:** Every trim/sell/rotation must show NET P&L after $3 exit commission (entry already paid)
+2. **No money-losing trims:** If gross profit < $3, recommend HOLD, not partial trim
+3. **No money-losing rotations:** Round-trip costs $6 minimum ($3 sell + $3 buy)
 4. **Small positions (<$75):** Don't suggest partial trims at all
 5. **Price verification:** Multi-source confirmation required, NO estimation
-6. **Email delivery:** Must SEND via Gmail, not draft (currently blocked by Gmail connector limitation — using Zapier relay)
+6. **Email delivery:** Routine writes outbox/email.json via GitHub connector → GitHub Actions sends via Gmail SMTP
 7. **Read portfolio.json fresh each run:** Show last_updated timestamp in email header
 
 ### For the portfolio-manager skill:
