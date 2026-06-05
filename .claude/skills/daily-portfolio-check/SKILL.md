@@ -83,7 +83,15 @@ This is the dynamic input for everything that follows. The position table, exit 
 
 ### Step 1: Fetch live closing prices
 
-Use `web_search` for each ticker **currently in `positions[]`** (from Step 0). **Required:** verified close prices for ALL positions. If a price can't be confirmed from a reliable source (Yahoo Finance, Google Finance, Bloomberg, CNBC, Reuters), flag it explicitly — do NOT estimate. Estimated data is worse than missing data.
+Use `web_search` for each ticker **currently in `positions[]`** (from Step 0). **Required:** verified close prices for ALL positions.
+
+**Price verification protocol — mandatory for every ticker:**
+
+1. Search `"[TICKER] stock price today"` or `"[TICKER] closing price [today's date]"` to force recency.
+2. Record the **source name and date** shown in the result (e.g., "Yahoo Finance, June 5 2026"). Include this in the email footer table.
+3. **Cross-check rule:** If the fetched price differs by more than 5% from your own training-data estimate of recent price, run a second search from a different source before accepting it. A $100 error on a $500 stock is not a "broker spread" — it's a bad data pull.
+4. If a price can't be confirmed from a reliable source (Yahoo Finance, Google Finance, Bloomberg, CNBC, Reuters) with a **current date**, flag it explicitly — do NOT estimate. Estimated data is worse than missing data.
+5. In the email, include a small "Prices as of [date], sources: [list]" line under the position table so Abbas can instantly spot if a source is stale.
 
 ### Step 2: Build the data tables
 
@@ -141,6 +149,27 @@ Calculate for each position:
 
 Any position scoring HIGH or EXTREME feeds into Step 4 as a rotation candidate.
 Feed the full table into the Intelligence Layer in Step 6.
+
+### Step 3.7: Cash deployment recommendation (mandatory when cash > $6)
+
+**This section is required every run** whenever `cash_available` from portfolio.json exceeds $6.
+
+Abbas currently keeps a **$3 minimum cash reserve** at all times (to cover any exit commission without liquidating a position). So deployable cash = `cash_available − $3`. Commission on the new buy = $3. Net capital available for a new position = `cash_available − $6`.
+
+If `cash_available − $6 < $30`: the remaining capital after commission is too small to be meaningful. State this explicitly:
+> "Cash: $[X] — after $3 buy commission and $3 reserve, only $[X−6] deployable. Too small for a meaningful new position. Holding as dry powder."
+
+If `cash_available − $6 ≥ $30`: **always** provide a concrete deployment recommendation. Do not leave this section blank or vague. Format:
+
+> 💵 **Cash deployment — $[deployable] available**
+> - **Option A — Add to existing position:** [TICKER], buy [N] shares at ~$[price]. Rationale: [1 line]. Net position after: [shares] shares, avg entry ~$[blended].
+> - **Option B — Start new position:** [TICKER from Tier A/B/C], buy [N] shares at ~$[price]. Rationale: [1 line]. Risk: [1 line].
+> - **Recommended:** [A or B] because [1-line reason].
+> - **Your call.**
+
+Always show the math: shares × price + $3 commission ≤ deployable cash. Never suggest a buy that would leave cash_available below $3.
+
+Feed the recommendation into Step 4 and the Intelligence Layer in Step 6.
 
 ### Step 4: Rotation suggestions (intelligence-driven)
 
