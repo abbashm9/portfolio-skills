@@ -6,6 +6,12 @@
   "broker": "",
   "strategy": "halal_aggressive_growth",
   "withdrawal_intent": false,
+  "withdrawal_goal": {
+    "target_total_value": 1000.00,
+    "account_value_at_goal_set": 820.00,
+    "gain_needed": 180.00,
+    "note": "Reach $1000 total account value (positions + cash) before first withdrawal. Commissions already paid make it not worth withdrawing earlier."
+  },
   "positions": [
     {
       "ticker": "NVDA",

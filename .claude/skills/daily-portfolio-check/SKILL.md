@@ -93,7 +93,24 @@ Use `web_search` for each ticker **currently in `positions[]`** (from Step 0). *
 4. If a price can't be confirmed from a reliable source (Yahoo Finance, Google Finance, Bloomberg, CNBC, Reuters) with a **current date**, flag it explicitly — do NOT estimate. Estimated data is worse than missing data.
 5. In the email, include a small "Prices as of [date], sources: [list]" line under the position table so Abbas can instantly spot if a source is stale.
 
-### Step 2: Build the data tables
+### Step 2: Build the data tables and withdrawal goal tracker
+
+**Withdrawal goal tracker — show in every email, near the top.**
+
+Read `withdrawal_goal` from portfolio.json. Calculate:
+- `current_total_value` = sum of (shares × current_price) for all positions + cash_available
+- `gap` = withdrawal_goal.target_total_value − current_total_value
+- `progress_pct` = (current_total_value / withdrawal_goal.target_total_value) × 100
+
+Format as a single compact line in the email hero section, right under the total P&L:
+
+> 🎯 **Withdrawal goal:** $[current_total_value] / $1,000 — **$[gap] to go** ([progress_pct]% there)
+
+Color the gap green if < $50, amber if $50–$150, grey if > $150.
+
+If `gap ≤ 0`: replace with a bold alert — "🎯 **Withdrawal target hit. $1,000 reached. Consider withdrawing.**"
+
+This tracker does NOT change the exit strategy — stops and TPs still apply as normal. It's a progress indicator only.
 
 Calculate per-position:
 - Current value (shares × current price)
