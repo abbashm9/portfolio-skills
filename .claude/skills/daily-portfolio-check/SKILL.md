@@ -154,6 +154,11 @@ Feed the full table into the Intelligence Layer in Step 6.
 
 **This section is required every run** whenever `cash_available` from portfolio.json exceeds $6.
 
+**This recommendation MUST be driven by the actual outputs of Steps 3.5 and 3.6 — not by generic intuition or the pre-vetted list alone.**
+
+- **From Step 3.5 (halal screener):** use the top 2–3 shortlisted candidates as the candidate pool for new positions. These have already passed the 5-pillar screen — don't re-screen, just pick the highest-conviction one that fits within the deployable cash amount.
+- **From Step 3.6 (risk scorer):** use the per-position risk scores to evaluate the "add to existing" option. Only suggest adding to a current position if its risk label is LOW or MODERATE. Never suggest doubling down on a HIGH or EXTREME risk position with idle cash.
+
 Abbas currently keeps a **$3 minimum cash reserve** at all times (to cover any exit commission without liquidating a position). So deployable cash = `cash_available − $3`. Commission on the new buy = $3. Net capital available for a new position = `cash_available − $6`.
 
 If `cash_available − $6 < $30`: the remaining capital after commission is too small to be meaningful. State this explicitly:
@@ -162,9 +167,9 @@ If `cash_available − $6 < $30`: the remaining capital after commission is too 
 If `cash_available − $6 ≥ $30`: **always** provide a concrete deployment recommendation. Do not leave this section blank or vague. Format:
 
 > 💵 **Cash deployment — $[deployable] available**
-> - **Option A — Add to existing position:** [TICKER], buy [N] shares at ~$[price]. Rationale: [1 line]. Net position after: [shares] shares, avg entry ~$[blended].
-> - **Option B — Start new position:** [TICKER from Tier A/B/C], buy [N] shares at ~$[price]. Rationale: [1 line]. Risk: [1 line].
-> - **Recommended:** [A or B] because [1-line reason].
+> - **Option A — Add to existing position:** [TICKER] (Risk: [score]/100, [LOW/MODERATE] from Step 3.6), buy [N] shares at ~$[price]. Rationale: [1 line]. Net position after: [shares] shares, avg entry ~$[blended].
+> - **Option B — Start new position:** [TOP CANDIDATE from Step 3.5 halal screener], buy [N] shares at ~$[price]. Passes [X] of 5 pillars: [list which ones]. Risk: [1 line].
+> - **Recommended:** [A or B] because [1-line reason grounded in today's risk scores and screener output].
 > - **Your call.**
 
 Always show the math: shares × price + $3 commission ≤ deployable cash. Never suggest a buy that would leave cash_available below $3.
