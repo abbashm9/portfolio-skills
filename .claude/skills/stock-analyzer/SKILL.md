@@ -1,0 +1,244 @@
+---
+name: stock-analyzer
+description: Deep catalyst-focused stock analysis for any ticker. Produces an 8-section research brief covering company snapshot, halal compliance, catalyst timeline, probability model, analog analysis, smart money signals, risk/reward matrix, and a concrete trade verdict with entry/stop/targets/position size. Designed to find and evaluate small/mid-cap catalyst plays that most sell-side analysts don't cover. Use whenever Abbas says "analyze [TICKER]", "deep dive [TICKER]", "research [TICKER]", "is [TICKER] worth it", "what do you think about [TICKER]", "run the analyzer on [TICKER]", or pastes a ticker and asks for a full take.
+---
+
+# Stock Analyzer — Deep Catalyst Research
+
+A full-depth research tool for any publicly traded stock. The goal is to produce a better-informed view than most sell-side analyst notes, particularly on small/mid-cap names where coverage is thin and the real edge lives.
+
+## User context
+
+- **Portfolio size:** ~$800, growing aggressively
+- **Strategy:** Halal-compliant, catalyst-driven, willing to size up to 30% per name
+- **Edge focus:** Pre-catalyst entries on small/mid-cap names before the move, not chasing after
+- **Halal standard:** AAOIFI
+- **Commission:** $3 per trade — factor into all sizing math
+- **Tone:** Experienced trader. No basics. No hand-holding. Numbers and conviction.
+
+---
+
+## Critical rule: live data only
+
+**Never answer from training data on prices, earnings dates, FDA dates, or recent filings.** Every key fact in this report must come from a web_search run during this session. State the source for every key data point.
+
+If a data point genuinely cannot be found after two search attempts, say so explicitly — do not estimate without disclosing it.
+
+---
+
+## Workflow — 8 sections
+
+Run all initial searches in parallel before writing any section. Then write the report top to bottom.
+
+### Parallel search batch (run before writing anything)
+
+Fire these searches simultaneously:
+1. `"[TICKER] stock" market cap float shares outstanding short interest`
+2. `"[TICKER]" FDA PDUFA OR "phase 3" OR "clinical trial" OR "data readout" 2025 2026`
+3. `"[TICKER]" earnings date OR "expected to report" OR "EPS estimate"`
+4. `"[TICKER]" halal OR Musaffa OR "interest income" OR "revenue breakdown"`
+5. `"[TICKER]" insider buying OR "Form 4" OR "insider purchase" 2025 2026`
+6. `"[TICKER]" institutional holdings OR "13F" OR hedge fund 2025 2026`
+7. `"[TICKER]" options OR "implied move" OR "unusual options activity"`
+8. `"[TICKER]" cash position OR "cash runway" OR "cash equivalents" quarterly`
+9. `"[TICKER]" annual revenue OR "total revenue" OR "gross margin" recent`
+10. `"[TICKER]" debt total assets OR "balance sheet" OR "debt ratio"`
+
+Write all 8 sections from these results. Do not run another search round unless a specific section needs clarification.
+
+---
+
+### Section 1: Company & Float Snapshot
+
+**What to cover:**
+- What does this company actually do? (1–2 sentences, no fluff)
+- Market cap (current)
+- Public float (shares available for trading, not total shares)
+- Short interest as % of float — flag anything > 10% as a squeeze amplifier
+- 52-week high / 52-week low / current price — where in the range is it?
+- Average daily volume
+- Cash position and burn rate (if pre-revenue biotech: how many months of runway?)
+
+**Why float matters:** A stock with a $50M float and FDA approval can go up 500%. The same approval on a $5B float stock goes up 30%. Flag the float size explicitly and state what it means for potential move size.
+
+---
+
+### Section 2: Halal Compliance
+
+Run the full AAOIFI check. Do NOT skip this section or mark it "assumed compliant."
+
+**Data required:**
+- Interest income as % of total revenue (threshold: < 5%)
+- Total debt / total assets (threshold: < 33%)
+- Accounts receivable / market cap (threshold: < 49%)
+- Revenue from prohibited sectors (alcohol, tobacco, weapons, adult content, pork, conventional insurance, conventional banking) — must be 0%
+
+**Pre-revenue companies (biotech with no approved products):**
+- Check for credit facilities with interest charges in SEC filings — search `"[TICKER] credit facility" OR "[TICKER] line of credit" 10-K`
+- If no revenue and no prohibited operations: likely halal but flag as "unverified — check Musaffa before entry"
+
+**Output:**
+- ✅ HALAL VERIFIED — [list the actual ratios]
+- ⚠️ HALAL UNVERIFIED — [what's missing, what to check]
+- ❌ NOT HALAL — [which criterion fails and why]
+
+If not halal: stop the report here. Note that analysis has been halted due to compliance failure.
+
+---
+
+### Section 3: Catalyst Timeline
+
+Find every upcoming binary event for this ticker within the next 90 days. A binary event is any scheduled event that will move the stock materially regardless of which direction.
+
+**Event types to look for:**
+- FDA PDUFA action date (NDA, BLA, sNDA)
+- AdCom (advisory committee) vote date
+- Phase 2 or Phase 3 clinical trial primary endpoint readout
+- Earnings release date
+- Merger/acquisition close date
+- Regulatory ruling or court decision
+- Investor day / R&D day with major announcement expected
+- Index inclusion/exclusion decision
+
+**For each event found:**
+- Date (exact if confirmed, approximate if estimated)
+- Event type
+- What is being decided
+- Confidence in the date (confirmed by company / estimated by analysts / approximate)
+
+Sort chronologically. If no events in 90 days: say so and note the next known event beyond 90 days.
+
+---
+
+### Section 4: Probability Model
+
+For each catalyst event from Section 3, estimate the probability of a positive outcome.
+
+**This must use base rates from `references/probability-models.md`, not gut feel.** Start with the historical base rate for that event type and indication, then apply modifiers based on company-specific evidence.
+
+**Format per event:**
+
+> **[Event name] — [Date]**
+> - Base rate: [X]% (source: probability-models.md + indication)
+> - Modifier +: [list positive factors that push probability up — e.g., BTD designation, positive AdCom vote, strong Phase 2 data, experienced management team]
+> - Modifier −: [list negative factors — e.g., CRL history, weak Phase 2, FDA has rejected similar drugs recently]
+> - **Final estimate: [X]%** — [1-sentence rationale]
+> - If positive: expected price range [low end → high end], based on [analog or analyst target]
+> - If negative: expected price range [likely floor], based on [typical rejection drop for this type of event]
+
+For earnings events: use the company's historical beat rate (last 4 quarters). If 3+ of 4 beats: high base rate. If 1 of 4: low.
+
+---
+
+### Section 5: Analog Analysis
+
+Find 3 historical situations that closely match this setup. Analogs make the probability estimate credible — they show that similar plays have happened before, with documented outcomes.
+
+**Search:** `"[drug class or indication] FDA approval" stock move OR "similar to [TICKER]" OR "[company type] [catalyst type] result"`
+
+For each analog:
+> **[TICKER analog] — [year]**
+> - Setup: [brief — what was similar: same indication, same drug class, similar float, similar pre-catalyst price action]
+> - Outcome: [positive or negative] → stock moved [+X% or -X%] in [timeframe]
+> - Key difference from [TICKER]: [1 line — what's different that should adjust the expectation]
+
+Three analogs minimum. If fewer than 3 are findable, state that and explain what's unusual about this setup that makes analogs hard to find.
+
+---
+
+### Section 6: Smart Money Signals
+
+Three sub-sections, each pointing to whether institutional and informed money is positioning for the catalyst.
+
+#### 6a. Insider transactions (Form 4)
+
+Search for Form 4 filings in the last 90 days. Insiders buying open-market shares (not option exercises, not granted shares — actual cash purchases) is the strongest possible signal.
+
+- List any insider purchases: who, how many shares, at what price, on what date
+- Note if executives are selling (normal if pre-planned 10b5-1 plan; concerning if opportunistic)
+- If no insider activity: note it
+
+#### 6b. Institutional changes (13F)
+
+Search for recent 13F filings showing new positions or significant increases from known hedge funds or specialist biotech/tech funds.
+
+- Note any new institutional positions opened in last quarter
+- Note any major position increases (>50% increase in holdings)
+- If institutions are reducing: flag as cautionary signal
+- Key: a specialist biotech fund (e.g., Baker Bros, RA Capital, Perceptive Advisors) adding a large position in a pre-PDUFA name is a very strong signal
+
+#### 6c. Options unusual activity
+
+Search for unusual options activity — large call buying, significant open interest at strikes above current price, or unusual put buying (which can signal hedging by someone long the stock).
+
+- Note any unusual call buying (strike, expiry, volume vs. open interest)
+- Note implied move from ATM straddle: `(call price + put price) / stock price` = market's priced-in move
+- Compare implied move to your probability-weighted expected move from Section 4
+  - If implied move < your expected move: market is underpricing the event → favorable entry
+  - If implied move > your expected move: market is already pricing in more than you estimate → thin edge
+
+---
+
+### Section 7: Risk/Reward Matrix
+
+Build three scenarios. Use the probability estimates from Section 4 and analog outcomes from Section 5.
+
+| Scenario | Probability | Price target | From current price | $ on 30% position (~$240) |
+|---|---|---|---|---|
+| Bull — [catalyst positive + squeeze] | [X]% | $[price] | +[%] | +$[amount] |
+| Base — [catalyst positive, no squeeze] | [X]% | $[price] | +[%] | +$[amount] |
+| Bear — [catalyst negative] | [X]% | $[price] | -[%] | -$[amount] |
+
+**Expected value calculation:**
+`EV = (P_bull × bull_gain) + (P_base × base_gain) + (P_bear × bear_loss)`
+
+If EV > 0 and EV > $6 (round-trip commission): positive expected value trade.
+If EV < $6: commission drag eats the edge, do not enter.
+
+**Stated as:** 
+> "EV = +$[X] per $240 deployed — [positive/negative] expected value trade."
+
+---
+
+### Section 8: Verdict & Trade Setup
+
+**Conviction score: [X]/10**
+
+Use the scoring rubric from `references/scoring-rubric.md`. Show the breakdown — do not just give a number without showing what earned each point.
+
+**Recommendation:** [BUY NOW / WATCH / SKIP]
+
+- **BUY NOW:** Conviction ≥ 7, EV positive, halal verified, event within 14 days
+- **WATCH:** Conviction 5–6, or event > 14 days out, or halal unverified — set a reminder date
+- **SKIP:** Conviction < 5, or EV negative, or halal fails
+
+**If BUY NOW or WATCH:**
+
+> **Trade setup:**
+> - Entry: $[price] — [why this level, e.g., current price, at support, at breakout]
+> - Stop: $[price] ([X]% below entry) — [rationale: pre-catalyst low, key support]
+> - Target 1: $[price] (+[%]) — base case on catalyst
+> - Target 2: $[price] (+[%]) — bull case with squeeze
+> - Max position: $[amount] ([X] shares) = 30% of ~$[portfolio_value] — costs $[amount] + $3 commission
+> - Do NOT size larger than 30% — this is a binary event.
+> - Exit rule: if catalyst resolves negatively, exit at market open, no averaging down.
+
+**If SKIP:**
+> One sentence on why — what would need to change to revisit.
+
+---
+
+## Output format
+
+Deliver as clean, structured markdown in chat. No HTML widget unless Abbas specifically asks for a report to be emailed. Keep sections clearly headed. Use tables where numbers are being compared.
+
+Length: as long as it needs to be. Don't summarize a section to save space — this is a research document, not a tweet.
+
+---
+
+## What this skill does NOT do
+
+- Execute trades — Abbas does this in his broker
+- Update portfolio.json — use portfolio-manager for that
+- Give financial advice — research only, disclosed in every report
+- Replace the daily check — this is an on-demand deep dive, not the daily routine
