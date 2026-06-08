@@ -62,12 +62,12 @@ Reference `portfolio.json` in repo root for current positions. Last known state:
 | Ticker | Shares | Entry | Cost Basis |
 |--------|--------|-------|------------|
 | NVDA   | 1.3799 | $217.40 | $300.06 |
-| LLY    | 0.1407 | $994.87 | $139.98 |
+| LLY    | 0.0986 | $994.87 | $98.11  |
 | AVGO   | 0.315  | $412.04 | $129.79 |
 | TSM    | 0.224  | $388.35 | $86.99 |
 | AMD    | 0.117  | $428.84 | $50.17 |
 
-Total cost basis: $706.99. Cash: ~$113.
+Total cost basis: $665.12. Cash: ~$158.53.
 
 ## Known issues and constraints
 
