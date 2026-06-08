@@ -138,18 +138,54 @@ Status emoji per position:
 - 🔔 ACTION — hit a level, recommend trim/exit
 - 🚨 ALERT — stop hit or thesis broken, exit now
 
-### Step 3.5: Screen halal universe for opportunities
+### Step 3.5: Catalyst Radar — find high-conviction near-term movers
 
-Apply the five-pillar screening logic from `.claude/skills/halal-stock-picker/SKILL.md` to the Tier A/B/C halal universe in `references/rotation-playbook.md`.
+**Purpose:** Surface small/mid-cap names with an imminent binary catalyst that could produce outsized moves. These are NOT the usual MSFT/ASML names — those go in the Tier A/B/C fallback (see `references/rotation-playbook.md`). The Catalyst Radar runs first and overrides the static list whenever it produces a valid result.
 
-For each candidate, evaluate all five pillars (valuation gap, growth trajectory, financial strength, momentum, catalyst). A stock needs 3 of 5 to be shortlisted.
+**Run this as a live web_search session. Do NOT answer from training data — this section has no value unless it's based on today's real information.**
 
-**Scope:** You are NOT running the full monthly picker workflow. You are doing a quick pass on the pre-vetted universe to surface the 2–3 names with the strongest near-term setup vs Abbas's current holdings.
+#### 3.5.1 — Scan for catalysts (web_search, every run)
 
-Output (text, not a widget): rank the top 2–3 by conviction with format:
-> `[TICKER] — [1-line rationale: which 3 pillars it passes and why it beats current holdings right now]`
+Run these searches in parallel:
+1. `"FDA PDUFA dates" [current month] [next month] site:biopharmcatalyst.com OR site:fda.gov`
+2. `"phase 3 results expected" OR "data readout" small cap biotech [current month]`
+3. `"FDA approval" OR "NDA accepted" site:sec.gov [this week]`
+4. `"top premarket movers" OR "unusual volume" [today's date]`
+5. `"short squeeze candidates" halal OR "no interest income" [current week]`
 
-Feed into Step 4 (rotation suggestions) and the Intelligence Layer in Step 6.
+From results, pull up to **10 candidate tickers** that have a dated event within the next **14 days**. Discard any with event date already passed.
+
+#### 3.5.2 — Halal filter (rapid check per candidate)
+
+For each candidate, search `"[TICKER] halal" OR "[TICKER] Musaffa" OR "[TICKER] interest income revenue"`.
+
+**Disqualify immediately if:**
+- Revenue from interest, insurance, alcohol, tobacco, weapons, adult content, or pork
+- Debt/total assets > 33% (AAOIFI threshold)
+- Receivables/total assets > 49%
+
+If halal status is unclear from a quick search, include the name but flag: `⚠️ halal unverified — check Musaffa before entry`.
+
+#### 3.5.3 — Deep research per surviving candidate
+
+For each candidate that passes the halal filter, run the full research protocol from `references/catalyst-scanner.md`. This produces a conviction score (0–10) and a binary outcome probability estimate.
+
+Discard any candidate scoring below **6/10 conviction**.
+
+#### 3.5.4 — Output
+
+Rank survivors by conviction. Output up to **3 names** in this format:
+
+> **[TICKER] — [COMPANY] | Catalyst: [event + date] | Conviction: [X]/10**
+> - Upside scenario: [what happens if catalyst resolves positively] → ~[price target] (+[%])
+> - Downside scenario: [what happens if it doesn't] → ~[price] ([%])
+> - Halal: [Verified / Unverified — check before entry]
+> - Position size: up to 30% of portfolio (~$[amount] at current portfolio value)
+> - Why now vs. waiting: [1 line — is there pre-catalyst drift? Is it already pricing in approval?]
+
+If no candidates survive the filter with conviction ≥ 6: fall back to the Tier A/B/C large-cap list in `references/rotation-playbook.md` and note: "No high-conviction catalyst plays found today — showing large-cap setups instead."
+
+Feed top candidates into Step 4 and Step 3.7.
 
 ### Step 3.6: Risk-score current holdings
 
@@ -184,10 +220,12 @@ If `cash_available − $6 < $30`: the remaining capital after commission is too 
 If `cash_available − $6 ≥ $30`: **always** provide a concrete deployment recommendation. Do not leave this section blank or vague. Format:
 
 > 💵 **Cash deployment — $[deployable] available**
-> - **Option A — Add to existing position:** [TICKER] (Risk: [score]/100, [LOW/MODERATE] from Step 3.6), buy [N] shares at ~$[price]. Rationale: [1 line]. Net position after: [shares] shares, avg entry ~$[blended].
-> - **Option B — Start new position:** [TOP CANDIDATE from Step 3.5 halal screener], buy [N] shares at ~$[price]. Passes [X] of 5 pillars: [list which ones]. Risk: [1 line].
-> - **Recommended:** [A or B] because [1-line reason grounded in today's risk scores and screener output].
+> - **Option A — Catalyst play:** [TOP CANDIDATE from Step 3.5 Catalyst Radar, if conviction ≥ 6], buy [N] shares at ~$[price]. Event: [date]. Upside: +[%]. Downside: [%]. Halal: [status]. Position: $[amount] = [%]% of portfolio.
+> - **Option B — Add to existing position:** [TICKER] (Risk: [score]/100, [LOW/MODERATE] from Step 3.6), buy [N] shares at ~$[price]. Rationale: [1 line]. Net position after: [shares] shares, avg entry ~$[blended].
+> - **Recommended:** [A or B] because [1-line reason].
 > - **Your call.**
+
+**Position sizing for catalyst plays:** Abbas's target max allocation per catalyst name is **30% of total portfolio value** (positions + cash). Calculate: `0.30 × (total_positions_value + cash_available)`. Never exceed this cap in a single catalyst position, even if the conviction is high — binary events can go -70% on rejection.
 
 Always show the math: shares × price + $3 commission ≤ deployable cash. Never suggest a buy that would leave cash_available below $3.
 

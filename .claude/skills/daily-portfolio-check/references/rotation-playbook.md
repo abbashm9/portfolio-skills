@@ -39,35 +39,43 @@ Always include exact mechanics:
 - Always keep at least **4 names in the portfolio** for diversification (no single-name concentration above 50%)
 - Never rotate INTO a position if its halal status hasn't been re-verified within the last 90 days
 
-## Halal universe priority for rotations
+## Rotation target priority — catalyst plays first, large-cap fallback
 
-When suggesting names to rotate into, prioritize from this pre-vetted halal pool:
+### Primary: Catalyst Radar (Step 3.5)
 
-### Tier A — High conviction, frequently halal-compliant
+The first and preferred rotation target is always the top result from the Catalyst Radar in Step 3.5. These are live-scanned, near-term binary plays sourced from the FDA calendar, biotech readout trackers, and earnings surprise setups. They are NOT pre-set — they change every day based on what's actually in the market.
+
+**Use the Catalyst Radar result if conviction ≥ 6/10 and halal status is verified (or verifiable before entry).**
+
+Position sizing: up to **30% of total portfolio value** per catalyst name. Combined catalyst exposure cap: 50% of portfolio. See `references/catalyst-scanner.md` for full sizing and entry timing rules.
+
+### Fallback: Static large-cap halal pool (use only when Catalyst Radar finds nothing)
+
+When no catalyst play clears the 6/10 conviction bar, fall back to this pre-vetted pool. These are slower, steadier names — fine for capital parking but not optimized for portfolio-moving gains.
+
+#### Tier A — High conviction, frequently halal-compliant
 - **MSFT** — Cloud/AI infrastructure, AAOIFI compliant
 - **ASML** — Lithography monopoly
 - **NVO** — GLP-1 (Novo Nordisk)
 - **ABT** — Medical devices
 - **ISRG** — Surgical robotics
 
-### Tier B — Strong momentum, halal-compliant
-- **QCOM** — Mobile/auto chips (was a ProPicks winner)
+#### Tier B — Strong momentum, halal-compliant
+- **QCOM** — Mobile/auto chips
 - **TXN** — Analog, dividend payer
 - **AMAT, LRCX, KLA** — Semicap equipment
 - **ANET, MRVL** — Networking
 - **CDNS, SNPS** — EDA software
 
-### Tier C — Diversifiers
+#### Tier C — Diversifiers
 - **SHOP** — E-commerce platform
 - **CRWD, PANW, FTNT** — Cybersecurity
 - **NOW** — Enterprise workflow
 - **ADBE** — Creative cloud
 
-### ETFs (for diversification, low single-name risk)
+#### ETFs (capital parking, not rotation plays)
 - **HLAL** — Wahed FTSE USA Shariah ETF
 - **SPUS** — SP Funds S&P 500 Sharia ETF
-- **SPTE** — SP Funds S&P Global Technology Sharia ETF
-- **UMMA** — Wahed Dow Jones Islamic World ETF
 
 ## Rotation triggers calendar
 
