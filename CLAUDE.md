@@ -73,5 +73,6 @@ Total cost basis: $665.12. Cash: ~$158.53.
 
 - Gmail connector can only DRAFT, not SEND — Zapier webhook relay required
 - Repo currently PUBLIC (for raw URL access in routines) — don't add secrets
-- Cloud Routine fires weekdays 11:05 PM GMT+3 (= 4:05 PM ET, NYSE close during DST)
-- DST changeover Nov 1, 2026 → update routine to 12:05 AM
+- Cloud Routine fires every day (including weekends) at 6:00 AM GMT+3 (Kuwait) — Abbas reads on waking up
+- Weekend emails skip price P&L but still run full catalyst discovery (FDA calendar doesn't pause)
+- No DST adjustment needed — delivery time is Kuwait-relative, not NYSE-close relative
