@@ -138,54 +138,103 @@ Status emoji per position:
 - 🔔 ACTION — hit a level, recommend trim/exit
 - 🚨 ALERT — stop hit or thesis broken, exit now
 
-### Step 3.5: Catalyst Radar — find high-conviction near-term movers
+### Step 3.5: Catalyst Discovery — full stock-finder run
 
-**Purpose:** Surface small/mid-cap names with an imminent binary catalyst that could produce outsized moves. These are NOT the usual MSFT/ASML names — those go in the Tier A/B/C fallback (see `references/rotation-playbook.md`). The Catalyst Radar runs first and overrides the static list whenever it produces a valid result.
+**Purpose:** Surface small/mid-cap names with imminent binary catalysts that nobody in mainstream media is currently talking about. This runs the same methodology as the standalone `stock-finder` skill — not a shortened version of it.
 
-**Run this as a live web_search session. Do NOT answer from training data — this section has no value unless it's based on today's real information.**
+**Everything here must come from live web_search. Training data is useless for discovery.**
 
-#### 3.5.1 — Scan for catalysts (web_search, every run)
+#### 3.5.1 — Cast the net (15 searches in parallel)
 
-Run these searches in parallel:
-1. `"FDA PDUFA dates" [current month] [next month] site:biopharmcatalyst.com OR site:fda.gov`
-2. `"phase 3 results expected" OR "data readout" small cap biotech [current month]`
-3. `"FDA approval" OR "NDA accepted" site:sec.gov [this week]`
-4. `"top premarket movers" OR "unusual volume" [today's date]`
-5. `"short squeeze candidates" halal OR "no interest income" [current week]`
+Run all simultaneously:
 
-From results, pull up to **10 candidate tickers** that have a dated event within the next **14 days**. Discard any with event date already passed.
+**FDA & regulatory:**
+1. `FDA PDUFA action dates [current month] [next month] upcoming decisions`
+2. `site:biopharmcatalyst.com PDUFA [current month] OR [next month]`
+3. `FDA NDA BLA "action date" [current month] [next month] 2026`
+4. `"advisory committee" OR AdCom meeting scheduled [current month] [next month] FDA`
+5. `"complete response letter" resubmission PDUFA upcoming 2026`
 
-#### 3.5.2 — Halal filter (rapid check per candidate)
+**Clinical trial readouts:**
+6. `"phase 3" "data readout" OR "results expected" [current month] [next month] biotech`
+7. `"interim analysis" OR "primary endpoint" expected [current month] OR [next month] 2026`
+8. `"top-line data" expected [current month] [next month] small cap 2026`
 
-For each candidate, search `"[TICKER] halal" OR "[TICKER] Musaffa" OR "[TICKER] interest income revenue"`.
+**Market signals:**
+9. `"unusual options activity" small cap [today's date] OR [this week]`
+10. `"insider buying" cluster multiple [current month] small cap`
+11. `"short squeeze" catalyst upcoming [current month] 2026`
+12. `"most shorted stocks" catalyst binary event 2026`
+13. `"premarket movers" OR "premarket gainers" [today's date] catalyst`
+14. `"small cap" "upcoming catalyst" OR "binary event" [current month] [next month]`
+15. `biotech catalyst calendar [current month] [next month] 2026`
 
-**Disqualify immediately if:**
-- Revenue from interest, insurance, alcohol, tobacco, weapons, adult content, or pork
-- Debt/total assets > 33% (AAOIFI threshold)
-- Receivables/total assets > 49%
+Extract all distinct tickers mentioned. Target 15–25 raw candidates. Tickers appearing in multiple searches = stronger signal.
 
-If halal status is unclear from a quick search, include the name but flag: `⚠️ halal unverified — check Musaffa before entry`.
+#### 3.5.2 — Rapid 3-gate pre-screen (per candidate)
 
-#### 3.5.3 — Deep research per surviving candidate
+Drop any candidate that fails any gate:
 
-For each candidate that passes the halal filter, run the full research protocol from `references/catalyst-scanner.md`. This produces a conviction score (0–10) and a binary outcome probability estimate.
+- **Gate 1 — Confirmed event date ≤ 45 days?** No confirmed date → drop
+- **Gate 2 — Market cap < $2B?** Search `"[TICKER]" market cap` → ≥ $2B → drop
+- **Gate 3 — Halal quick check.** Search `"[TICKER]" revenue OR "interest income" OR halal`. Obvious disqualifier → drop. Unclear → keep with ⚠️ flag.
 
-Discard any candidate scoring below **6/10 conviction**.
+#### 3.5.3 — Score survivors (5-point pre-score)
 
-#### 3.5.4 — Output
+| Factor | Points |
+|---|---|
+| Event ≤ 14 days out | 2 |
+| Event 15–45 days out | 1 |
+| Short interest ≥ 15% float | 1 |
+| Appears in 2+ search sources | 1 |
+| Any smart money signal (insider buy, big fund 13F, unusual options) | 1 |
 
-Rank survivors by conviction. Output up to **3 names** in this format:
+Sort by score. Keep top 3 candidates. These go to Step 3.8 for condensed analysis.
 
-> **[TICKER] — [COMPANY] | Catalyst: [event + date] | Conviction: [X]/10**
-> - Upside scenario: [what happens if catalyst resolves positively] → ~[price target] (+[%])
-> - Downside scenario: [what happens if it doesn't] → ~[price] ([%])
-> - Halal: [Verified / Unverified — check before entry]
-> - Position size: up to 30% of portfolio (~$[amount] at current portfolio value)
-> - Why now vs. waiting: [1 line — is there pre-catalyst drift? Is it already pricing in approval?]
+If fewer than 3 survive: fall back to Tier A/B/C list in `references/rotation-playbook.md` to fill remaining slots. Note clearly which names are fallback large-caps vs. catalyst finds.
 
-If no candidates survive the filter with conviction ≥ 6: fall back to the Tier A/B/C large-cap list in `references/rotation-playbook.md` and note: "No high-conviction catalyst plays found today — showing large-cap setups instead."
+Feed top 3 into Step 3.8, Step 3.7, and Step 4.
 
-Feed top candidates into Step 4 and Step 3.7.
+### Step 3.8: Condensed analysis — top candidates from Step 3.5
+
+For each of the top 3 candidates from Step 3.5, run a condensed 5-point analysis. This is NOT the full 8-section stock-analyzer deep dive — that's available on demand in chat. This is the daily email version: tight, actionable, enough to decide whether to investigate further.
+
+Run these searches per candidate (in parallel across all 3 candidates):
+- `"[TICKER]" FDA PDUFA OR "phase 3" OR earnings date confirmed`
+- `"[TICKER]" market cap float short interest`
+- `"[TICKER]" AdCom vote OR "phase 3 results" OR "EPS beat" history`
+- `"[TICKER]" cash position runway OR dilution OR shelf registration`
+- `"[TICKER]" insider buying OR "Form 4" OR institutional 13F 2026`
+
+For each candidate, produce this block (this is what goes in the email):
+
+---
+
+> **🔬 [TICKER] — [COMPANY NAME]**
+> **Catalyst:** [event type] on [exact date] — [X] days away
+> **Market cap:** $[X]M | **Float:** $[X]M | **Short interest:** [X]%
+>
+> **Probability:** [X]% — [1-line rationale referencing base rate + key modifier e.g. "oncology NDA base rate 79%, lifted by BTD designation and 8-2 AdCom vote"]
+>
+> **Scenarios:**
+> - ✅ If positive: ~$[price] (+[%]) | 💀 If negative: ~$[price] (-[%])
+> - Expected value on 30% position (~$[amount]): **+$[EV] / -$[EV]**
+>
+> **Smart money:** [insider buys / institutional buildup / unusual options / none visible]
+> **Cash runway:** [X months — dilution risk: yes/no]
+>
+> **Halal:** ✅ Verified / ⚠️ Unverified — check Musaffa / ❌ Fails
+>
+> **Conviction: [X]/5** (pre-score) → [INVESTIGATE / WATCH / SKIP]
+> *Run `analyze [TICKER]` for the full 8-section deep dive before entering.*
+
+---
+
+**INVESTIGATE** = pre-score 4–5, halal clear, event ≤ 14 days
+**WATCH** = pre-score 3, or event 15–45 days, or halal unverified
+**SKIP** = pre-score ≤ 2, or halal fails, or no confirmed event date
+
+All 3 candidate blocks go into the email under the "📡 Catalyst Plays" section. Even SKIP candidates are shown so Abbas can see what was found and why it didn't make the cut.
 
 ### Step 3.6: Risk-score current holdings
 
@@ -269,6 +318,37 @@ Build a responsive HTML email with the structure in `references/email-template.m
 - Education section in a colored box at the bottom
 - Footer with disclaimer in 10px grey
 
+**Email section order (top to bottom):**
+
+1. **Hero banner** — total P&L today, withdrawal goal tracker
+2. **Positions table** — all holdings with status badges (✅ HOLD / ⚠️ WATCH / 🔔 ACTION / 🚨 ALERT)
+3. **Exit alerts** — any position needing action, with exact recommendation
+4. **📡 Catalyst Plays** — the new section (see below)
+5. **💵 Cash deployment** — recommendation from Step 3.7
+6. **🔄 Rotation suggestions** — from Step 4, if any
+7. **📚 Today's concept** — education, in a colored box
+8. **Footer** — disclaimer, prices as of [date + sources]
+
+**📡 Catalyst Plays section design:**
+
+This section has a distinct visual treatment — a dark-background card (e.g., `background: #0f1117; border-left: 3px solid #6366f1;`) to make it visually separate from the portfolio review. Header: "📡 Catalyst Plays — [today's date]".
+
+For each of the 3 candidates from Step 3.8, render a compact card:
+- Ticker + company name (bold, large)
+- Catalyst event + date (with a countdown: "in X days")
+- Probability bar — a simple HTML/CSS horizontal bar showing [X]%
+- Bull scenario price and % (green)
+- Bear scenario price and % (red)
+- Expected value on 30% position (bold — this is the headline number)
+- Smart money signal (1 line)
+- Halal badge (green ✅ / amber ⚠️ / red ❌)
+- Conviction badge (INVESTIGATE / WATCH / SKIP) — color-coded
+- One-line call to action: *"Say 'analyze [TICKER]' for the full deep dive"*
+
+If a candidate is SKIP: still show it, but render the card with reduced opacity (0.5) and a grey SKIP badge. Abbas should see what was found and why it didn't make the cut — transparency builds trust in the system.
+
+If no catalyst plays found (all 3 are large-cap fallbacks): note it clearly at the top of this section: *"No catalyst plays found today — showing large-cap setups as fallback."*
+
 ### Step 7: SEND via GitHub outbox relay
 
 The routine environment blocks outbound HTTP to external webhooks. Instead, write
@@ -307,9 +387,12 @@ Use Asia/Kuwait timezone for date references.
 
 ### Step 8: Handle market-closed days
 
-If NYSE was closed today (weekend, US holiday), send a SHORT email:
-- Subject: `📊 Daily Portfolio: Markets closed today`
-- Body: 1 sentence noting markets were closed, plus the education concept of the day (still valuable on closed days)
+If NYSE was closed today (weekend, US holiday), send a condensed email:
+- Subject: `📊 Daily Portfolio: Markets closed | [top catalyst play if found]`
+- Body: 1 sentence noting markets were closed, then **still run Steps 3.5 and 3.8 fully** — the FDA calendar and clinical trial readouts don't pause on weekends, and upcoming events are worth knowing about even when the market is closed
+- Include the full 📡 Catalyst Plays section
+- Skip the positions table and exit alerts (no price movement to report)
+- Include the education concept
 
 ## Output style rules
 
