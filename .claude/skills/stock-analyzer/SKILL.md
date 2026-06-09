@@ -215,13 +215,42 @@ Use the scoring rubric from `references/scoring-rubric.md`. Show the breakdown �
 **If BUY NOW or WATCH:**
 
 > **Trade setup:**
-> - Entry: $[price] — [why this level, e.g., current price, at support, at breakout]
-> - Stop: $[price] ([X]% below entry) — [rationale: pre-catalyst low, key support]
-> - Target 1: $[price] (+[%]) — base case on catalyst
-> - Target 2: $[price] (+[%]) — bull case with squeeze
+> - Entry: $[price] — [why this level: current price / at support / breakout above resistance]
+> - Stop: $[price] — [must be a real technical level: prior swing low, pre-catalyst base, key support — NOT a fixed % from entry]
+> - **Target 1: $[price] — [exact technical OR fundamental reason this level is real resistance]**
+> - **Target 2: $[price] — [exact technical OR fundamental reason this level is real resistance]**
 > - Max position: $[amount] ([X] shares) = 30% of ~$[portfolio_value] — costs $[amount] + $3 commission
 > - Do NOT size larger than 30% — this is a binary event.
 > - Exit rule: if catalyst resolves negatively, exit at market open, no averaging down.
+
+**Target derivation rules — mandatory, no exceptions:**
+
+Targets must be derived from real market structure. A percentage from entry is NOT a target. Run this process for every target level:
+
+**Technical levels to check (search `"[TICKER]" resistance support "52-week high" OR "prior high" OR "all-time high"`):**
+- Prior swing highs (levels where price previously rejected and reversed — market has memory here)
+- 52-week high / all-time high (major resistance if not already broken)
+- Round number confluence ($100, $150, $200 etc. — high psychological significance, options market clusters here)
+- Post-earnings gap fills (if stock gapped up on earnings, the top of that gap is often resistance)
+- Volume profile nodes (high-volume price levels = where most shares changed hands = stickiest support/resistance)
+- Moving averages (200-day MA = major institutional level; 50-day = shorter-term trend level)
+
+**Fundamental levels to check (search `"[TICKER]" analyst price target OR "fair value" OR "price target" 2026`):**
+- Analyst consensus price target (where the majority of sell-side models point to)
+- Bull-case analyst target (highest credible estimate — a stock often pauses here before going higher)
+- DCF / EV/Sales / P/E mean reversion fair value (what does the stock price at a "normal" multiple for its sector?)
+- Previous cycle high valuation multiple (if NVDA peaked at 35x forward P/E last cycle, 35x current EPS = a real ceiling)
+
+**Format each target as:**
+> - **Target 1: $[price]** (+[%] from entry) — [technical reason] + [fundamental reason if applicable]
+>   - e.g. "$240 — prior ATH from May 14 (technical) + where sell-side consensus clusters (fundamental). If NVDA breaks through $240 on volume, next target applies. If it stalls here with declining volume, take partial profit."
+> - **Target 2: $[price]** (+[%] from entry) — [technical reason] + [fundamental reason if applicable]
+>   - e.g. "$285 — top of the post-earnings gap from Feb 2026 + BofA bull-case target. Parabolic territory — if reached, take remaining profit, don't hold hoping for more."
+
+**What NOT to do:**
+- ❌ "Target 1: $[entry × 1.12]" — meaningless, the market doesn't know your entry price
+- ❌ "Target 1: +15% from entry" — not a level, just a wish
+- ❌ Using the same % for every stock — NVDA and a $5 biotech have completely different structures
 
 **If SKIP:**
 > One sentence on why — what would need to change to revisit.

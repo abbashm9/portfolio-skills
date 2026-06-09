@@ -127,10 +127,23 @@ Calculate portfolio totals:
 
 1. **Halal compliance** — quarterly check, not daily, but flag if breaking news suggests a change
 2. **Stop-loss** — Below stop? 🚨 ALERT. Within 2% of stop? ⚠️ WATCH.
-3. **TP1/TP2/TP3** — Hit? 🔔 ACTION with trim recommendation
+3. **TP1/TP2/TP3 — validate and re-derive if stale** (see below)
 4. **Catalyst proximity** — within 5 trading days? Flag prominently
 5. **Time-based** — flat ±3% for 30+ days, no catalyst? Consider trim
 6. **Parabolic warning** — up >40% in 30 days, RSI >80? Mean-reversion risk
+
+**TP level validation rule:**
+The TPs stored in portfolio.json are a starting point only. Every time a position approaches a TP level, **verify it is still a real technical or fundamental level** before recommending action. A TP that was set at entry based on a round percentage is not a real target. Re-derive it if needed using:
+
+- **Technical:** search `"[TICKER]" resistance OR "prior high" OR "52-week high" OR "analyst target" [current date]`
+- Is the TP level near a prior swing high, all-time high, volume node, key moving average, or round number? If yes — the level is real, flag it when approached.
+- Is the TP level a round % from entry with no market structure behind it? Flag it as **"TP needs re-derivation"** and provide the nearest real resistance level instead.
+
+**When recommending a trim at TP:**
+Always state WHY that price is a real level, not just that it was pre-set:
+> "🔔 NVDA approaching TP1 $240 — this coincides with the May 14 all-time high AND sell-side consensus cluster. Real resistance. Recommend trimming [X]% here."
+
+Never say: "TP1 hit, recommend trim" without stating what makes that price meaningful.
 
 Status emoji per position:
 - ✅ HOLD — within range, thesis intact
@@ -217,7 +230,8 @@ For each candidate, produce this block (this is what goes in the email):
 > **Probability:** [X]% — [1-line rationale referencing base rate + key modifier e.g. "oncology NDA base rate 79%, lifted by BTD designation and 8-2 AdCom vote"]
 >
 > **Scenarios:**
-> - ✅ If positive: ~$[price] (+[%]) | 💀 If negative: ~$[price] (-[%])
+> - ✅ If positive: ~$[price] (+[%]) — [this price = real technical/fundamental level: prior high / analyst target / resistance]
+> - 💀 If negative: ~$[price] (-[%]) — [this price = real support / typical rejection drop for this catalyst type]
 > - Expected value on 30% position (~$[amount]): **+$[EV] / -$[EV]**
 >
 > **Smart money:** [insider buys / institutional buildup / unusual options / none visible]
