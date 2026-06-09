@@ -65,9 +65,7 @@ Reference `portfolio.json` in repo root for current positions. Last known state:
 | LLY    | 0.0986 | $994.87 | $98.11  |
 | AVGO   | 0.315  | $412.04 | $129.79 |
 | TSM    | 0.224  | $388.35 | $86.99 |
-| AMD    | 0.117  | $428.84 | $50.17 |
-
-Total cost basis: $665.12. Cash: ~$158.53.
+Total cost basis: $614.95. Cash: ~$213.81.
 
 ## Known issues and constraints
 
