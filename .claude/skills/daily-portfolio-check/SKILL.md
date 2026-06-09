@@ -132,18 +132,23 @@ Calculate portfolio totals:
 5. **Time-based** — flat ±3% for 30+ days, no catalyst? Consider trim
 6. **Parabolic warning** — up >40% in 30 days, RSI >80? Mean-reversion risk
 
-**TP level validation rule:**
-The TPs stored in portfolio.json are a starting point only. Every time a position approaches a TP level, **verify it is still a real technical or fundamental level** before recommending action. A TP that was set at entry based on a round percentage is not a real target. Re-derive it if needed using:
+**Stop and TP level validation rule — applies to BOTH:**
+The stops and TPs stored in portfolio.json are a starting point only. Neither a stop nor a target is valid just because it was set at entry. Every time a position approaches either level, **verify it is a real technical or fundamental level** before acting or recommending action. Re-derive if needed.
 
-- **Technical:** search `"[TICKER]" resistance OR "prior high" OR "52-week high" OR "analyst target" [current date]`
-- Is the TP level near a prior swing high, all-time high, volume node, key moving average, or round number? If yes — the level is real, flag it when approached.
-- Is the TP level a round % from entry with no market structure behind it? Flag it as **"TP needs re-derivation"** and provide the nearest real resistance level instead.
+**Stop validation (search `"[TICKER]" support OR "swing low" OR "200-day MA" OR "prior low"`):**
+- Is the stored stop just below a real support level — prior swing low, moving average, pre-catalyst base, breakout level? → Valid stop, flag when approached.
+- Is the stored stop a round % from entry with no market structure behind it? → Flag as **"Stop needs re-derivation"** and state the nearest real support level instead.
+- When price is within 2% of stop: check whether that support level is holding (volume drying up = holding) or breaking (volume surging = real break). Don't trigger an alert on a support test — trigger it on a support break.
 
-**When recommending a trim at TP:**
-Always state WHY that price is a real level, not just that it was pre-set:
-> "🔔 NVDA approaching TP1 $240 — this coincides with the May 14 all-time high AND sell-side consensus cluster. Real resistance. Recommend trimming [X]% here."
+**TP validation (search `"[TICKER]" resistance OR "prior high" OR "52-week high" OR "analyst target"`):**
+- Is the TP level near a prior swing high, ATH, volume node, key MA, round number, or analyst consensus target? → Valid target, flag when approached.
+- Is the TP level a round % from entry with no market structure? → Flag as **"TP needs re-derivation"** and provide the nearest real resistance level instead.
 
-Never say: "TP1 hit, recommend trim" without stating what makes that price meaningful.
+**When recommending action at either level, always state why that price is real:**
+> "🔔 NVDA approaching TP1 $240 — coincides with May 14 ATH and sell-side consensus cluster. Real resistance. Recommend trimming [X]% here."
+> "🚨 NVDA breaking below stop $200 — this was the pre-breakout base and 200-day MA. If it closes below here, thesis is broken. Exit now."
+
+Never say "stop hit" or "TP hit" without stating what makes that price a meaningful level.
 
 Status emoji per position:
 - ✅ HOLD — within range, thesis intact

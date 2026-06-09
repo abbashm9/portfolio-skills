@@ -223,6 +223,33 @@ Use the scoring rubric from `references/scoring-rubric.md`. Show the breakdown �
 > - Do NOT size larger than 30% — this is a binary event.
 > - Exit rule: if catalyst resolves negatively, exit at market open, no averaging down.
 
+**Stop loss derivation rules — mandatory, no exceptions:**
+
+A stop loss is NOT a percentage from entry. The market does not know where you bought. A stop must be placed just below a level that, if broken, proves the thesis is wrong. Run this process for every stop:
+
+**Technical levels to check (search `"[TICKER]" support OR "swing low" OR "prior low" OR "200-day MA" OR "50-day MA"`):**
+- Most recent swing low before entry (the last place buyers stepped in — if it breaks, they're gone)
+- Pre-catalyst base / consolidation low (for catalyst plays: the low the stock held before the event was known)
+- Key moving average (200-day MA = major institutional floor; 50-day = short-term trend support)
+- Prior breakout level (a stock that broke out of a range at $X — that $X is now support; below it = breakout failed)
+- Round number support ($100, $200 etc. — large options strikes cluster here, market defends these)
+- Gap fill level (if the stock gapped up on news, the bottom of the gap = where the gap fully fills = real support)
+
+**Stop placement rules:**
+- Place the stop **just below** the support level (1–3% below), not at it — a stop AT support gets hunted by market makers
+- The stop must answer: "If price reaches here, what was wrong about the trade?" If you can't answer that, it's not a real stop.
+- For catalyst plays: the stop is usually the pre-announcement low. If the stock was at $8 before the FDA filing and you entered at $12, a break below $10 (the base) means the catalyst premium is evaporating — that's your stop, not "$12 × 0.92."
+
+**Format the stop as:**
+> - **Stop: $[price]** (-[%] from entry) — [exact reason: "prior swing low from May 3" / "200-day MA" / "pre-catalyst base" / "breakout level that held for 3 weeks before entry"]
+
+**What NOT to do:**
+- ❌ "Stop: −8% from entry" — not a level, just a loss limit
+- ❌ "Stop: $[entry × 0.92]" — the market doesn't know your entry
+- ❌ Same stop % for every stock — a volatile biotech needs a wider stop than a mega-cap; the stop is dictated by structure, not preference
+
+---
+
 **Target derivation rules — mandatory, no exceptions:**
 
 Targets must be derived from real market structure. A percentage from entry is NOT a target. Run this process for every target level:
