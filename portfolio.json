@@ -142,6 +142,12 @@
     "largest_position_pct": 48.8,
     "concentration_warning": "NVDA 48.8% of cost basis — high single-name concentration"
   },
+  "education_tracker": {
+    "last_concept_number": 0,
+    "last_concept_name": "",
+    "last_taught_date": "",
+    "taught_concepts": []
+  },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.40, "amount": 300.06, "notes": "Initial allocation, post-research review"},
     {"date": "2026-05-11", "action": "BUY", "ticker": "LLY", "shares": 0.1407, "price": 994.87, "amount": 139.98, "notes": "Healthcare diversifier"},

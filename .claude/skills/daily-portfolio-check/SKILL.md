@@ -343,9 +343,18 @@ Format all rotation suggestions with: exact shares to sell, exact $ freed, exact
 
 ### Step 5: Select today's education concept
 
-See `references/education-curriculum.md` for the full 30-day curriculum. Pick the concept that's most relevant to TODAY's portfolio activity, with a slight bias toward terms that appeared in today's report. Repeat concepts on subsequent days for deeper coverage when warranted — no rush.
+See `references/education-curriculum.md` for the full 30-day curriculum (concepts numbered 1–30).
 
-Track which concepts have already been taught (in conversation context) to avoid teaching the same one twice in a row unless intentionally going deeper.
+**How to pick — read `education_tracker` from portfolio.json first:**
+
+1. Read `education_tracker.last_concept_number` — this is the last concept taught (0 = none taught yet).
+2. **Priority 1 — term appeared in today's report:** If today's report used a term that maps to a specific curriculum concept that hasn't been taught yet, teach that one (set its number as current).
+3. **Priority 2 — sequential next:** Otherwise, teach concept number `last_concept_number + 1`. If last was 30, wrap back to 1.
+4. Never repeat the same concept number as `last_concept_number` unless it's an intentional Part 2 (Days 26–30) following its base lesson.
+
+**After selecting the concept:**
+- Note the concept number and name
+- This gets written back to `portfolio.json` in Step 7 (see below) — the tracker is updated in the same GitHub commit as the email outbox
 
 **Education paragraph format:**
 - ONE main concept, one tight paragraph (~80–120 words)
@@ -439,15 +448,27 @@ If no catalyst plays found (all 3 are large-cap fallbacks): note it clearly at t
 The routine environment blocks outbound HTTP to external webhooks. Instead, write
 the email to the GitHub repo — a GitHub Action picks it up and sends via Gmail SMTP.
 
-Use the **GitHub connector** to create or update the file `outbox/email.json` in
-the `abbashm9/portfolio-skills` repo on the `main` branch:
+Use the **GitHub connector** to push **two files** in a single commit to the `abbashm9/portfolio-skills` repo on the `main` branch:
 
+**File 1 — `outbox/email.json`:**
 ```json
 {
   "subject": "<subject line>",
   "html_body": "<full HTML email string>"
 }
 ```
+
+**File 2 — `portfolio.json`:**
+Update the `education_tracker` block with today's concept before writing:
+```json
+"education_tracker": {
+  "last_concept_number": <number of concept taught today>,
+  "last_concept_name": "<name of concept taught today>",
+  "last_taught_date": "<today's date ISO format YYYY-MM-DD>",
+  "taught_concepts": [<append concept name to existing array if not already present>]
+}
+```
+All other fields in portfolio.json remain unchanged — only `education_tracker` is modified.
 
 Commit message: `"chore: daily portfolio email"`
 
