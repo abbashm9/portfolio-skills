@@ -132,23 +132,38 @@ Calculate portfolio totals:
 5. **Time-based** — flat ±3% for 30+ days, no catalyst? Consider trim
 6. **Parabolic warning** — up >40% in 30 days, RSI >80? Mean-reversion risk
 
-**Stop and TP level validation rule — applies to BOTH:**
-The stops and TPs stored in portfolio.json are a starting point only. Neither a stop nor a target is valid just because it was set at entry. Every time a position approaches either level, **verify it is a real technical or fundamental level** before acting or recommending action. Re-derive if needed.
+**Stop and TP level validation — runs on EVERY position, EVERY day, regardless of proximity.**
 
-**Stop validation (search `"[TICKER]" support OR "swing low" OR "200-day MA" OR "prior low"`):**
-- Is the stored stop just below a real support level — prior swing low, moving average, pre-catalyst base, breakout level? → Valid stop, flag when approached.
-- Is the stored stop a round % from entry with no market structure behind it? → Flag as **"Stop needs re-derivation"** and state the nearest real support level instead.
-- When price is within 2% of stop: check whether that support level is holding (volume drying up = holding) or breaking (volume surging = real break). Don't trigger an alert on a support test — trigger it on a support break.
+The values stored in portfolio.json are reference points only — they are NOT displayed as-is in the email. Every run must re-derive the real stop and TP levels from live market structure and show those in the email instead. This is not optional and does not depend on how close the price is to the stored level.
 
-**TP validation (search `"[TICKER]" resistance OR "prior high" OR "52-week high" OR "analyst target"`):**
-- Is the TP level near a prior swing high, ATH, volume node, key MA, round number, or analyst consensus target? → Valid target, flag when approached.
-- Is the TP level a round % from entry with no market structure? → Flag as **"TP needs re-derivation"** and provide the nearest real resistance level instead.
+**For each position, run these two searches (in parallel with the price fetch in Step 1):**
+- `"[TICKER]" support "swing low" OR "200-day" OR "50-day" OR "key level" [current month]`
+- `"[TICKER]" resistance OR "prior high" OR "52-week high" OR "analyst target" OR "price target" [current month]`
+
+**Stop derivation — for each position:**
+- Find the most recent real support level below current price: prior swing low, moving average (200-day or 50-day), pre-catalyst base, or a breakout level the stock held before running
+- Place the stop **just below** that level (1–3% below), not at it
+- If the stored portfolio.json stop coincides with a real level: confirm it and display it
+- If the stored stop has no market structure behind it: replace it with the real level and note the change
+- Alert logic: flag when price is within 2% of the stop AND volume is surging (real break). Do not alert on low-volume tests.
+
+**TP derivation — for each position:**
+- Find real resistance levels above current price: prior ATH, prior swing high, 52-week high, round number confluence, analyst consensus target, bull-case target
+- If the stored TP coincides with a real level: confirm it and display it
+- If the stored TP has no market structure behind it: replace with the nearest real resistance level and note the change
+- Show up to 3 TP levels per position ranked by proximity
+
+**Format for each position in the email:**
+> **[TICKER]** | Stop: $[real level] ([reason]) | TP1: $[real level] ([reason]) | TP2: $[real level] ([reason])
+
+Example:
+> **NVDA** | Stop: $197 (just below $200 pre-breakout base + 200-day MA) | TP1: $235 (May 14 ATH) | TP2: $275 (BofA target / next analyst cluster)
 
 **When recommending action at either level, always state why that price is real:**
-> "🔔 NVDA approaching TP1 $240 — coincides with May 14 ATH and sell-side consensus cluster. Real resistance. Recommend trimming [X]% here."
-> "🚨 NVDA breaking below stop $200 — this was the pre-breakout base and 200-day MA. If it closes below here, thesis is broken. Exit now."
+> "🔔 NVDA approaching TP1 $235 — May 14 ATH, real resistance. Recommend trimming [X]% here."
+> "🚨 NVDA breaking below $197 stop — pre-breakout base lost, thesis broken. Exit now."
 
-Never say "stop hit" or "TP hit" without stating what makes that price a meaningful level.
+Never display a stored portfolio.json stop or TP without first verifying it against live market structure.
 
 Status emoji per position:
 - ✅ HOLD — within range, thesis intact
