@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Analyzer — VRDN · VERA · ACHV — June 10, 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #161a23;
+    --card: #1e2330;
+    --border: #2a3040;
+    --text: #e2e8f0;
+    --muted: #7a8499;
+    --buy: #22c55e;
+    --watch: #f59e0b;
+    --skip: #ef4444;
+    --halal-ok: #22c55e;
+    --halal-warn: #f59e0b;
+    --halal-fail: #ef4444;
+    --accent-blue: #3b82f6;
+    --accent-purple: #a855f7;
+    --vrdn: #6366f1;
+    --vera: #22c55e;
+    --achv: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.6; }
+
+  /* Layout */
+  .page { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+  .section { margin-bottom: 48px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+
+  /* Header */
+  .header { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 40px; }
+  .header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+  .header .meta { color: var(--muted); margin-top: 6px; font-size: 13px; }
+  .header .meta span { margin-right: 20px; }
+
+  /* Section heading */
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* Cards */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .card-sm { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+
+  /* Summary verdict cards */
+  .verdict-card { border-radius: 14px; padding: 24px; position: relative; overflow: hidden; }
+  .verdict-card.buy { background: linear-gradient(135deg, #052e16 0%, #14532d 100%); border: 1px solid #166534; }
+  .verdict-card.watch { background: linear-gradient(135deg, #1c1007 0%, #341a00 100%); border: 1px solid #92400e; }
+  .verdict-card.skip { background: linear-gradient(135deg, #1c0a0a 0%, #3b0d0d 100%); border: 1px solid #991b1b; }
+  .verdict-card .ticker { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+  .verdict-card .company { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .verdict-card .verdict-badge { display: inline-block; padding: 4px 14px; border-radius: 99px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 14px; }
+  .verdict-badge.buy { background: #16a34a; color: #fff; }
+  .verdict-badge.watch { background: #d97706; color: #fff; }
+  .verdict-badge.skip { background: #dc2626; color: #fff; }
+  .verdict-card .conviction { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .verdict-card .conviction strong { color: var(--text); font-size: 22px; font-weight: 700; }
+  .verdict-card .pdufa-badge { position: absolute; top: 20px; right: 20px; font-size: 11px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 10px; text-align: center; }
+  .verdict-card .pdufa-badge .days { font-size: 20px; font-weight: 700; }
+  .verdict-card .pdufa-badge .label { font-size: 10px; color: var(--muted); }
+
+  /* Ticker header inside sections */
+  .ticker-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .ticker-header .ticker-pill { font-size: 20px; font-weight: 800; padding: 6px 16px; border-radius: 8px; }
+  .ticker-pill.vrdn { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+  .ticker-pill.vera { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .ticker-pill.achv { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .ticker-header .company-name { font-size: 16px; font-weight: 600; }
+  .ticker-header .sector { font-size: 12px; color: var(--muted); }
+
+  /* Stat grids */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .stat .value { font-size: 20px; font-weight: 700; margin-top: 4px; }
+  .stat .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* Halal badge */
+  .halal-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 13px; }
+  .halal-badge.ok { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; }
+  .halal-badge.warn { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
+  .halal-badge.fail { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
+
+  /* Catalyst timeline */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item { display: flex; gap: 16px; position: relative; padding-bottom: 20px; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item:not(:last-child) .timeline-line { position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; z-index: 1; }
+  .timeline-dot.primary { background: var(--buy); color: #000; }
+  .timeline-dot.secondary { background: var(--accent-blue); color: #fff; }
+  .timeline-dot.tertiary { background: var(--surface); border: 2px solid var(--border); color: var(--muted); }
+  .timeline-content { flex: 1; }
+  .timeline-content .event-date { font-size: 12px; font-weight: 700; color: var(--muted); }
+  .timeline-content .event-name { font-size: 14px; font-weight: 600; margin-top: 2px; }
+  .timeline-content .event-desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .confirmed-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 99px; background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); margin-left: 8px; font-weight: 600; }
+
+  /* Probability bars */
+  .prob-bar-wrap { margin-bottom: 16px; }
+  .prob-bar-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; }
+  .prob-bar-track { height: 8px; background: var(--surface); border-radius: 99px; overflow: hidden; }
+  .prob-bar-fill { height: 100%; border-radius: 99px; }
+
+  /* Trade setup */
+  .trade-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .trade-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .trade-row:last-child { border-bottom: none; }
+  .trade-row .trade-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+  .trade-row .trade-value { font-size: 18px; font-weight: 700; }
+  .trade-row .trade-reason { font-size: 11px; color: var(--muted); margin-top: 2px; text-align: right; max-width: 300px; }
+  .price-entry { color: var(--text); }
+  .price-stop { color: #f87171; }
+  .price-tp1 { color: #fbbf24; }
+  .price-tp2 { color: #4ade80; }
+
+  /* Analogs */
+  .analog-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .analog-ticker { font-size: 14px; font-weight: 700; }
+  .analog-outcome { font-size: 22px; font-weight: 800; margin: 8px 0 4px; }
+  .analog-outcome.pos { color: #4ade80; }
+  .analog-outcome.neg { color: #f87171; }
+  .analog-note { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .analog-diff { font-size: 11px; color: var(--accent-blue); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+
+  /* Smart money */
+  .signal-row { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .signal-row:last-child { border-bottom: none; }
+  .signal-icon { font-size: 20px; width: 32px; flex-shrink: 0; text-align: center; }
+  .signal-content .signal-title { font-size: 13px; font-weight: 600; }
+  .signal-content .signal-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .signal-badge { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 700; margin-left: 8px; }
+  .signal-badge.bullish { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .signal-badge.neutral { background: rgba(122,132,153,0.2); color: var(--muted); }
+  .signal-badge.bearish { background: rgba(239,68,68,0.15); color: #f87171; }
+
+  /* EV box */
+  .ev-box { background: linear-gradient(135deg, #052e16, #0f3020); border: 1px solid #166534; border-radius: 12px; padding: 20px 24px; text-align: center; }
+  .ev-box.negative { background: linear-gradient(135deg, #1c0a0a, #2d1010); border-color: #991b1b; }
+  .ev-box .ev-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .ev-box .ev-value { font-size: 36px; font-weight: 800; color: #4ade80; margin: 6px 0; }
+  .ev-box .ev-sub { font-size: 12px; color: var(--muted); }
+
+  /* Chart containers */
+  .chart-wrap { position: relative; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 12px; border-bottom: 1px solid var(--border); font-weight: 600; }
+  td { padding: 12px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .td-green { color: #4ade80; font-weight: 600; }
+  .td-yellow { color: #fbbf24; font-weight: 600; }
+  .td-red { color: #f87171; font-weight: 600; }
+
+  /* ACHV stop banner */
+  .stop-banner { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 12px; padding: 20px 24px; }
+  .stop-banner h3 { color: #f87171; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .stop-banner p { color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+  /* Conviction score display */
+  .conviction-display { display: flex; align-items: center; gap: 20px; }
+  .conviction-number { font-size: 52px; font-weight: 800; line-height: 1; }
+  .conviction-number.high { color: #4ade80; }
+  .conviction-number.mid { color: #fbbf24; }
+  .conviction-bars { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .conv-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .conv-row .conv-label { color: var(--muted); width: 220px; flex-shrink: 0; }
+  .conv-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .conv-dot.earned { background: #4ade80; }
+  .conv-dot.missed { background: var(--border); }
+
+  /* Info note */
+  .note { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25); border-radius: 10px; padding: 12px 16px; font-size: 12px; color: #93c5fd; margin-top: 12px; }
+  .warn-note { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); border-radius: 10px; padding: 12px 16px; font-size: 12px; color: #fbbf24; margin-top: 12px; }
+
+  /* Separator */
+  .sep { height: 1px; background: var(--border); margin: 40px 0; }
+
+  @media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-2-1 { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Stock Analyzer Report</h1>
+    <div class="meta">
+      <span>📅 June 10, 2026</span>
+      <span>💼 Portfolio: ~$800</span>
+      <span>⚖️ 30% max per name = $240</span>
+      <span>🏦 Halal AAOIFI screening</span>
+    </div>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="section">
+    <div class="section-title">Verdict Summary</div>
+    <div class="grid-3">
+
+      <div class="verdict-card watch">
+        <div class="pdufa-badge">
+          <div class="days">20</div>
+          <div class="label">days to PDUFA</div>
+        </div>
+        <div class="ticker">VRDN</div>
+        <div class="company">Viridian Therapeutics</div>
+        <div><span class="verdict-badge watch">WATCH</span></div>
+        <div class="conviction">Conviction <strong>6</strong>/10</div>
+        <div style="margin-top:12px; font-size:12px; color:#d97706;">Veligrotug PDUFA June 30 · ~82% approval · ⚠️ Halal unverified · Large cap dampens move</div>
+      </div>
+
+      <div class="verdict-card buy">
+        <div class="pdufa-badge">
+          <div class="days">27</div>
+          <div class="label">days to PDUFA</div>
+        </div>
+        <div class="ticker">VERA</div>
+        <div class="company">Vera Therapeutics</div>
+        <div><span class="verdict-badge buy">BUY NOW</span></div>
+        <div class="conviction">Conviction <strong>7</strong>/10</div>
+        <div style="margin-top:12px; font-size:12px; color:#4ade80;">Atacicept PDUFA July 7 · ~89% approval · BTD + Priority Review · $5.28M insider buy · ⚠️ Verify Musaffa first</div>
+      </div>
+
+      <div class="verdict-card skip">
+        <div class="pdufa-badge">
+          <div class="days">10</div>
+          <div class="label">to CRL date</div>
+        </div>
+        <div class="ticker">ACHV</div>
+        <div class="company">Achieve Life Sciences</div>
+        <div><span class="verdict-badge skip">SKIP</span></div>
+        <div class="conviction" style="color:#f87171;">Analysis halted</div>
+        <div style="margin-top:12px; font-size:12px; color:#f87171;">❌ Not Halal (Zoya AAOIFI) · CRL already confirmed by company · Not a real catalyst</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Comparison Chart -->
+  <div class="section">
+    <div class="section-title">Head-to-Head Comparison</div>
+    <div class="card">
+      <div style="height:300px; position:relative;">
+        <canvas id="comparisonChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== VRDN ========== -->
+  <div class="sep"></div>
+  <div class="section">
+    <div class="ticker-header">
+      <span class="ticker-pill vrdn">VRDN</span>
+      <div>
+        <div class="company-name">Viridian Therapeutics, Inc.</div>
+        <div class="sector">Semiconductors → Biopharmaceuticals | NASDAQ | TED (Thyroid Eye Disease)</div>
+      </div>
+    </div>
+
+    <!-- VRDN Stats -->
+    <div class="section-title">Section 1 — Company Snapshot</div>
+    <div class="stat-grid" style="margin-bottom:16px;">
+      <div class="stat">
+        <div class="label">Market Cap</div>
+        <div class="value">$2.9B</div>
+        <div class="sub">Large — limits % move</div>
+      </div>
+      <div class="stat">
+        <div class="label">Shares Out.</div>
+        <div class="value">102.2M</div>
+        <div class="sub">Institution-heavy float</div>
+      </div>
+      <div class="stat">
+        <div class="label">Short Interest</div>
+        <div class="value" style="color:#f59e0b;">8.54%</div>
+        <div class="sub">8.15M shares — moderate</div>
+      </div>
+      <div class="stat">
+        <div class="label">Est. Price</div>
+        <div class="value">~$19–22</div>
+        <div class="sub">⚠️ Verify — post-selloff</div>
+      </div>
+      <div class="stat">
+        <div class="label">Cash (Q1 2026)</div>
+        <div class="value">$762M</div>
+        <div class="sub">7+ years runway</div>
+      </div>
+      <div class="stat">
+        <div class="label">PDUFA Date</div>
+        <div class="value" style="color:#818cf8;">Jun 30</div>
+        <div class="sub">Veligrotug — TED</div>
+      </div>
+    </div>
+    <div class="note">⚠️ Stock dropped 26.8–32% on March 30, 2026 when elegrobart REVEAL-1 data disappointed the market (competitive concerns vs Amgen TEPEZZA). The June 30 PDUFA is for <strong>veligrotug</strong> — a separate drug. The selloff was on the wrong program. This creates a potential re-rating opportunity.</div>
+
+    <!-- VRDN Halal -->
+    <div class="section-title" style="margin-top:24px;">Section 2 — Halal Compliance (AAOIFI)</div>
+    <div class="card">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+        <span class="halal-badge warn">⚠️ HALAL UNVERIFIED</span>
+        <span style="font-size:12px; color:var(--muted);">Check Musaffa before entry — interest income ratio unclear</span>
+      </div>
+      <table>
+        <tr><th>Criterion</th><th>Value</th><th>Threshold</th><th>Status</th></tr>
+        <tr>
+          <td>Debt / Total Assets</td>
+          <td>$20.4M / $742M = <strong>2.7%</strong></td>
+          <td>&lt;33%</td>
+          <td class="td-green">✅ Pass</td>
+        </tr>
+        <tr>
+          <td>Prohibited sector revenue</td>
+          <td>0%</td>
+          <td>0%</td>
+          <td class="td-green">✅ Pass</td>
+        </tr>
+        <tr>
+          <td>Interest income / total revenue</td>
+          <td>~$38M est. / $70.9M TTM = <strong>~54%</strong></td>
+          <td>&lt;5%</td>
+          <td class="td-yellow">⚠️ Needs verification</td>
+        </tr>
+        <tr>
+          <td>Accounts receivable / market cap</td>
+          <td>Minimal (&lt;1%)</td>
+          <td>&lt;49%</td>
+          <td class="td-green">✅ Pass</td>
+        </tr>
+      </table>
+      <div class="warn-note">The $70.9M TTM "revenue" is largely milestone/licensing payments. AAOIFI scholars differ on how to classify milestone income vs operating revenue. Musaffa has the granular breakdown — verify this specific point before entry.</div>
+    </div>
+
+    <!-- VRDN Catalyst + Probability -->
+    <div class="grid-2" style="margin-top:24px;">
+      <div>
+        <div class="section-title">Section 3 — Catalyst Timeline</div>
+        <div class="card">
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-line"></div>
+              <div class="timeline-dot primary">1</div>
+              <div class="timeline-content">
+                <div class="event-date">June 30, 2026 — 20 days <span class="confirmed-badge">CONFIRMED</span></div>
+                <div class="event-name">Veligrotug PDUFA — Priority Review</div>
+                <div class="event-desc">FDA approval decision on IV IGF-1R antibody for active thyroid eye disease. BLA accepted 2025. This is the primary event.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-line"></div>
+              <div class="timeline-dot secondary">2</div>
+              <div class="timeline-content">
+                <div class="event-date">August 5, 2026</div>
+                <div class="event-name">Q2 2026 Earnings + Launch Update</div>
+                <div class="event-desc">Post-PDUFA commercial readiness update. Secondary event.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot tertiary">3</div>
+              <div class="timeline-content">
+                <div class="event-date">Q1 2027</div>
+                <div class="event-name">Elegrobart (SC) BLA Submission</div>
+                <div class="event-desc">Second-gen subcutaneous formulation — longer-term catalyst, not near-term.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Section 4 — Probability Model</div>
+        <div class="card">
+          <div style="text-align:center; margin-bottom:20px;">
+            <div style="font-size:48px; font-weight:800; color:#818cf8;">82%</div>
+            <div style="font-size:12px; color:var(--muted);">estimated approval probability</div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>Base rate (NDA/BLA overall)</span><span>85%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:85%; background:#6366f1;"></div></div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>+ Priority Review granted</span><span>+3%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:20%; background:#4ade80;"></div></div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>+ Validated IGF-1R mechanism</span><span>+2%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:13%; background:#4ade80;"></div></div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>− Market skepticism / TEPEZZA competition</span><span>−5%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:33%; background:#f87171;"></div></div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>− Post-REVEAL-1 sentiment overhang</span><span>−3%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:20%; background:#f87171;"></div></div>
+          </div>
+          <div style="border-top:1px solid var(--border); padding-top:12px; margin-top:4px; font-size:12px; color:var(--muted);">
+            If approved → $28–35 near-term, $37–50 over 6mo<br>
+            If CRL → $10–14 (−40–50% from ~$20)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VRDN Risk/Reward Chart -->
+    <div class="section-title" style="margin-top:24px;">Section 7 — Risk/Reward Scenarios</div>
+    <div class="grid-2-1">
+      <div class="card">
+        <div style="height:260px; position:relative;">
+          <canvas id="vrdnScenarioChart"></canvas>
+        </div>
+      </div>
+      <div class="ev-box">
+        <div class="ev-label">Expected Value</div>
+        <div class="ev-value">+$80</div>
+        <div class="ev-sub">per $240 deployed</div>
+        <div style="margin-top:16px; font-size:11px; color:var(--muted); line-height:1.5;">
+          Bull 30%: +$162<br>
+          Base 52%: +$96<br>
+          Bear 18%: −$102<br><br>
+          EV &gt; $6 commission ✅
+        </div>
+      </div>
+    </div>
+
+    <!-- VRDN Analogs -->
+    <div class="section-title" style="margin-top:24px;">Section 5 — Analog Analysis</div>
+    <div class="grid-3">
+      <div class="analog-card">
+        <div class="analog-ticker">HZNP — Horizon Therapeutics (2020)</div>
+        <div class="analog-outcome pos">+130%</div>
+        <div class="analog-note">TEPEZZA: first FDA-approved TED drug, same IGF-1R mechanism, Priority Review. Stock ran from $30 → $70+ in 6 months post-approval.</div>
+        <div class="analog-diff">⚑ Diff: TEPEZZA was first-in-class (no competition). Veligrotug enters vs established TEPEZZA → expect muted 30–60%, not 130%.</div>
+      </div>
+      <div class="analog-card">
+        <div class="analog-ticker">RARE — Ultragenyx (2023)</div>
+        <div class="analog-outcome pos">+35–50%</div>
+        <div class="analog-note">Rare disease, Priority Review, large institutional ownership, pre-commercial cash-heavy profile. +35–50% on approval, then gradual grind higher.</div>
+        <div class="analog-diff">⚑ Diff: Ultragenyx was first-in-class. VRDN is not — but approval-day reaction should be similar since FDA decision is the news.</div>
+      </div>
+      <div class="analog-card">
+        <div class="analog-ticker">PRTA — Prothena (2024)</div>
+        <div class="analog-outcome pos">+50% from lows</div>
+        <div class="analog-note">Major selloff on disappointing clinical data from one drug. Separate BLA for different program. Stock recovered 40–50% in 8 weeks ahead of PDUFA.</div>
+        <div class="analog-diff">⚑ Diff: PRTA's BLA was for the disappointing drug. VRDN's is for a clean, separate program — makes the VRDN setup actually cleaner.</div>
+      </div>
+    </div>
+
+    <!-- VRDN Smart Money -->
+    <div class="section-title" style="margin-top:24px;">Section 6 — Smart Money Signals</div>
+    <div class="card">
+      <div class="signal-row">
+        <div class="signal-icon">📋</div>
+        <div class="signal-content">
+          <div class="signal-title">Insider Transactions (Form 4) <span class="signal-badge neutral">NEUTRAL</span></div>
+          <div class="signal-desc">Recent Form 4 filings are tax-withholding dispositions only (CEO sold 7,408 shares @$30.19 March 3 for tax purposes; CFO disposed 2,031 shares). No open-market cash purchases found. Likely in blackout window near PDUFA.</div>
+        </div>
+      </div>
+      <div class="signal-row">
+        <div class="signal-icon">🏛️</div>
+        <div class="signal-content">
+          <div class="signal-title">Institutional Holdings (13F) <span class="signal-badge bullish">BULLISH</span></div>
+          <div class="signal-desc">230 institutions holding 107.6M shares. Fisher Asset Management +135.6% stake increase in Q3 2025. Bellevue Group AG (specialist biotech) top holder. Simplify opened new position Q3 2025.</div>
+        </div>
+      </div>
+      <div class="signal-row">
+        <div class="signal-icon">📊</div>
+        <div class="signal-content">
+          <div class="signal-title">Options Activity <span class="signal-badge neutral">NOTE</span></div>
+          <div class="signal-desc">IV at 114% — very elevated, consistent with PDUFA event pricing. Call OI heavy at $17 strike for July 2026 expiry. At 114% IV, buying options is expensive — plain equity position is the cleaner trade. Do not use options here.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VRDN Trade Setup -->
+    <div class="section-title" style="margin-top:24px;">Section 8 — Trade Setup (Conviction 6/10 → WATCH)</div>
+    <div class="grid-2">
+      <div>
+        <div class="trade-box">
+          <div class="trade-row">
+            <div><div class="trade-label">Entry</div></div>
+            <div style="text-align:right;"><div class="trade-value price-entry">~$20 est.</div><div class="trade-reason">Post-REVEAL-1 selloff level. Verify exact price before entry.</div></div>
+          </div>
+          <div class="trade-row">
+            <div><div class="trade-label">Stop Loss</div></div>
+            <div style="text-align:right;"><div class="trade-value price-stop">$14.50</div><div class="trade-reason">Just below post-REVEAL-1 floor ~$15 (options max pain / support cluster). If catalyst premium evaporates, this is where it shows.</div></div>
+          </div>
+          <div class="trade-row">
+            <div><div class="trade-label">Target 1</div></div>
+            <div style="text-align:right;"><div class="trade-value price-tp1">$28</div><div class="trade-reason">Prior resistance — where stock traded before REVEAL-1 selloff. First overhead from sellers who got trapped.</div></div>
+          </div>
+          <div class="trade-row">
+            <div><div class="trade-label">Target 2</div></div>
+            <div style="text-align:right;"><div class="trade-value price-tp2">$37</div><div class="trade-reason">12-month analyst consensus (16 analysts, avg $37.09). Take significant partial here — bull case is $61 but don't hold for it.</div></div>
+          </div>
+          <div class="trade-row">
+            <div><div class="trade-label">Position Size</div></div>
+            <div style="text-align:right;"><div class="trade-value">$240 / ~12 shares</div><div class="trade-reason">30% of $800 portfolio. Cost $243 incl. $3 commission.</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card-sm" style="margin-bottom:12px;">
+          <div class="section-title" style="margin-bottom:12px;">Conviction Breakdown</div>
+          <div class="conviction-display">
+            <div class="conviction-number mid">6</div>
+            <div class="conviction-bars">
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">Event confirmed (Jun 30 PDUFA)</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+1</span></div>
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">Probability ≥70% (82%)</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+2</span></div>
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">3:1 risk/reward achieved</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+1</span></div>
+              <div class="conv-row"><span class="conv-dot missed"></span><span class="conv-label">Float &lt;$500M</span><span style="color:var(--muted); font-size:11px; margin-left:auto;">0</span></div>
+              <div class="conv-row"><span class="conv-dot missed"></span><span class="conv-label">Short interest ≥15%</span><span style="color:var(--muted); font-size:11px; margin-left:auto;">0</span></div>
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">Catalyst evidence (Priority Review + Phase 3)</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+1</span></div>
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">Cash runway ≥12mo ($762M)</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+1</span></div>
+              <div class="conv-row"><span class="conv-dot missed"></span><span class="conv-label">Smart money (no insider cash buys)</span><span style="color:var(--muted); font-size:11px; margin-left:auto;">0</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="warn-note">What upgrades VRDN to BUY NOW: Specialist biotech fund Form 4 buying (Baker Bros, RA Capital) + Musaffa halal clearance + confirmed price near $18–20.</div>
+      </div>
+    </div>
+
+    <!-- VRDN Price Chart -->
+    <div class="section-title" style="margin-top:24px;">Price Levels Visualization</div>
+    <div class="card">
+      <div style="height:220px; position:relative;">
+        <canvas id="vrdnPriceChart"></canvas>
+      </div>
+    </div>
+
+  </div><!-- end VRDN -->
+
+
+  <!-- ========== VERA ========== -->
+  <div class="sep"></div>
+  <div class="section">
+    <div class="ticker-header">
+      <span class="ticker-pill vera">VERA</span>
+      <div>
+        <div class="company-name">Vera Therapeutics, Inc.</div>
+        <div class="sector">Biopharmaceuticals | NASDAQ | IgA Nephropathy (rare kidney disease)</div>
+      </div>
+    </div>
+
+    <!-- VERA Stats -->
+    <div class="section-title">Section 1 — Company Snapshot</div>
+    <div class="stat-grid" style="margin-bottom:16px;">
+      <div class="stat">
+        <div class="label">Market Cap</div>
+        <div class="value">$3.17B</div>
+        <div class="sub">Large — limits % move</div>
+      </div>
+      <div class="stat">
+        <div class="label">Shares Out.</div>
+        <div class="value">71.73M</div>
+        <div class="sub">As of March 31, 2026</div>
+      </div>
+      <div class="stat">
+        <div class="label">Short Interest</div>
+        <div class="value" style="color:#f59e0b;">13.75%</div>
+        <div class="sub">9.87M shares — squeeze amplifier</div>
+      </div>
+      <div class="stat">
+        <div class="label">Current Price</div>
+        <div class="value">$34.04</div>
+        <div class="sub">Confirmed from search</div>
+      </div>
+      <div class="stat">
+        <div class="label">Cash (Q1 2026)</div>
+        <div class="value">$596.8M</div>
+        <div class="sub">Through approval + launch</div>
+      </div>
+      <div class="stat">
+        <div class="label">PDUFA Date</div>
+        <div class="value" style="color:#4ade80;">Jul 7</div>
+        <div class="sub">Atacicept — IgAN</div>
+      </div>
+    </div>
+    <div class="note">13.75% short interest = 9.87M shares need to cover on approval. At $34 that's ~$336M of forced buying on top of organic demand. Not a 30%+ squeeze, but a meaningful amplifier on top of the underlying move. Every IgAN drug that reached PDUFA has been approved — zero CRLs in this indication so far.</div>
+
+    <!-- VERA Halal -->
+    <div class="section-title" style="margin-top:24px;">Section 2 — Halal Compliance (AAOIFI)</div>
+    <div class="card">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+        <span class="halal-badge warn">⚠️ HALAL UNVERIFIED</span>
+        <span style="font-size:12px; color:var(--muted);">Pre-revenue biotech — no prohibited operations — check Musaffa on debt structure</span>
+      </div>
+      <table>
+        <tr><th>Criterion</th><th>Value</th><th>Threshold</th><th>Status</th></tr>
+        <tr>
+          <td>Debt / Total Assets</td>
+          <td>$74.8M / $734.7M = <strong>10.2%</strong></td>
+          <td>&lt;33%</td>
+          <td class="td-green">✅ Pass</td>
+        </tr>
+        <tr>
+          <td>Prohibited sector revenue</td>
+          <td>0% (immunology only)</td>
+          <td>0%</td>
+          <td class="td-green">✅ Pass</td>
+        </tr>
+        <tr>
+          <td>Product revenue</td>
+          <td>$0 — pre-commercial</td>
+          <td>—</td>
+          <td class="td-yellow">⚠️ Pre-revenue</td>
+        </tr>
+        <tr>
+          <td>Interest income</td>
+          <td>~$30M/yr est. on $596M cash</td>
+          <td>&lt;5% of revenue</td>
+          <td class="td-yellow">⚠️ No revenue denominator</td>
+        </tr>
+        <tr>
+          <td>Liquid assets vs liabilities</td>
+          <td>$518M more liquid than total liabilities</td>
+          <td>—</td>
+          <td class="td-green">✅ Strong</td>
+        </tr>
+      </table>
+      <div class="warn-note">SKILL.md protocol: Pre-revenue + no prohibited operations = likely halal, flag as unverified. Check Musaffa specifically on whether the $74.8M term debt is conventional interest-bearing, and on interest income classification.</div>
+    </div>
+
+    <!-- VERA Catalyst + Probability -->
+    <div class="grid-2" style="margin-top:24px;">
+      <div>
+        <div class="section-title">Section 3 — Catalyst Timeline</div>
+        <div class="card">
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-line"></div>
+              <div class="timeline-dot primary">1</div>
+              <div class="timeline-content">
+                <div class="event-date">July 7, 2026 — 27 days <span class="confirmed-badge">CONFIRMED</span></div>
+                <div class="event-name">Atacicept PDUFA — Accelerated Approval</div>
+                <div class="event-desc">FDA decision on dual BAFF/APRIL inhibitor for IgAN. Breakthrough Therapy + Priority Review. Based on proteinuria endpoint (surrogate). THE primary catalyst.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-line"></div>
+              <div class="timeline-dot secondary">2</div>
+              <div class="timeline-content">
+                <div class="event-date">Q3 2026 <span class="confirmed-badge">FDA ALIGNED</span></div>
+                <div class="event-name">ORIGIN Phase 3 eGFR Analysis</div>
+                <div class="event-desc">Kidney function endpoint — pulled forward from 2027. FDA and Vera aligned on Q3 release. Positive = path to full approval + removes accelerated approval overhang. Second binary event.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-line"></div>
+              <div class="timeline-dot tertiary">3</div>
+              <div class="timeline-content">
+                <div class="event-date">Q4 2026</div>
+                <div class="event-name">sBLA Submission (Full Approval)</div>
+                <div class="event-desc">Supplemental BLA for full approval, pending positive Q3 eGFR data.</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot tertiary">4</div>
+              <div class="timeline-content">
+                <div class="event-date">August 4, 2026</div>
+                <div class="event-name">Q2 2026 Earnings</div>
+                <div class="event-desc">Post-PDUFA commercial launch update.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Section 4 — Probability Model</div>
+        <div class="card">
+          <div style="text-align:center; margin-bottom:20px;">
+            <div style="font-size:48px; font-weight:800; color:#4ade80;">89%</div>
+            <div style="font-size:12px; color:var(--muted);">estimated approval probability</div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>Base rate (BLA autoimmune/rare)</span><span>85%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:85%; background:#22c55e;"></div></div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>+ Breakthrough Therapy Designation</span><span>+8–12%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:60%; background:#4ade80;"></div></div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>+ Phase 3 p &lt; 0.0001 (very strong)</span><span>+4%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:27%; background:#4ade80;"></div></div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>+ FDA eGFR alignment = FDA collaborative</span><span>+2%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:13%; background:#4ade80;"></div></div>
+          </div>
+          <div class="prob-bar-wrap">
+            <div class="prob-bar-label"><span>− Accelerated approval (surrogate endpoint)</span><span>−5%</span></div>
+            <div class="prob-bar-track"><div class="prob-bar-fill" style="width:33%; background:#f87171;"></div></div>
+          </div>
+          <div style="border-top:1px solid var(--border); padding-top:12px; margin-top:4px; font-size:12px; color:var(--muted);">
+            If approved → $55–65 near-term, $68–83 12-month<br>
+            If CRL → $14–18 (−50–60% from $34)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VERA Risk/Reward -->
+    <div class="section-title" style="margin-top:24px;">Section 7 — Risk/Reward Scenarios</div>
+    <div class="grid-2-1">
+      <div class="card">
+        <div style="height:260px; position:relative;">
+          <canvas id="veraScenarioChart"></canvas>
+        </div>
+      </div>
+      <div class="ev-box">
+        <div class="ev-label">Expected Value</div>
+        <div class="ev-value">+$180</div>
+        <div class="ev-sub">per $240 deployed</div>
+        <div style="margin-top:16px; font-size:11px; color:var(--muted); line-height:1.5;">
+          Bull 25%: +$306<br>
+          Base 64%: +$184<br>
+          Bear 11%: −$127<br><br>
+          EV 30× &gt; $6 commission ✅
+        </div>
+      </div>
+    </div>
+
+    <!-- VERA Analogs -->
+    <div class="section-title" style="margin-top:24px;">Section 5 — Analog Analysis (IgAN FDA History)</div>
+    <div class="grid-3">
+      <div class="analog-card">
+        <div class="analog-ticker">CALT — Calliditas Therapeutics (2021)</div>
+        <div class="analog-outcome pos">+70–90%</div>
+        <div class="analog-note">First FDA-approved IgAN drug (Tarpeyo / budesonide). Accelerated approval on proteinuria surrogate. Priority Review. Exact same regulatory pathway as atacicept.</div>
+        <div class="analog-diff">⚑ Diff: Calliditas was first-in-class with no IgAN competition. Vera enters a more crowded market but with superior mechanism (dual BAFF/APRIL) and much stronger data (p&lt;0.0001).</div>
+      </div>
+      <div class="analog-card">
+        <div class="analog-ticker">TVTX — Travere Therapeutics (Oct 2023)</div>
+        <div class="analog-outcome pos">+35–50%</div>
+        <div class="analog-note">Sparsentan, IgAN FDA accelerated approval. Same surrogate endpoint pathway. Market had priced in partial approval premium pre-PDUFA — same situation VERA is in now.</div>
+        <div class="analog-diff">⚑ Diff: Sparsentan didn't have BTD. Atacicept p&lt;0.0001 vs sparsentan p≈0.02 — materially stronger data → higher probability AND potentially stronger post-approval commercial.</div>
+      </div>
+      <div class="analog-card">
+        <div class="analog-ticker">ALNY — Alnylam Pharma (2018)</div>
+        <div class="analog-outcome pos">+40% day-1, +80% 12mo</div>
+        <div class="analog-note">BTD + Priority Review + strong Phase 3 in rare progressive disease. Pre-approval price near analyst low-end. Approved, then continued grinding higher as commercial ramp confirmed.</div>
+        <div class="analog-diff">⚑ Diff: ALNY has a full pipeline. VERA is single-asset — higher binary risk but also higher leverage. The ALNY pattern post-approval is the best-case template for VERA's trajectory.</div>
+      </div>
+    </div>
+
+    <!-- VERA Smart Money -->
+    <div class="section-title" style="margin-top:24px;">Section 6 — Smart Money Signals</div>
+    <div class="card">
+      <div class="signal-row">
+        <div class="signal-icon">💰</div>
+        <div class="signal-content">
+          <div class="signal-title">Insider Transactions — Director Enright <span class="signal-badge bullish">STRONG BUY SIGNAL</span></div>
+          <div class="signal-desc">Director Patrick Enright (Longitude Capital) purchased <strong>250,000 shares</strong> open-market at $20.87–$22.35 weighted avg in June 2025. Total spent: <strong>$5.28 million cash</strong>. Post-transaction: 5.39M shares held. Stock is now at $34.04 — the director is sitting on +54% unrealized gain and has not sold.</div>
+        </div>
+      </div>
+      <div class="signal-row">
+        <div class="signal-icon">🏛️</div>
+        <div class="signal-content">
+          <div class="signal-title">Institutional Holdings — Specialist Biotech Dominated <span class="signal-badge bullish">BULLISH</span></div>
+          <div class="signal-desc">265 institutions hold 74.4M shares (more than the float — pure institutional ownership). <strong>Avoro Capital</strong> (9.73%, 6.21M shares — specialist biotech), <strong>Deep Track Capital</strong>, <strong>Sofinnova Investments</strong>, <strong>Kynam Capital</strong>, <strong>Eversept Partners</strong> — all specialist biotech funds holding large stakes pre-PDUFA. This is exactly the right ownership base.</div>
+        </div>
+      </div>
+      <div class="signal-row">
+        <div class="signal-icon">📊</div>
+        <div class="signal-content">
+          <div class="signal-title">Options Activity <span class="signal-badge neutral">MODERATE — NOTE</span></div>
+          <div class="signal-desc">Put/call OI ratio = 1.07 — slight put lean, likely hedging by large longs rather than bearish positioning. May earnings implied move: 4.07% priced in (PDUFA event will price much larger). Barchart flagged: "earnings may reveal the market has already priced in FDA approval" — the stock is NOT at zero premium, but at $34 vs $68-83 consensus you're still buying at ~50% of expected post-approval value.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VERA Trade Setup -->
+    <div class="section-title" style="margin-top:24px;">Section 8 — Trade Setup (Conviction 7/10 → BUY NOW)</div>
+    <div class="grid-2">
+      <div>
+        <div class="trade-box">
+          <div class="trade-row">
+            <div><div class="trade-label">Entry</div></div>
+            <div style="text-align:right;"><div class="trade-value price-entry">$34.04</div><div class="trade-reason">Current price. 27 days to PDUFA — premium building but not parabolic yet.</div></div>
+          </div>
+          <div class="trade-row">
+            <div><div class="trade-label">Stop Loss</div></div>
+            <div style="text-align:right;"><div class="trade-value price-stop">$24.50</div><div class="trade-reason">Just below director Enright's buy zone ($20.87–22.35). If price breaks below where the insider spent $5.28M cash, the thesis is broken — exit.</div></div>
+          </div>
+          <div class="trade-row">
+            <div><div class="trade-label">Target 1</div></div>
+            <div style="text-align:right;"><div class="trade-value price-tp1">$55</div><div class="trade-reason">Post-approval stabilization level. IgAN analogs (TVTX sparsentan) settled +40–50% before moving higher. Take 50% here.</div></div>
+          </div>
+          <div class="trade-row">
+            <div><div class="trade-label">Target 2</div></div>
+            <div style="text-align:right;"><div class="trade-value price-tp2">$78</div><div class="trade-reason">Midpoint of analyst consensus ($68–83). Where most sell-side models point. Take remaining 50% here. Hold for $83–100 only if Q3 eGFR positive.</div></div>
+          </div>
+          <div class="trade-row">
+            <div><div class="trade-label">Position Size</div></div>
+            <div style="text-align:right;"><div class="trade-value">$240 / ~7 shares</div><div class="trade-reason">30% of $800 portfolio. Cost $243 incl. $3 commission.</div></div>
+          </div>
+        </div>
+        <div class="warn-note" style="margin-top:12px;">If Q3 eGFR data is positive: hold remaining through that catalyst — it adds a second leg toward $83–100. If CRL on July 7: exit at open, no averaging down, no "drug still works" rationalization.</div>
+      </div>
+
+      <div>
+        <div class="card-sm" style="margin-bottom:12px;">
+          <div class="section-title" style="margin-bottom:12px;">Conviction Breakdown</div>
+          <div class="conviction-display">
+            <div class="conviction-number high">7</div>
+            <div class="conviction-bars">
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">Event confirmed (Jul 7 PDUFA)</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+1</span></div>
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">Probability ≥70% (89%)</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+2</span></div>
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">3:1 risk/reward achieved</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+1</span></div>
+              <div class="conv-row"><span class="conv-dot missed"></span><span class="conv-label">Float &lt;$500M</span><span style="color:var(--muted); font-size:11px; margin-left:auto;">0</span></div>
+              <div class="conv-row"><span class="conv-dot missed"></span><span class="conv-label">Short interest ≥15% (13.75%)</span><span style="color:var(--muted); font-size:11px; margin-left:auto;">0</span></div>
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">Catalyst evidence (BTD + p&lt;0.0001)</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+2</span></div>
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">Cash runway ≥12mo ($596.8M)</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+1</span></div>
+              <div class="conv-row"><span class="conv-dot earned"></span><span class="conv-label">Smart money ($5.28M director buy)</span><span style="color:#4ade80; font-size:11px; margin-left:auto;">+1</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="note">Single gating item: Musaffa halal clearance. Check today — the entry window at $34 with July 7 PDUFA is 27 days and narrowing.</div>
+      </div>
+    </div>
+
+    <!-- VERA Price Chart -->
+    <div class="section-title" style="margin-top:24px;">Price Levels Visualization</div>
+    <div class="card">
+      <div style="height:220px; position:relative;">
+        <canvas id="veraPriceChart"></canvas>
+      </div>
+    </div>
+
+  </div><!-- end VERA -->
+
+
+  <!-- ========== ACHV ========== -->
+  <div class="sep"></div>
+  <div class="section">
+    <div class="ticker-header">
+      <span class="ticker-pill achv">ACHV</span>
+      <div>
+        <div class="company-name">Achieve Life Sciences, Inc.</div>
+        <div class="sector">Specialty Pharma | NASDAQ | Nicotine Cessation</div>
+      </div>
+    </div>
+
+    <div class="stop-banner">
+      <h3>🚫 Analysis Halted — Two Independent Reasons to Skip</h3>
+      <p>This position fails on <strong>halal compliance</strong> (Zoya Finance AAOIFI screen: NOT Shariah-compliant) and on <strong>fundamental grounds</strong> (the June 20 PDUFA is a pre-announced CRL, not an approval catalyst). Both reasons independently disqualify this trade.</p>
+    </div>
+
+    <!-- ACHV Stats for context -->
+    <div class="stat-grid" style="margin-top:20px; margin-bottom:20px;">
+      <div class="stat">
+        <div class="label">Market Cap</div>
+        <div class="value">$531M</div>
+        <div class="sub">June 1, 2026</div>
+      </div>
+      <div class="stat">
+        <div class="label">Shares Out.</div>
+        <div class="value">102.66M</div>
+        <div class="sub">June 1, 2026</div>
+      </div>
+      <div class="stat">
+        <div class="label">Est. Price</div>
+        <div class="value">~$5.17</div>
+        <div class="sub">April raise @ $3.635/share</div>
+      </div>
+      <div class="stat">
+        <div class="label">PDUFA Date</div>
+        <div class="value" style="color:#f87171;">Jun 20</div>
+        <div class="sub">⚠️ CRL expected — not approval</div>
+      </div>
+      <div class="stat">
+        <div class="label">Cash</div>
+        <div class="value">~$198M</div>
+        <div class="sub">Post-April $180M raise</div>
+      </div>
+      <div class="stat">
+        <div class="label">Short Interest</div>
+        <div class="value">12.86%</div>
+        <div class="sub">6.85M shares</div>
+      </div>
+    </div>
+
+    <!-- Halal Fail -->
+    <div class="section-title">Section 2 — Halal Compliance (AAOIFI) — FAILED</div>
+    <div class="card">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+        <span class="halal-badge fail">❌ NOT HALAL</span>
+        <span style="font-size:12px; color:#f87171;">Source: Zoya Finance AAOIFI screen — explicit non-compliance flag</span>
+      </div>
+      <table>
+        <tr><th>Criterion</th><th>Value</th><th>Threshold</th><th>Status</th></tr>
+        <tr>
+          <td>Zoya Finance AAOIFI screening</td>
+          <td>Explicitly "NOT Shariah-compliant"</td>
+          <td>Compliant</td>
+          <td class="td-red">❌ FAIL</td>
+        </tr>
+        <tr>
+          <td>Interest income / total revenue</td>
+          <td>$825K interest / $0 product revenue = 100%</td>
+          <td>&lt;5%</td>
+          <td class="td-red">❌ FAIL</td>
+        </tr>
+        <tr>
+          <td>Debt / Total Assets</td>
+          <td>$9.9M / $52M = 19%</td>
+          <td>&lt;33%</td>
+          <td class="td-green">✅ Pass</td>
+        </tr>
+        <tr>
+          <td>Prohibited sector revenue</td>
+          <td>0%</td>
+          <td>0%</td>
+          <td class="td-green">✅ Pass</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- CRL context -->
+    <div class="section-title" style="margin-top:20px;">Fundamental Red Flag — June 20 Is Not a Real Catalyst</div>
+    <div class="card">
+      <div class="grid-2">
+        <div>
+          <div style="font-size:13px; font-weight:600; margin-bottom:12px; color:#f87171;">What most people think ACHV is:</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.7;">A binary PDUFA event on June 20. Cytisinicline for smoking cessation. 12.86% short interest = squeeze potential on approval.</div>
+        </div>
+        <div>
+          <div style="font-size:13px; font-weight:600; margin-bottom:12px; color:#4ade80;">What ACHV actually is:</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.7;">A company that has <strong>already told the market it expects a CRL</strong> due to FDA manufacturing inspection failure (OAI classification at third-party manufacturer). NDA resubmission Q4 2026. Real launch target: H1 2027.</div>
+        </div>
+      </div>
+      <div style="margin-top:16px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); border-radius:8px; padding:14px; font-size:12px; color:var(--muted); line-height:1.6;">
+        You are not buying a catalyst. You are buying into a pre-announced CRL. The drug works (Phase 3 data is solid). The manufacturing doesn't (FDA cGMP inspection failed). The stock may trade sideways or down into June 20 as the CRL is confirmed, then potentially re-rates upward toward Q4 2026 NDA resubmission. That is a different trade — and a halal-failed one. Come back in Q3 2026 when Musaffa re-screens ACHV post-commercial prep and when the real catalyst (Q4 resubmission) approaches.
+      </div>
+    </div>
+
+  </div><!-- end ACHV -->
+
+
+  <!-- Final Action Summary -->
+  <div class="sep"></div>
+  <div class="section">
+    <div class="section-title">Immediate Action Items</div>
+    <div class="grid-3">
+      <div class="card" style="border-color:#d97706;">
+        <div style="font-size:12px; color:#d97706; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px;">VRDN — Action</div>
+        <ol style="font-size:13px; color:var(--muted); line-height:1.8; padding-left:16px;">
+          <li>Check Musaffa for VRDN halal status</li>
+          <li>Verify current stock price (estimate only in this report)</li>
+          <li>If price ~$18–22 AND halal clear → size $240, stop $14.50</li>
+          <li>Watch for specialist biotech fund Form 4 buying to upgrade conviction</li>
+          <li>Event June 30 — 20 days</li>
+        </ol>
+      </div>
+      <div class="card" style="border-color:#22c55e;">
+        <div style="font-size:12px; color:#22c55e; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px;">VERA — Action ⭐ Priority</div>
+        <ol style="font-size:13px; color:var(--muted); line-height:1.8; padding-left:16px;">
+          <li><strong>Check Musaffa for VERA today</strong> — this is the only gating item</li>
+          <li>If halal clear → enter $240 at ~$34 market price</li>
+          <li>Set stop at $24.50 (below director's $22.35 buy zone)</li>
+          <li>TP1 at $55 (sell 50%), TP2 at $78 (sell 50%)</li>
+          <li>Event July 7 — 27 days. Window narrowing.</li>
+        </ol>
+      </div>
+      <div class="card" style="border-color:#ef4444;">
+        <div style="font-size:12px; color:#ef4444; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:10px;">ACHV — Action</div>
+        <ol style="font-size:13px; color:var(--muted); line-height:1.8; padding-left:16px;">
+          <li>Do not enter — halal failure + CRL confirmed</li>
+          <li>The drug itself (cytisinicline) works — add to watchlist for 2027</li>
+          <li>Watch for Q4 2026 NDA resubmission news</li>
+          <li>Re-screen on Musaffa post-commercial shift (when revenue starts)</li>
+          <li>Monitor June 20 CRL confirmation, then monitor recovery setup</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding:20px 0; font-size:11px; color:var(--muted);">
+    Research only — not financial advice. All data sourced from live web searches conducted June 10, 2026. Verify current prices before entry.
+  </div>
+
+</div><!-- end page -->
+
+<script>
+// ============ Comparison Chart ============
+new Chart(document.getElementById('comparisonChart'), {
+  type: 'radar',
+  data: {
+    labels: ['Approval %', 'Conviction', 'Short Interest', 'Cash Runway', 'Smart Money', 'Data Quality'],
+    datasets: [
+      {
+        label: 'VRDN',
+        data: [82, 60, 43, 95, 45, 70],
+        borderColor: '#6366f1',
+        backgroundColor: 'rgba(99,102,241,0.12)',
+        borderWidth: 2,
+        pointBackgroundColor: '#6366f1',
+      },
+      {
+        label: 'VERA',
+        data: [89, 70, 69, 90, 90, 95],
+        borderColor: '#22c55e',
+        backgroundColor: 'rgba(34,197,94,0.10)',
+        borderWidth: 2,
+        pointBackgroundColor: '#22c55e',
+      },
+      {
+        label: 'ACHV',
+        data: [0, 0, 64, 40, 20, 55],
+        borderColor: '#ef4444',
+        backgroundColor: 'rgba(239,68,68,0.08)',
+        borderWidth: 2,
+        borderDash: [4,4],
+        pointBackgroundColor: '#ef4444',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#7a8499', font: { size: 12 } } }
+    },
+    scales: {
+      r: {
+        min: 0, max: 100,
+        grid: { color: '#2a3040' },
+        angleLines: { color: '#2a3040' },
+        pointLabels: { color: '#7a8499', font: { size: 11 } },
+        ticks: { display: false, stepSize: 25 }
+      }
+    }
+  }
+});
+
+// ============ VRDN Scenario Chart ============
+new Chart(document.getElementById('vrdnScenarioChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Bull (30%)\nApproval + recovery', 'Base (52%)\nApproval only', 'Bear (18%)\nCRL'],
+    datasets: [
+      {
+        label: 'P&L on $240 position ($)',
+        data: [162, 96, -102],
+        backgroundColor: ['rgba(99,102,241,0.6)', 'rgba(245,158,11,0.6)', 'rgba(239,68,68,0.55)'],
+        borderColor: ['#6366f1', '#f59e0b', '#ef4444'],
+        borderWidth: 2,
+        borderRadius: 6,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'VRDN Scenarios — P&L on $240 Position',
+        color: '#7a8499',
+        font: { size: 12 }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` $${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y}`
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { color: '#7a8499', font: { size: 10 } }, grid: { color: '#2a3040' } },
+      y: {
+        ticks: { color: '#7a8499', callback: (v) => '$' + v },
+        grid: { color: '#2a3040' },
+        border: { dash: [4,4] }
+      }
+    }
+  }
+});
+
+// ============ VERA Scenario Chart ============
+new Chart(document.getElementById('veraScenarioChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Bull (25%)\nApproval + squeeze', 'Base (64%)\nApproval only', 'Bear (11%)\nCRL'],
+    datasets: [
+      {
+        label: 'P&L on $240 position ($)',
+        data: [306, 184, -127],
+        backgroundColor: ['rgba(34,197,94,0.6)', 'rgba(34,197,94,0.4)', 'rgba(239,68,68,0.55)'],
+        borderColor: ['#22c55e', '#4ade80', '#ef4444'],
+        borderWidth: 2,
+        borderRadius: 6,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'VERA Scenarios — P&L on $240 Position',
+        color: '#7a8499',
+        font: { size: 12 }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` $${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y}`
+        }
+      }
+    },
+    scales: {
+      x: { ticks: { color: '#7a8499', font: { size: 10 } }, grid: { color: '#2a3040' } },
+      y: {
+        ticks: { color: '#7a8499', callback: (v) => '$' + v },
+        grid: { color: '#2a3040' },
+        border: { dash: [4,4] }
+      }
+    }
+  }
+});
+
+// ============ VRDN Price Levels Chart ============
+new Chart(document.getElementById('vrdnPriceChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Stop', 'Entry (est.)', 'Target 1', 'Target 2', 'Bull Case'],
+    datasets: [{
+      label: 'Price Level ($)',
+      data: [14.5, 20, 28, 37, 61],
+      backgroundColor: ['rgba(239,68,68,0.7)', 'rgba(226,232,240,0.5)', 'rgba(245,158,11,0.7)', 'rgba(34,197,94,0.7)', 'rgba(99,102,241,0.5)'],
+      borderColor: ['#ef4444', '#e2e8f0', '#f59e0b', '#22c55e', '#6366f1'],
+      borderWidth: 2,
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: (ctx) => ' $' + ctx.parsed.x } }
+    },
+    scales: {
+      x: {
+        ticks: { color: '#7a8499', callback: (v) => '$' + v },
+        grid: { color: '#2a3040' },
+        min: 0, max: 70
+      },
+      y: { ticks: { color: '#7a8499' }, grid: { color: '#2a3040' } }
+    }
+  }
+});
+
+// ============ VERA Price Levels Chart ============
+new Chart(document.getElementById('veraPriceChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Stop', 'Entry', 'Target 1', 'Target 2', 'Bull Case'],
+    datasets: [{
+      label: 'Price Level ($)',
+      data: [24.5, 34.04, 55, 78, 110],
+      backgroundColor: ['rgba(239,68,68,0.7)', 'rgba(226,232,240,0.5)', 'rgba(245,158,11,0.7)', 'rgba(34,197,94,0.7)', 'rgba(34,197,94,0.3)'],
+      borderColor: ['#ef4444', '#e2e8f0', '#f59e0b', '#22c55e', '#22c55e'],
+      borderWidth: 2,
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: (ctx) => ' $' + ctx.parsed.x } }
+    },
+    scales: {
+      x: {
+        ticks: { color: '#7a8499', callback: (v) => '$' + v },
+        grid: { color: '#2a3040' },
+        min: 0, max: 120
+      },
+      y: { ticks: { color: '#7a8499' }, grid: { color: '#2a3040' } }
+    }
+  }
+});
+</script>
+</body>
+</html>

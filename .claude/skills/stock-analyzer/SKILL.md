@@ -284,11 +284,85 @@ Targets must be derived from real market structure. A percentage from entry is N
 
 ---
 
+---
+
+### Section 9: HTML Report
+
+**After completing all 8 sections, always generate a self-contained HTML report and open it in the browser. This is not optional.**
+
+**File path:** `reports/analysis-[YYYY-MM-DD].html`
+(If multiple tickers analyzed in one session, put them all in the same file.)
+
+**Design reference:** `reports/analysis-2026-06-10.html` is the canonical template. Match its structure exactly.
+
+---
+
+#### Required visual components
+
+**1. Header**
+- Title, date, portfolio size ($800), max position size (30% = $240), halal standard (AAOIFI)
+
+**2. Verdict summary cards (one per ticker)**
+- Ticker name + company + WATCH / BUY NOW / SKIP badge (color-coded: green/amber/red)
+- Conviction score (X/10)
+- Days to PDUFA countdown in top-right corner
+- 1-line summary of the key risk and key positive
+
+**3. Radar comparison chart (Chart.js)**
+- One radar dataset per ticker
+- 6 axes: Approval %, Conviction (×10 scale), Short Interest (% of float), Cash Runway (normalized), Smart Money signal (0–100), Data Quality (0–100)
+- Scores: map values to 0–100 for chart (e.g. 82% approval → 82, conviction 7/10 → 70)
+- SKIP tickers: set all scores to 0 and use dashed border
+
+**4. Per-ticker sections** (in order: BUY NOW first, then WATCH, then SKIP)
+
+Each ticker section contains:
+
+- **Ticker pill** (color-coded), company name, sector
+- **Stats grid** — market cap, shares outstanding, short interest (highlighted red if >10%), confirmed price, cash position, PDUFA date. Use colored values for anything notable.
+- **Halal compliance table** — AAOIFI criteria with pass/warn/fail per row. Always show the ✅ HALAL VERIFIED / ⚠️ HALAL UNVERIFIED / ❌ NOT HALAL badge. If NOT HALAL → show red stop banner and skip remaining sections for that ticker.
+- **Catalyst timeline** — vertical timeline with numbered dots (primary catalyst = green dot, secondary = blue, further out = grey). Show date, event name, description, CONFIRMED badge where applicable.
+- **Probability model** — large % number (colored by value: ≥80% green, 60–79% amber, <60% red). Horizontal bar rows showing base rate, each positive modifier (+%), each negative modifier (−%). If-approved and if-rejected price ranges below.
+- **Scenario chart** (Chart.js bar chart) — Bull / Base / Bear scenarios. Bars show P&L in dollars on the $240 position. Bull bar = indigo/green, Base bar = amber, Bear bar = red. Negative bars shown below zero.
+- **EV box** — large EV dollar figure (green if positive, red if negative). Breakdown of each scenario's contribution. Note whether EV > $6 commission.
+- **Analogs** — 3 cards side by side. Each: company + year, outcome % (green if positive, red if negative), setup description, key difference note.
+- **Smart money signals** — 3 rows: Insider (Form 4), Institutional (13F), Options. Each has a BULLISH / NEUTRAL / BEARISH badge and description.
+- **Trade setup box** — Entry / Stop / TP1 / TP2 / Position size rows. Color-code: stop = red, entry = white, TP1 = amber, TP2 = green.
+- **Price levels chart** (Chart.js horizontal bar chart) — 5 bars: Stop, Entry, TP1, TP2, Bull Case. Colors match trade setup box.
+- **Conviction breakdown** — large score number + row-by-row checklist with earned (green dot) / missed (grey dot) and points.
+
+**5. Action items section**
+- One card per ticker summarizing the exact next steps (numbered list).
+
+---
+
+#### Chart.js implementation rules
+
+- Use CDN: `https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js`
+- Always set `responsive: true, maintainAspectRatio: false` and wrap in a fixed-height div
+- Dark theme throughout: background `#0d0f14`, surface `#161a23`, card `#1e2330`, border `#2a3040`, text `#e2e8f0`, muted `#7a8499`
+- Grid lines: `#2a3040` (dark, subtle)
+- Axis tick colors: `#7a8499`
+- No chart legend when it adds clutter (single-dataset charts)
+
+---
+
+#### HTML generation rules
+
+- Self-contained single file (no external assets except Chart.js CDN)
+- All CSS inline in `<style>` block
+- No framework dependencies (vanilla HTML/CSS/JS only)
+- `max-width: 1200px` centered layout
+- Mobile-responsive grid (collapse to single column below 768px)
+- After writing the file, run: `open reports/analysis-[date].html` to launch in browser
+
+---
+
 ## Output format
 
-Deliver as clean, structured markdown in chat. No HTML widget unless Abbas specifically asks for a report to be emailed. Keep sections clearly headed. Use tables where numbers are being compared.
+In chat: deliver a brief summary after the HTML is opened — ticker verdict, key risk per ticker, and the single most important action item. Do not repeat the full 8-section analysis as markdown; the HTML report is the deliverable.
 
-Length: as long as it needs to be. Don't summarize a section to save space — this is a research document, not a tweet.
+If the user explicitly asks for a markdown breakdown of a specific section, provide it. Otherwise, point to the HTML file.
 
 ---
 
