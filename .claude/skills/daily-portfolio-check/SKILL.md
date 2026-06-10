@@ -74,6 +74,7 @@ https://raw.githubusercontent.com/abbashm9/portfolio-skills/main/portfolio.json
 
 Parse the JSON. Extract:
 - `positions[]` array (the live holdings)
+- `watchlist[]` array (pending positions waiting on broker approval or entry conditions)
 - `cash_available` (dry powder)
 - `total_cost_basis` (total invested)
 - `totals.concentration_warning` (if any)
@@ -122,6 +123,18 @@ Calculate portfolio totals:
 - Total current value
 - Total P&L $ and %
 - Day's change $ and %
+
+### Step 2.5: Watchlist tracking — fetch live prices for watchlist items
+
+If `watchlist[]` exists and has entries in portfolio.json, fetch live prices for each watchlist ticker (same verification protocol as Step 1). Run these fetches in parallel with Step 1.
+
+For each watchlist item, calculate:
+- **Days to event:** `pdufa_date − today` in calendar days
+- **Price vs entry target:** `(current_price − entry_target) / entry_target × 100` — how much has price moved since the analysis was done?
+- **Entry still valid?** If current_price > entry_target × 1.15 (moved >15% above target), flag as "ENTRY MOVED — re-analyze before buying". If current_price < entry_target × 0.90 (dropped >10% below target), flag as "PRICE DROPPED — check thesis still intact".
+- **Event urgency:** if days_to_event ≤ 7, flag with 🔴 URGENT. If 8–14, flag 🟡 SOON. If 15–30, flag 🟢 WATCH.
+
+This data feeds directly into the email section in Step 6.
 
 ### Step 3: Exit-strategy check per position (in order)
 
@@ -357,11 +370,49 @@ Build a responsive HTML email with the structure in `references/email-template.m
 1. **Hero banner** — total P&L today, withdrawal goal tracker
 2. **Positions table** — all holdings with status badges (✅ HOLD / ⚠️ WATCH / 🔔 ACTION / 🚨 ALERT)
 3. **Exit alerts** — any position needing action, with exact recommendation
-4. **📡 Catalyst Plays** — the new section (see below)
-5. **💵 Cash deployment** — recommendation from Step 3.7
-6. **🔄 Rotation suggestions** — from Step 4, if any
-7. **📚 Today's concept** — education, in a colored box
-8. **Footer** — disclaimer, prices as of [date + sources]
+4. **⏳ Pending Watchlist** — watchlist items from portfolio.json (see below) — always shown if watchlist is non-empty
+5. **📡 Catalyst Plays** — daily catalyst discovery
+6. **💵 Cash deployment** — recommendation from Step 3.7
+7. **🔄 Rotation suggestions** — from Step 4, if any
+8. **📚 Today's concept** — education, in a colored box
+9. **Footer** — disclaimer, prices as of [date + sources]
+
+**⏳ Pending Watchlist section design:**
+
+This section is rendered for every item in `watchlist[]`. Skip this section only if `watchlist[]` is empty.
+
+Visual treatment: amber/orange-tinted dark background card (`background: #1a1400; border-left: 3px solid #f59e0b;`). Header: "⏳ Pending — Waiting on IBKR Approval".
+
+For each watchlist item render a compact card containing:
+
+1. **Header row:** Ticker (large, bold) + company name + verdict badge (WATCH in amber / BUY NOW in green) + conviction score (X/10)
+
+2. **Broker blocker banner** (if `broker_blocker` is set): amber pill reading "🔒 [broker_blocker text]" — e.g., "🔒 IBKR application pending — current broker does not allow this stock"
+
+3. **Live price row** (from Step 2.5 fetch):
+   - Current price (bold)
+   - Target entry: $[entry_target] — and whether it's still accessible: ✅ "Entry still valid" / ⚠️ "Price moved +X% above target — re-check" / 🔴 "Price dropped X% — verify thesis"
+   - Stop: $[stop] | TP1: $[tp1] | TP2: $[tp2] — 1 line, compact
+
+4. **Event countdown** (from Step 2.5): "[PDUFA drug] for [indication]" + urgency badge:
+   - 🔴 URGENT: X days left — if ≤ 7 days
+   - 🟡 SOON: X days left — if 8–14 days
+   - 🟢 X days left — if 15–30 days
+   - ⚫ Event passed — if pdufa_date < today (note result if known)
+
+5. **Approval probability bar:** horizontal HTML/CSS bar showing [approval_probability_pct]%. Color: green if ≥80%, amber if 60–79%, red if <60%.
+
+6. **Halal status:** ✅ VERIFIED / ⚠️ UNVERIFIED (show the halal_note from portfolio.json) / ❌ FAILS
+
+7. **Notes line:** the `notes` field from portfolio.json — 1–2 lines, muted color
+
+8. **Call to action line** (bottom of card):
+   - If broker_blocker is set AND event is still in the future: *"IBKR approval needed before entry. When approved: enter $[position_size_target] at ~$[entry_target], stop $[stop]."*
+   - If event is ≤ 7 days out AND broker still not approved: *"🚨 Only [X] days to PDUFA — if IBKR not approved in time, this entry window will close."*
+   - If event has passed: *"Event passed. Check outcome and decide whether to remove from watchlist."*
+
+**Price drift warning rule:** If the current price is more than 20% above the entry_target, add a prominent amber banner:
+> ⚠️ **Entry window at risk** — [TICKER] has moved from $[entry_target] to $[current_price] (+X%) while waiting on broker approval. The original stop at $[stop] is now [Y]% below current price. Re-run `/stock-analyzer [TICKER]` to re-derive updated levels before entering.
 
 **📡 Catalyst Plays section design:**
 
