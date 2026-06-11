@@ -84,7 +84,7 @@
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
       "notes": "Foundry monopoly. Taiwan Strait geopolitical risk = binary tail risk override."
-    },
+    }
   ],
   "watchlist": [
     {
@@ -117,11 +117,11 @@
       "conviction": 7,
       "entry_target": 34.04,
       "stop": 24.50,
-      "stop_reason": "Below director Enright's open-market buy zone ($20.87–22.35) — if price breaks the insider's basis, thesis broken",
+      "stop_reason": "Below director Enright's open-market buy zone ($20.87-22.35) — if price breaks the insider's basis, thesis broken",
       "tp1": 55.00,
       "tp1_reason": "Post-approval stabilization level — IgAN analog (sparsentan TVTX) settled +40-50% before further upside. Sell 50%.",
       "tp2": 78.00,
-      "tp2_reason": "Midpoint of 16-analyst consensus ($68–83). Take remaining 50%. Hold for $83–100 only if Q3 eGFR data positive.",
+      "tp2_reason": "Midpoint of 16-analyst consensus ($68-83). Take remaining 50%. Hold for $83-100 only if Q3 eGFR data positive.",
       "pdufa_date": "2026-07-07",
       "pdufa_drug": "Atacicept (dual BAFF/APRIL inhibitor)",
       "indication": "IgA Nephropathy (IgAN)",
@@ -143,10 +143,10 @@
     "concentration_warning": "NVDA 48.8% of cost basis — high single-name concentration"
   },
   "education_tracker": {
-    "last_concept_number": 0,
-    "last_concept_name": "",
-    "last_taught_date": "",
-    "taught_concepts": []
+    "last_concept_number": 1,
+    "last_concept_name": "Forward P/E vs Trailing P/E",
+    "last_taught_date": "2026-06-11",
+    "taught_concepts": ["Forward P/E vs Trailing P/E"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.40, "amount": 300.06, "notes": "Initial allocation, post-research review"},
