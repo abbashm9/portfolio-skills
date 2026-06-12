@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock Analyzer — SPCX — June 12, 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #161a23;
+    --card: #1e2330;
+    --border: #2a3040;
+    --text: #e2e8f0;
+    --muted: #7a8499;
+    --buy: #22c55e;
+    --watch: #f59e0b;
+    --skip: #ef4444;
+    --halal-ok: #22c55e;
+    --halal-warn: #f59e0b;
+    --halal-fail: #ef4444;
+    --accent-blue: #3b82f6;
+    --accent-purple: #a855f7;
+    --spcx: #f97316;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.6; }
+
+  .page { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+  .section { margin-bottom: 48px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+
+  .header { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 40px; }
+  .header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+  .header .meta { color: var(--muted); margin-top: 6px; font-size: 13px; }
+  .header .meta span { margin-right: 20px; }
+
+  .section-title { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .card-sm { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+
+  .verdict-card { border-radius: 14px; padding: 24px; position: relative; overflow: hidden; }
+  .verdict-card.skip { background: linear-gradient(135deg, #1c0a0a 0%, #3b0d0d 100%); border: 1px solid #991b1b; }
+  .verdict-card .ticker { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+  .verdict-card .company { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .verdict-card .verdict-badge { display: inline-block; padding: 4px 14px; border-radius: 99px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 14px; }
+  .verdict-badge.skip { background: #dc2626; color: #fff; }
+  .verdict-card .conviction { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .verdict-card .conviction strong { color: var(--text); font-size: 22px; font-weight: 700; }
+  .verdict-card .event-badge { position: absolute; top: 20px; right: 20px; font-size: 11px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 10px; text-align: center; }
+  .verdict-card .event-badge .days { font-size: 20px; font-weight: 700; }
+  .verdict-card .event-badge .label { font-size: 10px; color: var(--muted); }
+
+  .ticker-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .ticker-header .ticker-pill { font-size: 20px; font-weight: 800; padding: 6px 16px; border-radius: 8px; }
+  .ticker-pill.spcx { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+  .ticker-header .company-name { font-size: 16px; font-weight: 600; }
+  .ticker-header .sector { font-size: 12px; color: var(--muted); }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .stat .value { font-size: 20px; font-weight: 700; margin-top: 4px; }
+  .stat .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .halal-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 13px; }
+  .halal-badge.warn { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
+
+  .halal-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .halal-table th { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  .halal-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .halal-table tr:last-child td { border-bottom: none; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .dot.pass { background: var(--buy); }
+  .dot.warn { background: var(--watch); }
+  .dot.fail { background: var(--skip); }
+  .badge-pass { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .badge-warn { background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .badge-fail { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item { display: flex; gap: 16px; position: relative; padding-bottom: 20px; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item:not(:last-child) .timeline-line { position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--border); }
+  .timeline-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; z-index: 1; }
+  .timeline-dot.primary { background: var(--buy); color: #000; }
+  .timeline-dot.secondary { background: var(--accent-blue); color: #fff; }
+  .timeline-dot.tertiary { background: var(--surface); border: 2px solid var(--border); color: var(--muted); }
+  .timeline-content { flex: 1; }
+  .timeline-content .event-date { font-size: 12px; font-weight: 700; color: var(--muted); }
+  .timeline-content .event-name { font-size: 14px; font-weight: 600; margin-top: 2px; }
+  .timeline-content .event-desc { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .confirmed-badge { display: inline-block; background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); padding: 1px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-left: 8px; }
+  .estimated-badge { display: inline-block; background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); padding: 1px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-left: 8px; }
+
+  .prob-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .prob-big { font-size: 52px; font-weight: 800; letter-spacing: -2px; }
+  .prob-big.high { color: var(--buy); }
+  .prob-bar-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .prob-bar-label { font-size: 12px; color: var(--muted); width: 200px; flex-shrink: 0; }
+  .prob-bar-track { flex: 1; background: var(--border); border-radius: 4px; height: 6px; }
+  .prob-bar-fill { height: 6px; border-radius: 4px; }
+  .prob-bar-fill.base { background: var(--accent-blue); }
+  .prob-bar-fill.pos { background: var(--buy); }
+  .prob-bar-fill.neg { background: var(--skip); }
+  .prob-bar-value { font-size: 12px; font-weight: 600; width: 40px; text-align: right; }
+  .price-range-box { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .price-range { background: var(--card); border-radius: 10px; padding: 14px; }
+  .price-range .scenario { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); }
+  .price-range .price { font-size: 20px; font-weight: 700; margin-top: 4px; }
+  .price-range.bull .price { color: var(--buy); }
+  .price-range.bear .price { color: var(--skip); }
+
+  .analog-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .analog-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .analog-card .analog-header { display: flex; justify-content: space-between; align-items: flex-start; }
+  .analog-card .analog-ticker { font-size: 16px; font-weight: 700; }
+  .analog-card .analog-year { font-size: 12px; color: var(--muted); }
+  .analog-card .outcome { font-size: 22px; font-weight: 800; margin-top: 8px; }
+  .analog-card .outcome.pos { color: var(--buy); }
+  .analog-card .outcome.neg { color: var(--skip); }
+  .analog-card .outcome.mixed { color: var(--watch); }
+  .analog-card .analog-desc { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  .analog-card .diff-note { font-size: 11px; color: var(--accent-blue); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+  .smart-row { display: flex; align-items: flex-start; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .smart-row:last-child { border-bottom: none; }
+  .smart-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .smart-icon.bull { background: rgba(34,197,94,0.1); }
+  .smart-icon.neutral { background: rgba(122,132,153,0.1); }
+  .smart-icon.bear { background: rgba(239,68,68,0.1); }
+  .smart-title { font-size: 13px; font-weight: 600; }
+  .smart-signal { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 8px; border-radius: 6px; margin-left: 8px; }
+  .smart-signal.bullish { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+  .smart-signal.neutral { background: rgba(122,132,153,0.1); color: var(--muted); border: 1px solid rgba(122,132,153,0.2); }
+  .smart-signal.bearish { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .smart-desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .scenario-table { width: 100%; border-collapse: collapse; }
+  .scenario-table th { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  .scenario-table td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .scenario-table tr:last-child td { border-bottom: none; }
+  .s-bull { color: var(--buy); font-weight: 600; }
+  .s-base { color: var(--watch); font-weight: 600; }
+  .s-bear { color: var(--skip); font-weight: 600; }
+
+  .ev-box { border-radius: 12px; padding: 20px; text-align: center; }
+  .ev-box.neg { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.2); }
+  .ev-number { font-size: 40px; font-weight: 800; letter-spacing: -1.5px; }
+  .ev-number.neg { color: var(--skip); }
+  .ev-sub { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+  .trade-setup { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .trade-row { display: flex; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .trade-row:last-child { border-bottom: none; }
+  .trade-row .trade-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); width: 110px; flex-shrink: 0; }
+  .trade-row .trade-value { font-size: 16px; font-weight: 700; }
+  .trade-row .trade-note { font-size: 12px; color: var(--muted); margin-left: 12px; }
+  .trade-row.entry .trade-value { color: var(--text); }
+  .trade-row.stop .trade-value { color: var(--skip); }
+  .trade-row.tp1 .trade-value { color: var(--watch); }
+  .trade-row.tp2 .trade-value { color: var(--buy); }
+  .trade-row.size .trade-value { color: var(--accent-blue); }
+
+  .conviction-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .score-big { font-size: 56px; font-weight: 800; letter-spacing: -2px; }
+  .score-big.skip { color: var(--skip); }
+  .conviction-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .conviction-table td { padding: 8px 4px; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .conviction-table tr:last-child td { border-bottom: none; font-weight: 700; }
+  .c-earned { color: var(--buy); font-size: 14px; }
+  .c-missed { color: var(--muted); font-size: 14px; }
+
+  .action-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .action-item:last-child { border-bottom: none; }
+  .action-num { background: rgba(249,115,22,0.15); color: #fb923c; width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+  .action-text { font-size: 13px; line-height: 1.6; }
+  .action-text strong { color: var(--text); }
+
+  .skip-banner { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); border-radius: 12px; padding: 18px 20px; color: #f87171; font-size: 13px; display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; }
+
+  .ipo-day-banner { background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.25); border-radius: 12px; padding: 16px 20px; color: #fb923c; font-size: 13px; display: flex; gap: 12px; align-items: center; margin-bottom: 24px; }
+  .ipo-day-banner strong { font-weight: 700; }
+
+  .chart-container { position: relative; }
+
+  @media(max-width: 768px) {
+    .grid-3, .grid-2, .grid-2-1 { grid-template-columns: 1fr; }
+    .analog-cards { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Stock Analyzer — SPCX</h1>
+    <div class="meta">
+      <span>June 12, 2026</span>
+      <span>Portfolio ~$828</span>
+      <span>Max position 30% = $248</span>
+      <span>Halal standard: AAOIFI</span>
+      <span>Commission: $3/trade</span>
+    </div>
+  </div>
+
+  <!-- VERDICT SUMMARY -->
+  <div class="section">
+    <div class="section-title">Verdict Summary</div>
+    <div style="max-width: 420px;">
+      <div class="verdict-card skip">
+        <div class="event-badge">
+          <div class="days">~15</div>
+          <div class="label">days to QQQ inclusion</div>
+        </div>
+        <div class="ticker" style="color:#fb923c;">SPCX</div>
+        <div class="company">Space Exploration Technologies Corp.</div>
+        <div class="verdict-badge skip">SKIP</div>
+        <div class="conviction">Conviction <strong style="color:#ef4444;">4</strong>/10</div>
+        <div style="font-size:12px; color:var(--muted); margin-top:12px;">
+          <span style="color:#f87171;">⚠</span> Halal unverified (interest income risk + Starshield grey area)<br>
+          <span style="color:#f87171;">⚠</span> EV ≈ $0 after $6 round-trip commission — no edge for Abbas's sizing
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RADAR CHART -->
+  <div class="section">
+    <div class="section-title">Multi-Factor Radar</div>
+    <div class="card">
+      <div class="chart-container" style="height:260px;">
+        <canvas id="radarChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SPCX SECTION ====== -->
+  <div class="section">
+    <div class="ticker-header">
+      <div class="ticker-pill spcx">SPCX</div>
+      <div>
+        <div class="company-name">Space Exploration Technologies Corp.</div>
+        <div class="sector">Aerospace &amp; Space Infrastructure · Nasdaq</div>
+      </div>
+    </div>
+
+    <div class="ipo-day-banner">
+      🚀 <span><strong>IPO DAY.</strong> SPCX began trading today on Nasdaq at $135.00/share — the largest IPO in stock market history ($75B raised, $1.75T market cap). All data below is sourced from the S-1 prospectus and pre-IPO research. Live post-open price data not yet available.</span>
+    </div>
+
+    <!-- SECTION 1: SNAPSHOT -->
+    <div style="margin-bottom:32px;">
+      <div class="section-title">1 — Company &amp; Float Snapshot</div>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">SpaceX designs, manufactures, and launches rockets and spacecraft. Primary revenue comes from Starlink satellite broadband ($11.4B, 61% of revenue) and launch services — commercial, NASA, and U.S. military contracts ($7.3B, 39%). Starship is the current mega-capex driver, burn: $20.7B capex in 2025.</p>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="label">Market Cap</div>
+          <div class="value">$1.75T</div>
+          <div class="sub">At IPO price of $135</div>
+        </div>
+        <div class="stat">
+          <div class="label">IPO Price</div>
+          <div class="value" style="color:#fb923c;">$135.00</div>
+          <div class="sub">Fixed, bypassed range process</div>
+        </div>
+        <div class="stat">
+          <div class="label">Public Float</div>
+          <div class="value" style="color:#f59e0b;">4.3%</div>
+          <div class="sub">555.56M of 12.96B shares</div>
+        </div>
+        <div class="stat">
+          <div class="label">Float Value</div>
+          <div class="value">$75B</div>
+          <div class="sub">Total IPO shares × $135</div>
+        </div>
+        <div class="stat">
+          <div class="label">Short Interest</div>
+          <div class="value" style="color:var(--muted);">N/A</div>
+          <div class="sub">IPO day — no short data</div>
+        </div>
+        <div class="stat">
+          <div class="label">52-Wk Range</div>
+          <div class="value" style="color:var(--muted);">—</div>
+          <div class="sub">No prior trading history</div>
+        </div>
+        <div class="stat">
+          <div class="label">Revenue TTM</div>
+          <div class="value">$19.3B</div>
+          <div class="sub">+43% YoY ($13.1B in 2024)</div>
+        </div>
+        <div class="stat">
+          <div class="label">Gross Margin</div>
+          <div class="value">48.8%</div>
+          <div class="sub">High for aerospace</div>
+        </div>
+        <div class="stat">
+          <div class="label">GAAP Net Loss</div>
+          <div class="value" style="color:var(--skip);">-$4.9B</div>
+          <div class="sub">2025; -$9.36B TTM</div>
+        </div>
+        <div class="stat">
+          <div class="label">Adj. EBITDA</div>
+          <div class="value">$6.6B</div>
+          <div class="sub">2025; capex masks this</div>
+        </div>
+        <div class="stat">
+          <div class="label">Cash Position</div>
+          <div class="value">$24.8B</div>
+          <div class="sub">Pre-IPO; +$75B raised today</div>
+        </div>
+        <div class="stat">
+          <div class="label">Total Debt</div>
+          <div class="value">$30.6B</div>
+          <div class="sub">Total liabilities ~$50.8B</div>
+        </div>
+      </div>
+      <div style="margin-top:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 18px; font-size:13px; color:var(--muted);">
+        <strong style="color:var(--watch);">Float note:</strong> The 4.3% public float sounds tiny but in dollar terms it's $75B — far above the &lt;$500M threshold that produces outsized moves. This is not a small-float stock. The float will expand dramatically as lockup tranches expire over the next 180 days.
+      </div>
+    </div>
+
+    <!-- SECTION 2: HALAL -->
+    <div style="margin-bottom:32px;">
+      <div class="section-title">2 — Halal Compliance (AAOIFI)</div>
+      <div class="halal-badge warn" style="margin-bottom:16px;">⚠️ HALAL UNVERIFIED — Verify on Musaffa before any entry</div>
+      <table class="halal-table">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th>Threshold</th>
+            <th>Found Value</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Debt / Market Cap</td>
+            <td>&lt; 33%</td>
+            <td>$30.6B / $1,750B = 1.75%</td>
+            <td><span class="badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>Cash &amp; Interest-Bearing Securities / Market Cap</td>
+            <td>&lt; 33%</td>
+            <td>$24.8B / $1,750B = 1.4%</td>
+            <td><span class="badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>Interest Income / Total Revenue</td>
+            <td>&lt; 5%</td>
+            <td><em>Not disclosed in S-1 summary</em>. With $24.8B cash at ~5% yield → est. ~$1.24B = ~6.6% of $18.7B revenue</td>
+            <td><span class="badge-warn">UNVERIFIED</span></td>
+          </tr>
+          <tr>
+            <td>Defense / Military Revenue</td>
+            <td>0% weapons mfg</td>
+            <td>~$3.7B government contracts (~20%); Starshield $1.8B (classified military satellite connectivity). SpaceX provides <em>transportation/connectivity</em>, not weapons.</td>
+            <td><span class="badge-warn">GREY AREA</span></td>
+          </tr>
+          <tr>
+            <td>Prohibited sectors (alcohol, tobacco, banking, adult content)</td>
+            <td>0%</td>
+            <td>None found</td>
+            <td><span class="badge-pass">PASS</span></td>
+          </tr>
+          <tr>
+            <td>Accounts Receivable / Market Cap</td>
+            <td>&lt; 49%</td>
+            <td>Not available from public sources yet</td>
+            <td><span class="badge-warn">UNVERIFIED</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px; background:rgba(245,158,11,0.05); border:1px solid rgba(245,158,11,0.2); border-radius:10px; padding:14px 16px; font-size:12px; color:#fbbf24;">
+        <strong>Two specific checks required before entry:</strong><br>
+        1. Open SpaceX S-1 on SEC EDGAR (filing 1181412) and find Note on "Interest and Other Income" — if interest income &gt;$935M (5% of $18.7B revenue), it fails AAOIFI.<br>
+        2. Search Musaffa for SPCX once listed — their team will assess whether Starshield defense satellite work disqualifies the stock. Most scholars permit satellite connectivity services to military as distinct from weapons manufacturing, but Musaffa may see it differently.
+      </div>
+    </div>
+
+    <!-- SECTION 3: CATALYST TIMELINE -->
+    <div style="margin-bottom:32px;">
+      <div class="section-title">3 — Catalyst Timeline (90-day window)</div>
+      <div class="card">
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-line"></div>
+            <div class="timeline-dot primary">1</div>
+            <div class="timeline-content">
+              <div class="event-date">~July 1–7, 2026 (est.)<span class="estimated-badge">ESTIMATED</span></div>
+              <div class="event-name">Nasdaq-100 Fast-Track Inclusion</div>
+              <div class="event-desc">Under Nasdaq's March 2026 rule change, mega-IPOs qualify for fast-track index entry within 15 trading days of listing. June 12 + 15 trading days = ~July 1–7. SpaceX's expected weight in QQQ: 0.47–0.70%. This triggers ~$7B in forced buying from QQQ/Nasdaq-100 tracker ETFs alone — not counting all other Nasdaq-100 linked products. This is the primary near-term price catalyst.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-line"></div>
+            <div class="timeline-dot secondary">2</div>
+            <div class="timeline-content">
+              <div class="event-date">~August/September 2026 (est.)<span class="estimated-badge">ESTIMATED</span></div>
+              <div class="event-name">First Public Earnings Report (Q2 2026)</div>
+              <div class="event-desc">SpaceX's first earnings release as a public company. Q1 2026 was disclosed in S-1 ($4.694B revenue, -$1.943B operating loss). Q2 2026 will be the first report on the record. Triggers partial lockup: insiders (excluding Musk) can sell 20% of their holdings two days after Q2 results.</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-line"></div>
+            <div class="timeline-dot tertiary">3</div>
+            <div class="timeline-content">
+              <div class="event-date">~November 2026 (est.)<span class="estimated-badge">ESTIMATED</span></div>
+              <div class="event-name">Major Lockup Expiry (28% tranche + Q3 earnings unlock)</div>
+              <div class="event-desc">After Q3 2026 earnings, another 28% of insider shares unlock. Combined with prior tranches, this is the biggest single supply event. ~180-day standard lockup also falls around this time (except Musk, who is locked for 366 days). High risk of stock pressure from this supply.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: PROBABILITY MODEL -->
+    <div style="margin-bottom:32px;">
+      <div class="section-title">4 — Probability Model</div>
+      <div class="grid-2">
+        <div class="prob-block">
+          <div style="font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px;">Nasdaq-100 Inclusion (~July 1–7)</div>
+          <div class="prob-big high">~92%</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:4px;">near-certain mechanical event</div>
+          <div style="margin-top:16px;">
+            <div class="prob-bar-row">
+              <div class="prob-bar-label">Base rate (rule-change mechanism)</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill base" style="width:80%;"></div></div>
+              <div class="prob-bar-value" style="color:var(--accent-blue);">80%</div>
+            </div>
+            <div class="prob-bar-row">
+              <div class="prob-bar-label">+ Rule specifically designed for SPCX</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill pos" style="width:8%;"></div></div>
+              <div class="prob-bar-value" style="color:var(--buy);">+8%</div>
+            </div>
+            <div class="prob-bar-row">
+              <div class="prob-bar-label">+ Market cap far exceeds threshold</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill pos" style="width:5%;"></div></div>
+              <div class="prob-bar-value" style="color:var(--buy);">+5%</div>
+            </div>
+            <div class="prob-bar-row">
+              <div class="prob-bar-label">- Liquidity / float minimum risk</div>
+              <div class="prob-bar-track"><div class="prob-bar-fill neg" style="width:1%;"></div></div>
+              <div class="prob-bar-value" style="color:var(--skip);">−1%</div>
+            </div>
+          </div>
+          <div class="price-range-box">
+            <div class="price-range bull">
+              <div class="scenario">If included (92%)</div>
+              <div class="price">$150–$175</div>
+              <div style="font-size:11px; color:var(--muted);">+11% to +30% from IPO price; forced buying + momentum</div>
+            </div>
+            <div class="price-range bear">
+              <div class="scenario">If delayed / excluded (8%)</div>
+              <div class="price">$100–$115</div>
+              <div style="font-size:11px; color:var(--muted);">Premium evaporates; typical mega-IPO de-rating</div>
+            </div>
+          </div>
+        </div>
+        <div class="prob-block">
+          <div style="font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px;">Key Qualification</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.7; margin-top:8px;">
+            This is <strong style="color:var(--text);">not a traditional FDA/earnings catalyst.</strong> Index inclusion is mechanical — it triggers forced buying by passive ETFs regardless of SpaceX's business performance. The uncertainty isn't "will SpaceX succeed?" but rather "is the inclusion timeline and demand impact already priced into the $135 IPO price?"<br><br>
+            <strong style="color:var(--watch);">The market had weeks to price in this inclusion.</strong> With a 4x oversubscribed IPO, most of the inclusion premium may already be baked in. This dramatically reduces the post-inclusion pop compared to a stock that started trading before the inclusion rule existed.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: ANALOG ANALYSIS -->
+    <div style="margin-bottom:32px;">
+      <div class="section-title">5 — Analog Analysis</div>
+      <div class="analog-cards">
+        <div class="analog-card">
+          <div class="analog-header">
+            <div>
+              <div class="analog-ticker">Saudi Aramco (2222.SE)</div>
+              <div class="analog-year">2019 IPO</div>
+            </div>
+          </div>
+          <div class="outcome mixed">Flat → +8% (6 years)</div>
+          <div class="analog-desc"><strong>Setup similarity:</strong> Prior record holder for largest IPO ($29.4B raised, $1.88T market cap). Massive hype, fixed-price IPO, national pride narrative. Oversubscribed. Market expected a pop on debut.<br><br><strong>Outcome:</strong> Rose 10% first two days, then spent years oscillating around IPO price. Long-term performance poor vs. S&amp;P 500.</div>
+          <div class="diff-note">Key difference: Aramco has earnings; SpaceX is GAAP negative and spending $20B+ annually on Starship. Capex drag is more severe.</div>
+        </div>
+        <div class="analog-card">
+          <div class="analog-header">
+            <div>
+              <div class="analog-ticker">Meta / Facebook (META)</div>
+              <div class="analog-year">2012 IPO</div>
+            </div>
+          </div>
+          <div class="outcome neg">−52% within 4 months → then 40x</div>
+          <div class="analog-desc"><strong>Setup similarity:</strong> "Biggest tech IPO ever" narrative, massive retail demand, fixed price. Dropped below IPO price within days and spent 14 months underwater. Then went on to 40x over the following decade.<br><br><strong>Outcome:</strong> Near-term: brutal for IPO buyers. Long-term: generational compounder. The distinction is that Meta was already profitable at IPO.</div>
+          <div class="diff-note">Key difference: Facebook was profitable and growing EPS at IPO. SpaceX is structurally GAAP negative and likely remains so for years while Starship matures.</div>
+        </div>
+        <div class="analog-card">
+          <div class="analog-header">
+            <div>
+              <div class="analog-ticker">Alibaba (BABA)</div>
+              <div class="analog-year">2014 IPO</div>
+            </div>
+          </div>
+          <div class="outcome neg">+38% day 1 → −40% within 12 months</div>
+          <div class="analog-desc"><strong>Setup similarity:</strong> Then-record IPO ($25B raised), +38% first day pop on enormous investor demand, "once-in-a-generation" company narrative. Then reality hit: high valuation at launch, first lock-up expiration created sustained selling.<br><br><strong>Outcome:</strong> Day-1 buyers experienced a 40% drawdown before recovery. Pattern: mega-hype IPO → post-lockup de-rating → eventual recovery over years.</div>
+          <div class="diff-note">Key difference: BABA was highly profitable at IPO. SpaceX analog differs because the lockup structure is tiered and gentler — but the supply overhang theme holds.</div>
+        </div>
+      </div>
+      <div style="margin-top:14px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:14px 16px; font-size:12px; color:var(--muted);">
+        <strong style="color:var(--watch);">Analog conclusion:</strong> Every mega-IPO analog shows the same pattern — near-term pop (1–4 weeks), followed by significant drawdown as lockup tranches hit. The "right" time to buy SpaceX in each analog was 6–18 months post-IPO, not day one.
+      </div>
+    </div>
+
+    <!-- SECTION 6: SMART MONEY -->
+    <div style="margin-bottom:32px;">
+      <div class="section-title">6 — Smart Money Signals</div>
+      <div class="card">
+        <div class="smart-row">
+          <div class="smart-icon neutral">📋</div>
+          <div style="flex:1;">
+            <div class="smart-title">Insider Transactions (Form 4) <span class="smart-signal neutral">NEUTRAL</span></div>
+            <div class="smart-desc">IPO day — no Form 4 data available yet. Elon Musk committed to a 366-day lockup, the longest in the deal. Other insiders have a tiered structure (20% free after Q2 earnings, 7% tranches through day 135, 28% after Q3, remainder at 180 days). The tiered structure is designed to prevent a single shock sell — but it means continuous supply pressure for 6 months.</div>
+          </div>
+        </div>
+        <div class="smart-row">
+          <div class="smart-icon bull">🏦</div>
+          <div style="flex:1;">
+            <div class="smart-title">Institutional Holdings (13F) <span class="smart-signal bullish">BULLISH (INDIRECT)</span></div>
+            <div class="smart-desc">No 13F data yet (IPO day). However: IPO was 4x oversubscribed with $100B+ in retail orders alone. Institutional demand is clearly massive. The real institutional signal will be the first 13F filing (expected Q3 2026) — watch for whether specialist growth funds (Tiger Global, Coatue, Andreessen Horowitz) took large positions, or whether it was dominated by index funds forced to buy at any price.</div>
+          </div>
+        </div>
+        <div class="smart-row" style="border-bottom:none;">
+          <div class="smart-icon neutral">📊</div>
+          <div style="flex:1;">
+            <div class="smart-title">Options Activity <span class="smart-signal neutral">NEUTRAL</span></div>
+            <div class="smart-desc">Options market on SPCX is not yet active — options chains typically list 1–2 weeks post-IPO. Once available, the key data point will be the implied move from the ATM straddle around the Nasdaq-100 inclusion date (~July 1–7). If the ATM straddle implies &lt;15% move on that date, market is underpricing the forced-buying event and creates option value. Check barchart.com for SPCX options in approximately 2 weeks.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 7: RISK/REWARD MATRIX -->
+    <div style="margin-bottom:32px;">
+      <div class="section-title">7 — Risk / Reward Matrix</div>
+      <div class="grid-2-1" style="align-items:start;">
+        <div>
+          <div class="card" style="margin-bottom:16px;">
+            <table class="scenario-table">
+              <thead>
+                <tr>
+                  <th>Scenario</th>
+                  <th>Prob</th>
+                  <th>Price Target</th>
+                  <th>% Move</th>
+                  <th>P&amp;L on $248</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="s-bull">Bull</span> — inclusion + supply squeeze on low float</td>
+                  <td>20%</td>
+                  <td>$175</td>
+                  <td class="s-bull">+29.6%</td>
+                  <td class="s-bull">+$73.5</td>
+                </tr>
+                <tr>
+                  <td><span class="s-base">Base</span> — orderly inclusion, modest drift</td>
+                  <td>40%</td>
+                  <td>$150</td>
+                  <td class="s-base">+11.1%</td>
+                  <td class="s-base">+$27.6</td>
+                </tr>
+                <tr>
+                  <td><span class="s-bear">Bear</span> — inclusion priced in; lockup expiry fears; valuation de-rating</td>
+                  <td>40%</td>
+                  <td>$108</td>
+                  <td class="s-bear">−20%</td>
+                  <td class="s-bear">−$49.6</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <div style="font-size:12px; color:var(--muted); margin-bottom:12px;">SCENARIO P&amp;L — $248 POSITION</div>
+            <div class="chart-container" style="height:160px;">
+              <canvas id="scenarioChart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="ev-box neg">
+            <div style="font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px;">Expected Value</div>
+            <div class="ev-number neg">≈ −$0</div>
+            <div class="ev-sub">EV = (20%×$73.5) + (40%×$27.6) + (40%×−$49.6) = +$5.94<br>After $6 round-trip commission: <strong style="color:#f87171;">≈ −$0.06</strong></div>
+          </div>
+          <div class="card-sm" style="font-size:12px; color:var(--muted); line-height:1.7;">
+            <strong style="color:var(--watch);">Commission threshold:</strong> $6 round-trip. EV is essentially zero — after commissions there is no edge. The rubric's override rule applies: <em>"If EV &lt; $6, commission drag eats the edge, do not enter."</em>
+            <br><br>
+            <strong style="color:var(--text);">Why the bear is 40%:</strong> At 93× revenue with $20.7B annual capex and no path to GAAP profitability for 3+ years, valuation is vulnerable to any risk-off environment. The Nasdaq-100 inclusion may have been priced in during the IPO road show.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 8: VERDICT -->
+    <div style="margin-bottom:32px;">
+      <div class="section-title">8 — Verdict &amp; Trade Setup</div>
+      <div class="grid-2" style="align-items:start;">
+        <div class="conviction-box">
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="score-big skip">4</div>
+            <div>
+              <div style="font-size:13px; color:var(--muted);">out of 10</div>
+              <div style="font-size:16px; font-weight:600; color:var(--skip); margin-top:4px;">SKIP</div>
+            </div>
+          </div>
+          <table class="conviction-table" style="margin-top:20px;">
+            <tbody>
+              <tr>
+                <td><span class="c-missed">●</span> Event confirmed ≤14 days</td>
+                <td style="text-align:right;"><span style="color:var(--muted);">0/1</span></td>
+                <td style="color:var(--muted); font-size:12px;">Inclusion ~15 trading days out</td>
+              </tr>
+              <tr>
+                <td><span class="c-earned">●</span> Probability ≥70% with evidence</td>
+                <td style="text-align:right;"><span style="color:var(--buy);">2/2</span></td>
+                <td style="color:var(--muted); font-size:12px;">Rule change confirms ~92%</td>
+              </tr>
+              <tr>
+                <td><span class="c-missed">●</span> Asymmetric payoff ≥3:1</td>
+                <td style="text-align:right;"><span style="color:var(--muted);">0/1</span></td>
+                <td style="color:var(--muted); font-size:12px;">Bull $74 / Bear $50 = 1.5:1</td>
+              </tr>
+              <tr>
+                <td><span class="c-missed">●</span> Small float &lt;$500M</td>
+                <td style="text-align:right;"><span style="color:var(--muted);">0/1</span></td>
+                <td style="color:var(--muted); font-size:12px;">Float = $75B — 150× threshold</td>
+              </tr>
+              <tr>
+                <td><span class="c-missed">●</span> Short interest ≥15%</td>
+                <td style="text-align:right;"><span style="color:var(--muted);">0/1</span></td>
+                <td style="color:var(--muted); font-size:12px;">N/A — IPO day</td>
+              </tr>
+              <tr>
+                <td><span class="c-earned">●</span> Catalyst supporting evidence</td>
+                <td style="text-align:right;"><span style="color:var(--buy);">1/2</span></td>
+                <td style="color:var(--muted); font-size:12px;">Rule confirmed; pop size uncertain</td>
+              </tr>
+              <tr>
+                <td><span class="c-earned">●</span> Cash runway ≥12 months</td>
+                <td style="text-align:right;"><span style="color:var(--buy);">1/1</span></td>
+                <td style="color:var(--muted); font-size:12px;">$24.8B cash + $75B IPO proceeds</td>
+              </tr>
+              <tr>
+                <td><span class="c-missed">●</span> Smart money confirmation</td>
+                <td style="text-align:right;"><span style="color:var(--muted);">0/1</span></td>
+                <td style="color:var(--muted); font-size:12px;">No Form 4 / 13F / options yet</td>
+              </tr>
+              <tr style="background:rgba(239,68,68,0.05);">
+                <td><strong>Total</strong></td>
+                <td style="text-align:right;"><strong style="color:var(--skip);">4/10</strong></td>
+                <td style="color:var(--muted); font-size:12px;">Rubric: 3–4 = SKIP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="skip-banner">
+            <div style="font-size:20px;">🚫</div>
+            <div>
+              <strong>SKIP — Three override conditions apply:</strong><br><br>
+              <strong>1. Halal unverified:</strong> Cannot enter until Musaffa verifies SPCX. The interest income question is a hard blocker — AAOIFI compliance is non-negotiable per your strategy.<br><br>
+              <strong>2. EV ≈ $0:</strong> After $6 round-trip commission, expected value is −$0.06. No edge.<br><br>
+              <strong>3. Asymmetric payoff fails 3:1 threshold:</strong> Bull case ($74 profit on $248 position) is only 1.5× the bear case ($50 loss). Abbas's strategy requires at least 3:1 to justify entry.
+            </div>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; margin-top:16px; font-size:12px; color:var(--muted); line-height:1.7;">
+            <strong style="color:var(--text);">What would change this verdict:</strong><br>
+            1. <strong style="color:var(--watch);">Musaffa halal clear</strong> — removes the override blocker<br>
+            2. <strong style="color:var(--watch);">Stock drops to $95–$100</strong> (−30% from IPO) — at that price, the bull case to $150–175 on Nasdaq-100 inclusion becomes 3:1+ asymmetry<br>
+            3. <strong style="color:var(--watch);">Options become available</strong> and implied move for inclusion date is &lt;15% — buy cheap calls instead of shares to limit downside<br>
+            4. <strong style="color:var(--watch);">Post-lockup stabilization</strong> (~December 2026, after 180-day expiry) — the supply overhang clears, stock potentially builds a real base
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION ITEMS -->
+  <div class="section">
+    <div class="section-title">Action Items</div>
+    <div class="card">
+      <div class="action-item">
+        <div class="action-num">1</div>
+        <div class="action-text"><strong>Check Musaffa for SPCX within 1–2 weeks.</strong> SpaceX just listed today — Musaffa will need a few days to add it. The halal override cannot be cleared until then. Pull up Musaffa app → search SPCX → check interest income ratio and Starshield classification. Report back.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">2</div>
+        <div class="action-text"><strong>Do NOT buy at $135.</strong> EV is approximately zero after commission and asymmetric payoff fails at current price. There is no edge. Watching is free; entering isn't.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">3</div>
+        <div class="action-text"><strong>Set a price alert at $100.</strong> If SPCX dips to $100 post-listing (−26% from IPO, which is entirely within historical mega-IPO de-rating range), re-run this analysis. At $100, the bull case to $150–175 (Nasdaq-100 inclusion + eventual index weight demand) becomes 3:1+ asymmetric.</div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">4</div>
+        <div class="action-text"><strong>Check SPCX options availability in ~2 weeks.</strong> Once listed, pull the ATM straddle price for the July expiry. If straddle implies &lt;12% move and Nasdaq-100 inclusion is expected to force $7B in buying, that's a meaningful edge — calls would be the right instrument, not shares, to contain the downside.</div>
+      </div>
+      <div class="action-item" style="border-bottom:none;">
+        <div class="action-num">5</div>
+        <div class="action-text"><strong>Long-term note:</strong> SpaceX has a legitimate 10-year bull case (Starlink global monopoly, Starship dramatically cutting launch cost, potential Mars revenue). But that thesis plays out over years, not weeks. Abbas's strategy is catalyst-driven and commission-aware — a 30-month hold doesn't fit the framework. Revisit as a long-term core position only if current strategy delivers enough cash to build a separate "conviction hold" bucket.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; font-size:11px; color:var(--muted); margin-top:32px; padding-top:16px; border-top:1px solid var(--border);">
+    Research only. Not financial advice. All data sourced from live web searches on June 12, 2026. Sources: NPR, CNBC, stockanalysis.com, Kiplinger, SpotGamma, 247wallst.com, fastcompany.com, tradingkey.com, Motley Fool.
+  </div>
+
+</div>
+
+<script>
+// Radar chart
+(function() {
+  const ctx = document.getElementById('radarChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Inclusion Prob (%)', 'Conviction (×10)', 'Float Constraint', 'Cash Safety', 'Smart Money', 'EV Score'],
+      datasets: [{
+        label: 'SPCX',
+        data: [92, 40, 15, 85, 25, 10],
+        borderColor: '#f97316',
+        backgroundColor: 'rgba(249,115,22,0.12)',
+        pointBackgroundColor: '#f97316',
+        pointBorderColor: '#f97316',
+        borderWidth: 2,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        r: {
+          min: 0,
+          max: 100,
+          ticks: { color: '#7a8499', stepSize: 25, backdropColor: 'transparent', font: { size: 10 } },
+          grid: { color: '#2a3040' },
+          pointLabels: { color: '#e2e8f0', font: { size: 12 } }
+        }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+})();
+
+// Scenario chart
+(function() {
+  const ctx = document.getElementById('scenarioChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Bull (+30%)', 'Base (+11%)', 'Bear (−20%)'],
+      datasets: [{
+        data: [73.5, 27.6, -49.6],
+        backgroundColor: ['rgba(34,197,94,0.5)', 'rgba(245,158,11,0.5)', 'rgba(239,68,68,0.5)'],
+        borderColor: ['#22c55e', '#f59e0b', '#ef4444'],
+        borderWidth: 1,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#7a8499', font: { size: 11 } }, grid: { color: '#2a3040' } },
+        y: {
+          ticks: { color: '#7a8499', font: { size: 11 }, callback: v => '$' + v },
+          grid: { color: '#2a3040' }
+        }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
