@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-06-09T00:00:00+03:00",
+  "last_updated": "2026-06-12T00:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "",
@@ -134,7 +134,7 @@
       "notes": "BTD + Priority Review + p<0.0001 Phase 3 + FDA eGFR alignment + $5.28M director open-market buy. Every IgAN PDUFA so far has resulted in approval (zero CRLs in indication). Secondary Q3 2026 eGFR catalyst adds a second leg if positive. Window narrowing — entry is now, not after broker approval. Track price vs $34 entry daily."
     }
   ],
-  "cash_available": 213.81,
+  "cash_available": 214.05,
   "total_cost_basis": 614.95,
   "totals": {
     "positions_count": 4,
@@ -155,6 +155,7 @@
     {"date": "2026-05-11", "action": "BUY", "ticker": "TSM", "shares": 0.224, "price": 388.35, "amount": 86.99, "notes": "Foundry pure-play"},
     {"date": "2026-05-11", "action": "BUY", "ticker": "AMD", "shares": 0.117, "price": 428.84, "amount": 50.17, "notes": "Server CPU exposure"},
     {"date": "2026-06-08", "action": "SELL", "ticker": "LLY", "shares": 0.0421, "price": 1152.76, "gross_proceeds": 48.53, "commission": 3.00, "net_proceeds": 45.53, "cost_basis_sold": 41.87, "net_pnl": 3.66, "notes": "Partial trim, +16.0% on sold shares"},
-    {"date": "2026-06-09", "action": "SELL", "ticker": "AMD", "shares": 0.117, "price": 498.12, "gross_proceeds": 58.28, "commission": 3.00, "net_proceeds": 55.28, "cost_basis_sold": 50.17, "net_pnl": 5.11, "notes": "Full exit, +16.2% on position"}
+    {"date": "2026-06-09", "action": "SELL", "ticker": "AMD", "shares": 0.117, "price": 498.12, "gross_proceeds": 58.28, "commission": 3.00, "net_proceeds": 55.28, "cost_basis_sold": 50.17, "net_pnl": 5.11, "notes": "Full exit, +16.2% on position"},
+    {"date": "2026-06-12", "action": "DIVIDEND", "ticker": "LLY", "amount": 0.24, "notes": "LLY dividend received, added to cash"}
   ]
 }
