@@ -143,10 +143,10 @@
     "concentration_warning": "NVDA 48.8% of cost basis — high single-name concentration"
   },
   "education_tracker": {
-    "last_concept_number": 16,
-    "last_concept_name": "Earnings Whisper Numbers",
-    "last_taught_date": "2026-06-12",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers"]
+    "last_concept_number": 17,
+    "last_concept_name": "Options-Implied Move",
+    "last_taught_date": "2026-06-13",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.40, "amount": 300.06, "notes": "Initial allocation, post-research review"},
