@@ -91,7 +91,7 @@ Use `web_search` for each ticker **currently in `positions[]`** (from Step 0). *
 1. Search `"[TICKER] stock price today"` or `"[TICKER] closing price [today's date]"` to force recency.
 2. Record the **source name and date** shown in the result (e.g., "Yahoo Finance, June 5 2026"). Include this in the email footer table.
 3. **Cross-check rule:** If the fetched price differs by more than 5% from your own training-data estimate of recent price, run a second search from a different source before accepting it. A $100 error on a $500 stock is not a "broker spread" — it's a bad data pull.
-4. If a price can't be confirmed from a reliable source (Yahoo Finance, Google Finance, Bloomberg, CNBC, Reuters) with a **current date**, flag it explicitly — do NOT estimate. Estimated data is worse than missing data.
+4. If a price can't be confirmed from a reliable source (Yahoo Finance, Google Finance, Bloomberg, CNBC, Reuters) with a **current date**, flag it explicitly — do NOT estimate. **A $10 error on a stock is not a rounding issue — it's a bad data pull that breaks stop/TP math and misleads Abbas. Estimated data is worse than missing data.** Write "⚠️ PRICE UNCONFIRMED — could not verify [TICKER] close today" in that cell rather than using a stale or estimated figure.
 5. In the email, include a small "Prices as of [date], sources: [list]" line under the position table so Abbas can instantly spot if a source is stale.
 
 ### Step 2: Build the data tables and withdrawal goal tracker
@@ -377,7 +377,7 @@ Build a responsive HTML email with the structure in `references/email-template.m
 **Email section order (top to bottom):**
 
 1. **Hero banner** — total P&L today, withdrawal goal tracker
-2. **Positions table** — all holdings with status badges (✅ HOLD / ⚠️ WATCH / 🔔 ACTION / 🚨 ALERT)
+2. **⚠️ MANDATORY — Positions snapshot table** — a single HTML table with ONE ROW PER POSITION showing: Status badge | Ticker | Close price | Day % | P&L $ | P&L % — then a TOTAL row. This is the first thing Abbas reads every morning. It MUST appear in every email, including weekend emails (use last known price if market closed). NEVER omit this table, collapse it into prose, or replace it with per-position cards only.
 3. **Exit alerts** — any position needing action, with exact recommendation
 4. **⏳ Pending Watchlist** — watchlist items from portfolio.json (see below) — always shown if watchlist is non-empty
 5. **📡 Catalyst Plays** — daily catalyst discovery
@@ -531,6 +531,7 @@ If Abbas mentions a trade in conversation with this skill, redirect him: "I'll h
 - `references/exit-rules.md` — Detailed exit logic (stops, TPs, catalysts, time-based)
 - `references/rotation-playbook.md` — When and how to suggest rotations
 - `references/education-curriculum.md` — 30-day learning track with concept-by-concept content guides
+- `references/buffett-indicator-history.html` — Designed HTML case studies of every historical episode where the Buffett Indicator exceeded 190%, with drawdown data, timelines, and portfolio implications. Use as macro context when discussing risk environment or cash deployment. Current reading: 232.5% (June 2026). Open in any browser.
 
 ## What this skill does NOT do
 
