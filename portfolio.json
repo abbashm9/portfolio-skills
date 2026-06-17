@@ -143,10 +143,10 @@
     "concentration_warning": "NVDA 48.8% of cost basis — high single-name concentration"
   },
   "education_tracker": {
-    "last_concept_number": 20,
-    "last_concept_name": "Beta vs SPY",
-    "last_taught_date": "2026-06-16",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY"]
+    "last_concept_number": 21,
+    "last_concept_name": "Bid-Ask Spread: Stocks vs Forex",
+    "last_taught_date": "2026-06-17",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.40, "amount": 300.06, "notes": "Initial allocation, post-research review"},
