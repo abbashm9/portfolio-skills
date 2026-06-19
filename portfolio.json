@@ -83,7 +83,7 @@
       "catalyst": "Ongoing AI foundry demand; geopolitical risk monitor",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "Foundry monopoly. Taiwan Strait geopolitical risk = binary tail risk override."
+      "notes": "Foundry monopoly. Taiwan Strait geopolitical risk = binary tail risk override. TSM closed $462.12 on June 18 — past TP1 ($435). Consider trimming."
     }
   ],
   "watchlist": [
@@ -108,7 +108,7 @@
       "broker_blocker": "IBKR application pending — current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Post-REVEAL-1 selloff (-32%) created entry opportunity ahead of separate veligrotug PDUFA. Conviction limited by large float ($2.9B), 8.54% SI (no squeeze), no specialist biotech insider buying. Upgrade triggers: specialist fund Form 4 buys + Musaffa clear."
+      "notes": "Post-REVEAL-1 selloff (-32%) created entry opportunity ahead of separate veligrotug PDUFA. Price has dropped further to ~$15.98 (June 18) — 20% below $20 entry target. Re-analyze levels before entering if IBKR approves. PDUFA June 30 (11 days). Conviction limited by large float ($2.9B), 8.54% SI (no squeeze), no specialist biotech insider buying."
     },
     {
       "ticker": "VERA",
@@ -131,7 +131,7 @@
       "broker_blocker": "IBKR application pending — current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "BTD + Priority Review + p<0.0001 Phase 3 + FDA eGFR alignment + $5.28M director open-market buy. Every IgAN PDUFA so far has resulted in approval (zero CRLs in indication). Secondary Q3 2026 eGFR catalyst adds a second leg if positive. Window narrowing — entry is now, not after broker approval. Track price vs $34 entry daily."
+      "notes": "BTD + Priority Review + p<0.0001 Phase 3 + FDA eGFR alignment + $5.28M director open-market buy. Every IgAN PDUFA so far has resulted in approval (zero CRLs in indication). Price at $34.26 (June 18) — essentially at $34.04 entry target. Entry window open. IBKR blocker is the only obstacle. PDUFA July 7 (18 days)."
     }
   ],
   "cash_available": 213.81,
@@ -143,10 +143,10 @@
     "concentration_warning": "NVDA 48.8% of cost basis — high single-name concentration"
   },
   "education_tracker": {
-    "last_concept_number": 22,
-    "last_concept_name": "Pre-market and After-hours Liquidity Traps",
-    "last_taught_date": "2026-06-18",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps"]
+    "last_concept_number": 23,
+    "last_concept_name": "Market-on-close auction (MOC)",
+    "last_taught_date": "2026-06-19",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation, post-research review"},
