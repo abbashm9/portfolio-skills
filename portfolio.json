@@ -65,7 +65,7 @@
       "catalyst": "Q2 FY26 earnings early June 2026",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "Cleanest balance sheet of AI chip names. AI semi revenue +106% YoY."
+      "notes": "Q2 FY26 earnings June 3: beat EPS ($2.44 vs $2.40), slight rev miss. AI rev $10.8B (2x YoY). AI Q3 guidance $16B (3x). Full-year $100B AI guidance maintained. Stock -15% on Hock Tan not raising FY guidance. Bottomed $386.62 Jun 5, recovering to $411.35 by Jun 18. Jun 22 ex-div $0.65."
     },
     {
       "ticker": "TSM",
@@ -83,7 +83,7 @@
       "catalyst": "Ongoing AI foundry demand; geopolitical risk monitor",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "Foundry monopoly. Taiwan Strait geopolitical risk = binary tail risk override. TSM closed $462.12 on June 18 — past TP1 ($435). Consider trimming."
+      "notes": "Foundry monopoly. Taiwan Strait geopolitical risk = binary tail risk override. TSM closed $462.12 on June 18 — past TP1 ($435) and at 52-week high ($465.22). TP1 trim recommended: sell 0.112 shares, net P&L +$5.27 after $3 commission."
     }
   ],
   "watchlist": [
@@ -108,7 +108,7 @@
       "broker_blocker": "IBKR application pending — current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Post-REVEAL-1 selloff (-32%) created entry opportunity ahead of separate veligrotug PDUFA. Price has dropped further to ~$15.98 (June 18) — 20% below $20 entry target. Re-analyze levels before entering if IBKR approves. PDUFA June 30 (11 days). Conviction limited by large float ($2.9B), 8.54% SI (no squeeze), no specialist biotech insider buying."
+      "notes": "Price dropped to ~$16.60 by June 22 — 17% below $20 entry target. PDUFA June 30 (8 days). Entry conditions changed materially. Re-analyze levels before entering if IBKR approves. Original stop $14.50 now only 12.7% below current price."
     },
     {
       "ticker": "VERA",
@@ -131,7 +131,7 @@
       "broker_blocker": "IBKR application pending — current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "BTD + Priority Review + p<0.0001 Phase 3 + FDA eGFR alignment + $5.28M director open-market buy. Every IgAN PDUFA so far has resulted in approval (zero CRLs in indication). Price at $34.26 (June 18) — essentially at $34.04 entry target. Entry window open. IBKR blocker is the only obstacle. PDUFA July 7 (18 days)."
+      "notes": "Price at $34.26 (Jun 22) — essentially at $34.04 entry target. Entry window open. IBKR blocker is the only obstacle. PDUFA July 7 (15 days). June 2 update: FDA aligned on earlier ORIGIN 3 eGFR analysis (Q3 2026 vs 2027) — thesis significantly strengthened. Full approval pathway now compressed to 2027."
     }
   ],
   "cash_available": 213.81,
@@ -143,10 +143,10 @@
     "concentration_warning": "NVDA 48.8% of cost basis — high single-name concentration"
   },
   "education_tracker": {
-    "last_concept_number": 23,
-    "last_concept_name": "Market-on-close auction (MOC)",
-    "last_taught_date": "2026-06-19",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)"]
+    "last_concept_number": 24,
+    "last_concept_name": "Volume profile and VWAP",
+    "last_taught_date": "2026-06-22",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation, post-research review"},
