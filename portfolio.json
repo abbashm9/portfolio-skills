@@ -26,10 +26,10 @@
       "tp1": {"price": 240.0, "sell_pct": 30},
       "tp2": {"price": 260.0, "sell_pct": 40},
       "tp3": {"price": 285.0, "sell_pct": 30},
-      "catalyst": "Q1 FY27 earnings May 20, 2026",
+      "catalyst": "Q2 FY27 earnings August 19, 2026",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "Largest position, 42% of portfolio. May 20 earnings is biggest catalyst."
+      "notes": "Largest position, 42% of portfolio. May 20 earnings beat. Next earnings August 19, 2026. Within 2.2% of stop $204 as of Jun 22 close."
     },
     {
       "ticker": "LLY",
@@ -44,10 +44,10 @@
       "tp1": {"price": 1114.0, "sell_pct": 30},
       "tp2": {"price": 1243.0, "sell_pct": 30},
       "tp3": {"price": 1393.0, "sell_pct": 30},
-      "catalyst": "Foundayo (orforglipron) Q2 2026 launch",
+      "catalyst": "Foundayo (orforglipron) Q2 2026 launch — APPROVED and launched",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "Healthcare diversifier, non-correlated to AI trade. GLP-1 leader."
+      "notes": "At TP1 $1,114 — $1,111.22 close Jun 22. Commission math blocks partial trim (net P&L only $0.44 after $3 commission on 30% trim). Hold to TP2 $1,243. Orforglipron (Foundayo) APPROVED and launched. GLP-1 leader."
     },
     {
       "ticker": "AVGO",
@@ -62,10 +62,10 @@
       "tp1": {"price": 474.0, "sell_pct": 50},
       "tp2": {"price": 536.0, "sell_pct": 50},
       "tp3": null,
-      "catalyst": "Q2 FY26 earnings early June 2026",
+      "catalyst": "Q3 FY26 AI guidance $16B (3x YoY); hyperscaler capex reports Q3 2026",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "Q2 FY26 earnings June 3: beat EPS ($2.44 vs $2.40), slight rev miss. AI rev $10.8B (2x YoY). AI Q3 guidance $16B (3x). Full-year $100B AI guidance maintained. Stock -15% on Hock Tan not raising FY guidance. Bottomed $386.62 Jun 5, recovering to $411.35 by Jun 18. Jun 22 ex-div $0.65."
+      "notes": "Q2 FY26 earnings June 3: beat EPS ($2.44 vs $2.40), slight rev miss. AI rev $10.8B (2x YoY). AI Q3 guidance $16B (3x). Full-year $100B AI guidance maintained. Stock -15% on Hock Tan not raising FY guidance. Bottomed $386.62 Jun 5, recovering to $411.35 Jun 22. Ex-div $0.65 on Jun 22."
     },
     {
       "ticker": "TSM",
@@ -75,15 +75,15 @@
       "entry_price": 388.35,
       "cost_basis": 86.99,
       "entry_date": "2026-05-11",
-      "stop_loss": 357.0,
-      "stop_loss_pct": -8.0,
+      "stop_loss": 430.0,
+      "stop_loss_pct": -7.0,
       "tp1": {"price": 435.0, "sell_pct": 50},
       "tp2": {"price": 485.0, "sell_pct": 50},
       "tp3": null,
       "catalyst": "Ongoing AI foundry demand; geopolitical risk monitor",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "Foundry monopoly. Taiwan Strait geopolitical risk = binary tail risk override. TSM closed $462.12 on June 18 — past TP1 ($435) and at 52-week high ($465.22). TP1 trim recommended: sell 0.112 shares, net P&L +$5.27 after $3 commission."
+      "notes": "TP1 $435 HIT. Recommend trimming 0.112 shares at ~$462 (net P&L +$5.27). TSM hit new 52-wk high $473.50 intraday Jun 22, closed $462.12. Stop trailed from $357 to $430 (just below TP1, protects gains on remaining 0.112 shares). TP2 target $485. Analyst targets: Barclays $470, Needham $480, Susquehanna $575."
     }
   ],
   "watchlist": [
@@ -108,7 +108,7 @@
       "broker_blocker": "IBKR application pending — current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Price dropped to ~$16.60 by June 22 — 17% below $20 entry target. PDUFA June 30 (8 days). Entry conditions changed materially. Re-analyze levels before entering if IBKR approves. Original stop $14.50 now only 12.7% below current price."
+      "notes": "Price $16.63 Jun 23 — 16.9% below $20 entry target. PDUFA June 30 (7 days). Entry conditions changed materially — re-analyze levels before entering if IBKR approves. Original stop $14.50 now only 12.8% below current price. BLA Priority Review + BTD. Field team commercially ready."
     },
     {
       "ticker": "VERA",
@@ -131,7 +131,7 @@
       "broker_blocker": "IBKR application pending — current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Price at $34.26 (Jun 22) — essentially at $34.04 entry target. Entry window open. IBKR blocker is the only obstacle. PDUFA July 7 (15 days). June 2 update: FDA aligned on earlier ORIGIN 3 eGFR analysis (Q3 2026 vs 2027) — thesis significantly strengthened. Full approval pathway now compressed to 2027."
+      "notes": "Price $35.09 Jun 23 — essentially at $34.04 entry target (+3.1%). Entry window open. IBKR blocker is the only obstacle. PDUFA July 7 (14 days). FDA aligned on earlier ORIGIN 3 eGFR analysis (Q3 2026 vs 2027). Full approval pathway compressed to 2027. Proteinuria -46% vs placebo published NEJM."
     }
   ],
   "cash_available": 213.81,
@@ -143,10 +143,10 @@
     "concentration_warning": "NVDA 48.8% of cost basis — high single-name concentration"
   },
   "education_tracker": {
-    "last_concept_number": 24,
-    "last_concept_name": "Volume profile and VWAP",
-    "last_taught_date": "2026-06-22",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP"]
+    "last_concept_number": 25,
+    "last_concept_name": "Block trades and dark pools",
+    "last_taught_date": "2026-06-23",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation, post-research review"},
