@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-06-09T00:00:00+03:00",
+  "last_updated": "2026-06-25T00:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "",
@@ -12,80 +12,7 @@
     "gain_needed": 180.0,
     "note": "Reach $1000 total account value (positions + cash) before first withdrawal. Commissions already paid make it not worth withdrawing earlier."
   },
-  "positions": [
-    {
-      "ticker": "NVDA",
-      "company": "NVIDIA Corporation",
-      "sector": "Semiconductors",
-      "shares": 1.3799,
-      "entry_price": 217.4,
-      "cost_basis": 300.06,
-      "entry_date": "2026-05-11",
-      "stop_loss": 204.0,
-      "stop_loss_pct": -6.4,
-      "tp1": {"price": 240.0, "sell_pct": 30},
-      "tp2": {"price": 260.0, "sell_pct": 40},
-      "tp3": {"price": 285.0, "sell_pct": 30},
-      "catalyst": "Q2 FY27 earnings August 19, 2026",
-      "halal_verified": "2026-05-11",
-      "halal_source": "Musaffa AAOIFI",
-      "notes": "Largest position, 42% of portfolio. May 20 earnings beat. Next earnings August 19, 2026. STOP HIT June 24-25: closed $200.04 and $200.16, below stop $204. SK Hynix HBM4 slowdown drove sector selloff."
-    },
-    {
-      "ticker": "LLY",
-      "company": "Eli Lilly and Company",
-      "sector": "Pharmaceuticals",
-      "shares": 0.0986,
-      "entry_price": 994.87,
-      "cost_basis": 98.11,
-      "entry_date": "2026-05-11",
-      "stop_loss": 915.0,
-      "stop_loss_pct": -8.0,
-      "tp1": {"price": 1114.0, "sell_pct": 30},
-      "tp2": {"price": 1243.0, "sell_pct": 30},
-      "tp3": {"price": 1393.0, "sell_pct": 30},
-      "catalyst": "Foundayo (orforglipron) Q2 2026 launch - APPROVED and launched",
-      "halal_verified": "2026-05-11",
-      "halal_source": "Musaffa AAOIFI",
-      "notes": "Approaching TP1 $1,114. Commission blocks partial trim at TP1 (net $0.32 after $3 commission). Hold to TP2 $1,243. Centessa Pharma acquisition June 24. Orforglipron launched. GLP-1 leader."
-    },
-    {
-      "ticker": "AVGO",
-      "company": "Broadcom Inc.",
-      "sector": "Semiconductors",
-      "shares": 0.315,
-      "entry_price": 412.04,
-      "cost_basis": 129.79,
-      "entry_date": "2026-05-11",
-      "stop_loss": 379.0,
-      "stop_loss_pct": -8.0,
-      "tp1": {"price": 474.0, "sell_pct": 50},
-      "tp2": {"price": 536.0, "sell_pct": 50},
-      "tp3": null,
-      "catalyst": "Q3 FY26 AI guidance $16B (3x YoY); hyperscaler capex reports Q3 2026",
-      "halal_verified": "2026-05-11",
-      "halal_source": "Musaffa AAOIFI",
-      "notes": "Jun 25 close $389.55 - 2.7% above stop $379. WATCH zone. Recovered from $386.62 (Jun 5) to $411.35 (Jun 22) then pulled back. AI Q3 guidance $16B maintained. JPM $580, Jefferies $550 targets."
-    },
-    {
-      "ticker": "TSM",
-      "company": "Taiwan Semiconductor Manufacturing Co.",
-      "sector": "Semiconductors",
-      "shares": 0.224,
-      "entry_price": 388.35,
-      "cost_basis": 86.99,
-      "entry_date": "2026-05-11",
-      "stop_loss": 430.0,
-      "stop_loss_pct": -7.0,
-      "tp1": {"price": 435.0, "sell_pct": 50},
-      "tp2": {"price": 485.0, "sell_pct": 50},
-      "tp3": null,
-      "catalyst": "Ongoing AI foundry demand; geopolitical risk monitor",
-      "halal_verified": "2026-05-11",
-      "halal_source": "Musaffa AAOIFI",
-      "notes": "Jun 25 close $441.35 (+1.14%). Above old TP1 $435. Revised TP1 $460-465 (52wk high cluster). TP2 $485. TP3 $550-575 (Susquehanna $575 target Jun 22). Stop $430 trailing, protects gains. Hold to TP2."
-    }
-  ],
+  "positions": [],
   "watchlist": [
     {
       "ticker": "VRDN",
@@ -134,13 +61,13 @@
       "notes": "Jun 25 price $34.26 - essentially at $34.04 entry target (+0.6%). Entry window open. IBKR is the only obstacle. PDUFA July 7 (12 days). Proteinuria -46% vs placebo NEJM. 14 analysts Strong Buy avg $78."
     }
   ],
-  "cash_available": 213.81,
-  "total_cost_basis": 614.95,
+  "cash_available": 803.95,
+  "total_cost_basis": 0.0,
   "totals": {
-    "positions_count": 4,
-    "sectors_held": ["Semiconductors", "Pharmaceuticals"],
-    "largest_position_pct": 48.8,
-    "concentration_warning": "NVDA 48.8% of cost basis - high single-name concentration"
+    "positions_count": 0,
+    "sectors_held": [],
+    "largest_position_pct": 0.0,
+    "concentration_warning": null
   },
   "education_tracker": {
     "last_concept_number": 27,
@@ -155,6 +82,10 @@
     {"date": "2026-05-11", "action": "BUY", "ticker": "TSM", "shares": 0.224, "price": 388.35, "amount": 86.99, "notes": "Foundry pure-play"},
     {"date": "2026-05-11", "action": "BUY", "ticker": "AMD", "shares": 0.117, "price": 428.84, "amount": 50.17, "notes": "Server CPU exposure"},
     {"date": "2026-06-08", "action": "SELL", "ticker": "LLY", "shares": 0.0421, "price": 1152.76, "gross_proceeds": 48.53, "commission": 3.0, "net_proceeds": 45.53, "cost_basis_sold": 41.87, "net_pnl": 3.66, "notes": "Partial trim, +16.0% on sold shares"},
-    {"date": "2026-06-09", "action": "SELL", "ticker": "AMD", "shares": 0.117, "price": 498.12, "gross_proceeds": 58.28, "commission": 3.0, "net_proceeds": 55.28, "cost_basis_sold": 50.17, "net_pnl": 5.11, "notes": "Full exit, +16.2% on position"}
+    {"date": "2026-06-09", "action": "SELL", "ticker": "AMD", "shares": 0.117, "price": 498.12, "gross_proceeds": 58.28, "commission": 3.0, "net_proceeds": 55.28, "cost_basis_sold": 50.17, "net_pnl": 5.11, "notes": "Full exit, +16.2% on position"},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "NVDA", "shares": 1.3799, "price": 195.72, "gross_proceeds": 270.07, "commission": 3.0, "net_proceeds": 267.07, "cost_basis_sold": 300.06, "net_pnl": -32.99, "notes": "Full exit at loss. Stop $204 breached June 24-25. Sold below stop at $195.72. Missed TP1 zone ($230+) in late May."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "AVGO", "shares": 0.315, "price": 383.31, "gross_proceeds": 120.74, "commission": 3.0, "net_proceeds": 117.74, "cost_basis_sold": 129.79, "net_pnl": -12.05, "notes": "Full exit at loss. Sold above stop $379 but below entry $412.04. Sector sentiment exit alongside NVDA."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "LLY", "shares": 0.0986, "price": 1141.03, "gross_proceeds": 112.51, "commission": 3.0, "net_proceeds": 109.51, "cost_basis_sold": 98.11, "net_pnl": 11.40, "notes": "Full exit at gain. +14.7% on remaining shares. Portfolio liquidation for IBKR migration."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "TSM", "shares": 0.224, "price": 441.15, "gross_proceeds": 98.82, "commission": 3.0, "net_proceeds": 95.82, "cost_basis_sold": 86.99, "net_pnl": 8.83, "notes": "Full exit at gain. +13.6% on position. Portfolio liquidation for IBKR migration."}
   ]
 }
