@@ -29,7 +29,7 @@
       "catalyst": "Q2 FY27 earnings August 19, 2026",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "Largest position, 42% of portfolio. May 20 earnings beat. Next earnings August 19, 2026. Within 2.2% of stop $204 as of Jun 22 close."
+      "notes": "Largest position, 42% of portfolio. May 20 earnings beat. Next earnings August 19, 2026. STOP HIT June 24-25: closed $200.04 and $200.16, below stop $204. SK Hynix HBM4 slowdown drove sector selloff."
     },
     {
       "ticker": "LLY",
@@ -44,10 +44,10 @@
       "tp1": {"price": 1114.0, "sell_pct": 30},
       "tp2": {"price": 1243.0, "sell_pct": 30},
       "tp3": {"price": 1393.0, "sell_pct": 30},
-      "catalyst": "Foundayo (orforglipron) Q2 2026 launch — APPROVED and launched",
+      "catalyst": "Foundayo (orforglipron) Q2 2026 launch - APPROVED and launched",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "At TP1 $1,114 — $1,111.22 close Jun 22. Commission math blocks partial trim (net P&L only $0.44 after $3 commission on 30% trim). Hold to TP2 $1,243. Orforglipron (Foundayo) APPROVED and launched. GLP-1 leader."
+      "notes": "Approaching TP1 $1,114. Commission blocks partial trim at TP1 (net $0.32 after $3 commission). Hold to TP2 $1,243. Centessa Pharma acquisition June 24. Orforglipron launched. GLP-1 leader."
     },
     {
       "ticker": "AVGO",
@@ -65,7 +65,7 @@
       "catalyst": "Q3 FY26 AI guidance $16B (3x YoY); hyperscaler capex reports Q3 2026",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "Q2 FY26 earnings June 3: beat EPS ($2.44 vs $2.40), slight rev miss. AI rev $10.8B (2x YoY). AI Q3 guidance $16B (3x). Full-year $100B AI guidance maintained. Stock -15% on Hock Tan not raising FY guidance. Bottomed $386.62 Jun 5, recovering to $411.35 Jun 22. Ex-div $0.65 on Jun 22."
+      "notes": "Jun 25 close $389.55 - 2.7% above stop $379. WATCH zone. Recovered from $386.62 (Jun 5) to $411.35 (Jun 22) then pulled back. AI Q3 guidance $16B maintained. JPM $580, Jefferies $550 targets."
     },
     {
       "ticker": "TSM",
@@ -83,7 +83,7 @@
       "catalyst": "Ongoing AI foundry demand; geopolitical risk monitor",
       "halal_verified": "2026-05-11",
       "halal_source": "Musaffa AAOIFI",
-      "notes": "TP1 $435 HIT. Recommend trimming 0.112 shares at ~$462 (net P&L +$5.27). TSM hit new 52-wk high $473.50 intraday Jun 22, closed $462.12. Stop trailed from $357 to $430 (just below TP1, protects gains on remaining 0.112 shares). TP2 target $485. Analyst targets: Barclays $470, Needham $480, Susquehanna $575."
+      "notes": "Jun 25 close $441.35 (+1.14%). Above old TP1 $435. Revised TP1 $460-465 (52wk high cluster). TP2 $485. TP3 $550-575 (Susquehanna $575 target Jun 22). Stop $430 trailing, protects gains. Hold to TP2."
     }
   ],
   "watchlist": [
@@ -96,7 +96,7 @@
       "stop": 14.5,
       "stop_reason": "Below post-REVEAL-1 floor / options max pain support cluster",
       "tp1": 28.0,
-      "tp1_reason": "Pre-REVEAL-1 trading range / prior resistance from sellers trapped on selloff",
+      "tp1_reason": "Pre-REVEAL-1 trading range / prior resistance",
       "tp2": 37.0,
       "tp2_reason": "16-analyst consensus target avg $37.09",
       "pdufa_date": "2026-06-30",
@@ -104,11 +104,11 @@
       "indication": "Thyroid Eye Disease (TED)",
       "approval_probability_pct": 82,
       "halal_status": "unverified",
-      "halal_note": "Check Musaffa — interest income vs milestone revenue ratio unclear",
-      "broker_blocker": "IBKR application pending — current broker does not allow this stock",
+      "halal_note": "Check Musaffa - interest income vs milestone revenue ratio unclear",
+      "broker_blocker": "IBKR application pending - current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Price $16.63 Jun 23 — 16.9% below $20 entry target. PDUFA June 30 (7 days). Entry conditions changed materially — re-analyze levels before entering if IBKR approves. Original stop $14.50 now only 12.8% below current price. BLA Priority Review + BTD. Field team commercially ready."
+      "notes": "Jun 25 price $16.31 - 18.5% below $20 entry target (better entry if IBKR approves). PDUFA June 30 (5 days URGENT). BLA Priority Review + BTD. REVEAL-2 Phase 3 positive."
     },
     {
       "ticker": "VERA",
@@ -117,21 +117,21 @@
       "conviction": 7,
       "entry_target": 34.04,
       "stop": 24.5,
-      "stop_reason": "Below director Enright's open-market buy zone ($20.87-22.35) — if price breaks the insider's basis, thesis broken",
+      "stop_reason": "Below director Enright open-market buy zone ($20.87-22.35)",
       "tp1": 55.0,
-      "tp1_reason": "Post-approval stabilization level — IgAN analog (sparsentan TVTX) settled +40-50% before further upside. Sell 50%.",
+      "tp1_reason": "Post-approval stabilization - IgAN analog settled +40-50%. Sell 50%.",
       "tp2": 78.0,
-      "tp2_reason": "Midpoint of 16-analyst consensus ($68-83). Take remaining 50%. Hold for $83-100 only if Q3 eGFR data positive.",
+      "tp2_reason": "Midpoint 16-analyst consensus ($68-83). Take remaining 50%.",
       "pdufa_date": "2026-07-07",
       "pdufa_drug": "Atacicept (dual BAFF/APRIL inhibitor)",
       "indication": "IgA Nephropathy (IgAN)",
       "approval_probability_pct": 89,
       "halal_status": "unverified",
-      "halal_note": "Check Musaffa — pre-revenue biotech, term debt structure needs verification",
-      "broker_blocker": "IBKR application pending — current broker does not allow this stock",
+      "halal_note": "Check Musaffa - pre-revenue biotech, term debt structure needs verification",
+      "broker_blocker": "IBKR application pending - current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Price $35.09 Jun 23 — essentially at $34.04 entry target (+3.1%). Entry window open. IBKR blocker is the only obstacle. PDUFA July 7 (14 days). FDA aligned on earlier ORIGIN 3 eGFR analysis (Q3 2026 vs 2027). Full approval pathway compressed to 2027. Proteinuria -46% vs placebo published NEJM."
+      "notes": "Jun 25 price $34.26 - essentially at $34.04 entry target (+0.6%). Entry window open. IBKR is the only obstacle. PDUFA July 7 (12 days). Proteinuria -46% vs placebo NEJM. 14 analysts Strong Buy avg $78."
     }
   ],
   "cash_available": 213.81,
@@ -140,13 +140,13 @@
     "positions_count": 4,
     "sectors_held": ["Semiconductors", "Pharmaceuticals"],
     "largest_position_pct": 48.8,
-    "concentration_warning": "NVDA 48.8% of cost basis — high single-name concentration"
+    "concentration_warning": "NVDA 48.8% of cost basis - high single-name concentration"
   },
   "education_tracker": {
-    "last_concept_number": 26,
-    "last_concept_name": "EV/EBITDA Part 2 — calculating it yourself",
-    "last_taught_date": "2026-06-24",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 — calculating it yourself"]
+    "last_concept_number": 27,
+    "last_concept_name": "FCF Part 2 - owner earnings",
+    "last_taught_date": "2026-06-25",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation, post-research review"},
