@@ -35,7 +35,7 @@
       "broker_blocker": "IBKR application pending - current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Jun 25 price $16.31 - 18.5% below $20 entry target (better entry if IBKR approves). PDUFA June 30 (5 days URGENT). BLA Priority Review + BTD. REVEAL-2 Phase 3 positive."
+      "notes": "Jun 26 price $17.90 - 10.5% below $20 entry target (better entry if IBKR approves). PDUFA June 30 (3 days URGENT). BLA Priority Review + BTD. REVEAL-2 Phase 3 positive."
     },
     {
       "ticker": "VERA",
@@ -58,7 +58,7 @@
       "broker_blocker": "IBKR application pending - current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Jun 25 price $34.26 - essentially at $34.04 entry target (+0.6%). Entry window open. IBKR is the only obstacle. PDUFA July 7 (12 days). Proteinuria -46% vs placebo NEJM. 14 analysts Strong Buy avg $78."
+      "notes": "Jun 26 price $42.20 - 24% ABOVE $34.04 entry target. Price surged from $39.95 (Jun 25) to $42.20 (Jun 26). Stop at $24.50 needs re-derivation at new price. PDUFA July 7 (10 days). Run analyze VERA before entering. Proteinuria -46% vs placebo NEJM. 14 analysts Strong Buy avg $78. $596M cash."
     }
   ],
   "cash_available": 803.95,
@@ -70,10 +70,10 @@
     "concentration_warning": null
   },
   "education_tracker": {
-    "last_concept_number": 28,
-    "last_concept_name": "Forward P/E Part 2 — analyst revision trends",
-    "last_taught_date": "2026-06-26",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends"]
+    "last_concept_number": 29,
+    "last_concept_name": "Hyperscaler capex Part 2 — the actual flows",
+    "last_taught_date": "2026-06-27",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends", "Hyperscaler capex Part 2 — the actual flows"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation, post-research review"},
