@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-06-29T00:00:00+03:00",
+  "last_updated": "2026-06-29T12:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -29,9 +29,9 @@
       "catalyst": "PDUFA July 7, 2026 — atacicept for IgA Nephropathy (IgAN)",
       "catalyst_date": "2026-07-07",
       "approval_probability_pct": 89,
-      "halal_verified": null,
-      "halal_source": null,
-      "halal_note": "URGENT: Check Musaffa before order fills. Pre-revenue biotech, verify debt structure.",
+      "halal_verified": "2026-06-29",
+      "halal_source": "Musaffa AAOIFI",
+      "halal_note": "Verified halal on Musaffa June 29, 2026.",
       "notes": "6 shares at $42 limit order. Entry 26.7% above original $34.04 target — price ran up. CEO sold 18,500 shares under 10b5-1 (pre-scheduled, not a signal). NEJM Phase 3: proteinuria -46% vs placebo. 14 analysts Strong Buy avg $78. Rejection risk: stock could gap to $10-15 (typical biotech CRL). At approved TP2 $78 → position worth $468 (+$216). Binary event: plan no add after PDUFA."
     },
     {
