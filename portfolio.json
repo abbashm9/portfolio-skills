@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-06-28T06:00:00+03:00",
+  "last_updated": "2026-06-29T00:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
-  "broker": "",
+  "broker": "IBKR Pro Tiered",
   "strategy": "halal_aggressive_growth",
   "withdrawal_intent": false,
   "withdrawal_goal": {
@@ -12,8 +12,70 @@
     "gain_needed": 180.0,
     "note": "Reach $1000 total account value (positions + cash) before first withdrawal. Commissions already paid make it not worth withdrawing earlier."
   },
-  "positions": [],
+  "positions": [
+    {
+      "ticker": "VERA",
+      "company": "Vera Therapeutics, Inc.",
+      "sector": "Biotechnology",
+      "shares": 6,
+      "entry_price": 42.0,
+      "cost_basis": 252.0,
+      "entry_date": "2026-06-29",
+      "status": "order_placed",
+      "stop_loss": 24.5,
+      "stop_loss_pct": -41.7,
+      "tp1": {"price": 55.0, "sell_pct": 50, "reason": "Post-approval stabilization zone — sell half"},
+      "tp2": {"price": 78.0, "sell_pct": 50, "reason": "Analyst consensus midpoint ($68-83)"},
+      "catalyst": "PDUFA July 7, 2026 — atacicept for IgA Nephropathy (IgAN)",
+      "catalyst_date": "2026-07-07",
+      "approval_probability_pct": 89,
+      "halal_verified": null,
+      "halal_source": null,
+      "halal_note": "URGENT: Check Musaffa before order fills. Pre-revenue biotech, verify debt structure.",
+      "notes": "6 shares at $42 limit order. Entry 26.7% above original $34.04 target — price ran up. CEO sold 18,500 shares under 10b5-1 (pre-scheduled, not a signal). NEJM Phase 3: proteinuria -46% vs placebo. 14 analysts Strong Buy avg $78. Rejection risk: stock could gap to $10-15 (typical biotech CRL). At approved TP2 $78 → position worth $468 (+$216). Binary event: plan no add after PDUFA."
+    },
+    {
+      "ticker": "ANET",
+      "company": "Arista Networks, Inc.",
+      "sector": "Technology — AI Networking",
+      "shares": 1.27,
+      "entry_price": 157.0,
+      "cost_basis": 199.39,
+      "entry_date": "2026-06-29",
+      "status": "order_placed",
+      "stop_loss": 144.0,
+      "stop_loss_pct": -8.3,
+      "tp1": {"price": 185.0, "sell_pct": 100, "reason": "+17.8% from entry — exit full by July 25 before Q2 earnings risk"},
+      "tp2": null,
+      "catalyst": "AI Ethernet momentum — raised 2026 outlook, 1.6-terabit platform. Q2 earnings ~Aug 5 (outside window).",
+      "catalyst_date": "2026-07-25",
+      "halal_verified": null,
+      "halal_source": null,
+      "halal_note": "Check Musaffa — tech company, likely clean. Strong FCF, no debt issues.",
+      "notes": "Momentum anchor while waiting for VERA July 7 PDUFA. Down 4.74% June 26 on macro rotation — not ANET-specific. Q1 revenue +35.1% YoY, Q2 guided $2.8B. PE 54x — no earnings catalyst in July. Exit July 25 latest. TP at $185 (+17.8%) — aggressive but achievable if AI narrative holds."
+    }
+  ],
   "watchlist": [
+    {
+      "ticker": "CAPR",
+      "company": "Capricor Therapeutics, Inc.",
+      "verdict": "WATCH — enter after VERA July 7 result",
+      "conviction": 6,
+      "entry_target": 26.0,
+      "stop": 18.0,
+      "stop_reason": "Below recent floor / pre-AdCom support",
+      "tp1": 52.0,
+      "tp1_reason": "AdCom positive vote historically +50-100% for DMD drugs",
+      "pdufa_date": null,
+      "adcom_date": "2026-07-29",
+      "drug": "Deramiocel (CAP-1002) for DMD cardiomyopathy",
+      "indication": "Duchenne Muscular Dystrophy (DMD) cardiomyopathy",
+      "halal_status": "unverified",
+      "halal_note": "Check Musaffa before entry",
+      "position_size_target": 150,
+      "added_date": "2026-06-29",
+      "notes": "Prior CRL, resubmitted with HOPE-2 5-year data. AdCom July 29 = FDA panel votes on approval recommendation. Wall Street reiterated Buy after AdCom scheduled. Down 13% recently = entry opportunity. Enter ONLY after VERA result — if VERA approved and goal near $1000, skip CAPR. If VERA rejected, CAPR becomes primary binary."
+    },
     {
       "ticker": "VRDN",
       "company": "Viridian Therapeutics, Inc.",
@@ -61,13 +123,13 @@
       "notes": "Jun 27 price $43.12 - 26.7% ABOVE $34.04 entry target. Price moved from $42.20 (Jun 26) to $43.12 (Jun 27). Stop at $24.50 needs re-derivation (~$36 est at current price). PDUFA July 7 (9 days). Run analyze VERA before entering. Proteinuria -46% vs placebo NEJM. 14 analysts Strong Buy avg $78. $596M cash."
     }
   ],
-  "cash_available": 803.95,
-  "total_cost_basis": 0.0,
+  "cash_available": 352.56,
+  "total_cost_basis": 451.39,
   "totals": {
-    "positions_count": 0,
-    "sectors_held": [],
-    "largest_position_pct": 0.0,
-    "concentration_warning": null
+    "positions_count": 2,
+    "sectors_held": ["Biotechnology", "Technology"],
+    "largest_position_pct": 55.8,
+    "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
     "last_concept_number": 30,
@@ -86,6 +148,8 @@
     {"date": "2026-06-25", "action": "SELL", "ticker": "NVDA", "shares": 1.3799, "price": 195.72, "gross_proceeds": 270.07, "commission": 3.0, "net_proceeds": 267.07, "cost_basis_sold": 300.06, "net_pnl": -32.99, "notes": "Full exit at loss. Stop $204 breached June 24-25. Sold below stop at $195.72. Missed TP1 zone ($230+) in late May."},
     {"date": "2026-06-25", "action": "SELL", "ticker": "AVGO", "shares": 0.315, "price": 383.31, "gross_proceeds": 120.74, "commission": 3.0, "net_proceeds": 117.74, "cost_basis_sold": 129.79, "net_pnl": -12.05, "notes": "Full exit at loss. Sold above stop $379 but below entry $412.04. Sector sentiment exit alongside NVDA."},
     {"date": "2026-06-25", "action": "SELL", "ticker": "LLY", "shares": 0.0986, "price": 1141.03, "gross_proceeds": 112.51, "commission": 3.0, "net_proceeds": 109.51, "cost_basis_sold": 98.11, "net_pnl": 11.40, "notes": "Full exit at gain. +14.7% on remaining shares. Portfolio liquidation for IBKR migration."},
-    {"date": "2026-06-25", "action": "SELL", "ticker": "TSM", "shares": 0.224, "price": 441.15, "gross_proceeds": 98.82, "commission": 3.0, "net_proceeds": 95.82, "cost_basis_sold": 86.99, "net_pnl": 8.83, "notes": "Full exit at gain. +13.6% on position. Portfolio liquidation for IBKR migration."}
+    {"date": "2026-06-25", "action": "SELL", "ticker": "TSM", "shares": 0.224, "price": 441.15, "gross_proceeds": 98.82, "commission": 3.0, "net_proceeds": 95.82, "cost_basis_sold": 86.99, "net_pnl": 8.83, "notes": "Full exit at gain. +13.6% on position. Portfolio liquidation for IBKR migration."},
+    {"date": "2026-06-29", "action": "BUY", "ticker": "VERA", "shares": 6, "price": 42.0, "amount": 252.0, "commission": 0.5, "notes": "Limit order placed. Binary PDUFA play, July 7 decision on atacicept for IgAN. Entry above original $34 target — stock ran up. 10b5-1 CEO sale not a signal."},
+    {"date": "2026-06-29", "action": "BUY", "ticker": "ANET", "shares": 1.27, "price": 157.0, "amount": 199.39, "commission": 0.5, "notes": "Limit order placed. AI Ethernet momentum anchor. TP $185, SL $144. Exit by July 25 before Q2 earnings (~Aug 5)."}
   ]
 }
