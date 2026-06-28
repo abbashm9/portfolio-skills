@@ -1,0 +1,11 @@
+# Local secrets — never commit these
+.env
+*.env
+.env.local
+
+# macOS
+.DS_Store
+
+# Temp files
+*.tmp
+*.log
