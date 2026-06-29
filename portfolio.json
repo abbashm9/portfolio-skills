@@ -120,7 +120,7 @@
       "broker_blocker": "IBKR application pending - current broker does not allow this stock",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Jun 27 price $43.12 - 26.7% ABOVE $34.04 entry target. Price moved from $42.20 (Jun 26) to $43.12 (Jun 27). Stop at $24.50 needs re-derivation (~$36 est at current price). PDUFA July 7 (9 days). Run analyze VERA before entering. Proteinuria -46% vs placebo NEJM. 14 analysts Strong Buy avg $78. $596M cash."
+      "notes": "Jun 27 price $43.12 - 26.7% ABOVE $34.04 entry target. Price moved from $42.20 (Jun 26) to $43.12 (Jun 27). Stop at $24.50 needs re-derivation (~$36 est at current price). PDUFA July 7 (9 days). Run analyze VERA before entering. Proteinuria -46% vs placebo NEJM. 14 analysts Strong Buy avg $78. $596M cash. NOTE: Position entered Jun 29 at $42 — this watchlist entry is stale, archive it."
     }
   ],
   "cash_available": 352.56,
@@ -132,10 +132,10 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 30,
-    "last_concept_name": "Sector Rotation Part 2 — ETF flows as real-time signal",
-    "last_taught_date": "2026-06-28",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends", "Hyperscaler capex Part 2 — the actual flows", "Sector Rotation Part 2 — ETF flows as real-time signal"]
+    "last_concept_number": 11,
+    "last_concept_name": "Hyperscaler Capex",
+    "last_taught_date": "2026-06-29",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends", "Hyperscaler capex Part 2 — the actual flows", "Sector Rotation Part 2 — ETF flows as real-time signal", "Hyperscaler Capex"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation, post-research review"},
