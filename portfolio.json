@@ -10,7 +10,7 @@
     "target_total_value": 1000.0,
     "account_value_at_goal_set": 820.0,
     "gain_needed": 180.0,
-    "note": "Reach $1000 total account value (positions + cash) before first withdrawal. Commissions already paid make it not worth withdrawing earlier."
+    "note": "Reach $1000 total account value (positions + cash) before first withdrawal."
   },
   "positions": [
     {
@@ -32,7 +32,7 @@
       "halal_verified": "2026-06-29",
       "halal_source": "Musaffa AAOIFI",
       "halal_note": "Verified halal on Musaffa June 29, 2026.",
-      "notes": "6 shares at $42 limit order. Entry 26.7% above original $34.04 target — price ran up. CEO sold 18,500 shares under 10b5-1 (pre-scheduled, not a signal). NEJM Phase 3: proteinuria -46% vs placebo. 14 analysts Strong Buy avg $78. Rejection risk: stock could gap to $10-15 (typical biotech CRL). At approved TP2 $78 → position worth $468 (+$216). Binary event: plan no add after PDUFA."
+      "notes": "6 shares at $42 limit. PDUFA July 7. NEJM Phase 3 proteinuria -46% vs placebo. 14 analysts Strong Buy avg $78. CRL risk: gap to $10-15."
     },
     {
       "ticker": "ANET",
@@ -45,14 +45,14 @@
       "status": "order_placed",
       "stop_loss": 144.0,
       "stop_loss_pct": -8.3,
-      "tp1": {"price": 185.0, "sell_pct": 100, "reason": "+17.8% from entry — exit full by July 25 before Q2 earnings risk"},
+      "tp1": {"price": 185.0, "sell_pct": 100, "reason": "Exit full by July 25 before Q2 earnings risk"},
       "tp2": null,
-      "catalyst": "AI Ethernet momentum — raised 2026 outlook, 1.6-terabit platform. Q2 earnings ~Aug 5 (outside window).",
+      "catalyst": "AI Ethernet momentum — Q2 earnings ~Aug 5 (outside window).",
       "catalyst_date": "2026-07-25",
       "halal_verified": null,
       "halal_source": null,
-      "halal_note": "Check Musaffa — tech company, likely clean. Strong FCF, no debt issues.",
-      "notes": "Momentum anchor while waiting for VERA July 7 PDUFA. Down 4.74% June 26 on macro rotation — not ANET-specific. Q1 revenue +35.1% YoY, Q2 guided $2.8B. PE 54x — no earnings catalyst in July. Exit July 25 latest. TP at $185 (+17.8%) — aggressive but achievable if AI narrative holds."
+      "halal_note": "Check Musaffa — likely clean, strong FCF, no debt issues.",
+      "notes": "Momentum anchor. Q1 revenue +35.1% YoY, Q2 guided $2.8B. Exit July 25 latest."
     }
   ],
   "watchlist": [
@@ -74,53 +74,53 @@
       "halal_note": "Check Musaffa before entry",
       "position_size_target": 150,
       "added_date": "2026-06-29",
-      "notes": "Prior CRL, resubmitted with HOPE-2 5-year data. AdCom July 29 = FDA panel votes on approval recommendation. Wall Street reiterated Buy after AdCom scheduled. Down 13% recently = entry opportunity. Enter ONLY after VERA result — if VERA approved and goal near $1000, skip CAPR. If VERA rejected, CAPR becomes primary binary."
+      "notes": "Phase 3 HOPE-3 positive (PUL v2.0 + LVEF). PDUFA Aug 22. CAUTION: unusual bearish put activity June 30 (5:1 puts, 2900-contract block Aug 21 $20 put). Enter only after VERA result."
     },
     {
       "ticker": "VRDN",
       "company": "Viridian Therapeutics, Inc.",
-      "verdict": "WATCH",
-      "conviction": 6,
+      "verdict": "ARCHIVE — FDA approved June 30, entry missed (IBKR blocker)",
+      "conviction": 0,
       "entry_target": 20.0,
       "stop": 14.5,
-      "stop_reason": "Below post-REVEAL-1 floor / options max pain support cluster",
+      "stop_reason": "Stale — event passed",
       "tp1": 28.0,
-      "tp1_reason": "Pre-REVEAL-1 trading range / prior resistance",
+      "tp1_reason": "Pre-REVEAL-1 trading range",
       "tp2": 37.0,
-      "tp2_reason": "16-analyst consensus target avg $37.09",
+      "tp2_reason": "16-analyst consensus avg $37.09",
       "pdufa_date": "2026-06-30",
-      "pdufa_drug": "Veligrotug (IV IGF-1R antibody)",
+      "pdufa_drug": "Veligrotug (Lumvoa)",
       "indication": "Thyroid Eye Disease (TED)",
       "approval_probability_pct": 82,
       "halal_status": "unverified",
-      "halal_note": "Check Musaffa - interest income vs milestone revenue ratio unclear",
-      "broker_blocker": "IBKR application pending - current broker does not allow this stock",
+      "halal_note": "Moot — event passed.",
+      "broker_blocker": "IBKR application pending",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Jun 27 price $17.90 - 10.5% below $20 entry target (better entry if IBKR approves). PDUFA June 30 (2 days URGENT). BLA Priority Review + BTD. REVEAL-2 Phase 3 positive."
+      "notes": "FDA APPROVED Lumvoa June 30 2026. Stock +7.6-12%. Entry missed due to IBKR blocker. UBS $50 target. Archive this entry."
     },
     {
       "ticker": "VERA",
       "company": "Vera Therapeutics, Inc.",
-      "verdict": "BUY NOW",
-      "conviction": 7,
+      "verdict": "ARCHIVE — position entered June 29, watchlist entry stale",
+      "conviction": 0,
       "entry_target": 34.04,
       "stop": 24.5,
-      "stop_reason": "Below director Enright open-market buy zone ($20.87-22.35) — NEEDS RE-DERIVATION at $43 entry",
+      "stop_reason": "Stale — see active position",
       "tp1": 55.0,
-      "tp1_reason": "Post-approval stabilization - IgAN analog settled +40-50%. Sell 50%.",
+      "tp1_reason": "Post-approval stabilization",
       "tp2": 78.0,
-      "tp2_reason": "Midpoint 16-analyst consensus ($68-83). Take remaining 50%.",
+      "tp2_reason": "Analyst consensus midpoint",
       "pdufa_date": "2026-07-07",
-      "pdufa_drug": "Atacicept (dual BAFF/APRIL inhibitor)",
+      "pdufa_drug": "Atacicept",
       "indication": "IgA Nephropathy (IgAN)",
       "approval_probability_pct": 89,
-      "halal_status": "unverified",
-      "halal_note": "Check Musaffa - pre-revenue biotech, term debt structure needs verification",
-      "broker_blocker": "IBKR application pending - current broker does not allow this stock",
+      "halal_status": "verified",
+      "halal_note": "Verified Musaffa June 29 2026.",
+      "broker_blocker": null,
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "Jun 27 price $43.12 - 26.7% ABOVE $34.04 entry target. Price moved from $42.20 (Jun 26) to $43.12 (Jun 27). Stop at $24.50 needs re-derivation (~$36 est at current price). PDUFA July 7 (9 days). Run analyze VERA before entering. Proteinuria -46% vs placebo NEJM. 14 analysts Strong Buy avg $78. $596M cash. NOTE: Position entered Jun 29 at $42 — this watchlist entry is stale, archive it."
+      "notes": "ARCHIVE: Position entered June 29 at $42 (6 shares). Track via positions[] array."
     }
   ],
   "cash_available": 352.56,
@@ -132,24 +132,24 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 11,
-    "last_concept_name": "Hyperscaler Capex",
-    "last_taught_date": "2026-06-29",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends", "Hyperscaler capex Part 2 — the actual flows", "Sector Rotation Part 2 — ETF flows as real-time signal", "Hyperscaler Capex"]
+    "last_concept_number": 12,
+    "last_concept_name": "DRAM/NAND Cycle",
+    "last_taught_date": "2026-06-30",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends", "Hyperscaler capex Part 2 — the actual flows", "Sector Rotation Part 2 — ETF flows as real-time signal", "Hyperscaler Capex", "DRAM/NAND Cycle"]
   },
   "history": [
-    {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation, post-research review"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation"},
     {"date": "2026-05-11", "action": "BUY", "ticker": "LLY", "shares": 0.1407, "price": 994.87, "amount": 139.98, "notes": "Healthcare diversifier"},
-    {"date": "2026-05-11", "action": "BUY", "ticker": "AVGO", "shares": 0.315, "price": 412.04, "amount": 129.79, "notes": "AI breadth beyond NVDA"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "AVGO", "shares": 0.315, "price": 412.04, "amount": 129.79, "notes": "AI breadth"},
     {"date": "2026-05-11", "action": "BUY", "ticker": "TSM", "shares": 0.224, "price": 388.35, "amount": 86.99, "notes": "Foundry pure-play"},
-    {"date": "2026-05-11", "action": "BUY", "ticker": "AMD", "shares": 0.117, "price": 428.84, "amount": 50.17, "notes": "Server CPU exposure"},
-    {"date": "2026-06-08", "action": "SELL", "ticker": "LLY", "shares": 0.0421, "price": 1152.76, "gross_proceeds": 48.53, "commission": 3.0, "net_proceeds": 45.53, "cost_basis_sold": 41.87, "net_pnl": 3.66, "notes": "Partial trim, +16.0% on sold shares"},
-    {"date": "2026-06-09", "action": "SELL", "ticker": "AMD", "shares": 0.117, "price": 498.12, "gross_proceeds": 58.28, "commission": 3.0, "net_proceeds": 55.28, "cost_basis_sold": 50.17, "net_pnl": 5.11, "notes": "Full exit, +16.2% on position"},
-    {"date": "2026-06-25", "action": "SELL", "ticker": "NVDA", "shares": 1.3799, "price": 195.72, "gross_proceeds": 270.07, "commission": 3.0, "net_proceeds": 267.07, "cost_basis_sold": 300.06, "net_pnl": -32.99, "notes": "Full exit at loss. Stop $204 breached June 24-25. Sold below stop at $195.72. Missed TP1 zone ($230+) in late May."},
-    {"date": "2026-06-25", "action": "SELL", "ticker": "AVGO", "shares": 0.315, "price": 383.31, "gross_proceeds": 120.74, "commission": 3.0, "net_proceeds": 117.74, "cost_basis_sold": 129.79, "net_pnl": -12.05, "notes": "Full exit at loss. Sold above stop $379 but below entry $412.04. Sector sentiment exit alongside NVDA."},
-    {"date": "2026-06-25", "action": "SELL", "ticker": "LLY", "shares": 0.0986, "price": 1141.03, "gross_proceeds": 112.51, "commission": 3.0, "net_proceeds": 109.51, "cost_basis_sold": 98.11, "net_pnl": 11.40, "notes": "Full exit at gain. +14.7% on remaining shares. Portfolio liquidation for IBKR migration."},
-    {"date": "2026-06-25", "action": "SELL", "ticker": "TSM", "shares": 0.224, "price": 441.15, "gross_proceeds": 98.82, "commission": 3.0, "net_proceeds": 95.82, "cost_basis_sold": 86.99, "net_pnl": 8.83, "notes": "Full exit at gain. +13.6% on position. Portfolio liquidation for IBKR migration."},
-    {"date": "2026-06-29", "action": "BUY", "ticker": "VERA", "shares": 6, "price": 42.0, "amount": 252.0, "commission": 0.5, "notes": "Limit order placed. Binary PDUFA play, July 7 decision on atacicept for IgAN. Entry above original $34 target — stock ran up. 10b5-1 CEO sale not a signal."},
-    {"date": "2026-06-29", "action": "BUY", "ticker": "ANET", "shares": 1.27, "price": 157.0, "amount": 199.39, "commission": 0.5, "notes": "Limit order placed. AI Ethernet momentum anchor. TP $185, SL $144. Exit by July 25 before Q2 earnings (~Aug 5)."}
+    {"date": "2026-05-11", "action": "BUY", "ticker": "AMD", "shares": 0.117, "price": 428.84, "amount": 50.17, "notes": "Server CPU"},
+    {"date": "2026-06-08", "action": "SELL", "ticker": "LLY", "shares": 0.0421, "price": 1152.76, "gross_proceeds": 48.53, "commission": 3.0, "net_proceeds": 45.53, "cost_basis_sold": 41.87, "net_pnl": 3.66, "notes": "Partial trim +16.0%"},
+    {"date": "2026-06-09", "action": "SELL", "ticker": "AMD", "shares": 0.117, "price": 498.12, "gross_proceeds": 58.28, "commission": 3.0, "net_proceeds": 55.28, "cost_basis_sold": 50.17, "net_pnl": 5.11, "notes": "Full exit +16.2%"},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "NVDA", "shares": 1.3799, "price": 195.72, "gross_proceeds": 270.07, "commission": 3.0, "net_proceeds": 267.07, "cost_basis_sold": 300.06, "net_pnl": -32.99, "notes": "Full exit at loss. Stop breached."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "AVGO", "shares": 0.315, "price": 383.31, "gross_proceeds": 120.74, "commission": 3.0, "net_proceeds": 117.74, "cost_basis_sold": 129.79, "net_pnl": -12.05, "notes": "Full exit at loss. Sector sentiment exit."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "LLY", "shares": 0.0986, "price": 1141.03, "gross_proceeds": 112.51, "commission": 3.0, "net_proceeds": 109.51, "cost_basis_sold": 98.11, "net_pnl": 11.40, "notes": "Full exit +14.7%. IBKR migration."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "TSM", "shares": 0.224, "price": 441.15, "gross_proceeds": 98.82, "commission": 3.0, "net_proceeds": 95.82, "cost_basis_sold": 86.99, "net_pnl": 8.83, "notes": "Full exit +13.6%. IBKR migration."},
+    {"date": "2026-06-29", "action": "BUY", "ticker": "VERA", "shares": 6, "price": 42.0, "amount": 252.0, "commission": 0.5, "notes": "PDUFA play July 7. Entry above $34 target."},
+    {"date": "2026-06-29", "action": "BUY", "ticker": "ANET", "shares": 1.27, "price": 157.0, "amount": 199.39, "commission": 0.5, "notes": "AI Ethernet momentum. TP $185, SL $144. Exit by July 25."}
   ]
 }
