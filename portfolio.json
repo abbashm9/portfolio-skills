@@ -132,10 +132,10 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 12,
-    "last_concept_name": "DRAM/NAND Cycle",
-    "last_taught_date": "2026-06-30",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends", "Hyperscaler capex Part 2 — the actual flows", "Sector Rotation Part 2 — ETF flows as real-time signal", "Hyperscaler Capex", "DRAM/NAND Cycle"]
+    "last_concept_number": 13,
+    "last_concept_name": "Foundry vs Fabless",
+    "last_taught_date": "2026-07-01",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends", "Hyperscaler capex Part 2 — the actual flows", "Sector Rotation Part 2 — ETF flows as real-time signal", "Hyperscaler Capex", "DRAM/NAND Cycle", "Foundry vs Fabless"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation"},
