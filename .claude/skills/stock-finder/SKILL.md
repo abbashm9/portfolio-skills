@@ -11,9 +11,13 @@ The goal: surface stocks that have a dated, near-term binary event that could pr
 
 ---
 
-## Critical rule: everything from live search
+## Critical rule: everything from live data
 
-**Every run must use fresh web_search results.** Training data is useless for discovery — the catalysts we're hunting are happening right now, this week, this month. Never answer this skill from memory.
+**Every run must use fresh live data.** Training data is useless for discovery — the catalysts we're hunting are happening right now, this week, this month. Never answer this skill from memory.
+
+**Data source split:**
+- Catalyst discovery, FDA dates, clinical trial databases, insider activity → web_search (IBKR doesn't have this)
+- Current prices, 52-week range, volume, themes → IBKR `get_price_snapshot` + `search_investment_topics` (used in Phase 2 and Phase 4 after candidates are found)
 
 ---
 
@@ -22,6 +26,12 @@ The goal: surface stocks that have a dated, near-term binary event that could pr
 ### Phase 1: Cast the net (all searches in parallel)
 
 Run all of these simultaneously. The goal is raw candidates — volume matters here, not precision. Precision comes in Phase 2.
+
+**IBKR supplementary discovery (run alongside web searches):**
+- `search_investment_topics` → query: "biotech" (returns live IBKR theme keys)
+- `search_investment_topics` → query: "FDA"
+- `search_investment_topics` → query: "catalyst"
+These return topic keys; pass each to `get_theme_details` to pull the associated company lists — IBKR's own curated thematic baskets are a secondary source of candidate names that web search may miss.
 
 **FDA & regulatory:**
 1. `FDA PDUFA action dates [current month] [next month] upcoming decisions`
@@ -60,8 +70,9 @@ For each raw candidate, apply a 3-gate filter. This takes 30–60 seconds per na
 
 **Gate 2 — Float and market cap in range?**
 - Market cap < $2B? (preferably < $500M for max move potential)
-- Quick search: `"[TICKER]" market cap float shares`
-- If market cap > $2B: drop it (big-cap plays don't move the needle on an $800 portfolio)
+- Use IBKR `search_contracts` (query = ticker) → then `get_price_snapshot` fields: `["last", "misc_statistics", "avg_90d_usd_volume"]` to get current price and 52-week range — faster and more accurate than web search
+- Still use web search for float and market cap (not available from IBKR price snapshot): `"[TICKER]" market cap float shares`
+- If market cap > $2B: drop it
 
 **Gate 3 — Halal quick check**
 - Search: `"[TICKER]" revenue breakdown OR "interest income" OR halal OR Musaffa`
@@ -104,6 +115,7 @@ Present the top **5–10 candidates** ranked by pre-score. Format:
 >
 > **#1 — [TICKER] | [COMPANY NAME]** ⭐⭐⭐⭐⭐ (5/5)
 > - **Catalyst:** [what event] on **[exact date]** ([X] days from now)
+> - **Price:** $[X] | **52w range:** $[low] – $[high] (from IBKR) | **Avg vol:** [X]M/day
 > - **Market cap:** $[X]M | **Float:** $[X]M | **Short interest:** [X]%
 > - **Why it's interesting:** [2–3 sentences — what makes this specific setup compelling. Not generic. Specific: "Phase 3 in non-small cell lung cancer with BTD — same indication where Keytruda got approved in 2014 and ran +280% at approval. AdCom hasn't been scheduled yet which may mean FDA is comfortable approving without one."]
 > - **Halal:** ✅ Verified / ⚠️ Unverified — check Musaffa / ❌ Fails

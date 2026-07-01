@@ -28,13 +28,34 @@ Trigger on any of:
 
 ### Step 1: Read current state
 
-**For any update, ALWAYS read the current `portfolio.json` first.** Never assume — the file is the truth.
+**Run both pulls in parallel — always.**
 
-Two ways to read it depending on context:
-1. **In claude.ai web with GitHub connector:** use connector to fetch the file
-2. **Without GitHub connector:** fetch via raw GitHub URL (works for public repos): `https://raw.githubusercontent.com/abbashm9/portfolio-skills/main/portfolio.json`
+**1A — IBKR live state (two calls):**
+```
+get_account_positions  →  actual shares, avg_price, market_value, unrealized_pnl, daily_pnl, contract_id
+get_account_balances   →  cash_balance, net_liquidation_value
+```
+IBKR is the authority on what is actually held. Use this for displaying current P&L, cash, and total account value.
 
-If the file can't be read, STOP and tell Abbas to verify the repo is accessible. Do not proceed without current state.
+**1B — GitHub portfolio.json (metadata):**
+Fetch via GitHub connector or raw URL: `https://raw.githubusercontent.com/abbashm9/portfolio-skills/main/portfolio.json`
+This provides: stops, TPs, catalyst dates, halal status, notes, history[], education_tracker, watchlist.
+
+**Reconciliation:** After both reads, check for discrepancies:
+- Ticker in IBKR but not in portfolio.json → flag: "⚠️ [TICKER] found in IBKR but not in portfolio.json — add it?"
+- Ticker in portfolio.json but not in IBKR → flag: "⚠️ [TICKER] in portfolio.json but no IBKR position — was it closed?"
+- Shares differ by > 0.01 → flag the discrepancy and ask Abbas which is correct
+
+**For QUERY requests** ("Show portfolio", "What do I own", "Current positions"): display IBKR data as the primary source (live price, P&L, daily change from IBKR) merged with portfolio.json metadata (stops, TPs, catalyst). Format:
+
+| Ticker | Shares | Avg Cost | Current Price | P&L $ | P&L % | Stop | Catalyst |
+|--------|--------|----------|--------------|-------|--------|------|----------|
+| [IBKR] | [IBKR] | [IBKR]   | [IBKR]       | [IBKR]| [calc] | [json]| [json] |
+
+Show IBKR `net_liquidation_value` as total account value and `cash_balance` as available cash.
+
+If portfolio.json can't be read: proceed with IBKR data for live numbers, note "portfolio.json unavailable — stops/TPs/catalysts not shown."
+If IBKR unreachable: fall back to portfolio.json only with a warning that prices may be stale.
 
 ### Step 2: Parse the request
 
@@ -192,12 +213,12 @@ If Abbas reports "my NVDA TP1 hit, sold 30%":
 
 ### Portfolio screenshot uploaded
 
-If Abbas uploads a brokerage screenshot (Wahed, Robinhood, etc.):
+If Abbas uploads a brokerage screenshot:
 1. Parse what positions and shares are shown
-2. Compare to current portfolio.json
-3. Highlight any discrepancies
+2. Compare to IBKR `get_account_positions` (live) AND portfolio.json — three-way check
+3. Highlight any discrepancies across all three sources
 4. Ask which version is correct
-5. Update accordingly
+5. Update portfolio.json accordingly
 
 ## What this skill does NOT do
 

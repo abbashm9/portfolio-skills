@@ -44,13 +44,23 @@ Verify on Zoya, Musaffa, Islamicly, or halal.sh before including any stock. Comp
 
 ### Step 3: Five-pillar fundamental screen
 
-A stock needs strength in at least 3 of these 5 pillars. Pull all data live via `web_search`:
+A stock needs strength in at least 3 of these 5 pillars. Use the data sources specified per pillar — IBKR for market data, web_search for fundamentals.
 
-1. **Valuation gap** — Forward P/E vs sector and 5yr history, EV/EBITDA, price vs analyst fair value (>20% upside = strong signal), price vs 52-week high (deep discounts flag opportunity)
-2. **Growth trajectory** — Revenue YoY and QoQ acceleration, EPS growth and revisions, forward guidance vs prior, segment-level growth
-3. **Financial strength** — Gross margin trend, operating margin, FCF conversion, debt/EBITDA, interest coverage, inventory discipline
-4. **Momentum & technicals** — 1mo / 3mo / 6mo price returns, relative strength vs S&P 500, breakout vs consolidation, volume profile, RSI (flag overbought >70)
-5. **Catalyst** — Upcoming earnings, product launches, M&A, regulatory events, analyst upgrades, insider buying, sector tailwinds
+**Before running the pillars:** resolve each candidate's contract_id via IBKR `search_contracts` (query = ticker). Then fetch IBKR market data for all candidates in parallel:
+```
+get_price_snapshot  →  fields: ["last", "change", "prior_close", "misc_statistics",
+                                 "avg_90d_usd_volume", "implied_vol_underlying",
+                                 "cumulative_perf_1w", "cumulative_perf_1m",
+                                 "cumulative_perf_ytd", "cumulative_perf_1y",
+                                 "year_to_date_change", "historical_vol"]
+get_company_themes  →  max_themes: 3, max_companies: 5
+```
+
+1. **Valuation gap** — Use IBKR `misc_statistics` for 52-week high/low and where the current price sits in that range. Use `web_search` for forward P/E, EV/EBITDA, analyst fair value targets (IBKR does not provide fundamental multiples).
+2. **Growth trajectory** — `web_search` only: revenue YoY/QoQ, EPS growth and revisions, forward guidance, segment breakdown. IBKR does not provide financials.
+3. **Financial strength** — `web_search` only: gross margin, operating margin, FCF, debt/EBITDA, interest coverage.
+4. **Momentum & technicals** — Use IBKR directly: `cumulative_perf_1w`, `cumulative_perf_1m`, `cumulative_perf_ytd`, `cumulative_perf_1y` for price returns; `historical_vol` for volatility; `avg_90d_usd_volume` for volume profile. Flag RSI >70 via `web_search` (IBKR doesn't provide RSI). Relative strength vs S&P 500 = `year_to_date_change` vs SPY YTD.
+5. **Catalyst** — `web_search` only: earnings dates, FDA dates, M&A, analyst upgrades, insider buying. Supplement with `get_company_themes` peers to spot sector tailwinds.
 
 ### Step 4: Exclusion filters (auto-reject)
 
@@ -106,7 +116,7 @@ See `references/exit-rules.md` for full exit templates and cancel-order rules.
 
 ### Step 8: Verify prices before finalizing
 
-**Critical step:** Before delivering the final allocation, re-search current prices on every recommended stock. Prices move daily. If a stock has moved >5% since the screening, recalibrate the entry, stop, and take-profit levels. If a stock has moved into "parabolic with RSI >80" territory, downgrade or remove it from the list.
+**Critical step:** Before delivering the final allocation, re-fetch current prices for every recommended stock via IBKR `get_price_snapshot` (fields: `last`, `change`, `misc_statistics`). Do NOT use web search for this — IBKR is the broker and gives exact real-time prices. Prices move daily. If a stock has moved >5% since the screening, recalibrate the entry, stop, and take-profit levels. If a stock has moved into "parabolic with RSI >80" territory (check via `web_search` since IBKR doesn't provide RSI), downgrade or remove it from the list.
 
 ### Step 9: Present clearly
 

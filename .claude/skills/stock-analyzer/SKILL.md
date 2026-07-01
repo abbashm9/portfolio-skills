@@ -20,9 +20,13 @@ A full-depth research tool for any publicly traded stock. The goal is to produce
 
 ## Critical rule: live data only
 
-**Never answer from training data on prices, earnings dates, FDA dates, or recent filings.** Every key fact in this report must come from a web_search run during this session. State the source for every key data point.
+**Never answer from training data on prices, earnings dates, FDA dates, or recent filings.** Every key fact must come from a live data source in this session.
 
-If a data point genuinely cannot be found after two search attempts, say so explicitly — do not estimate without disclosing it.
+**Data source hierarchy:**
+- **Prices, 52-week range, volume, momentum returns, volatility, themes, company overview, chart data → IBKR first.** These are exact and real-time.
+- **FDA dates, clinical trial data, insider Form 4, institutional 13F, halal verification, fundamental multiples (P/E, EV/EBITDA, revenue) → web_search.** IBKR does not provide these.
+
+If a data point genuinely cannot be found after two attempts from either source, say so explicitly — do not estimate without disclosing it.
 
 ---
 
@@ -30,9 +34,17 @@ If a data point genuinely cannot be found after two search attempts, say so expl
 
 Run all initial searches in parallel before writing any section. Then write the report top to bottom.
 
-### Parallel search batch (run before writing anything)
+### Parallel data batch (run before writing anything)
 
-Fire these searches simultaneously:
+Fire ALL of these simultaneously — IBKR calls and web searches in one batch:
+
+**IBKR (resolve contract_id first via `search_contracts` query=[TICKER], then run in parallel):**
+- A. `get_price_snapshot` → fields: `["last", "change", "prior_close", "misc_statistics", "avg_90d_usd_volume", "implied_vol_underlying", "historical_vol", "cumulative_perf_1m", "cumulative_perf_ytd", "cumulative_perf_1y", "bid_ask"]`
+- B. `get_price_history` → period: ONE_YEAR, step: ONE_MONTH, security_type: STK, outside_rth: false (for the HTML price chart — real OHLCV bars, no estimation)
+- C. `get_company_themes` → max_themes: 4, max_companies: 5 (sector classification + peer ranking)
+- D. `get_company_connections` → link_types: ["company_product", "company_competitor", "company_country"], include: ["link_info"] (business overview: products, competitors, geographies)
+
+**Web search (run in parallel with IBKR calls):**
 1. `"[TICKER] stock" market cap float shares outstanding short interest`
 2. `"[TICKER]" FDA PDUFA OR "phase 3" OR "clinical trial" OR "data readout" 2025 2026`
 3. `"[TICKER]" earnings date OR "expected to report" OR "EPS estimate"`
@@ -44,20 +56,26 @@ Fire these searches simultaneously:
 9. `"[TICKER]" annual revenue OR "total revenue" OR "gross margin" recent`
 10. `"[TICKER]" debt total assets OR "balance sheet" OR "debt ratio"`
 
-Write all 8 sections from these results. Do not run another search round unless a specific section needs clarification.
+Write all 8 sections from this combined dataset. IBKR data (A–D) is used in Sections 1, 5, 6c, and the HTML chart. Web searches (1–10) cover the rest.
 
 ---
 
 ### Section 1: Company & Float Snapshot
 
+**Data sources for this section:**
+- Current price, 52-week high/low, daily change, average volume → IBKR `get_price_snapshot` (batch item A, `misc_statistics` for 52w range, `avg_90d_usd_volume` for volume)
+- Business description, products, geographies, competitors → IBKR `get_company_connections` (batch item D) — use this as the primary company overview source
+- Market cap, public float, shares outstanding, short interest → web search result 1
+- Cash position and burn rate → web search result 8
+
 **What to cover:**
-- What does this company actually do? (1–2 sentences, no fluff)
-- Market cap (current)
-- Public float (shares available for trading, not total shares)
-- Short interest as % of float — flag anything > 10% as a squeeze amplifier
-- 52-week high / 52-week low / current price — where in the range is it?
-- Average daily volume
+- What does this company actually do? (1–2 sentences from `get_company_connections` product links — concrete, no fluff)
+- Market cap and public float — flag float size explicitly and state what it means for move potential
+- Short interest as % of float — flag > 10% as a squeeze amplifier
+- 52-week high / 52-week low / current price from IBKR — where in the range is it? (`last` vs `misc_statistics` high/low)
+- Average daily volume from IBKR `avg_90d_usd_volume`
 - Cash position and burn rate (if pre-revenue biotech: how many months of runway?)
+- Top investment themes and closest peers from `get_company_themes` — 1 line, e.g., "IBKR tags VERA under: Rare Disease, Nephrology. Closest peers: JNCE, RCKT."
 
 **Why float matters:** A stock with a $50M float and FDA approval can go up 500%. The same approval on a $5B float stock goes up 30%. Flag the float size explicitly and state what it means for potential move size.
 
@@ -169,13 +187,17 @@ Search for recent 13F filings showing new positions or significant increases fro
 
 #### 6c. Options unusual activity
 
-Search for unusual options activity — large call buying, significant open interest at strikes above current price, or unusual put buying (which can signal hedging by someone long the stock).
+**Implied volatility — use IBKR first:**
+- `implied_vol_underlying` from `get_price_snapshot` (batch item A) gives the underlying's IV directly — multiply by 100 for percentage. This is the market's real-time expectation of future volatility.
+- `historical_vol` gives 30-day realized volatility. If `implied_vol_underlying > historical_vol` significantly: elevated uncertainty, likely a catalyst priced in.
+- Implied move estimate: `implied_vol_underlying × sqrt(days_to_event / 365) × current_price` = expected $ move
 
-- Note any unusual call buying (strike, expiry, volume vs. open interest)
-- Note implied move from ATM straddle: `(call price + put price) / stock price` = market's priced-in move
-- Compare implied move to your probability-weighted expected move from Section 4
-  - If implied move < your expected move: market is underpricing the event → favorable entry
-  - If implied move > your expected move: market is already pricing in more than you estimate → thin edge
+**Unusual options activity — web search:**
+- Note any large call buying (strike, expiry, volume vs. open interest)
+- Note implied move from ATM straddle if available: `(call price + put price) / stock price`
+- Compare to IBKR implied move calculation above
+  - If ATM straddle move < your probability-weighted expected move: market underpricing the event → favorable entry
+  - If ATM straddle move > your probability-weighted expected move: already priced in more → thin edge
 
 ---
 
@@ -301,12 +323,14 @@ Targets must be derived from real market structure. A percentage from entry is N
 
 **1. Header**
 - Title, date, portfolio size ($800), max position size (30% = $240), halal standard (AAOIFI)
+- Data source line: "Market data: IBKR live feed | Fundamentals: web search"
 
 **2. Verdict summary cards (one per ticker)**
 - Ticker name + company + WATCH / BUY NOW / SKIP badge (color-coded: green/amber/red)
 - Conviction score (X/10)
 - Days to PDUFA countdown in top-right corner
 - 1-line summary of the key risk and key positive
+- IBKR theme tags (top 2 from `get_company_themes`) as small pill badges
 
 **3. Radar comparison chart (Chart.js)**
 - One radar dataset per ticker
@@ -344,6 +368,13 @@ Each ticker section contains:
 - Grid lines: `#2a3040` (dark, subtle)
 - Axis tick colors: `#7a8499`
 - No chart legend when it adds clutter (single-dataset charts)
+
+**Price chart data — use IBKR `get_price_history` (batch item B), NOT estimated closes:**
+- The batch already fetched ONE_YEAR / ONE_MONTH bars with real OHLCV data
+- Use the `close` field from each bar as the monthly close price
+- Use `t` (timestamp) for the x-axis labels
+- Mark the 52-week low (green dot) and 52-week high (red dot) using `misc_statistics` from the price snapshot
+- This eliminates chart data estimation entirely — every data point is a real broker-sourced close
 
 ---
 

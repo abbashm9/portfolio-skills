@@ -19,25 +19,36 @@ Trigger whenever the user wants a structured stock analysis, risk score, or inve
 
 ## Core principles
 
-1. **Always use live data.** Never rely on training-data prices, multiples, or earnings dates. Web-search everything before rendering.
-2. **Show your work.** Cite every key metric with a source from search results.
+1. **Always use live data.** Never rely on training-data prices, multiples, or earnings dates. Use IBKR for market data and web search for fundamentals.
+2. **Show your work.** Cite every key metric with a source (IBKR or web search result).
 3. **Be honest about risk.** This is research output, not financial advice. State this clearly in the footer.
 4. **Render as a widget.** The report must be delivered as a full `show_widget` HTML output — not as markdown prose.
 5. **Cover all sections.** Do not skip sections. If a specific data point is unavailable, estimate from the closest available figure and note it.
+
+**Data source split:**
+- Current price, 52-week range, daily change, volume, YTD return, 12-month price history, sector/themes → IBKR
+- Revenue, EPS, margins, P/E, EV/EBITDA, earnings dates, guidance, quarterly financials → web search
 
 ---
 
 ## Workflow
 
-### Step 1: Gather all data via web search
+### Step 1: Gather all data
 
-Run at least 4 targeted web searches before writing a single line of HTML. Collect:
+Run IBKR calls and web searches simultaneously before writing any HTML.
 
-**Search 1 — Price & market data:**
-- Current share price, intraday high/low, 1-day change ($ and %)
-- 52-week high and 52-week low
-- Market cap, shares outstanding, average daily volume
-- Exchange, sector, sub-industry
+**IBKR (resolve contract_id via `search_contracts` first, then run in parallel):**
+
+- A. `get_price_snapshot` → fields: `["last", "change", "prior_close", "misc_statistics", "avg_90d_usd_volume", "year_to_date_change", "cumulative_perf_1y", "historical_vol", "implied_vol_underlying", "bid_ask"]`
+  - Provides: current price, 1-day change ($/%),  52-week high/low, average daily volume, YTD return, 1-year return, historical and implied volatility
+- B. `get_price_history` → period: ONE_YEAR, step: ONE_MONTH, security_type: STK, outside_rth: false
+  - Provides: 12 monthly OHLCV bars for the price chart — real broker data, no estimation
+- C. `get_company_themes` → max_themes: 3, max_companies: 5
+  - Provides: sector classification, investment themes, closest peer companies
+- D. `get_company_connections` → link_types: ["company_product", "company_competitor", "company_country"], include: ["link_info"]
+  - Provides: business description, products, geographic exposure, competitors
+
+**Web search (run in parallel with IBKR calls):**
 
 **Search 2 — Financials (TTM & annual):**
 - TTM Revenue with YoY % change
@@ -50,6 +61,7 @@ Run at least 4 targeted web searches before writing a single line of HTML. Colle
 - Trailing P/E, Forward P/E, EV/EBITDA, Price/Book, Price/Sales, PEG Ratio
 - Debt/Equity, Current Ratio, ROE, ROA
 - Cash position vs long-term debt
+- Market cap and shares outstanding (not available from IBKR snapshot)
 
 **Search 4 — Quarterly trend & recent news:**
 - Last 4 quarters: Revenue, Gross Margin, EPS (GAAP), FCF (or estimate from operating CF)
@@ -116,9 +128,10 @@ Use `read_me` with modules `["mockup", "data_viz", "chart"]` before calling `sho
 The widget must contain all of the following sections in order:
 
 #### 1. Header
-- Stock ticker (large, bold), exchange badge, company name, sector · sub-industry
-- Current share price (large), 1-day change in $ and % (green if positive, red if negative)
-- "As of [date]" line with intraday high/low
+- Stock ticker (large, bold), exchange badge, company name, sector · sub-industry (from IBKR `get_company_themes`)
+- Current share price (large, from IBKR `last`), 1-day change in $ and % (from IBKR `change`, green if positive, red if negative)
+- "As of [timestamp from IBKR response]" line with intraday high/low (from IBKR `bid_ask`)
+- Data source badge: "Market data: IBKR | Financials: web search"
 
 #### 2. Overall Risk Score Box
 - Giant risk number (e.g. "58") in risk colour
@@ -129,19 +142,21 @@ The widget must contain all of the following sections in order:
 
 #### 3. Key Stats (snapshot grid)
 6 cards in a responsive grid:
-- Market Cap (with size label: Nano/Micro/Small/Mid/Large/Mega-cap)
-- TTM Revenue (with +/- YoY %)
-- TTM EPS GAAP (with +/- YoY %)
-- 52-Week Range (low – high, note if at/near high or low)
-- Next Earnings Date (with days until)
-- Avg Daily Volume (with today's volume vs avg)
+- Market Cap (from web search, with size label: Nano/Micro/Small/Mid/Large/Mega-cap)
+- TTM Revenue (from web search, with +/- YoY %)
+- TTM EPS GAAP (from web search, with +/- YoY %)
+- 52-Week Range (from IBKR `misc_statistics` — exact low and high, note if at/near high or low)
+- Next Earnings Date (from web search, with days until)
+- Avg Daily Volume (from IBKR `avg_90d_usd_volume` — 90-day average, more reliable than a single-day figure)
 
 #### 4. 12-Month Share Price Chart (Chart.js line chart)
-- Plot approximate monthly closes for the past 12 months
-- Use real approximate prices from search results; interpolate between known data points
-- Mark 52w low (green dot), 52w high (red dot), current price (amber dot)
+- Use IBKR `get_price_history` data (Step 1 batch item B) — real monthly OHLCV bars, no interpolation or estimation
+- Plot the `close` value from each bar; use the `t` timestamp field for x-axis labels
+- Mark 52w low (green dot) and 52w high (red dot) using `misc_statistics` from the price snapshot
+- Mark current price (amber dot) using `last` from the price snapshot
 - Custom legend above chart (colour squares + labels)
 - No Chart.js default legend
+- Data source tag under chart: "Source: IBKR live feed"
 
 #### 5. Valuation Metrics
 6 metric rows in a 2-column grid, each with:
@@ -213,8 +228,8 @@ Red border box:
 - 3–4 sentence detailed conclusion covering: fundamentals, valuation, key strengths, who this stock suits (long-horizon growth / income / speculative / not suitable for risk-averse investors)
 
 #### 14. Footer
-- Generation date
-- Data sources (list search sources used)
+- Generation date and time
+- Data sources: "Market data (price, 52w range, volume, chart): IBKR live feed | Fundamental data (revenue, margins, P/E, earnings): [list web search sources]"
 - Disclaimer: "This report is for informational purposes only and does not constitute financial, investment, or legal advice. Past performance is not indicative of future results. All figures are based on publicly available data as of the report date and may contain minor approximations. Consult a licensed financial advisor before making investment decisions."
 
 ---
