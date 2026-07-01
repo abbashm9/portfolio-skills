@@ -39,60 +39,128 @@ A post-NYSE-close daily review skill for Abbas's halal stock portfolio. Outputs 
 
 5. **Cash deployment minimum:** Don't suggest buying into a new position if the cash being deployed (after commission) would result in a position worth < $30. Too small to be meaningful.
 
-## Source of truth: portfolio.json
+## Sources of truth: IBKR (live) + portfolio.json (metadata)
 
-**The portfolio is NOT hardcoded in this skill.** Read it fresh at the start of every run from the GitHub repo:
+**Two data sources. Both required. Neither can substitute for the other.**
 
-```
-https://raw.githubusercontent.com/abbashm9/portfolio-skills/main/portfolio.json
-```
+| Data | Source | Why |
+|------|--------|-----|
+| Live positions (shares, avg cost, market value, P&L) | IBKR `get_account_positions` | Broker is authoritative on what you actually hold |
+| Cash balance, net liquidation value | IBKR `get_account_balances` | Settled cash, real-time |
+| Live prices | IBKR `get_price_snapshot` | Single authoritative source — no web scraping needed |
+| Account performance (1D, MTD, YTD) | IBKR `get_pa_performance_all_periods` | Broker-verified TWR/MWR |
+| Portfolio allocation by sector/region | IBKR `get_pa_allocation` | Live breakdown |
+| Stops, TPs, catalysts, notes | GitHub `portfolio.json` | Context the broker doesn't know |
+| Watchlist, education tracker | GitHub `portfolio.json` | Metadata only stored here |
 
-If the routine has GitHub connector access, use it. Otherwise fetch via web_fetch on the raw URL above (works for public repos).
+**IBKR is always the source of truth for financial numbers. portfolio.json is the source of truth for strategy metadata.**
 
-The file structure includes:
-- `positions[]` — list of holdings with shares, entry, stops, TPs, catalysts
-- `cash_available` — uninvested USD
-- `total_cost_basis` — total invested
-- `totals` — concentration warnings, sectors, etc.
-- `history` — past transactions for context
-
-Use this data dynamically. If a position has been added since the last run, include it. If one has been sold, exclude it. **Never use stale hardcoded data — always read the file.**
-
-If the file can't be read for any reason (repo down, file deleted, JSON malformed):
-1. STOP the run
-2. Email Abbas a short notice: "⚠️ portfolio.json could not be read — daily check skipped. Please verify the file exists at https://github.com/abbashm9/portfolio-skills/blob/main/portfolio.json"
-3. Do not proceed with stale or assumed data
+If IBKR is unreachable: STOP and email Abbas "⚠️ IBKR connector unreachable — daily check skipped."
+If portfolio.json is unreachable: proceed with IBKR data for positions/prices, but note "⚠️ portfolio.json unavailable — stops, TPs, and catalyst data missing. Metadata sections skipped."
 
 ## Workflow — every daily check
 
-### Step 0: Read portfolio.json
+### Step 0: Pull live data from IBKR + metadata from portfolio.json
 
-**BEFORE doing anything else**, fetch the current portfolio state from:
+**Run both calls in parallel — BEFORE anything else.**
+
+**0A — IBKR live state (two parallel calls):**
+```
+get_account_positions  →  shares held, avg_price, market_value, unrealized_pnl, daily_pnl, contract_id per position
+get_account_balances   →  cash_balance, net_liquidation_value
+```
+
+From the positions response, build your working positions list:
+- Use `contract_description` as the ticker
+- Use `position` as shares
+- Use `average_price` as cost-per-share (this is the real fill price)
+- Use `market_value`, `unrealized_pnl`, `daily_pnl` directly — do NOT recalculate from prices
+- Store each position's `contract_id` — needed for price snapshots and theme lookups in Steps 1 and 1.5
+
+From balances: use `cash_balance` as dry powder and `net_liquidation_value` as total account value.
+
+**0B — GitHub portfolio.json (metadata):**
+Fetch from:
 ```
 https://raw.githubusercontent.com/abbashm9/portfolio-skills/main/portfolio.json
 ```
 
-Parse the JSON. Extract:
-- `positions[]` array (the live holdings)
-- `watchlist[]` array (pending positions waiting on broker approval or entry conditions)
-- `cash_available` (dry powder)
-- `total_cost_basis` (total invested)
-- `totals.concentration_warning` (if any)
-- `last_updated` timestamp (so report can note when portfolio was last changed)
+Extract ONLY the metadata IBKR doesn't provide:
+- Per-position: `stop_loss`, `tp1`, `tp2`, `catalyst`, `catalyst_date`, `approval_probability_pct`, `halal_verified`, `notes` — matched to IBKR tickers
+- `watchlist[]` array
+- `totals.concentration_warning`
+- `last_updated` timestamp
+- `education_tracker`
+- `withdrawal_goal`
 
-This is the dynamic input for everything that follows. The position table, exit checks, rotation suggestions — all derived from this file.
+**Reconciliation check:** If IBKR returns a ticker not present in portfolio.json positions[], flag it in the email: "⚠️ [TICKER] held in IBKR but not in portfolio.json — run portfolio-manager to sync metadata."
 
-### Step 1: Fetch live closing prices
+### Step 1: Fetch live prices from IBKR
 
-Use `web_search` for each ticker **currently in `positions[]`** (from Step 0). **Required:** verified close prices for ALL positions.
+Use `get_price_snapshot` for each position's `contract_id` (from Step 0A). Run all tickers in parallel.
 
-**Price verification protocol — mandatory for every ticker:**
+**Request these fields for every position:**
+```
+market_data_names: ["last", "change", "prior_close", "misc_statistics"]
+```
 
-1. Search `"[TICKER] stock price today"` or `"[TICKER] closing price [today's date]"` to force recency.
-2. Record the **source name and date** shown in the result (e.g., "Yahoo Finance, June 5 2026"). Include this in the email footer table.
-3. **Cross-check rule:** If the fetched price differs by more than 5% from your own training-data estimate of recent price, run a second search from a different source before accepting it. A $100 error on a $500 stock is not a "broker spread" — it's a bad data pull.
-4. If a price can't be confirmed from a reliable source (Yahoo Finance, Google Finance, Bloomberg, CNBC, Reuters) with a **current date**, flag it explicitly — do NOT estimate. **A $10 error on a stock is not a rounding issue — it's a bad data pull that breaks stop/TP math and misleads Abbas. Estimated data is worse than missing data.** Write "⚠️ PRICE UNCONFIRMED — could not verify [TICKER] close today" in that cell rather than using a stale or estimated figure.
-5. In the email, include a small "Prices as of [date], sources: [list]" line under the position table so Abbas can instantly spot if a source is stale.
+- `last` → current/closing price (use this for all P&L display)
+- `change` → day's $ change and % change (pre-calculated by IBKR)
+- `prior_close` → yesterday's close (for day-change verification)
+- `misc_statistics` → 52-week high/low (used in Step 3 for stop/TP context)
+
+**No multi-source cross-check needed.** IBKR is the broker — its price feed is definitionally authoritative. If the snapshot returns null or an empty `last` field for a ticker:
+- Fall back to `unrealized_pnl` + `average_price` from Step 0A to back-calculate: `implied_price = average_price + (unrealized_pnl / shares)`
+- Flag the position: "⚠️ IBKR price snapshot unavailable for [TICKER] — using implied price from P&L data"
+
+**Do NOT use web_search for prices.** IBKR prices are live broker feed; web prices are delayed 15-min snapshots from third parties.
+
+In the email footer, replace the source list with: `"Prices: IBKR live feed — [timestamp from last response]"`
+
+**Also fetch prices for watchlist tickers** (Step 2.5): search their contract_ids via `search_contracts` if not already known, then `get_price_snapshot` in parallel with position price fetches.
+
+### Step 1.5: IBKR Market Intelligence (run in parallel with Step 1)
+
+Pull three additional IBKR data layers simultaneously. These feed the intelligence sections of the email — they do NOT block the price/P&L workflow.
+
+**1.5A — Account Performance:**
+```
+get_pa_performance_all_periods
+```
+Returns broker-verified TWR or MWR returns for: 1D, 7D, MTD, 1M, YTD, 1Y.
+Extract and store: 1D cumulative return %, MTD %, YTD % — displayed in the email hero section.
+Note the `portfolio_measure` field (TWR or MWR) and show it in the email: "Returns: TWR" or "Returns: MWR".
+
+**1.5B — Portfolio Allocation:**
+```
+get_pa_allocation  →  type: "ALL"
+```
+Returns NAV breakdown by: SECTOR, REGION, COUNTRY, ASSET_CLASS, FINANCIAL_INSTRUMENT.
+Extract sector weights (e.g., Technology X%, Biotechnology Y%) and region (US vs international) for the email Intelligence section.
+Flag any sector weight > 60% as a concentration note.
+
+**1.5C — Investment Themes per Position:**
+For each position's `contract_id` (from Step 0A), call:
+```
+get_company_themes  →  contract_id, max_themes: 3, max_companies: 5
+```
+Run in parallel across all positions.
+
+This returns the investment themes/trends IBKR associates with each stock (e.g., "AI Infrastructure", "Data Center Networking", "IgAN Treatment") plus the top 5 peer companies ranked by thematic relevance.
+
+Use the themes output for two purposes:
+1. **Email context** — show each position's top 2 themes as smart tags in the position card
+2. **Rotation intelligence** — the peer companies listed in themes are candidates for future rotation. If a catalyst play from Step 3.5 appears as a peer of a current holding, note the thematic connection ("CAPR is a theme-peer of VERA in the rare disease space").
+
+**1.5D — Investment Topic Search (for catalyst radar context):**
+For each current position's primary sector/theme, run:
+```
+search_investment_topics  →  query: "[primary theme keyword]"
+```
+Example: for VERA → "nephrology" or "rare disease"; for ANET → "ethernet" or "data center".
+Use the returned topic keys to enrich Step 3.5 — the themes give you adjacent sectors where catalyst plays may exist that web search alone might miss.
+
+All 1.5 results are non-blocking: if any call returns empty or errors, continue without it and omit that subsection from the email.
 
 ### Step 2: Build the data tables and withdrawal goal tracker
 
@@ -113,16 +181,21 @@ If `gap ≤ 0`: replace with a bold alert — "🎯 **Withdrawal target hit. $1,
 
 This tracker does NOT change the exit strategy — stops and TPs still apply as normal. It's a progress indicator only.
 
-Calculate per-position:
-- Current value (shares × current price)
-- P&L $ and % vs cost basis
-- Day's change $ and % (vs prior close)
+**Use IBKR values directly — do NOT recalculate what IBKR already provides:**
 
-Calculate portfolio totals:
-- Total cost basis
-- Total current value
-- Total P&L $ and %
-- Day's change $ and %
+Per-position (from Step 0A + Step 1):
+- `market_value` → current position value (IBKR)
+- `unrealized_pnl` → P&L $ vs avg cost (IBKR)
+- `unrealized_pnl / (shares × average_price)` → P&L % (calculate this one)
+- `daily_pnl` → day's change $ (IBKR)
+- `change` from price snapshot → day's change % (IBKR)
+
+Portfolio totals (from Step 0A + Step 1.5A):
+- Total current value → `net_liquidation_value` from `get_account_balances`
+- Total P&L $ → sum of all positions' `unrealized_pnl`
+- Total P&L % → total P&L / total cost basis (cost basis = sum of shares × average_price per position)
+- Total day's change $ → sum of all `daily_pnl`
+- 1D/MTD/YTD % → from `get_pa_performance_all_periods` (broker-verified)
 
 ### Step 2.5: Watchlist tracking — fetch live prices for watchlist items
 
@@ -376,15 +449,51 @@ Build a responsive HTML email with the structure in `references/email-template.m
 
 **Email section order (top to bottom):**
 
-1. **Hero banner** — total P&L today, withdrawal goal tracker
-2. **⚠️ MANDATORY — Positions snapshot table** — a single HTML table with ONE ROW PER POSITION showing: Status badge | Ticker | Close price | Day % | P&L $ | P&L % — then a TOTAL row. This is the first thing Abbas reads every morning. It MUST appear in every email, including weekend emails (use last known price if market closed). NEVER omit this table, collapse it into prose, or replace it with per-position cards only.
+1. **Hero banner** — total P&L today + 1D/MTD/YTD returns (from IBKR `get_pa_performance_all_periods`), withdrawal goal tracker. Show the return type label: "TWR" or "MWR".
+2. **⚠️ MANDATORY — Positions snapshot table** — a single HTML table with ONE ROW PER POSITION showing: Status badge | Ticker | Themes (top 2 from Step 1.5C, as small pill tags) | Close price | Day % | P&L $ | P&L % — then a TOTAL row. This is the first thing Abbas reads every morning. It MUST appear in every email, including weekend emails (use last known price if market closed). NEVER omit this table, collapse it into prose, or replace it with per-position cards only.
 3. **Exit alerts** — any position needing action, with exact recommendation
 4. **⏳ Pending Watchlist** — watchlist items from portfolio.json (see below) — always shown if watchlist is non-empty
 5. **📡 Catalyst Plays** — daily catalyst discovery
 6. **💵 Cash deployment** — recommendation from Step 3.7
 7. **🔄 Rotation suggestions** — from Step 4, if any
-8. **📚 Today's concept** — education, in a colored box
-9. **Footer** — disclaimer, prices as of [date + sources]
+8. **📊 IBKR Intelligence** — broker-sourced analysis section (see design below)
+9. **📚 Today's concept** — education, in a colored box
+10. **Footer** — disclaimer, `"Prices: IBKR live feed — [timestamp]"`, returns method (TWR/MWR)
+
+**📊 IBKR Intelligence section design:**
+
+Dark card, `background: #0a0f1a; border-left: 3px solid #3b82f6;`. Header: "📊 IBKR Intelligence — [today's date]".
+
+Three sub-blocks rendered side by side (table layout for email compatibility):
+
+**Block 1 — Account Performance (from Step 1.5A):**
+```
+1D:  [+X.X%]   [green/red badge]
+MTD: [+X.X%]   [green/red badge]
+YTD: [+X.X%]   [green/red badge]
+Method: TWR (or MWR)
+```
+
+**Block 2 — Allocation Breakdown (from Step 1.5B):**
+Show sector weights as a simple horizontal bar chart using HTML/CSS:
+```
+Technology     ██████████  X%
+Biotechnology  ████████    X%
+Cash           ████        X%
+```
+Flag any sector > 60%: ⚠️ Concentration
+
+**Block 3 — Position Themes (from Step 1.5C):**
+For each held ticker, list its top 2 IBKR themes + top 3 peer companies:
+```
+ANET  →  AI Infrastructure · Data Center Networking
+         Peers: CSCO, JNPR, HPE
+VERA  →  Rare Disease · Nephrology
+         Peers: JNCE, RCKT, FOLD
+```
+If a Step 3.5 catalyst candidate appears in any position's peer list, add a note: "🔗 [CANDIDATE] is a theme-peer of [HELD TICKER]"
+
+Omit any block where the underlying IBKR call returned empty.
 
 **⏳ Pending Watchlist section design:**
 
