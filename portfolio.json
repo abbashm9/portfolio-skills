@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-06-29T12:00:00+03:00",
+  "last_updated": "2026-07-02T06:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -74,7 +74,7 @@
       "halal_note": "Check Musaffa before entry",
       "position_size_target": 150,
       "added_date": "2026-06-29",
-      "notes": "Phase 3 HOPE-3 positive (PUL v2.0 + LVEF). PDUFA Aug 22. CAUTION: unusual bearish put activity June 30 (5:1 puts, 2900-contract block Aug 21 $20 put). Enter only after VERA result."
+      "notes": "Phase 3 HOPE-3 positive (PUL v2.0 + LVEF). PDUFA Aug 22. CAUTION: unusual bearish put activity June 30 (5:1 puts, 2900-contract block Aug 21 $20 put). Enter only after VERA result. July 2: price $23.22, below $26 target — entry improving."
     },
     {
       "ticker": "VRDN",
@@ -132,10 +132,10 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 13,
-    "last_concept_name": "Foundry vs Fabless",
-    "last_taught_date": "2026-07-01",
-    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends", "Hyperscaler capex Part 2 — the actual flows", "Sector Rotation Part 2 — ETF flows as real-time signal", "Hyperscaler Capex", "DRAM/NAND Cycle", "Foundry vs Fabless"]
+    "last_concept_number": 14,
+    "last_concept_name": "GLP-1 mechanism & TAM",
+    "last_taught_date": "2026-07-02",
+    "taught_concepts": ["Forward P/E vs Trailing P/E", "Earnings Whisper Numbers", "Options-Implied Move", "Short Interest & Squeeze Setups", "Sector Rotation (XLK, XLV, XLF)", "Beta vs SPY", "Bid-Ask Spread: Stocks vs Forex", "Pre-market and After-hours Liquidity Traps", "Market-on-close auction (MOC)", "Volume profile and VWAP", "Block trades and dark pools", "EV/EBITDA Part 2 - calculating it yourself", "FCF Part 2 - owner earnings", "Forward P/E Part 2 — analyst revision trends", "Hyperscaler capex Part 2 — the actual flows", "Sector Rotation Part 2 — ETF flows as real-time signal", "Hyperscaler Capex", "DRAM/NAND Cycle", "Foundry vs Fabless", "GLP-1 mechanism & TAM"]
   },
   "history": [
     {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation"},
