@@ -70,9 +70,13 @@ get_account_positions  →  shares held, avg_price, market_value, unrealized_pnl
 get_account_balances   →  cash_balance, net_liquidation_value
 ```
 
+**HARD STOP:** If `get_account_positions` returns an empty list, an error, or no positions at all — stop immediately. Do NOT proceed with portfolio.json as a substitute. Send this email and nothing else:
+> Subject: `⚠️ Daily Portfolio: IBKR connector failed — check skipped`
+> Body: "IBKR `get_account_positions` returned no data. Skipping today's check. Verify IBKR connection and re-run manually."
+
 From the positions response, build your working positions list:
 - Use `contract_description` as the ticker
-- Use `position` as shares
+- Use `position` as shares — **IBKR is the authoritative share count.** If IBKR shows a different share count than portfolio.json, trust IBKR and flag the discrepancy: "⚠️ [TICKER]: IBKR shows [X] shares, portfolio.json shows [Y] — portfolio.json is stale. Run portfolio-manager to sync."
 - Use `average_price` as cost-per-share (this is the real fill price)
 - Use `market_value`, `unrealized_pnl`, `daily_pnl` directly — do NOT recalculate from prices
 - Store each position's `contract_id` — needed for price snapshots and theme lookups in Steps 1 and 1.5
@@ -112,10 +116,15 @@ market_data_names: ["last", "change", "prior_close", "misc_statistics"]
 **No multi-source cross-check needed.** IBKR is the broker — its price feed is definitionally authoritative. If the snapshot returns null or an empty `last` field for a ticker:
 - Fall back to `unrealized_pnl` + `average_price` from Step 0A to back-calculate: `implied_price = average_price + (unrealized_pnl / shares)`
 - Flag the position: "⚠️ IBKR price snapshot unavailable for [TICKER] — using implied price from P&L data"
+- If `unrealized_pnl` is also null or missing: do NOT guess. Label this position as "⚠️ PRICE UNAVAILABLE" and skip its P&L calculation. Do not fill in a number.
 
-**Do NOT use web_search for prices.** IBKR prices are live broker feed; web prices are delayed 15-min snapshots from third parties.
+**ABSOLUTE PROHIBITION: Do NOT use web_search, WebFetch, or any external URL to fill in prices — ever, under any circumstances.** If IBKR is unavailable and the back-calculation also fails, the price cell shows "N/A". A wrong price in the email is worse than a missing one. Abbas will see "N/A" and know to check his broker app manually.
 
-In the email footer, replace the source list with: `"Prices: IBKR live feed — [timestamp from last response]"`
+**Plausibility gate:** After fetching all prices from IBKR, run this sanity check per position before writing the email:
+- If `last` price differs from `average_price` by more than 50% in either direction AND the position has no recent catalyst that would explain a move that large: flag it with "⚠️ Price looks suspicious — verify manually" and show both the IBKR-returned price and the implied price from `unrealized_pnl`. Do not silently use the suspicious price.
+- This gate catches cases where `get_price_snapshot` returns stale or wrong contract data.
+
+In the email footer: `"Prices: IBKR live feed — [timestamp from last response]"`. If any price was back-calculated from P&L data instead of `get_price_snapshot`, note it: `"[TICKER]: implied from P&L, not snapshot"`.
 
 **Also fetch prices for watchlist tickers** (Step 2.5): search their contract_ids via `search_contracts` if not already known, then `get_price_snapshot` in parallel with position price fetches.
 
@@ -599,6 +608,8 @@ Examples:
 - `📊 Daily Portfolio: +0.4% | Quiet session, no actions`
 
 Use Asia/Kuwait timezone for date references.
+
+**Date/day-of-week rule (critical — do not skip):** Whenever you display a date with a day name (e.g., "Monday July 7"), you MUST derive the day name by computing it from the actual calendar date — do not estimate, infer, or count backwards from "today." July 7, 2026 = Tuesday. July 6, 2026 = Monday. Always state the day correctly. Kuwait is UTC+3 and does not observe DST. For US catalyst dates (PDUFA, earnings), the calendar date is the same in Kuwait as in the US (Kuwait is ahead, so a Tuesday in the US is still Tuesday in Kuwait, not Monday). Never subtract a day to "convert" from US to Kuwait — the date label does not change, only the clock time does.
 
 ### Step 8: Handle market-closed days
 
