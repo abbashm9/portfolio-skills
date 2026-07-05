@@ -17,9 +17,9 @@
       "ticker": "VERA",
       "company": "Vera Therapeutics, Inc.",
       "sector": "Biotechnology",
-      "shares": 6,
-      "entry_price": 42.0,
-      "cost_basis": 252.0,
+      "shares": 8,
+      "entry_price": 41.7755,
+      "cost_basis": 334.20,
       "entry_date": "2026-06-29",
       "status": "order_placed",
       "stop_loss": 24.5,
@@ -34,21 +34,21 @@
         "sell_pct": 50,
         "reason": "Analyst consensus midpoint ($68-83)"
       },
-      "catalyst": "PDUFA July 7, 2026 — atacicept for IgA Nephropathy (IgAN)",
+      "catalyst": "PDUFA Tuesday July 7, 2026 — atacicept for IgA Nephropathy (IgAN)",
       "catalyst_date": "2026-07-07",
       "approval_probability_pct": 89,
       "halal_verified": "2026-06-29",
       "halal_source": "Musaffa AAOIFI",
       "halal_note": "Verified halal on Musaffa June 29, 2026.",
-      "notes": "6 shares at $42 limit. PDUFA July 7. NEJM Phase 3 proteinuria -46% vs placebo. 14 analysts Strong Buy avg $78. CRL risk: gap to $10-15. Jul 2 close ~$39.94."
+      "notes": "8 shares total: 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. PDUFA Tuesday Jul 7. NEJM Phase 3 proteinuria -46% vs placebo. 14 analysts Strong Buy avg $78. CRL risk: gap to $10-15."
     },
     {
       "ticker": "ANET",
       "company": "Arista Networks, Inc.",
       "sector": "Technology — AI Networking",
       "shares": 1.27,
-      "entry_price": 157.0,
-      "cost_basis": 199.39,
+      "entry_price": 157.7874,
+      "cost_basis": 200.39,
       "entry_date": "2026-06-29",
       "status": "order_placed",
       "stop_loss": 135.0,
@@ -132,11 +132,11 @@
       "broker_blocker": null,
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "ARCHIVE: Position entered June 29 at $42 (6 shares). Track via positions[] array."
+      "notes": "ARCHIVE: 8 shares total — 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. Track via positions[] array."
     }
   ],
-  "cash_available": 352.56,
-  "total_cost_basis": 451.39,
+  "cash_available": 265.41,
+  "total_cost_basis": 534.59,
   "totals": {
     "positions_count": 2,
     "sectors_held": [
@@ -317,6 +317,15 @@
       "amount": 199.39,
       "commission": 0.5,
       "notes": "AI Ethernet momentum. TP $185, SL $144. Exit by July 25."
+    },
+    {
+      "date": "2026-07-03",
+      "action": "BUY",
+      "ticker": "VERA",
+      "shares": 2,
+      "price": 41.10,
+      "amount": 82.20,
+      "notes": "Added 2 shares pre-PDUFA. Blended avg now $41.7755 (8 shares total). Price back-calculated from IBKR average_price."
     }
   ]
 }
