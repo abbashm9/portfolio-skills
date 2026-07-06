@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-05T06:00:00+03:00",
+  "last_updated": "2026-07-06T06:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -147,9 +147,9 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 17,
-    "last_concept_name": "Options-Implied Move",
-    "last_taught_date": "2026-07-05",
+    "last_concept_number": 18,
+    "last_concept_name": "Short Interest & Squeeze Setups",
+    "last_taught_date": "2026-07-06",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
