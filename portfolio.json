@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-06T06:00:00+03:00",
+  "last_updated": "2026-07-07T06:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -71,8 +71,8 @@
     {
       "ticker": "CAPR",
       "company": "Capricor Therapeutics, Inc.",
-      "verdict": "WATCH — enter after VERA July 7 result",
-      "conviction": 6,
+      "verdict": "SKIP — Zoya halal screening fail (9.9% interest income > AAOIFI 5% threshold). Do NOT enter.",
+      "conviction": 0,
       "entry_target": 26.0,
       "stop": 18.0,
       "stop_reason": "Below recent floor / pre-AdCom support",
@@ -82,11 +82,11 @@
       "adcom_date": "2026-07-29",
       "drug": "Deramiocel (CAP-1002) for DMD cardiomyopathy",
       "indication": "Duchenne Muscular Dystrophy (DMD) cardiomyopathy",
-      "halal_status": "unverified",
-      "halal_note": "Check Musaffa before entry",
-      "position_size_target": 150,
+      "halal_status": "non_compliant",
+      "halal_note": "Zoya screening Jul 7 2026: interest income $2.2M / revenue $22.3M = 9.9%, exceeds AAOIFI 5% cap. NON-COMPLIANT. Do not enter.",
+      "position_size_target": 0,
       "added_date": "2026-06-29",
-      "notes": "Phase 3 HOPE-3 positive (PUL v2.0 + LVEF). PDUFA Aug 22. CAUTION: unusual bearish put activity June 30 (5:1 puts, 2900-contract block Aug 21 $20 put). Enter only after VERA result. Jul 2: price $24.84 (-5.91%), below $26 target — entry improving."
+      "notes": "HALAL FAIL Jul 7 2026. Zoya non-compliant. AdCom July 29 — do not enter regardless of setup quality. Remove from active watchlist."
     },
     {
       "ticker": "VRDN",
@@ -147,9 +147,9 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 18,
-    "last_concept_name": "Short Interest & Squeeze Setups",
-    "last_taught_date": "2026-07-06",
+    "last_concept_number": 6,
+    "last_concept_name": "Gross Margin vs Operating Margin vs Net Margin",
+    "last_taught_date": "2026-07-07",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
@@ -171,7 +171,8 @@
       "DRAM/NAND Cycle",
       "Foundry vs Fabless",
       "GLP-1 mechanism & TAM",
-      "Process Node Transitions"
+      "Process Node Transitions",
+      "Gross Margin vs Operating Margin vs Net Margin"
     ]
   },
   "history": [
