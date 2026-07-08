@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-07T06:00:00+03:00",
+  "last_updated": "2026-07-08T06:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -40,7 +40,7 @@
       "halal_verified": "2026-06-29",
       "halal_source": "Musaffa AAOIFI",
       "halal_note": "Verified halal on Musaffa June 29, 2026.",
-      "notes": "8 shares total: 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. PDUFA Tuesday Jul 7. NEJM Phase 3 proteinuria -46% vs placebo. 14 analysts Strong Buy avg $78. CRL risk: gap to $10-15."
+      "notes": "8 shares total: 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. PDUFA Tuesday Jul 7. NEJM Phase 3 proteinuria -46% vs placebo. 14 analysts Strong Buy avg $78. CRL risk: gap to $10-15. FDA APPROVED July 7 2026 (accelerated). Trutakna approved. New stop: move to $38 (pre-PDUFA floor). ORIGIN 3 confirmatory eGFR data expected Q3 2026."
     },
     {
       "ticker": "ANET",
@@ -147,9 +147,9 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 6,
-    "last_concept_name": "Gross Margin vs Operating Margin vs Net Margin",
-    "last_taught_date": "2026-07-07",
+    "last_concept_number": 7,
+    "last_concept_name": "Free Cash Flow (FCF)",
+    "last_taught_date": "2026-07-08",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
@@ -172,7 +172,8 @@
       "Foundry vs Fabless",
       "GLP-1 mechanism & TAM",
       "Process Node Transitions",
-      "Gross Margin vs Operating Margin vs Net Margin"
+      "Gross Margin vs Operating Margin vs Net Margin",
+      "Free Cash Flow (FCF)"
     ]
   },
   "history": [
