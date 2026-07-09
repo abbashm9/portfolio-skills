@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-08T06:00:00+03:00",
+  "last_updated": "2026-07-09T06:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -19,7 +19,7 @@
       "sector": "Biotechnology",
       "shares": 8,
       "entry_price": 41.7755,
-      "cost_basis": 334.20,
+      "cost_basis": 334.2,
       "entry_date": "2026-06-29",
       "status": "order_placed",
       "stop_loss": 24.5,
@@ -64,7 +64,7 @@
       "halal_verified": null,
       "halal_source": null,
       "halal_note": "Check Musaffa — likely clean, strong FCF, no debt issues.",
-      "notes": "Momentum anchor. Q1 revenue +35.1% YoY, Q2 guided $2.8B. Exit July 25 latest. STOP BREACHED Jul 2 (Jul 3 Kuwait) at $137.53 — real support $136.42. Thesis intact (AI fabric $3.5B, FY $11.5B). Option B active: hold to $185 Jul 25, new stop $135."
+      "notes": "Momentum anchor. Q1 revenue +35.1% YoY, Q2 guided $2.8B. Exit July 25 latest. STOP BREACHED Jul 2 (Jul 3 Kuwait) at $137.53 — real support $136.42. Thesis intact (AI fabric $3.5B, FY $11.5B). Option B active: hold to $185 Jul 25, new stop $135. ATH $181.05 reached Jul 8. Set limit sell at $185."
     }
   ],
   "watchlist": [
@@ -147,9 +147,9 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 7,
-    "last_concept_name": "Free Cash Flow (FCF)",
-    "last_taught_date": "2026-07-08",
+    "last_concept_number": 8,
+    "last_concept_name": "Return on Invested Capital (ROIC)",
+    "last_taught_date": "2026-07-09",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
@@ -173,7 +173,8 @@
       "GLP-1 mechanism & TAM",
       "Process Node Transitions",
       "Gross Margin vs Operating Margin vs Net Margin",
-      "Free Cash Flow (FCF)"
+      "Free Cash Flow (FCF)",
+      "Return on Invested Capital (ROIC)"
     ]
   },
   "history": [
@@ -325,8 +326,8 @@
       "action": "BUY",
       "ticker": "VERA",
       "shares": 2,
-      "price": 41.10,
-      "amount": 82.20,
+      "price": 41.1,
+      "amount": 82.2,
       "notes": "Added 2 shares pre-PDUFA. Blended avg now $41.7755 (8 shares total). Price back-calculated from IBKR average_price."
     }
   ]
