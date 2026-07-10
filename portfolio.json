@@ -24,16 +24,8 @@
       "status": "order_placed",
       "stop_loss": 24.5,
       "stop_loss_pct": -41.7,
-      "tp1": {
-        "price": 55.0,
-        "sell_pct": 50,
-        "reason": "Post-approval stabilization zone — sell half"
-      },
-      "tp2": {
-        "price": 78.0,
-        "sell_pct": 50,
-        "reason": "Analyst consensus midpoint ($68-83)"
-      },
+      "tp1": { "price": 55.0, "sell_pct": 50, "reason": "Post-approval stabilization zone — sell half" },
+      "tp2": { "price": 78.0, "sell_pct": 50, "reason": "Analyst consensus midpoint ($68-83)" },
       "catalyst": "PDUFA Tuesday July 7, 2026 — atacicept for IgA Nephropathy (IgAN)",
       "catalyst_date": "2026-07-07",
       "approval_probability_pct": 89,
@@ -53,11 +45,7 @@
       "status": "order_placed",
       "stop_loss": 135.0,
       "stop_loss_pct": -14.0,
-      "tp1": {
-        "price": 185.0,
-        "sell_pct": 100,
-        "reason": "Exit full by July 25 before Q2 earnings risk"
-      },
+      "tp1": { "price": 185.0, "sell_pct": 100, "reason": "Exit full by July 25 before Q2 earnings risk" },
       "tp2": null,
       "catalyst": "AI Ethernet momentum — Q2 earnings ~Aug 5 (outside window).",
       "catalyst_date": "2026-07-25",
@@ -86,7 +74,7 @@
       "halal_note": "Zoya screening Jul 7 2026: interest income $2.2M / revenue $22.3M = 9.9%, exceeds AAOIFI 5% cap. NON-COMPLIANT. Do not enter.",
       "position_size_target": 0,
       "added_date": "2026-06-29",
-      "notes": "HALAL FAIL Jul 7 2026. Zoya non-compliant. AdCom July 29 — do not enter regardless of setup quality. Remove from active watchlist."
+      "notes": "HALAL FAIL Jul 7 2026. Zoya non-compliant. AdCom July 29 — do not enter regardless of setup quality."
     },
     {
       "ticker": "VRDN",
@@ -109,7 +97,7 @@
       "broker_blocker": "IBKR application pending",
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "FDA APPROVED Lumvoa June 30 2026. Stock +7.6-12%. Entry missed due to IBKR blocker. UBS $50 target. Archive this entry."
+      "notes": "FDA APPROVED Lumvoa June 30 2026. Stock +7.6-12%. Entry missed due to IBKR blocker. Archive this entry."
     },
     {
       "ticker": "VERA",
@@ -139,17 +127,14 @@
   "total_cost_basis": 534.59,
   "totals": {
     "positions_count": 2,
-    "sectors_held": [
-      "Biotechnology",
-      "Technology"
-    ],
+    "sectors_held": ["Biotechnology", "Technology"],
     "largest_position_pct": 55.8,
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 8,
-    "last_concept_name": "Return on Invested Capital (ROIC)",
-    "last_taught_date": "2026-07-09",
+    "last_concept_number": 9,
+    "last_concept_name": "Operating Leverage",
+    "last_taught_date": "2026-07-10",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
@@ -174,161 +159,24 @@
       "Process Node Transitions",
       "Gross Margin vs Operating Margin vs Net Margin",
       "Free Cash Flow (FCF)",
-      "Return on Invested Capital (ROIC)"
+      "Return on Invested Capital (ROIC)",
+      "Operating Leverage"
     ]
   },
   "history": [
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "NVDA",
-      "shares": 1.3799,
-      "price": 217.4,
-      "amount": 300.06,
-      "notes": "Initial allocation"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "LLY",
-      "shares": 0.1407,
-      "price": 994.87,
-      "amount": 139.98,
-      "notes": "Healthcare diversifier"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "AVGO",
-      "shares": 0.315,
-      "price": 412.04,
-      "amount": 129.79,
-      "notes": "AI breadth"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "TSM",
-      "shares": 0.224,
-      "price": 388.35,
-      "amount": 86.99,
-      "notes": "Foundry pure-play"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "AMD",
-      "shares": 0.117,
-      "price": 428.84,
-      "amount": 50.17,
-      "notes": "Server CPU"
-    },
-    {
-      "date": "2026-06-08",
-      "action": "SELL",
-      "ticker": "LLY",
-      "shares": 0.0421,
-      "price": 1152.76,
-      "gross_proceeds": 48.53,
-      "commission": 3.0,
-      "net_proceeds": 45.53,
-      "cost_basis_sold": 41.87,
-      "net_pnl": 3.66,
-      "notes": "Partial trim +16.0%"
-    },
-    {
-      "date": "2026-06-09",
-      "action": "SELL",
-      "ticker": "AMD",
-      "shares": 0.117,
-      "price": 498.12,
-      "gross_proceeds": 58.28,
-      "commission": 3.0,
-      "net_proceeds": 55.28,
-      "cost_basis_sold": 50.17,
-      "net_pnl": 5.11,
-      "notes": "Full exit +16.2%"
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "NVDA",
-      "shares": 1.3799,
-      "price": 195.72,
-      "gross_proceeds": 270.07,
-      "commission": 3.0,
-      "net_proceeds": 267.07,
-      "cost_basis_sold": 300.06,
-      "net_pnl": -32.99,
-      "notes": "Full exit at loss. Stop breached."
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "AVGO",
-      "shares": 0.315,
-      "price": 383.31,
-      "gross_proceeds": 120.74,
-      "commission": 3.0,
-      "net_proceeds": 117.74,
-      "cost_basis_sold": 129.79,
-      "net_pnl": -12.05,
-      "notes": "Full exit at loss. Sector sentiment exit."
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "LLY",
-      "shares": 0.0986,
-      "price": 1141.03,
-      "gross_proceeds": 112.51,
-      "commission": 3.0,
-      "net_proceeds": 109.51,
-      "cost_basis_sold": 98.11,
-      "net_pnl": 11.4,
-      "notes": "Full exit +14.7%. IBKR migration."
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "TSM",
-      "shares": 0.224,
-      "price": 441.15,
-      "gross_proceeds": 98.82,
-      "commission": 3.0,
-      "net_proceeds": 95.82,
-      "cost_basis_sold": 86.99,
-      "net_pnl": 8.83,
-      "notes": "Full exit +13.6%. IBKR migration."
-    },
-    {
-      "date": "2026-06-29",
-      "action": "BUY",
-      "ticker": "VERA",
-      "shares": 6,
-      "price": 42.0,
-      "amount": 252.0,
-      "commission": 0.5,
-      "notes": "PDUFA play July 7. Entry above $34 target."
-    },
-    {
-      "date": "2026-06-29",
-      "action": "BUY",
-      "ticker": "ANET",
-      "shares": 1.27,
-      "price": 157.0,
-      "amount": 199.39,
-      "commission": 0.5,
-      "notes": "AI Ethernet momentum. TP $185, SL $144. Exit by July 25."
-    },
-    {
-      "date": "2026-07-03",
-      "action": "BUY",
-      "ticker": "VERA",
-      "shares": 2,
-      "price": 41.1,
-      "amount": 82.2,
-      "notes": "Added 2 shares pre-PDUFA. Blended avg now $41.7755 (8 shares total). Price back-calculated from IBKR average_price."
-    }
+    {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "LLY", "shares": 0.1407, "price": 994.87, "amount": 139.98, "notes": "Healthcare diversifier"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "AVGO", "shares": 0.315, "price": 412.04, "amount": 129.79, "notes": "AI breadth"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "TSM", "shares": 0.224, "price": 388.35, "amount": 86.99, "notes": "Foundry pure-play"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "AMD", "shares": 0.117, "price": 428.84, "amount": 50.17, "notes": "Server CPU"},
+    {"date": "2026-06-08", "action": "SELL", "ticker": "LLY", "shares": 0.0421, "price": 1152.76, "gross_proceeds": 48.53, "commission": 3.0, "net_proceeds": 45.53, "cost_basis_sold": 41.87, "net_pnl": 3.66, "notes": "Partial trim +16.0%"},
+    {"date": "2026-06-09", "action": "SELL", "ticker": "AMD", "shares": 0.117, "price": 498.12, "gross_proceeds": 58.28, "commission": 3.0, "net_proceeds": 55.28, "cost_basis_sold": 50.17, "net_pnl": 5.11, "notes": "Full exit +16.2%"},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "NVDA", "shares": 1.3799, "price": 195.72, "gross_proceeds": 270.07, "commission": 3.0, "net_proceeds": 267.07, "cost_basis_sold": 300.06, "net_pnl": -32.99, "notes": "Full exit at loss. Stop breached."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "AVGO", "shares": 0.315, "price": 383.31, "gross_proceeds": 120.74, "commission": 3.0, "net_proceeds": 117.74, "cost_basis_sold": 129.79, "net_pnl": -12.05, "notes": "Full exit at loss. Sector sentiment exit."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "LLY", "shares": 0.0986, "price": 1141.03, "gross_proceeds": 112.51, "commission": 3.0, "net_proceeds": 109.51, "cost_basis_sold": 98.11, "net_pnl": 11.4, "notes": "Full exit +14.7%. IBKR migration."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "TSM", "shares": 0.224, "price": 441.15, "gross_proceeds": 98.82, "commission": 3.0, "net_proceeds": 95.82, "cost_basis_sold": 86.99, "net_pnl": 8.83, "notes": "Full exit +13.6%. IBKR migration."},
+    {"date": "2026-06-29", "action": "BUY", "ticker": "VERA", "shares": 6, "price": 42.0, "amount": 252.0, "commission": 0.5, "notes": "PDUFA play July 7. Entry above $34 target."},
+    {"date": "2026-06-29", "action": "BUY", "ticker": "ANET", "shares": 1.27, "price": 157.0, "amount": 199.39, "commission": 0.5, "notes": "AI Ethernet momentum. TP $185, SL $144. Exit by July 25."},
+    {"date": "2026-07-03", "action": "BUY", "ticker": "VERA", "shares": 2, "price": 41.1, "amount": 82.2, "notes": "Added 2 shares pre-PDUFA. Blended avg now $41.7755 (8 shares total)."}
   ]
 }
