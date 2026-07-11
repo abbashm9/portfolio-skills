@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-09T06:00:00+03:00",
+  "last_updated": "2026-07-11T06:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -22,8 +22,8 @@
       "cost_basis": 334.2,
       "entry_date": "2026-06-29",
       "status": "order_placed",
-      "stop_loss": 24.5,
-      "stop_loss_pct": -41.7,
+      "stop_loss": 38.0,
+      "stop_loss_pct": -9.0,
       "tp1": { "price": 55.0, "sell_pct": 50, "reason": "Post-approval stabilization zone — sell half" },
       "tp2": { "price": 78.0, "sell_pct": 50, "reason": "Analyst consensus midpoint ($68-83)" },
       "catalyst": "PDUFA Tuesday July 7, 2026 — atacicept for IgA Nephropathy (IgAN)",
@@ -32,7 +32,7 @@
       "halal_verified": "2026-06-29",
       "halal_source": "Musaffa AAOIFI",
       "halal_note": "Verified halal on Musaffa June 29, 2026.",
-      "notes": "8 shares total: 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. PDUFA Tuesday Jul 7. NEJM Phase 3 proteinuria -46% vs placebo. 14 analysts Strong Buy avg $78. CRL risk: gap to $10-15. FDA APPROVED July 7 2026 (accelerated). Trutakna approved. New stop: move to $38 (pre-PDUFA floor). ORIGIN 3 confirmatory eGFR data expected Q3 2026."
+      "notes": "8 shares total: 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. FDA APPROVED July 7 2026 (accelerated approval). Trutakna (atacicept-vymj) approved for IgAN. WAC $32,700/28-day cycle. Stop updated to $38 (pre-PDUFA floor). ORIGIN 3 confirmatory eGFR data expected Q3 2026. Est. price Jul 10 close ~$41.23 (web, unverified). 14 analysts Strong Buy avg $78."
     },
     {
       "ticker": "ANET",
@@ -52,7 +52,7 @@
       "halal_verified": null,
       "halal_source": null,
       "halal_note": "Check Musaffa — likely clean, strong FCF, no debt issues.",
-      "notes": "Momentum anchor. Q1 revenue +35.1% YoY, Q2 guided $2.8B. Exit July 25 latest. STOP BREACHED Jul 2 (Jul 3 Kuwait) at $137.53 — real support $136.42. Thesis intact (AI fabric $3.5B, FY $11.5B). Option B active: hold to $185 Jul 25, new stop $135. ATH $181.05 reached Jul 8. Set limit sell at $185."
+      "notes": "Momentum anchor. Q1 revenue +35.1% YoY, Q2 guided $2.8B. Exit July 25 latest. STOP BREACHED Jul 2 (Jul 3 Kuwait) at $137.53 — real support $136.42. Thesis intact (AI fabric $3.5B, FY $11.5B). Option B active: hold to $185 Jul 25, new stop $135. ATH $181.05 reached Jul 8. Jul 9: intraday high ~$189.82, close ~$184.69-$185.03. Jul 10: close ~$186.96. Limit sell at $185 set — almost certainly executed Jul 9 or Jul 10. Verify fill in IBKR. Net P&L if filled at $185: gross +$34.56, exit commission -$3, net +$31.56 (+15.8%)."
     }
   ],
   "watchlist": [
@@ -132,9 +132,9 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 9,
-    "last_concept_name": "Operating Leverage",
-    "last_taught_date": "2026-07-10",
+    "last_concept_number": 10,
+    "last_concept_name": "Share-Based Compensation (SBC)",
+    "last_taught_date": "2026-07-11",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
@@ -160,7 +160,8 @@
       "Gross Margin vs Operating Margin vs Net Margin",
       "Free Cash Flow (FCF)",
       "Return on Invested Capital (ROIC)",
-      "Operating Leverage"
+      "Operating Leverage",
+      "Share-Based Compensation (SBC)"
     ]
   },
   "history": [
