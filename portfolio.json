@@ -32,7 +32,7 @@
       "halal_verified": "2026-06-29",
       "halal_source": "Musaffa AAOIFI",
       "halal_note": "Verified halal on Musaffa June 29, 2026.",
-      "notes": "8 shares total: 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. FDA APPROVED July 7 2026 (accelerated approval). Trutakna (atacicept-vymj) approved for IgAN. WAC $32,700/28-day cycle. Stop updated to $38 (pre-PDUFA floor). ORIGIN 3 confirmatory eGFR data expected Q3 2026. Est. price Jul 10 close ~$41.23 (web, unverified). 14 analysts Strong Buy avg $78."
+      "notes": "8 shares total: 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. FDA APPROVED July 7 2026 (accelerated approval). Trutakna (atacicept-vymj) approved for IgAN. WAC $32,700/28-day cycle. Stop updated to $38 (pre-PDUFA floor). ORIGIN 3 confirmatory eGFR data expected Q3 2026. Est. price Jul 10 close ~$41.82 (web, unverified). 14 analysts Strong Buy avg $78."
     },
     {
       "ticker": "ANET",
@@ -132,9 +132,9 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 10,
-    "last_concept_name": "Share-Based Compensation (SBC)",
-    "last_taught_date": "2026-07-11",
+    "last_concept_number": 11,
+    "last_concept_name": "Hyperscaler Capex",
+    "last_taught_date": "2026-07-12",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
