@@ -132,9 +132,9 @@
     "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
   },
   "education_tracker": {
-    "last_concept_number": 11,
-    "last_concept_name": "Hyperscaler Capex",
-    "last_taught_date": "2026-07-12",
+    "last_concept_number": 3,
+    "last_concept_name": "Price/Sales (P/S)",
+    "last_taught_date": "2026-07-13",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
@@ -161,7 +161,8 @@
       "Free Cash Flow (FCF)",
       "Return on Invested Capital (ROIC)",
       "Operating Leverage",
-      "Share-Based Compensation (SBC)"
+      "Share-Based Compensation (SBC)",
+      "Price/Sales (P/S)"
     ]
   },
   "history": [
