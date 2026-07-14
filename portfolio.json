@@ -40,8 +40,8 @@
     {
       "ticker": "CELC",
       "company": "Celcuity Inc.",
-      "verdict": "PASS — decided to skip Jul 17 PDUFA and wait for better daily scan opportunities.",
-      "conviction": 0,
+      "verdict": "🔴 DECISION TODAY — PDUFA July 17. Enter at market open July 15 if today's report confirms.",
+      "conviction": 7,
       "entry_target": 104.0,
       "stop": 67.0,
       "stop_reason": "CRL scenario floor — typical -35% rejection move",
