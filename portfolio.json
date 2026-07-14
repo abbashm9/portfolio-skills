@@ -40,8 +40,8 @@
     {
       "ticker": "CELC",
       "company": "Celcuity Inc.",
-      "verdict": "🔴 URGENT — PDUFA July 17 (3 days). Enter today if deploying cash.",
-      "conviction": 7,
+      "verdict": "PASS — decided to skip Jul 17 PDUFA and wait for better daily scan opportunities.",
+      "conviction": 0,
       "entry_target": 104.0,
       "stop": 67.0,
       "stop_reason": "CRL scenario floor — typical -35% rejection move",
@@ -61,8 +61,8 @@
     {
       "ticker": "CAPR",
       "company": "Capricor Therapeutics, Inc.",
-      "verdict": "WATCH — AdCom July 29, enter before event. Entry target revised to $21 (price dropped from $26 target).",
-      "conviction": 5,
+      "verdict": "MONITOR — AdCom July 29. Watching daily scan for better opportunities first. Decide by July 24.",
+      "conviction": 4,
       "entry_target": 21.0,
       "stop": 13.0,
       "stop_reason": "Below post-AdCom support; CRL scenario floor $11-13",
