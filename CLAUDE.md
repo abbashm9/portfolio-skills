@@ -7,8 +7,9 @@ This repository contains personal Claude skills for Abbas Al Madani's halal stoc
 - **Name:** Abbas Al Madani, based in Kuwait
 - **Trading background:** 8 years in forex and indices, new to single-name US equities
 - **Tone preference:** Pragmatic, direct, no condescension. Treat as an experienced trader.
-- **Strategy:** Halal-compliant (AAOIFI), aggressive growth, no withdrawals
-- **Broker commission:** $3.00 per trade (buy or sell). Entry already paid — only $3 exit commission remains on open positions.
+- **Strategy:** Halal-compliant (personal definition), aggressive growth, no withdrawals
+- **Halal definition:** Business activity only. A stock is halal if the company's core business is permissible (no alcohol, gambling, weapons, pork, pornography, conventional banking/insurance as primary business). Financial ratio screens (debt levels, interest income %) are irrelevant — Abbas is a capital gains trader, not a dividend investor, so he receives none of the company's interest income. Do NOT require Musaffa/AAOIFI financial ratio checks. Only screen the business model.
+- **Broker:** Interactive Brokers (IBKR). Commission ~$1.00 per trade (buy or sell). Entry already paid — only ~$1 exit commission remains on open positions. Round-trip = ~$2.
 
 ## Repository structure
 
@@ -39,9 +40,9 @@ When Abbas asks you to make changes:
 
 ### For the daily-portfolio-check skill:
 
-1. **Commission accounting:** Every trim/sell/rotation must show NET P&L after $3 exit commission (entry already paid)
-2. **No money-losing trims:** If gross profit < $3, recommend HOLD, not partial trim
-3. **No money-losing rotations:** Round-trip costs $6 minimum ($3 sell + $3 buy)
+1. **Commission accounting:** Every trim/sell/rotation must show NET P&L after ~$1 exit commission (entry already paid). Broker: IBKR.
+2. **No money-losing trims:** If gross profit < $1, recommend HOLD, not partial trim
+3. **No money-losing rotations:** Round-trip costs ~$2 minimum ($1 sell + $1 buy)
 4. **Small positions (<$75):** Don't suggest partial trims at all
 5. **Price verification:** Multi-source confirmation required, NO estimation
 6. **Email delivery:** Routine writes outbox/email.json via GitHub connector → GitHub Actions sends via Gmail SMTP

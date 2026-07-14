@@ -6,11 +6,12 @@
   "broker": "IBKR Pro Tiered",
   "strategy": "halal_aggressive_growth",
   "withdrawal_intent": false,
-  "withdrawal_goal": {
+  "investment_goal": {
     "target_total_value": 1000.0,
+    "target_date": "2026-07-31",
     "account_value_at_goal_set": 820.0,
     "gain_needed": 180.0,
-    "note": "Reach $1000 total account value (positions + cash) before first withdrawal."
+    "note": "Reach $1000 total account value (positions + cash) by end of July 2026. Monthly investment target — not a withdrawal."
   },
   "positions": [
     {

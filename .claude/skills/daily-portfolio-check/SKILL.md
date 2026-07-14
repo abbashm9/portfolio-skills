@@ -14,27 +14,27 @@ A post-NYSE-close daily review skill for Abbas's halal stock portfolio. Outputs 
 - **Stock-market gap:** New to single-name US equities — needs to learn valuation multiples, fundamentals language, sector-specific cycles
 - **Tone preference:** Pragmatic, no condescension, no "what is a stop-loss" basics. Treat him as an experienced trader who needs the equity-specific vocabulary
 - **Withdrawal intent:** NONE — rotation suggestions can be aggressive
-- **Halal compliance:** AAOIFI standards (verify quarterly, but don't include daily halal education — he doesn't want this)
+- **Halal compliance:** Business activity only. Core business must be permissible (no alcohol, gambling, weapons, pork, pornography, conventional banking/insurance as primary business). Financial ratio screens (debt, interest income %) are irrelevant — Abbas is a capital gains trader not a dividend investor. Do NOT flag stocks for Musaffa/AAOIFI financial ratio checks. Don't include halal education in emails.
 - **Disclosure:** Research, not financial advice
 
 ## Transaction cost framework
 
-**Broker commission:** $3.00 per trade (buy or sell). Entry commission already paid — only exit commission ($3) remains on open positions. Round-trip total = $6.
+**Broker commission:** ~$1.00 per trade (buy or sell) on IBKR. Entry commission already paid — only exit commission (~$1) remains on open positions. Round-trip total = ~$2.
 
 ### Rules that override all exit suggestions
 
-1. **Minimum profit threshold for any sell/trim:** Gross P&L on the shares sold must exceed $3 (the exit commission). Entry cost already sunk.
-   - Formula: `(current_price − entry_price) × shares_to_sell > $3`
-   - If the result is ≤ $3: show the math, label it "HOLD (commission eats profit)", move on.
+1. **Minimum profit threshold for any sell/trim:** Gross P&L on the shares sold must exceed $1 (the exit commission). Entry cost already sunk.
+   - Formula: `(current_price − entry_price) × shares_to_sell > $1`
+   - If the result is ≤ $1: show the math, label it "HOLD (commission eats profit)", move on.
 
-2. **Minimum profit threshold for a rotation:** Full round-trip costs $6 (sell $3 + buy $3). Expected gain from the new position must justify $6 in friction.
-   - If the rotation doesn't clear $6 in projected upside: skip it or note "commission drag too high for this move."
+2. **Minimum profit threshold for a rotation:** Full round-trip costs ~$2 (sell $1 + buy $1). Expected gain from the new position must justify $2 in friction.
+   - If the rotation doesn't clear $2 in projected upside: skip it or note "commission drag too high for this move."
 
 3. **Small positions (<$75 market value):** Never suggest a partial trim. The position is too small to split — either hold or exit fully.
-   - Example: a $70 position trimmed 50% frees ~$35 but the $3 exit commission is ~9% of proceeds.
+   - Example: a $70 position trimmed 50% frees ~$35 but the $1 exit commission is ~3% of proceeds.
 
 4. **Always show net P&L:** In every sell, trim, or rotation suggestion, display both gross and net:
-   - `Gross: +$18.40 | Exit commission: −$3.00 | Net: +$15.40`
+   - `Gross: +$18.40 | Exit commission: −$1.00 | Net: +$17.40`
    - Never present a gross P&L without the commission line.
 
 5. **Cash deployment minimum:** Don't suggest buying into a new position if the cash being deployed (after commission) would result in a position worth < $30. Too small to be meaningful.
@@ -55,7 +55,7 @@ A post-NYSE-close daily review skill for Abbas's halal stock portfolio. Outputs 
 
 **IBKR is always the source of truth for financial numbers. portfolio.json is the source of truth for strategy metadata.**
 
-If IBKR is unreachable: STOP and email Abbas "⚠️ IBKR connector unreachable — daily check skipped."
+If IBKR is unreachable: fall back to portfolio.json + web search (see Step 0 Fallback below). Do NOT send a skip email — send the best email you can with clearly flagged data sources.
 If portfolio.json is unreachable: proceed with IBKR data for positions/prices, but note "⚠️ portfolio.json unavailable — stops, TPs, and catalyst data missing. Metadata sections skipped."
 
 ## Workflow — every daily check
@@ -70,9 +70,16 @@ get_account_positions  →  shares held, avg_price, market_value, unrealized_pnl
 get_account_balances   →  cash_balance, net_liquidation_value
 ```
 
-**HARD STOP:** If `get_account_positions` returns an empty list, an error, or no positions at all — stop immediately. Do NOT proceed with portfolio.json as a substitute. Send this email and nothing else:
-> Subject: `⚠️ Daily Portfolio: IBKR connector failed — check skipped`
-> Body: "IBKR `get_account_positions` returned no data. Skipping today's check. Verify IBKR connection and re-run manually."
+**IBKR failure — fall back, don't skip.** If `get_account_positions` returns an empty list or an error, activate the fallback mode:
+
+**Step 0 Fallback — portfolio.json + web search for prices:**
+1. Use `portfolio.json` positions[] for shares held and avg cost (clearly flag: "⚠️ IBKR unavailable — using portfolio.json share counts")
+2. For each ticker, run `WebSearch "[TICKER] stock price today"` and extract the current price from Yahoo Finance or Google Finance results. Flag every price: "⚠️ Price from web search — verify in your broker app before acting on any recommendation"
+3. Skip all IBKR-specific calls (get_pa_performance_all_periods, get_pa_allocation, get_company_themes) — omit those sections from the email
+4. Include a banner at the top of the email: `⚠️ IBKR connector unavailable — prices sourced from web search. Verify before trading.`
+5. Continue with all remaining steps using portfolio.json + web prices. A web-priced email is better than no email.
+
+If web search also returns no prices for a ticker: label that position "⚠️ PRICE UNAVAILABLE — check broker app manually."
 
 From the positions response, build your working positions list:
 - Use `contract_description` as the ticker
@@ -95,7 +102,7 @@ Extract ONLY the metadata IBKR doesn't provide:
 - `totals.concentration_warning`
 - `last_updated` timestamp
 - `education_tracker`
-- `withdrawal_goal`
+- `investment_goal`
 
 **Reconciliation check:** If IBKR returns a ticker not present in portfolio.json positions[], flag it in the email: "⚠️ [TICKER] held in IBKR but not in portfolio.json — run portfolio-manager to sync metadata."
 
@@ -173,20 +180,20 @@ All 1.5 results are non-blocking: if any call returns empty or errors, continue 
 
 ### Step 2: Build the data tables and withdrawal goal tracker
 
-**Withdrawal goal tracker — show in every email, near the top.**
+**Investment goal tracker — show in every email, near the top.**
 
-Read `withdrawal_goal` from portfolio.json. Calculate:
+Read `investment_goal` from portfolio.json. Calculate:
 - `current_total_value` = sum of (shares × current_price) for all positions + cash_available
-- `gap` = withdrawal_goal.target_total_value − current_total_value
-- `progress_pct` = (current_total_value / withdrawal_goal.target_total_value) × 100
+- `gap` = investment_goal.target_total_value − current_total_value
+- `progress_pct` = (current_total_value / investment_goal.target_total_value) × 100
 
 Format as a single compact line in the email hero section, right under the total P&L:
 
-> 🎯 **Withdrawal goal:** $[current_total_value] / $1,000 — **$[gap] to go** ([progress_pct]% there)
+> 🎯 **Investment goal:** $[current_total_value] / $1,000 — **$[gap] to go** ([progress_pct]% there)
 
 Color the gap green if < $50, amber if $50–$150, grey if > $150.
 
-If `gap ≤ 0`: replace with a bold alert — "🎯 **Withdrawal target hit. $1,000 reached. Consider withdrawing.**"
+If `gap ≤ 0`: replace with a bold alert — "🎯 **$1,000 reached. Investment goal hit.**"
 
 This tracker does NOT change the exit strategy — stops and TPs still apply as normal. It's a progress indicator only.
 
@@ -352,7 +359,7 @@ For each candidate, produce this block (this is what goes in the email):
 > **Smart money:** [insider buys / institutional buildup / unusual options / none visible]
 > **Cash runway:** [X months — dilution risk: yes/no]
 >
-> **Halal:** ✅ Verified / ⚠️ Unverified — check Musaffa / ❌ Fails
+> **Halal:** ✅ Clean (core business permissible) / ⚠️ Unverified — check business model / ❌ Fails (forbidden core business)
 >
 > **Conviction: [X]/5** (pre-score) → [INVESTIGATE / WATCH / SKIP]
 > *Run `analyze [TICKER]` for the full 8-section deep dive before entering.*
@@ -390,12 +397,12 @@ Feed the full table into the Intelligence Layer in Step 6.
 - **From Step 3.5 (halal screener):** use the top 2–3 shortlisted candidates as the candidate pool for new positions. These have already passed the 5-pillar screen — don't re-screen, just pick the highest-conviction one that fits within the deployable cash amount.
 - **From Step 3.6 (risk scorer):** use the per-position risk scores to evaluate the "add to existing" option. Only suggest adding to a current position if its risk label is LOW or MODERATE. Never suggest doubling down on a HIGH or EXTREME risk position with idle cash.
 
-Abbas currently keeps a **$3 minimum cash reserve** at all times (to cover any exit commission without liquidating a position). So deployable cash = `cash_available − $3`. Commission on the new buy = $3. Net capital available for a new position = `cash_available − $6`.
+Abbas currently keeps a **$1 minimum cash reserve** at all times (to cover any exit commission without liquidating a position). So deployable cash = `cash_available − $1`. Commission on the new buy = $1. Net capital available for a new position = `cash_available − $2`.
 
-If `cash_available − $6 < $30`: the remaining capital after commission is too small to be meaningful. State this explicitly:
-> "Cash: $[X] — after $3 buy commission and $3 reserve, only $[X−6] deployable. Too small for a meaningful new position. Holding as dry powder."
+If `cash_available − $2 < $30`: the remaining capital after commission is too small to be meaningful. State this explicitly:
+> "Cash: $[X] — after $1 buy commission and $1 reserve, only $[X−2] deployable. Too small for a meaningful new position. Holding as dry powder."
 
-If `cash_available − $6 ≥ $30`: **always** provide a concrete deployment recommendation. Do not leave this section blank or vague. Format:
+If `cash_available − $2 ≥ $30`: **always** provide a concrete deployment recommendation. Do not leave this section blank or vague. Format:
 
 > 💵 **Cash deployment — $[deployable] available**
 > - **Option A — Catalyst play:** [TOP CANDIDATE from Step 3.5 Catalyst Radar, if conviction ≥ 6], buy [N] shares at ~$[price]. Event: [date]. Upside: +[%]. Downside: [%]. Halal: [status]. Position: $[amount] = [%]% of portfolio.
@@ -405,7 +412,7 @@ If `cash_available − $6 ≥ $30`: **always** provide a concrete deployment rec
 
 **Position sizing for catalyst plays:** Abbas's target max allocation per catalyst name is **30% of total portfolio value** (positions + cash). Calculate: `0.30 × (total_positions_value + cash_available)`. Never exceed this cap in a single catalyst position, even if the conviction is high — binary events can go -70% on rejection.
 
-Always show the math: shares × price + $3 commission ≤ deployable cash. Never suggest a buy that would leave cash_available below $3.
+Always show the math: shares × price + $1 commission ≤ deployable cash. Never suggest a buy that would leave cash_available below $1.
 
 Feed the recommendation into Step 4 and the Intelligence Layer in Step 6.
 
@@ -458,7 +465,7 @@ Build a responsive HTML email with the structure in `references/email-template.m
 
 **Email section order (top to bottom):**
 
-1. **Hero banner** — total P&L today + 1D/MTD/YTD returns (from IBKR `get_pa_performance_all_periods`), withdrawal goal tracker. Show the return type label: "TWR" or "MWR".
+1. **Hero banner** — total P&L today + 1D/MTD/YTD returns (from IBKR `get_pa_performance_all_periods`), investment goal tracker. Show the return type label: "TWR" or "MWR".
 2. **⚠️ MANDATORY — Positions snapshot table** — a single HTML table with ONE ROW PER POSITION showing: Status badge | Ticker | Themes (top 2 from Step 1.5C, as small pill tags) | Close price | Day % | P&L $ | P&L % — then a TOTAL row. This is the first thing Abbas reads every morning. It MUST appear in every email, including weekend emails (use last known price if market closed). NEVER omit this table, collapse it into prose, or replace it with per-position cards only.
 3. **Exit alerts** — any position needing action, with exact recommendation
 4. **⏳ Pending Watchlist** — watchlist items from portfolio.json (see below) — always shown if watchlist is non-empty
