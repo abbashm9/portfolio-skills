@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-11T06:00:00+03:00",
+  "last_updated": "2026-07-14T00:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -20,40 +20,20 @@
       "sector": "Biotechnology",
       "shares": 8,
       "entry_price": 41.7755,
-      "cost_basis": 334.2,
+      "cost_basis": 334.20,
       "entry_date": "2026-06-29",
-      "status": "order_placed",
+      "status": "open",
       "stop_loss": 38.0,
       "stop_loss_pct": -9.0,
       "tp1": { "price": 55.0, "sell_pct": 50, "reason": "Post-approval stabilization zone — sell half" },
       "tp2": { "price": 78.0, "sell_pct": 50, "reason": "Analyst consensus midpoint ($68-83)" },
-      "catalyst": "PDUFA Tuesday July 7, 2026 — atacicept for IgA Nephropathy (IgAN)",
-      "catalyst_date": "2026-07-07",
-      "approval_probability_pct": 89,
+      "catalyst": "ORIGIN 3 confirmatory eGFR data — expected Q3 2026",
+      "catalyst_date": null,
+      "approval_probability_pct": null,
       "halal_verified": "2026-06-29",
-      "halal_source": "Musaffa AAOIFI",
-      "halal_note": "Verified halal on Musaffa June 29, 2026.",
-      "notes": "8 shares total: 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. FDA APPROVED July 7 2026 (accelerated approval). Trutakna (atacicept-vymj) approved for IgAN. WAC $32,700/28-day cycle. Stop updated to $38 (pre-PDUFA floor). ORIGIN 3 confirmatory eGFR data expected Q3 2026. Est. price Jul 10 close ~$41.82 (web, unverified). 14 analysts Strong Buy avg $78."
-    },
-    {
-      "ticker": "ANET",
-      "company": "Arista Networks, Inc.",
-      "sector": "Technology — AI Networking",
-      "shares": 1.27,
-      "entry_price": 157.7874,
-      "cost_basis": 200.39,
-      "entry_date": "2026-06-29",
-      "status": "order_placed",
-      "stop_loss": 135.0,
-      "stop_loss_pct": -14.0,
-      "tp1": { "price": 185.0, "sell_pct": 100, "reason": "Exit full by July 25 before Q2 earnings risk" },
-      "tp2": null,
-      "catalyst": "AI Ethernet momentum — Q2 earnings ~Aug 5 (outside window).",
-      "catalyst_date": "2026-07-25",
-      "halal_verified": null,
-      "halal_source": null,
-      "halal_note": "Check Musaffa — likely clean, strong FCF, no debt issues.",
-      "notes": "Momentum anchor. Q1 revenue +35.1% YoY, Q2 guided $2.8B. Exit July 25 latest. STOP BREACHED Jul 2 (Jul 3 Kuwait) at $137.53 — real support $136.42. Thesis intact (AI fabric $3.5B, FY $11.5B). Option B active: hold to $185 Jul 25, new stop $135. ATH $181.05 reached Jul 8. Jul 9: intraday high ~$189.82, close ~$184.69-$185.03. Jul 10: close ~$186.96. Limit sell at $185 set — almost certainly executed Jul 9 or Jul 10. Verify fill in IBKR. Net P&L if filled at $185: gross +$34.56, exit commission -$3, net +$31.56 (+15.8%)."
+      "halal_source": "business_model",
+      "halal_note": "✅ Clean. Rare disease therapeutics — permissible business.",
+      "notes": "8 shares: 6 @ $42 (Jun 29) + 2 @ $40.20 (Jul 2). IBKR blended avg $41.7755. FDA APPROVED Jul 7 2026 — atacicept branded TRUTAKNA, accelerated approval for IgAN. Stock settled at ~$40-42 post-approval (sell-the-news). Full approval contingent on ORIGIN 3 eGFR confirmatory data Q3 2026. Stop $38 (pre-PDUFA floor). TP1 $55 on positive eGFR. 14 analysts avg target $78, range $43-125 (HC Wainwright). IBKR price Jul 14: $40.70."
     }
   ],
   "watchlist": [
@@ -147,13 +127,13 @@
       "notes": "ARCHIVE: 8 shares total — 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. Track via positions[] array."
     }
   ],
-  "cash_available": 265.41,
-  "total_cost_basis": 534.59,
+  "cash_available": 502.23,
+  "total_cost_basis": 334.20,
   "totals": {
-    "positions_count": 2,
-    "sectors_held": ["Biotechnology", "Technology"],
-    "largest_position_pct": 55.8,
-    "concentration_warning": "VERA 55.8% of cost basis — binary event concentration. Intentional for July PDUFA strategy."
+    "positions_count": 1,
+    "sectors_held": ["Biotechnology"],
+    "largest_position_pct": 100.0,
+    "concentration_warning": "100% of positions in VERA — single biotech name. $502 cash available for deployment."
   },
   "education_tracker": {
     "last_concept_number": 3,
@@ -203,6 +183,7 @@
     {"date": "2026-06-25", "action": "SELL", "ticker": "TSM", "shares": 0.224, "price": 441.15, "gross_proceeds": 98.82, "commission": 3.0, "net_proceeds": 95.82, "cost_basis_sold": 86.99, "net_pnl": 8.83, "notes": "Full exit +13.6%. IBKR migration."},
     {"date": "2026-06-29", "action": "BUY", "ticker": "VERA", "shares": 6, "price": 42.0, "amount": 252.0, "commission": 0.5, "notes": "PDUFA play July 7. Entry above $34 target."},
     {"date": "2026-06-29", "action": "BUY", "ticker": "ANET", "shares": 1.27, "price": 157.0, "amount": 199.39, "commission": 0.5, "notes": "AI Ethernet momentum. TP $185, SL $144. Exit by July 25."},
-    {"date": "2026-07-03", "action": "BUY", "ticker": "VERA", "shares": 2, "price": 41.1, "amount": 82.2, "notes": "Added 2 shares pre-PDUFA. Blended avg now $41.7755 (8 shares total)."}
+    {"date": "2026-07-02", "action": "BUY", "ticker": "VERA", "shares": 2, "price": 40.20, "amount": 80.40, "commission": 0.80, "notes": "Added 2 shares pre-PDUFA. IBKR fill $40.20 (dark pool). Blended avg $41.7755 across all 8 shares (commissions included in IBKR avg)."},
+    {"date": "2026-07-09", "action": "SELL", "ticker": "ANET", "shares": 1.27, "price_blended": 187.26, "gross_proceeds": 237.83, "commission": 1.01, "net_proceeds": 236.82, "cost_basis_sold": 199.39, "net_pnl": 36.43, "notes": "Full exit. Two GTC fills: 1 share @ $187 (NYSE) + 0.27 shares @ $188.25 (IBKR partial). Net +18.2% (+$36.43). IBKR commission $1.01."}
   ]
 }
