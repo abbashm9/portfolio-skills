@@ -225,6 +225,76 @@ For each watchlist item, calculate:
 
 This data feeds directly into the email section in Step 6.
 
+### Step 2.7: Previous Day Movers — top gainers and losers
+
+**Run in parallel with Step 2.5.** This is a mandatory daily section — not optional, not skipped on weekends (use Friday's data on Saturday/Sunday).
+
+**Purpose:**
+1. Understand what the market rewarded and punished yesterday
+2. Catch actionable names that are still in motion (gap-and-go continuation, follow-through day 2)
+3. Check contagion — did any loser's cause affect your holdings or watchlist?
+
+#### 2.7A — Fetch the movers (4 searches in parallel)
+
+```
+"top stock gainers" yesterday OR [previous trading date] NYSE NASDAQ
+"top stock losers" OR "biggest decliners" yesterday OR [previous trading date] NYSE NASDAQ
+"stocks up 20 percent" OR "stocks up 30 percent" OR "stocks up 50 percent" [previous trading date] 2026
+"stocks down 20 percent" OR "stocks down 30 percent" [previous trading date] reason catalyst
+```
+
+Target: top 10 gainers (by % gain) and top 10 losers (by % loss) for the previous trading day. Focus on names with moves ≥ 10% — these are the ones with identifiable catalysts, not noise.
+
+#### 2.7B — Identify the reason (1 search per mover, all in parallel)
+
+For each mover in the top 10 gainers and top 10 losers, run:
+```
+"[TICKER]" [previous date] OR yesterday reason gain OR loss earnings OR FDA OR contract OR upgrade OR downgrade OR guidance
+```
+
+Classify each move into one of these catalyst types:
+- **FDA** — PDUFA approval, CRL, AdCom result, label expansion
+- **Earnings** — beat/miss, guidance raise/cut, revenue surprise
+- **Contract/Deal** — government contract, M&A, partnership, licensing
+- **Analyst** — upgrade/downgrade, price target change, initiation
+- **Macro/Sector** — sector ETF rotation, interest rate move, geopolitical
+- **Short squeeze** — high short interest + positive catalyst
+- **Technical** — breakout, index rebalancing, no clear fundamental reason
+- **Unknown** — no identifiable catalyst found
+
+#### 2.7C — Build the movers table
+
+For each mover, determine:
+- **Still actionable?** A gainer is still actionable if: (a) move was catalyst-driven not just technical, AND (b) the underlying event has more runway (e.g., day 1 of a multi-day FDA approval run, or earnings beat with raised guidance not yet fully priced). Flag as ✅ RUNNABLE or ❌ FADED.
+- **Contagion check:** Does the loser's reason affect any of your current positions or watchlist tickers? Same sector? Same drug class? Same customer base? Flag if yes.
+- **Halal quick check** (gainers only, if actionable): Is this a forbidden business? Drop it if yes.
+
+#### 2.7D — Email output format
+
+Render as a compact table in the email. Keep it tight — this is a scan, not a deep dive.
+
+**📈 Top Gainers — [previous trading date]**
+
+| Ticker | +% | Catalyst | Type | Still in play? |
+|---|---|---|---|---|
+| TICKER | +X% | [1-line reason] | FDA / Earnings / Deal / Squeeze | ✅ RUNNABLE — [why] / ❌ FADED |
+| ... | | | | |
+
+Show top 5 gainers with moves ≥ 10%. If a gainer is RUNNABLE and halal-clean, add a callout line below the table:
+> 🔔 **[TICKER] still running** — [1-line thesis for continuation]. Say `analyze [TICKER]` for the full setup.
+
+**📉 Top Losers — [previous trading date]**
+
+| Ticker | -% | Catalyst | Type | Contagion to your portfolio? |
+|---|---|---|---|---|
+| TICKER | -X% | [1-line reason] | CRL / Miss / Cut / Downgrade | ⚠️ Affects [HELD TICKER] because [reason] / None |
+| ... | | | | |
+
+Show top 5 losers with moves ≥ 10%. If a loser's cause has contagion to a held position or watchlist name, add a warning callout:
+> ⚠️ **[LOSER] CRL may signal sector headwind for [HELD/WATCHLIST TICKER]** — [1-line explanation].
+
+**On weekends:** use Friday's movers data. Label clearly: "📈 Friday's Movers — [date]"
+
 ### Step 3: Exit-strategy check per position (in order)
 
 1. **Halal compliance** — quarterly check, not daily, but flag if breaking news suggests a change
@@ -499,13 +569,14 @@ Build a responsive HTML email with the structure in `references/email-template.m
 1. **Hero banner** — total P&L today + 1D/MTD/YTD returns (from IBKR `get_pa_performance_all_periods`), investment goal tracker. Show the return type label: "TWR" or "MWR".
 2. **⚠️ MANDATORY — Positions snapshot table** — a single HTML table with ONE ROW PER POSITION showing: Status badge | Ticker | Themes (top 2 from Step 1.5C, as small pill tags) | Close price | Day % | P&L $ | P&L % — then a TOTAL row. This is the first thing Abbas reads every morning. It MUST appear in every email, including weekend emails (use last known price if market closed). NEVER omit this table, collapse it into prose, or replace it with per-position cards only.
 3. **Exit alerts** — any position needing action, with exact recommendation
-4. **⏳ Pending Watchlist** — watchlist items from portfolio.json (see below) — always shown if watchlist is non-empty
-5. **📡 Catalyst Plays** — daily catalyst discovery
-6. **💵 Cash deployment** — recommendation from Step 3.7
-7. **🔄 Rotation suggestions** — from Step 4, if any
-8. **📊 IBKR Intelligence** — broker-sourced analysis section (see design below)
-9. **📚 Today's concept** — education, in a colored box
-10. **Footer** — disclaimer, `"Prices: IBKR live feed — [timestamp]"`, returns method (TWR/MWR)
+4. **📈📉 Yesterday's Movers** — top gainers and losers from Step 2.7 (always shown; use Friday data on weekends)
+5. **⏳ Pending Watchlist** — watchlist items from portfolio.json (see below) — always shown if watchlist is non-empty
+6. **📡 Catalyst Plays** — daily catalyst discovery
+7. **💵 Cash deployment** — recommendation from Step 3.7
+8. **🔄 Rotation suggestions** — from Step 4, if any
+9. **📊 IBKR Intelligence** — broker-sourced analysis section (see design below)
+10. **📚 Today's concept** — education, in a colored box
+11. **Footer** — disclaimer, `"Prices: IBKR live feed — [timestamp]"`, returns method (TWR/MWR)
 
 **📊 IBKR Intelligence section design:**
 
