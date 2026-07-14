@@ -273,9 +273,9 @@ Status emoji per position:
 - 🔔 ACTION — hit a level, recommend trim/exit
 - 🚨 ALERT — stop hit or thesis broken, exit now
 
-### Step 3.5: Catalyst Discovery — full stock-finder run
+### Step 3.5: Catalyst Discovery — full market scan
 
-**Purpose:** Surface small/mid-cap names with imminent binary catalysts that nobody in mainstream media is currently talking about. This runs the same methodology as the standalone `stock-finder` skill — not a shortened version of it.
+**Purpose:** Surface small/mid-cap names with imminent catalysts across the ENTIRE market — not just pharma. Earnings beats, AI contract wins, guidance raises, analyst upgrades, short squeezes, sector momentum plays, and yes, FDA events too. The point is to find the stocks that are about to move 30–60% in any sector, not just biotech.
 
 **Everything here must come from live web_search. Training data is useless for discovery.**
 
@@ -283,36 +283,38 @@ Status emoji per position:
 
 Run all simultaneously:
 
-**FDA & regulatory:**
-1. `FDA PDUFA action dates [current month] [next month] upcoming decisions`
-2. `site:biopharmcatalyst.com PDUFA [current month] OR [next month]`
-3. `FDA NDA BLA "action date" [current month] [next month] 2026`
-4. `"advisory committee" OR AdCom meeting scheduled [current month] [next month] FDA`
-5. `"complete response letter" resubmission PDUFA upcoming 2026`
+**Earnings & corporate catalysts (5 searches):**
+1. `small cap "earnings beat" OR "EPS beat" "revenue beat" upcoming [current month] [next month] catalyst`
+2. `small mid cap "guidance raised" OR "raised guidance" OR "raised outlook" [current month] 2026`
+3. `"contract award" OR "government contract" OR "partnership agreement" small cap [current month] 2026`
+4. `"analyst upgrade" "price target raised" small cap outperform [current week] [current month] 2026`
+5. `"product launch" OR "FDA clearance" OR "CE mark" small cap [current month] [next month] 2026`
 
-**Clinical trial readouts:**
-6. `"phase 3" "data readout" OR "results expected" [current month] [next month] biotech`
-7. `"interim analysis" OR "primary endpoint" expected [current month] OR [next month] 2026`
-8. `"top-line data" expected [current month] [next month] small cap 2026`
+**Tech, AI & sector momentum (5 searches):**
+6. `AI OR semiconductor OR "data center" small mid cap catalyst earnings [current month] [next month] 2026`
+7. `"short squeeze" catalyst upcoming [current month] high short interest small cap 2026`
+8. `"unusual options activity" small cap [today's date] OR [this week] bullish`
+9. `"insider buying" cluster "Form 4" small cap [current month] 2026`
+10. `"premarket gainers" OR "premarket movers" catalyst [today's date] small cap`
 
-**Market signals:**
-9. `"unusual options activity" small cap [today's date] OR [this week]`
-10. `"insider buying" cluster multiple [current month] small cap`
-11. `"short squeeze" catalyst upcoming [current month] 2026`
-12. `"most shorted stocks" catalyst binary event 2026`
-13. `"premarket movers" OR "premarket gainers" [today's date] catalyst`
-14. `"small cap" "upcoming catalyst" OR "binary event" [current month] [next month]`
+**FDA & biotech (5 searches):**
+11. `FDA PDUFA action dates [current month] [next month] upcoming decisions`
+12. `"advisory committee" OR AdCom meeting scheduled [current month] [next month] FDA 2026`
+13. `"phase 3" "top-line data" OR "data readout" expected [current month] [next month] 2026`
+14. `site:biopharmcatalyst.com PDUFA [current month] OR [next month]`
 15. `biotech catalyst calendar [current month] [next month] 2026`
 
-Extract all distinct tickers mentioned. Target 15–25 raw candidates. Tickers appearing in multiple searches = stronger signal.
+Extract all distinct tickers mentioned. Target 15–25 raw candidates. Tickers appearing in multiple searches across different categories = strongest signal.
+
+**Sector balance rule:** The top 3 final candidates must not all be from the same sector. If the top 3 survivors are all biotech/pharma, promote the highest-scoring non-pharma candidate into the third slot and push the lowest-scoring pharma pick to WATCH status. Abbas needs to see the full market, not a pharma newsletter.
 
 #### 3.5.2 — Rapid 3-gate pre-screen (per candidate)
 
 Drop any candidate that fails any gate:
 
-- **Gate 1 — Confirmed event date ≤ 45 days?** No confirmed date → drop
-- **Gate 2 — Market cap < $2B?** Search `"[TICKER]" market cap` → ≥ $2B → drop
-- **Gate 3 — Halal quick check.** Search `"[TICKER]" revenue OR "interest income" OR halal`. Obvious disqualifier → drop. Unclear → keep with ⚠️ flag.
+- **Gate 1 — Confirmed catalyst date ≤ 45 days?** This includes: PDUFA date, earnings date, product launch date, contract announcement date, scheduled data readout. No confirmed date → drop.
+- **Gate 2 — Market cap < $2B?** Search `"[TICKER]" market cap` → ≥ $2B → drop.
+- **Gate 3 — Halal quick check.** Search `"[TICKER]" business model OR revenue OR products`. Obvious disqualifier (alcohol, gambling, weapons manufacturer as primary business, conventional bank/insurer) → drop. Unclear → keep with ⚠️ flag.
 
 #### 3.5.3 — Score survivors (5-point pre-score)
 
@@ -320,13 +322,13 @@ Drop any candidate that fails any gate:
 |---|---|
 | Event ≤ 14 days out | 2 |
 | Event 15–45 days out | 1 |
-| Short interest ≥ 15% float | 1 |
-| Appears in 2+ search sources | 1 |
-| Any smart money signal (insider buy, big fund 13F, unusual options) | 1 |
+| Short interest ≥ 15% float (squeeze potential) | 1 |
+| Appears in 2+ search sources OR 2+ categories | 1 |
+| Any smart money signal (insider buy, unusual options, institutional 13F buildup) | 1 |
 
-Sort by score. Keep top 3 candidates. These go to Step 3.8 for condensed analysis.
+Sort by score. Keep top 3 candidates, enforcing the sector balance rule above. These go to Step 3.8 for condensed analysis.
 
-If fewer than 3 survive: fall back to Tier A/B/C list in `references/rotation-playbook.md` to fill remaining slots. Note clearly which names are fallback large-caps vs. catalyst finds.
+If fewer than 3 survive all gates: fill remaining slots with the highest-conviction name from the current watchlist in portfolio.json that hasn't been analyzed recently, and note it as "watchlist carry-forward — no new candidate found today."
 
 Feed top 3 into Step 3.8, Step 3.7, and Step 4.
 
@@ -335,29 +337,41 @@ Feed top 3 into Step 3.8, Step 3.7, and Step 4.
 For each of the top 3 candidates from Step 3.5, run a condensed 5-point analysis. This is NOT the full 8-section stock-analyzer deep dive — that's available on demand in chat. This is the daily email version: tight, actionable, enough to decide whether to investigate further.
 
 Run these searches per candidate (in parallel across all 3 candidates):
-- `"[TICKER]" FDA PDUFA OR "phase 3" OR earnings date confirmed`
+- `"[TICKER]" earnings date OR PDUFA OR catalyst confirmed [current month] [next month]`
 - `"[TICKER]" market cap float short interest`
-- `"[TICKER]" AdCom vote OR "phase 3 results" OR "EPS beat" history`
-- `"[TICKER]" cash position runway OR dilution OR shelf registration`
-- `"[TICKER]" insider buying OR "Form 4" OR institutional 13F 2026`
+- `"[TICKER]" revenue growth OR "earnings history" OR "beat estimates" OR "phase 3" history`
+- `"[TICKER]" balance sheet OR "cash position" OR dilution OR debt 2026`
+- `"[TICKER]" insider buying OR "Form 4" OR institutional 13F OR "analyst target" 2026`
+
+**Identify the catalyst type first**, then adapt the analysis accordingly:
+
+**For FDA/clinical catalysts:** approval probability, accelerated approval vs full approval distinction, CRL downside, drug pricing, cash runway/dilution risk.
+
+**For earnings catalysts:** EPS consensus vs whisper number, revenue beat history (last 4 quarters), guidance raise probability, what drove the move in prior beats, whether the stock is up/down into earnings (run-up = higher sell-the-news risk).
+
+**For contract/partnership catalysts:** size of contract relative to market cap, likelihood of announcement, revenue impact, competitive moat.
+
+**For analyst upgrades / sector momentum:** what changed in the analyst's thesis, price target gap to current price, whether sector ETF flows support the move.
 
 For each candidate, produce this block (this is what goes in the email):
 
 ---
 
-> **🔬 [TICKER] — [COMPANY NAME]**
+> **🔬 [TICKER] — [COMPANY NAME]** `[SECTOR / CATALYST TYPE]`
 > **Catalyst:** [event type] on [exact date] — [X] days away
 > **Market cap:** $[X]M | **Float:** $[X]M | **Short interest:** [X]%
 >
-> **Probability:** [X]% — [1-line rationale referencing base rate + key modifier e.g. "oncology NDA base rate 79%, lifted by BTD designation and 8-2 AdCom vote"]
+> **Edge:** [1-line reason this is worth looking at — what's the specific setup? e.g. "Beat estimates 4 of last 4 quarters, entering earnings with 18% short interest and unusual call activity" OR "AdCom vote in 9 days, RTOR program, Phase 3 positive"]
+>
+> **Probability:** [X]% — [1-line rationale. For FDA: base rate + key modifier. For earnings: beat frequency + whisper vs consensus. For contracts: deal size vs cap, prior win rate.]
 >
 > **Scenarios:**
-> - ✅ If positive: ~$[price] (+[%]) — [this price = real technical/fundamental level: prior high / analyst target / resistance]
-> - 💀 If negative: ~$[price] (-[%]) — [this price = real support / typical rejection drop for this catalyst type]
+> - ✅ If positive: ~$[price] (+[%]) — [real level: prior high / analyst target / resistance / typical post-beat move for this name]
+> - 💀 If negative: ~$[price] (-[%]) — [real level: support / typical post-miss move / CRL reaction]
 > - Expected value on 30% position (~$[amount]): **+$[EV] / -$[EV]**
 >
-> **Smart money:** [insider buys / institutional buildup / unusual options / none visible]
-> **Cash runway:** [X months — dilution risk: yes/no]
+> **Smart money:** [insider buys / unusual options / institutional buildup / none visible]
+> **Key risk:** [the one thing that kills this trade — dilution shelf, sector rotation, guidance cut, CRL, etc.]
 >
 > **Halal:** ✅ Clean (core business permissible) / ⚠️ Unverified — check business model / ❌ Fails (forbidden core business)
 >
@@ -370,7 +384,7 @@ For each candidate, produce this block (this is what goes in the email):
 **WATCH** = pre-score 3, or event 15–45 days, or halal unverified
 **SKIP** = pre-score ≤ 2, or halal fails, or no confirmed event date
 
-All 3 candidate blocks go into the email under the "📡 Catalyst Plays" section. Even SKIP candidates are shown so Abbas can see what was found and why it didn't make the cut.
+All 3 candidate blocks go into the email under the "📡 Catalyst Plays" section. Even SKIP candidates are shown — transparency on what was found and why it didn't make the cut. At least one block should be a non-pharma name whenever one qualifies.
 
 ### Step 3.6: Risk-score current holdings
 
