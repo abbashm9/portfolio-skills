@@ -309,6 +309,84 @@ Keep this section tight — it's a radar, not a deep dive. 3–5 names max.
 
 **On weekends:** still run this section using the same event calendar. Upcoming events don't pause on weekends.
 
+### Step 2.9: Macro context — Buffett Indicator & market temperature
+
+**Run once per email, in parallel with Steps 2.7 and 2.8.** Always shown — never skipped, including weekends.
+
+**Purpose:** Give Abbas the big picture every morning. A single macro read that frames everything else in the email — are we in a historically expensive market or a cheap one? Is the macro environment supporting his aggressive growth strategy, or is it raising a red flag?
+
+#### 2.9A — Fetch the current Buffett Indicator reading (2 searches in parallel)
+
+```
+Buffett Indicator "total market cap" GDP ratio current 2026 site:currentmarketvaluation.com OR site:longtermtrends.net
+"Wilshire 5000" GDP ratio current level 2026 market valuation
+```
+
+Extract:
+- **Current reading** (e.g., "232.5%") — the ratio of total US stock market cap to GDP
+- **Trend** — up or down from last month/quarter
+- **Historical context** — which zone is it in? (see thresholds below)
+
+If the search doesn't return a precise number: use the last known reading from `references/buffett-indicator-history.html` (June 2026: 232.5%) and flag it as "⚠️ last known — could not verify today's reading."
+
+**Historical zone thresholds:**
+| Reading | Zone | Historical signal |
+|---|---|---|
+| < 100% | Undervalued | Rare — major crash aftermath |
+| 100–130% | Fair value | Normal / slightly elevated |
+| 130–160% | Moderately overvalued | Caution warranted |
+| 160–190% | Significantly overvalued | Elevated crash risk |
+| > 190% | Extreme / danger zone | Every reading above this has preceded a major drawdown |
+| > 220% | All-time extreme | Current territory — historically unprecedented |
+
+#### 2.9B — One additional macro search (optional but always attempted)
+
+```
+S&P 500 "forward P/E" current 2026 vs historical average "overvalued" OR "expensive"
+```
+
+Extract: current S&P 500 forward P/E vs historical average (15–17x). Gives a second macro data point to confirm or contradict the Buffett Indicator reading.
+
+#### 2.9C — Email output format
+
+Compact dark card, shown near the top of the email — right after the hero banner, before the positions table. It's the first thing Abbas reads to calibrate the whole session.
+
+**Visual treatment:** `background: #0d0d0d; border-left: 3px solid #f59e0b; padding: 12px;`
+
+```
+🌍 MACRO CONTEXT — [today's date]
+
+Buffett Indicator:  [X]%   [zone badge]
+S&P Forward P/E:    [X]x   [vs. avg: 16x]
+Trend:              [↑ Rising / ↓ Falling / → Flat]
+
+[1-sentence plain-English interpretation]
+[1-sentence implication for Abbas's strategy]
+```
+
+**Zone badges (colored pills):**
+- ≥ 220%: 🔴 ALL-TIME EXTREME
+- 190–220%: 🔴 DANGER ZONE  
+- 160–190%: 🟠 SIGNIFICANTLY OVERVALUED
+- 130–160%: 🟡 MODERATELY OVERVALUED
+- 100–130%: 🟢 FAIR VALUE
+- < 100%: 🟢 UNDERVALUED
+
+**The 1-sentence interpretation** should be direct and contextual — not generic. Examples:
+- At 232%: *"Market cap is 2.3× the entire US economy — historically, every reading this high has preceded a multi-year bear market."*
+- At 145%: *"Moderately elevated but not extreme — typical bull market territory, no immediate red flag."*
+- Falling trend: *"Reading dropped 8 points this month — market pulling back toward fair value, reduces systemic risk."*
+
+**The 1-sentence implication** ties it directly to Abbas's strategy:
+- In danger zone: *"Maintain stop-losses strictly — a correction from here could be fast and steep."*
+- In fair value zone: *"Macro supports staying invested — focus on stock-specific catalysts."*
+- Rising fast: *"Consider keeping some cash dry; if the market corrects hard, you want to buy the dip."*
+
+**Historical reference note** (1 line, grey text at bottom of card):
+> *Last historical episodes at this level: [2000 dot-com peak, 2021 COVID bubble peak] — see buffett-indicator-history.html for full case studies.*
+
+This card takes 3 seconds to read and gives Abbas the macro frame for the entire email. Everything else — position decisions, catalyst plays, cash deployment — should be read through this macro lens.
+
 ### Step 3: Exit-strategy check per position (in order)
 
 1. **Halal compliance** — quarterly check, not daily, but flag if breaking news suggests a change
@@ -496,17 +574,18 @@ Build a responsive HTML email. Requirements:
 **Email section order (top to bottom):**
 
 1. **Hero banner** — total P&L + 1D/MTD/YTD returns (from IBKR if available, else calculate from Yahoo Finance prices), investment goal tracker
-2. **⚠️ MANDATORY — Positions snapshot table** — ONE ROW PER POSITION: Status badge | Ticker | Close price | Day % | P&L $ | P&L % | then TOTAL row. NEVER omit this table, including weekend emails.
-3. **Exit alerts** — any position needing action
-4. **📈📉 Yesterday's Movers** — from Step 2.7 (always shown; Friday data on weekends) — small-cap ≥20% moves only
-5. **🏢 Large-cap on deck** — from Step 2.8, mega-cap earnings/catalyst radar (show when any name has event ≤21 days; omit if calendar is empty)
-6. **⏳ Pending Watchlist** — all watchlist items from portfolio.json (skip only if empty)
-7. **📡 Catalyst Plays** — top 3 candidates from Step 3.8
-8. **💵 Cash deployment** — from Step 3.7
-9. **🔄 Rotation suggestions** — from Step 4, if any
-10. **📊 IBKR Intelligence** — if available (interactive mode only); otherwise omit with note
-11. **📚 Today's concept** — education, in a colored box
-12. **Footer** — disclaimer, `"Prices: Yahoo Finance — [timestamp]"` (or IBKR if used), returns method
+2. **🌍 Macro context** — Buffett Indicator + S&P forward P/E from Step 2.9 (ALWAYS shown — this is the big picture frame for everything else)
+3. **⚠️ MANDATORY — Positions snapshot table** — ONE ROW PER POSITION: Status badge | Ticker | Close price | Day % | P&L $ | P&L % | then TOTAL row. NEVER omit this table, including weekend emails.
+4. **Exit alerts** — any position needing action
+5. **📈📉 Yesterday's Movers** — from Step 2.7 (always shown; Friday data on weekends) — small-cap ≥20% moves only
+6. **🏢 Large-cap on deck** — from Step 2.8, mega-cap earnings/catalyst radar (show when any name has event ≤21 days; omit if calendar is empty)
+7. **⏳ Pending Watchlist** — all watchlist items from portfolio.json (skip only if empty)
+8. **📡 Catalyst Plays** — top 3 candidates from Step 3.8
+9. **💵 Cash deployment** — from Step 3.7
+10. **🔄 Rotation suggestions** — from Step 4, if any
+11. **📊 IBKR Intelligence** — if available (interactive mode only); otherwise omit with note
+12. **📚 Today's concept** — education, in a colored box
+13. **Footer** — disclaimer, `"Prices: Yahoo Finance — [timestamp]"` (or IBKR if used), returns method
 
 **⏳ Pending Watchlist section design:**
 
