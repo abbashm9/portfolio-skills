@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-14T06:00:00+03:00",
+  "last_updated": "2026-07-15T00:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -14,6 +14,27 @@
     "note": "Reach $1000 total account value (positions + cash) by end of July 2026. Monthly investment target — not a withdrawal."
   },
   "positions": [
+    {
+      "ticker": "CELC",
+      "company": "Celcuity Inc.",
+      "sector": "Biotechnology",
+      "shares": 2,
+      "entry_price": 104.29,
+      "cost_basis": 208.58,
+      "entry_date": "2026-07-15",
+      "status": "open",
+      "stop_loss": 67.0,
+      "stop_loss_pct": -35.7,
+      "tp1": { "price": 152.0, "sell_pct": 100, "reason": "Approval scenario: +45-55% post-PDUFA. Sell same day as result." },
+      "tp2": null,
+      "catalyst": "FDA PDUFA decision — Gedatolisib for HR+/HER2- PIK3CA wild-type advanced breast cancer",
+      "catalyst_date": "2026-07-17",
+      "approval_probability_pct": 67,
+      "halal_verified": "2026-07-14",
+      "halal_source": "business_model",
+      "halal_note": "✅ Clean. Oncology/cancer therapeutics — permissible business.",
+      "notes": "2 shares @ $104.29 (IBKR avg). Entered Jul 15 pre-PDUFA Jul 17. Phase 3 VIKTORIA-1 positive. FDA Priority Review + RTOR. 11 analysts avg target $160.64 (+54%). Bull: $150-160. Bear: $65-75. Strategy: sell same day as PDUFA result — do not hold overnight if binary event passes."
+    },
     {
       "ticker": "VERA",
       "company": "Vera Therapeutics, Inc.",
@@ -48,7 +69,7 @@
     {
       "ticker": "CELC",
       "company": "Celcuity Inc.",
-      "verdict": "🔴 DECISION TODAY — PDUFA July 17. Enter at market open July 15 if today's report confirms.",
+      "verdict": "✅ ENTERED — 2 shares @ $104.29 avg (Jul 15). PDUFA July 17 — hold. Sell same day as result.",
       "conviction": 7,
       "entry_target": 104.0,
       "stop": 67.0,
@@ -135,15 +156,13 @@
       "notes": "ARCHIVE: 8 shares total — 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. Track via positions[] array."
     }
   ],
-  "cash_available": 502.23,
-  "total_cost_basis": 334.2,
+  "cash_available": 293.65,
+  "total_cost_basis": 542.78,
   "totals": {
-    "positions_count": 1,
-    "sectors_held": [
-      "Biotechnology"
-    ],
-    "largest_position_pct": 100.0,
-    "concentration_warning": "100% of positions in VERA — single biotech name. $502 cash available for deployment."
+    "positions_count": 2,
+    "sectors_held": ["Biotechnology"],
+    "largest_position_pct": 61.7,
+    "concentration_warning": "100% of positions in Biotechnology — VERA (61.7%) + CELC (38.3%). CELC PDUFA July 17 is a binary event — plan to exit same day."
   },
   "education_tracker": {
     "last_concept_number": 4,
@@ -181,171 +200,21 @@
     ]
   },
   "history": [
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "NVDA",
-      "shares": 1.3799,
-      "price": 217.4,
-      "amount": 300.06,
-      "notes": "Initial allocation"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "LLY",
-      "shares": 0.1407,
-      "price": 994.87,
-      "amount": 139.98,
-      "notes": "Healthcare diversifier"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "AVGO",
-      "shares": 0.315,
-      "price": 412.04,
-      "amount": 129.79,
-      "notes": "AI breadth"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "TSM",
-      "shares": 0.224,
-      "price": 388.35,
-      "amount": 86.99,
-      "notes": "Foundry pure-play"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "AMD",
-      "shares": 0.117,
-      "price": 428.84,
-      "amount": 50.17,
-      "notes": "Server CPU"
-    },
-    {
-      "date": "2026-06-08",
-      "action": "SELL",
-      "ticker": "LLY",
-      "shares": 0.0421,
-      "price": 1152.76,
-      "gross_proceeds": 48.53,
-      "commission": 3.0,
-      "net_proceeds": 45.53,
-      "cost_basis_sold": 41.87,
-      "net_pnl": 3.66,
-      "notes": "Partial trim +16.0%"
-    },
-    {
-      "date": "2026-06-09",
-      "action": "SELL",
-      "ticker": "AMD",
-      "shares": 0.117,
-      "price": 498.12,
-      "gross_proceeds": 58.28,
-      "commission": 3.0,
-      "net_proceeds": 55.28,
-      "cost_basis_sold": 50.17,
-      "net_pnl": 5.11,
-      "notes": "Full exit +16.2%"
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "NVDA",
-      "shares": 1.3799,
-      "price": 195.72,
-      "gross_proceeds": 270.07,
-      "commission": 3.0,
-      "net_proceeds": 267.07,
-      "cost_basis_sold": 300.06,
-      "net_pnl": -32.99,
-      "notes": "Full exit at loss. Stop breached."
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "AVGO",
-      "shares": 0.315,
-      "price": 383.31,
-      "gross_proceeds": 120.74,
-      "commission": 3.0,
-      "net_proceeds": 117.74,
-      "cost_basis_sold": 129.79,
-      "net_pnl": -12.05,
-      "notes": "Full exit at loss. Sector sentiment exit."
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "LLY",
-      "shares": 0.0986,
-      "price": 1141.03,
-      "gross_proceeds": 112.51,
-      "commission": 3.0,
-      "net_proceeds": 109.51,
-      "cost_basis_sold": 98.11,
-      "net_pnl": 11.4,
-      "notes": "Full exit +14.7%. IBKR migration."
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "TSM",
-      "shares": 0.224,
-      "price": 441.15,
-      "gross_proceeds": 98.82,
-      "commission": 3.0,
-      "net_proceeds": 95.82,
-      "cost_basis_sold": 86.99,
-      "net_pnl": 8.83,
-      "notes": "Full exit +13.6%. IBKR migration."
-    },
-    {
-      "date": "2026-06-29",
-      "action": "BUY",
-      "ticker": "VERA",
-      "shares": 6,
-      "price": 42.0,
-      "amount": 252.0,
-      "commission": 0.5,
-      "notes": "PDUFA play July 7. Entry above $34 target."
-    },
-    {
-      "date": "2026-06-29",
-      "action": "BUY",
-      "ticker": "ANET",
-      "shares": 1.27,
-      "price": 157.0,
-      "amount": 199.39,
-      "commission": 0.5,
-      "notes": "AI Ethernet momentum. TP $185, SL $144. Exit by July 25."
-    },
-    {
-      "date": "2026-07-02",
-      "action": "BUY",
-      "ticker": "VERA",
-      "shares": 2,
-      "price": 40.2,
-      "amount": 80.4,
-      "commission": 0.8,
-      "notes": "Added 2 shares pre-PDUFA. IBKR fill $40.20 (dark pool). Blended avg $41.7755 across all 8 shares (commissions included in IBKR avg)."
-    },
-    {
-      "date": "2026-07-09",
-      "action": "SELL",
-      "ticker": "ANET",
-      "shares": 1.27,
-      "price_blended": 187.26,
-      "gross_proceeds": 237.83,
-      "commission": 1.01,
-      "net_proceeds": 236.82,
-      "cost_basis_sold": 199.39,
-      "net_pnl": 36.43,
-      "notes": "Full exit. Two GTC fills: 1 share @ $187 (NYSE) + 0.27 shares @ $188.25 (IBKR partial). Net +18.2% (+$36.43). IBKR commission $1.01."
-    }
+    {"date": "2026-05-11", "action": "BUY", "ticker": "NVDA", "shares": 1.3799, "price": 217.4, "amount": 300.06, "notes": "Initial allocation"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "LLY", "shares": 0.1407, "price": 994.87, "amount": 139.98, "notes": "Healthcare diversifier"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "AVGO", "shares": 0.315, "price": 412.04, "amount": 129.79, "notes": "AI breadth"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "TSM", "shares": 0.224, "price": 388.35, "amount": 86.99, "notes": "Foundry pure-play"},
+    {"date": "2026-05-11", "action": "BUY", "ticker": "AMD", "shares": 0.117, "price": 428.84, "amount": 50.17, "notes": "Server CPU"},
+    {"date": "2026-06-08", "action": "SELL", "ticker": "LLY", "shares": 0.0421, "price": 1152.76, "gross_proceeds": 48.53, "commission": 3.0, "net_proceeds": 45.53, "cost_basis_sold": 41.87, "net_pnl": 3.66, "notes": "Partial trim +16.0%"},
+    {"date": "2026-06-09", "action": "SELL", "ticker": "AMD", "shares": 0.117, "price": 498.12, "gross_proceeds": 58.28, "commission": 3.0, "net_proceeds": 55.28, "cost_basis_sold": 50.17, "net_pnl": 5.11, "notes": "Full exit +16.2%"},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "NVDA", "shares": 1.3799, "price": 195.72, "gross_proceeds": 270.07, "commission": 3.0, "net_proceeds": 267.07, "cost_basis_sold": 300.06, "net_pnl": -32.99, "notes": "Full exit at loss. Stop breached."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "AVGO", "shares": 0.315, "price": 383.31, "gross_proceeds": 120.74, "commission": 3.0, "net_proceeds": 117.74, "cost_basis_sold": 129.79, "net_pnl": -12.05, "notes": "Full exit at loss. Sector sentiment exit."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "LLY", "shares": 0.0986, "price": 1141.03, "gross_proceeds": 112.51, "commission": 3.0, "net_proceeds": 109.51, "cost_basis_sold": 98.11, "net_pnl": 11.4, "notes": "Full exit +14.7%. IBKR migration."},
+    {"date": "2026-06-25", "action": "SELL", "ticker": "TSM", "shares": 0.224, "price": 441.15, "gross_proceeds": 98.82, "commission": 3.0, "net_proceeds": 95.82, "cost_basis_sold": 86.99, "net_pnl": 8.83, "notes": "Full exit +13.6%. IBKR migration."},
+    {"date": "2026-06-29", "action": "BUY", "ticker": "VERA", "shares": 6, "price": 42.0, "amount": 252.0, "commission": 0.5, "notes": "PDUFA play July 7. Entry above $34 target."},
+    {"date": "2026-06-29", "action": "BUY", "ticker": "ANET", "shares": 1.27, "price": 157.0, "amount": 199.39, "commission": 0.5, "notes": "AI Ethernet momentum. TP $185, SL $144. Exit by July 25."},
+    {"date": "2026-07-02", "action": "BUY", "ticker": "VERA", "shares": 2, "price": 40.20, "amount": 80.40, "commission": 0.80, "notes": "Added 2 shares pre-PDUFA. IBKR fill $40.20 (dark pool). Blended avg $41.7755 across all 8 shares (commissions included in IBKR avg)."},
+    {"date": "2026-07-09", "action": "SELL", "ticker": "ANET", "shares": 1.27, "price_blended": 187.26, "gross_proceeds": 237.83, "commission": 1.01, "net_proceeds": 236.82, "cost_basis_sold": 199.39, "net_pnl": 36.43, "notes": "Full exit. Two GTC fills: 1 share @ $187 (NYSE) + 0.27 shares @ $188.25 (IBKR partial). Net +18.2% (+$36.43). IBKR commission $1.01."},
+    {"date": "2026-07-15", "action": "BUY", "ticker": "CELC", "shares": 2, "price": 104.29, "amount": 208.58, "commission": 1.00, "notes": "Pre-PDUFA entry. PDUFA July 17. IBKR avg $104.29. Strategy: sell same day as PDUFA result."}
   ]
 }
