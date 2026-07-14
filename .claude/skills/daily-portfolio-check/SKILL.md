@@ -295,6 +295,33 @@ Show top 5 losers with moves ≥ 10%. If a loser's cause has contagion to a held
 
 **On weekends:** use Friday's movers data. Label clearly: "📈 Friday's Movers — [date]"
 
+#### 2.7E — Pattern extraction: inject learnings into today's catalyst scan
+
+This is the most important part of the movers analysis. Don't just report what moved — use it to make today's scan smarter.
+
+For every gainer ≥ 20% from the previous day, work backwards and answer: **what was the signal 1–3 days before the move?**
+
+Run this search per big gainer:
+```
+"[TICKER]" "unusual options" OR "Form 4" OR "short interest" OR "analyst initiation" OR "contract" [2-4 days before the move date]
+```
+
+Then extract the precursor pattern — e.g.:
+- "MU ran +34% on AI memory demand. Signal 2 days prior: unusual call buying at the $110 strike."
+- "MRVL ran +22% on data center revenue guidance raise. Signal: semiconductor ETF SOXX had 3 straight days of unusual inflows."
+- "CELC ran +47% on FDA approval. Signal: RTOR status was public knowledge 6 weeks before the PDUFA."
+
+**Feed those patterns directly into the Step 3.5.1 search terms for today.** Concretely:
+
+- If yesterday's +30% move was preceded by unusual options → today add a targeted options search: `"[SAME SECTOR]" "unusual call buying" OR "sweep" [today's date]`
+- If yesterday's move was an AI/semiconductor earnings beat → today add: `"[PEER TICKERS]" earnings [current month] semiconductor AI revenue guidance`
+- If yesterday's move was a sector rotation → today add: `[SECTOR ETF] inflows OR rotation [today's date]` and scan for laggards in the same sector that haven't moved yet
+
+This feedback loop means the scan gets sharper every day. A pattern that produced a 30% move yesterday generates targeted searches today for the same setup in other names. Over time the scan learns which signal types lead which move types by how many days.
+
+**In the email:** add a one-liner under each big gainer in the table:
+> 🔍 **Precursor signal:** [what the smart money was doing 1-3 days before] — scanning for same pattern in [SECTOR/PEERS] today.
+
 ### Step 3: Exit-strategy check per position (in order)
 
 1. **Halal compliance** — quarterly check, not daily, but flag if breaking news suggests a change
