@@ -279,32 +279,49 @@ Status emoji per position:
 
 **Everything here must come from live web_search. Training data is useless for discovery.**
 
-#### 3.5.1 — Cast the net (15 searches in parallel)
+#### 3.5.1 — Cast the net (30 searches in parallel)
 
-Run all simultaneously:
+Run ALL simultaneously — they execute in parallel so 30 searches takes no longer than 15. More searches = more candidates = better market coverage.
 
-**Earnings & corporate catalysts (5 searches):**
+**Earnings & corporate catalysts (8 searches):**
 1. `small cap "earnings beat" OR "EPS beat" "revenue beat" upcoming [current month] [next month] catalyst`
-2. `small mid cap "guidance raised" OR "raised guidance" OR "raised outlook" [current month] 2026`
-3. `"contract award" OR "government contract" OR "partnership agreement" small cap [current month] 2026`
+2. `small mid cap "guidance raised" OR "raised guidance" OR "raised full year outlook" [current month] 2026`
+3. `"contract award" OR "government contract" OR "IDIQ contract" small cap [current month] 2026`
 4. `"analyst upgrade" "price target raised" small cap outperform [current week] [current month] 2026`
-5. `"product launch" OR "FDA clearance" OR "CE mark" small cap [current month] [next month] 2026`
+5. `"product launch" OR "FDA clearance 510k" OR "CE mark" medical device small cap [current month] [next month] 2026`
+6. `upcoming earnings small cap "whisper number" OR "earnings whisper" beat expected [current month]`
+7. `"spin-off" OR "strategic review" OR "divestiture" small mid cap catalyst 2026`
+8. `"partnership" OR "licensing deal" OR "milestone payment" small cap biotech OR tech [current month] 2026`
 
-**Tech, AI & sector momentum (5 searches):**
-6. `AI OR semiconductor OR "data center" small mid cap catalyst earnings [current month] [next month] 2026`
-7. `"short squeeze" catalyst upcoming [current month] high short interest small cap 2026`
-8. `"unusual options activity" small cap [today's date] OR [this week] bullish`
-9. `"insider buying" cluster "Form 4" small cap [current month] 2026`
-10. `"premarket gainers" OR "premarket movers" catalyst [today's date] small cap`
+**Tech, AI, semiconductors & sector momentum (8 searches):**
+9. `AI OR "artificial intelligence" OR "data center" small mid cap catalyst earnings [current month] [next month] 2026`
+10. `semiconductor OR "chip" OR "HBM" OR "CoWoS" small cap catalyst upcoming [current month] 2026`
+11. `defense OR aerospace "contract win" OR "LPTA award" small cap [current month] 2026`
+12. `energy OR "clean energy" OR "nuclear" small mid cap catalyst [current month] [next month] 2026`
+13. `"52-week high" breakout small cap high volume catalyst [current week] 2026`
+14. `"short squeeze" catalyst upcoming [current month] high short interest "days to cover" small cap 2026`
+15. `"unusual options activity" small cap [today's date] OR [this week] bullish call sweep`
+16. `"insider buying" cluster "Form 4" multiple executives small cap [current month] 2026`
 
-**FDA & biotech (5 searches):**
-11. `FDA PDUFA action dates [current month] [next month] upcoming decisions`
-12. `"advisory committee" OR AdCom meeting scheduled [current month] [next month] FDA 2026`
-13. `"phase 3" "top-line data" OR "data readout" expected [current month] [next month] 2026`
-14. `site:biopharmcatalyst.com PDUFA [current month] OR [next month]`
-15. `biotech catalyst calendar [current month] [next month] 2026`
+**Market structure & momentum signals (6 searches):**
+17. `"premarket gainers" OR "premarket movers" catalyst [today's date] small cap`
+18. `"most active" OR "volume spike" small mid cap catalyst [today's date] OR [this week]`
+19. `"gamma squeeze" OR "options expiry" catalyst small cap [current week] [next week] 2026`
+20. `"breakout" "bull flag" OR "cup and handle" small cap high volume [current week] 2026`
+21. `"institutional buying" 13F "new position" small cap [current month] 2026`
+22. `"heavily shorted" "upcoming catalyst" OR "short interest" small cap 2026 [current month]`
 
-Extract all distinct tickers mentioned. Target 15–25 raw candidates. Tickers appearing in multiple searches across different categories = strongest signal.
+**FDA & biotech (8 searches):**
+23. `FDA PDUFA action dates [current month] [next month] upcoming decisions`
+24. `"advisory committee" OR AdCom meeting scheduled [current month] [next month] FDA 2026`
+25. `"phase 3" "top-line data" OR "data readout" expected [current month] [next month] 2026`
+26. `site:biopharmcatalyst.com PDUFA [current month] OR [next month]`
+27. `biotech catalyst calendar [current month] [next month] 2026`
+28. `"complete response letter" resubmission PDUFA upcoming 2026`
+29. `"interim analysis" OR "primary endpoint" met OR "phase 2b" results [current month] [next month] 2026`
+30. `"rare disease" OR "orphan drug" PDUFA OR "breakthrough therapy" designation upcoming [current month] 2026`
+
+Extract all distinct tickers mentioned. Target 25–40 raw candidates. Tickers appearing in multiple searches across different categories = strongest signal — weight these heavily.
 
 **Sector balance rule:** The top 3 final candidates must not all be from the same sector. If the top 3 survivors are all biotech/pharma, promote the highest-scoring non-pharma candidate into the third slot and push the lowest-scoring pharma pick to WATCH status. Abbas needs to see the full market, not a pharma newsletter.
 
