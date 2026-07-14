@@ -264,6 +264,51 @@ Extract the precursor pattern and feed it into Step 3.5.1 searches for today:
 **In the email:** add under each big gainer:
 > 🔍 **Precursor signal:** [what smart money was doing 1-3 days before] — scanning for same pattern in [SECTOR/PEERS] today.
 
+### Step 2.8: Large-cap earnings & catalyst watch
+
+**Run in parallel with Step 2.7.** This is a mandatory daily section — separate from movers, separate from catalyst plays.
+
+**Purpose:** Surface mega-cap setups (AAPL, MSFT, NVDA, META, AMZN, GOOG, TSLA, AMD, AVGO, TSM, LLY, and any other name >$50B market cap) where there's a tradeable catalyst coming up — earnings, product launch, analyst day, major contract. These names rarely move 20%+ on a single day but can be exceptional pre-earnings entries or rotation targets. They never appear in the Movers section for that reason.
+
+#### 2.8A — Fetch the upcoming large-cap events (3 searches in parallel)
+
+```
+"earnings date" NVDA OR META OR AAPL OR MSFT OR AMZN OR GOOG OR TSLA OR AMD OR AVGO OR TSM [current month] [next month] 2026
+"earnings date" LLY OR JNJ OR PFE OR MRK OR ABBV OR BMY large cap pharma [current month] [next month] 2026
+mega cap "catalyst" OR "product launch" OR "analyst day" OR "investor day" OR "AI announcement" [current month] [next month] 2026
+```
+
+Target: identify which mega-caps have earnings within the next 21 days. Focus on names where there's a directional thesis — either a strong expected beat, a guidance raise, a new product reveal, or a sector tailwind.
+
+#### 2.8B — For each name with an event ≤ 21 days, run 1 quick search
+
+```
+"[TICKER]" earnings [date] consensus estimate "beat" OR "guidance" OR "AI" OR "data center" OR "revenue" 2026
+```
+
+Produce a 1-line setup note per name. You are looking for pre-earnings entry opportunities — not post-event analysis.
+
+#### 2.8C — Email output format
+
+Keep this section tight — it's a radar, not a deep dive. 3–5 names max.
+
+**🏢 Large-cap on deck — next 21 days**
+
+| Ticker | Event | Date | Setup in 1 line | Implied move | Direction |
+|---|---|---|---|---|---|
+| NVDA | Earnings | Jul 23 | AI data center demand accelerating; Jensen guidance track record | ±X% | 🟢 Bullish / 🔴 Bearish / ⚪ Neutral |
+| META | Earnings | Jul 30 | Ad revenue reacceleration, AI capex update | ±X% | 🟢 Bullish |
+| ... | | | | | |
+
+**Implied move:** Use the options market implied move if findable via search (`"[TICKER]" "implied move" earnings 2026`). If not findable, estimate: large-cap tech typically ±5-10% on earnings.
+
+**Direction:** Your read based on the 1-line search — is the setup leaning bullish, bearish, or genuinely 50/50? Don't manufacture a view where you don't have one.
+
+**Below the table, for any name with a 🟢 Bullish tag**, add a callout:
+> 💡 **[TICKER] earnings [date]** — [1-line entry thesis]. Pre-earnings entry: buy X days before, exit before print OR hold through. Say `analyze [TICKER]` for full setup with entry/stop/TP.
+
+**On weekends:** still run this section using the same event calendar. Upcoming events don't pause on weekends.
+
 ### Step 3: Exit-strategy check per position (in order)
 
 1. **Halal compliance** — quarterly check, not daily, but flag if breaking news suggests a change
@@ -453,14 +498,15 @@ Build a responsive HTML email. Requirements:
 1. **Hero banner** — total P&L + 1D/MTD/YTD returns (from IBKR if available, else calculate from Yahoo Finance prices), investment goal tracker
 2. **⚠️ MANDATORY — Positions snapshot table** — ONE ROW PER POSITION: Status badge | Ticker | Close price | Day % | P&L $ | P&L % | then TOTAL row. NEVER omit this table, including weekend emails.
 3. **Exit alerts** — any position needing action
-4. **📈📉 Yesterday's Movers** — from Step 2.7 (always shown; Friday data on weekends)
-5. **⏳ Pending Watchlist** — all watchlist items from portfolio.json (skip only if empty)
-6. **📡 Catalyst Plays** — top 3 candidates from Step 3.8
-7. **💵 Cash deployment** — from Step 3.7
-8. **🔄 Rotation suggestions** — from Step 4, if any
-9. **📊 IBKR Intelligence** — if available (interactive mode only); otherwise omit with note
-10. **📚 Today's concept** — education, in a colored box
-11. **Footer** — disclaimer, `"Prices: Yahoo Finance — [timestamp]"` (or IBKR if used), returns method
+4. **📈📉 Yesterday's Movers** — from Step 2.7 (always shown; Friday data on weekends) — small-cap ≥20% moves only
+5. **🏢 Large-cap on deck** — from Step 2.8, mega-cap earnings/catalyst radar (show when any name has event ≤21 days; omit if calendar is empty)
+6. **⏳ Pending Watchlist** — all watchlist items from portfolio.json (skip only if empty)
+7. **📡 Catalyst Plays** — top 3 candidates from Step 3.8
+8. **💵 Cash deployment** — from Step 3.7
+9. **🔄 Rotation suggestions** — from Step 4, if any
+10. **📊 IBKR Intelligence** — if available (interactive mode only); otherwise omit with note
+11. **📚 Today's concept** — education, in a colored box
+12. **Footer** — disclaimer, `"Prices: Yahoo Finance — [timestamp]"` (or IBKR if used), returns method
 
 **⏳ Pending Watchlist section design:**
 
