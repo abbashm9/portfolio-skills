@@ -39,29 +39,37 @@ A post-NYSE-close daily review skill for Abbas's halal stock portfolio. Outputs 
 
 5. **Cash deployment minimum:** Don't suggest buying into a new position if the cash being deployed (after commission) would result in a position worth < $30. Too small to be meaningful.
 
-## Sources of truth: Yahoo Finance (prices) + portfolio.json (metadata)
+## Sources of truth: Yahoo Finance JSON API (prices) + portfolio.json (metadata)
 
-**Price source: Yahoo Finance via WebFetch — primary for all automated runs.**
+**Price source: Yahoo Finance JSON API via WebFetch — primary for all automated runs.**
 
-The IBKR MCP connector is only available in interactive chat sessions. The Cloud Routine runs on Claude's servers where IBKR is not reachable. Use Yahoo Finance as the price source for all automated daily email runs.
+The IBKR MCP connector is only available in interactive chat sessions. The Cloud Routine runs on Claude's servers where IBKR is not reachable. Use the Yahoo Finance JSON API as the price source for all automated daily email runs.
 
-**For each position and watchlist ticker, fetch the Yahoo Finance quote page directly:**
+**CRITICAL: Do NOT fetch the HTML quote page (`yahoo.com/quote/TICKER`) — it is JavaScript-rendered and WebFetch cannot extract prices from it. Always use the JSON API endpoint:**
+
 ```
-WebFetch: https://finance.yahoo.com/quote/[TICKER]
+WebFetch: https://query1.finance.yahoo.com/v8/finance/chart/[TICKER]?interval=1d&range=2d
 ```
 
-Extract from the page:
-- Current/closing price
-- Day change $ and %
-- Previous close
-- 52-week high / low
-- Volume
+This returns structured JSON. Extract prices from:
+```json
+response.chart.result[0].meta.regularMarketPrice      → current/closing price
+response.chart.result[0].meta.previousClose            → previous close
+response.chart.result[0].meta.regularMarketChangePercent → day % change
+response.chart.result[0].meta.fiftyTwoWeekHigh         → 52-week high
+response.chart.result[0].meta.fiftyTwoWeekLow          → 52-week low
+response.chart.result[0].meta.regularMarketVolume       → volume
+```
 
-This is deterministic (one URL = one ticker's exact data) and far more reliable than a generic web search. **Always use this method — never estimate or use search results for prices.**
+**Fallback if query1 is blocked:** try `https://query2.finance.yahoo.com/v8/finance/chart/[TICKER]?interval=1d&range=2d` (same structure, alternate host).
 
-Flag every price in the email with: `"Prices: Yahoo Finance — [fetch timestamp]"`
+**Fallback if both are blocked:** try `https://stooq.com/q/l/?s=[TICKER].US&f=sd2op` which returns CSV: Date, Open, Close. Use the Close value.
 
-If Yahoo Finance returns no data for a ticker (page not found or access blocked): label that position "⚠️ PRICE UNAVAILABLE — check broker app manually." Do NOT guess or estimate.
+This is deterministic (one URL = one ticker's exact data) and far more reliable than fetching the HTML quote page or using web search. **Always use this method — never estimate or use search results for prices.**
+
+Flag every price in the email with: `"Prices: Yahoo Finance JSON API — [fetch timestamp]"`
+
+If all Yahoo Finance endpoints return no price: label that position "⚠️ PRICE UNAVAILABLE — check broker app manually." Do NOT guess or estimate.
 
 **IBKR in chat mode:** When the skill is triggered interactively (not as a routine), IBKR MCP tools ARE available. In that case, use IBKR as the primary source (more accurate, real-time) and fall back to Yahoo Finance only if IBKR fails. Display which source was used in the email footer.
 
@@ -82,14 +90,21 @@ If portfolio.json is unreachable: proceed with Yahoo Finance prices but note "�
 
 **Run both in parallel — BEFORE anything else.**
 
-**0A — Live prices via Yahoo Finance WebFetch:**
+**0A — Live prices via Yahoo Finance JSON API (WebFetch):**
 
 For each ticker in portfolio.json positions[] and watchlist[], fetch:
 ```
-https://finance.yahoo.com/quote/[TICKER]
+https://query1.finance.yahoo.com/v8/finance/chart/[TICKER]?interval=1d&range=2d
 ```
 
-Extract: current price, day change %, previous close, 52-week high/low, volume. Store per ticker.
+This returns JSON. Extract from `response.chart.result[0].meta`:
+- `regularMarketPrice` → current/closing price
+- `previousClose` → previous close  
+- `regularMarketChangePercent` → day % change
+- `fiftyTwoWeekHigh` / `fiftyTwoWeekLow` → 52-week range
+- `regularMarketVolume` → volume
+
+Fetch all tickers in parallel. If query1 is blocked, try query2 (same URL, replace `query1` with `query2`). If both blocked, try stooq: `https://stooq.com/q/l/?s=[TICKER].US&f=sd2op` (CSV → use Close column). Store per ticker.
 
 **If running interactively with IBKR available:** use `get_account_positions` and `get_account_balances` for live P&L and share counts. Still fetch Yahoo Finance for watchlist tickers not in IBKR.
 
@@ -229,6 +244,8 @@ For each mover that passes the filter, determine:
 
 #### 2.7D — Email output format
 
+**MANDATORY: This section MUST always appear in the email.** Even if searches returned nothing useful, or no mover cleared 20%, still render the section header and a fallback note. Never omit this section entirely.
+
 **📈 Top Gainers — [previous trading date]**
 
 | Ticker | +% | Catalyst | Type | Still in play? |
@@ -238,6 +255,9 @@ For each mover that passes the filter, determine:
 Show top 5 gainers sorted by % move descending (highest first), minimum ≥ 20%. If a gainer is RUNNABLE and halal-clean, add:
 > 🔔 **[TICKER] still running** — [1-line thesis for continuation]. Say `analyze [TICKER]` for the full setup.
 
+**If no gainer cleared ≥20%:** show:
+> *No small-cap gainers found clearing the 20% threshold for [date]. Market was quiet or search returned insufficient data. Large-cap movers (META +6%, NVDA +4%) excluded by design — see "Large-cap on deck" section for those.*
+
 **📉 Top Losers — [previous trading date]**
 
 | Ticker | -% | Catalyst | Type | Contagion to your portfolio? |
@@ -246,6 +266,9 @@ Show top 5 gainers sorted by % move descending (highest first), minimum ≥ 20%.
 
 Show top 5 losers sorted by % move descending (largest drop first), minimum ≥ 20%. If contagion exists, add:
 > ⚠️ **[LOSER] CRL may signal sector headwind for [HELD/WATCHLIST TICKER]** — [1-line explanation].
+
+**If no loser cleared ≥20%:** show:
+> *No small-cap losers found clearing the 20% threshold for [date].*
 
 **On weekends:** use Friday's movers data. Label clearly: "📈 Friday's Movers — [date]"
 
@@ -327,7 +350,14 @@ Extract:
 - **Trend** — up or down from last month/quarter
 - **Historical context** — which zone is it in? (see thresholds below)
 
-If the search doesn't return a precise number: use the last known reading from `references/buffett-indicator-history.html` (June 2026: 232.5%) and flag it as "⚠️ last known — could not verify today's reading."
+**MANDATORY FALLBACK — this section MUST always appear in the email, even if searches return nothing.**
+
+If the search doesn't return a precise number, use this hardcoded fallback and display the card anyway:
+- Reading: **232.5%** (last known: June 2026)
+- Zone: 🔴 ALL-TIME EXTREME
+- Flag it as: "⚠️ Live fetch failed — showing last known reading (June 2026: 232.5%). Verify at currentmarketvaluation.com."
+
+Do NOT skip this section. Do NOT omit the card. The email must always contain the macro context card — a failed web search is not a reason to hide the big picture from Abbas. Show the fallback card with the ⚠️ flag and he can verify manually.
 
 **Historical zone thresholds:**
 | Reading | Zone | Historical signal |
