@@ -69,8 +69,8 @@
     {
       "ticker": "CAPR",
       "company": "Capricor Therapeutics, Inc.",
-      "verdict": "MONITOR — AdCom July 29. Watching daily scan for better opportunities first. Decide by July 24.",
-      "conviction": 4,
+      "verdict": "🟠 ORDER PLACED — 16 shares @ $20.35 limit (Jul 15, pending fill). AdCom July 29. GTC sell $33-35 must be set on fill. READ FDA BRIEFING DOCS July 25.",
+      "conviction": 7,
       "entry_target": 21.0,
       "stop": 13.0,
       "stop_reason": "Below post-AdCom support; CRL scenario floor $11-13",
@@ -86,7 +86,7 @@
       "halal_note": "✅ Clean by business-activity standard. Cardiac cell therapy for DMD — permissible. Prior Zoya/AAOIFI financial ratio flag (9.9% interest income) is irrelevant under Abbas's halal definition. Only business model matters.",
       "position_size_target": 150,
       "added_date": "2026-06-29",
-      "notes": "AdCom July 29 CONFIRMED (Capricor press release Jun 26 2026). Price dropped to $21 (was $26 target). FDA reversed earlier no-AdCom decision and requested full HOPE-3 CSR Jan 2026 — signals open questions. Short interest 28% float, put/call 2.07, June 30 bearish block (2900 Aug $20 puts now ATM). Approval probability 40-50% — coin flip with fat tails. Bull: +50-100% → $31-42. Bear: -40-50% → $11-13. EV on $147 position: +$10. STRATEGY: sell AdCom reaction same day. Do NOT hold through PDUFA Aug 22."
+      "notes": "ORDER PLACED Jul 15: 16 shares @ $20.35 limit — pending fill. AdCom Jul 29 CONFIRMED. PDUFA Aug 22. KEY DATES: (1) Jul 25 — FDA releases briefing documents 2 business days before AdCom. READ THEM. If FDA skeptical of 2.4% LVEF improvement → cut before AdCom. If supportive → hold. (2) Jul 29 — AdCom vote. GTC sell at $33-35 must be pre-set. Sell same day regardless of outcome. Do NOT hold to PDUFA Aug 22. UPDATED PROBABILITY: 55-65% positive vote (revised up from 40-50% — HOPE-3 Phase 3 met ALL endpoints p=0.03/0.04, FDA lifted prior CRL, no review issues identified, put/call now 0.05 very bullish). Prior CRL July 2025 was for HOPE-2 Phase 2 data — HOPE-3 is stronger package. Bull: $35 day-of-AdCom reaction. Bear: $13. Trade math: 16 shares, pass → +$232 net, fail → −$120 net. STRATEGY: sell AdCom reaction same day. Do NOT hold through PDUFA Aug 22."
     },
     {
       "ticker": "VRDN",
