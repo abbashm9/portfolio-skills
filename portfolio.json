@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-15T00:00:00+03:00",
+  "last_updated": "2026-07-15T12:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -14,27 +14,6 @@
     "note": "Reach $1000 total account value (positions + cash) by end of July 2026. Monthly investment target — not a withdrawal."
   },
   "positions": [
-    {
-      "ticker": "CELC",
-      "company": "Celcuity Inc.",
-      "sector": "Biotechnology",
-      "shares": 2,
-      "entry_price": 104.29,
-      "cost_basis": 208.58,
-      "entry_date": "2026-07-15",
-      "status": "open",
-      "stop_loss": 67.0,
-      "stop_loss_pct": -35.7,
-      "tp1": { "price": 152.0, "sell_pct": 100, "reason": "Approval scenario: +45-55% post-PDUFA. Sell same day as result." },
-      "tp2": null,
-      "catalyst": "FDA PDUFA decision — Gedatolisib for HR+/HER2- PIK3CA wild-type advanced breast cancer",
-      "catalyst_date": "2026-07-17",
-      "approval_probability_pct": 67,
-      "halal_verified": "2026-07-14",
-      "halal_source": "business_model",
-      "halal_note": "✅ Clean. Oncology/cancer therapeutics — permissible business.",
-      "notes": "2 shares @ $104.29 (IBKR avg). Entered Jul 15 pre-PDUFA Jul 17. Phase 3 VIKTORIA-1 positive. FDA Priority Review + RTOR. 11 analysts avg target $160.64 (+54%). Bull: $150-160. Bear: $65-75. Strategy: sell same day as PDUFA result — do not hold overnight if binary event passes."
-    },
     {
       "ticker": "VERA",
       "company": "Vera Therapeutics, Inc.",
@@ -69,23 +48,23 @@
     {
       "ticker": "CELC",
       "company": "Celcuity Inc.",
-      "verdict": "✅ ENTERED — 2 shares @ $104.29 avg (Jul 15). PDUFA July 17 — hold. Sell same day as result.",
-      "conviction": 7,
+      "verdict": "ARCHIVE — EXITED Jul 15 at $91.63. Net P&L: −$26.32. FDA approved REVTORPYK Jul 14 (3 days early) but sell-the-news on delayed commercial launch (late Q3). Cash redeployed to CAPR.",
+      "conviction": 0,
       "entry_target": 104.0,
       "stop": 67.0,
-      "stop_reason": "CRL scenario floor — typical -35% rejection move",
+      "stop_reason": "Stale — position closed",
       "tp1": 152.0,
-      "tp1_reason": "Approval scenario: +45-55% post-PDUFA, analyst avg target $160.64",
+      "tp1_reason": "Was approval scenario — event passed",
       "tp2": null,
       "pdufa_date": "2026-07-17",
-      "pdufa_drug": "Gedatolisib",
+      "pdufa_drug": "Gedatolisib (REVTORPYK)",
       "indication": "HR+/HER2- PIK3CA wild-type advanced breast cancer",
-      "approval_probability_pct": 67,
+      "approval_probability_pct": 100,
       "halal_status": "verified",
       "halal_note": "✅ Clean. Oncology/cancer therapeutics — permissible business.",
       "position_size_target": 104,
       "added_date": "2026-07-14",
-      "notes": "Phase 3 VIKTORIA-1 positive. FDA Priority Review + Real-Time Oncology Review (RTOR). June 2 selloff -22% on positive ASCO data was overreaction — FDA data package unchanged. 11 analysts avg target $160.64 vs $103.79 current (+55%). Budget constraint: only 1 share at ~$104. Bull: $150-160 (+$47-57). Bear: $65-75 (-$29-39). EV per share: +$23. Sell same day as PDUFA result."
+      "notes": "ARCHIVE. Entered Jul 15 @ $104.29. FDA approved REVTORPYK Jul 14 (early via RTOR). Stock peaked ~$111 on approval day then sell-the-news to $91.63. Delayed commercial launch (late Q3) + tolerability concerns drove decline. Exited Jul 15 at $91.63 for −$26.32 net loss. Lesson: set GTC sell at realistic day-1 reaction price, not 12-month analyst target. Next CELC catalyst: Q2 earnings (Aug), sNDA filing PIK3CA mutant population (Q3). HC Wainwright $155, Citizens $160, avg $160.64."
     },
     {
       "ticker": "CAPR",
@@ -156,13 +135,13 @@
       "notes": "ARCHIVE: 8 shares total — 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. Track via positions[] array."
     }
   ],
-  "cash_available": 293.65,
-  "total_cost_basis": 542.78,
+  "cash_available": 475.91,
+  "total_cost_basis": 334.20,
   "totals": {
-    "positions_count": 2,
+    "positions_count": 1,
     "sectors_held": ["Biotechnology"],
-    "largest_position_pct": 61.7,
-    "concentration_warning": "100% of positions in Biotechnology — VERA (61.7%) + CELC (38.3%). CELC PDUFA July 17 is a binary event — plan to exit same day."
+    "largest_position_pct": 100.0,
+    "concentration_warning": "100% of positions in Biotechnology — VERA (100%). Cash $475.91. Watching CAPR AdCom July 29 2026."
   },
   "education_tracker": {
     "last_concept_number": 4,
@@ -215,6 +194,7 @@
     {"date": "2026-06-29", "action": "BUY", "ticker": "ANET", "shares": 1.27, "price": 157.0, "amount": 199.39, "commission": 0.5, "notes": "AI Ethernet momentum. TP $185, SL $144. Exit by July 25."},
     {"date": "2026-07-02", "action": "BUY", "ticker": "VERA", "shares": 2, "price": 40.20, "amount": 80.40, "commission": 0.80, "notes": "Added 2 shares pre-PDUFA. IBKR fill $40.20 (dark pool). Blended avg $41.7755 across all 8 shares (commissions included in IBKR avg)."},
     {"date": "2026-07-09", "action": "SELL", "ticker": "ANET", "shares": 1.27, "price_blended": 187.26, "gross_proceeds": 237.83, "commission": 1.01, "net_proceeds": 236.82, "cost_basis_sold": 199.39, "net_pnl": 36.43, "notes": "Full exit. Two GTC fills: 1 share @ $187 (NYSE) + 0.27 shares @ $188.25 (IBKR partial). Net +18.2% (+$36.43). IBKR commission $1.01."},
-    {"date": "2026-07-15", "action": "BUY", "ticker": "CELC", "shares": 2, "price": 104.29, "amount": 208.58, "commission": 1.00, "notes": "Pre-PDUFA entry. PDUFA July 17. IBKR avg $104.29. Strategy: sell same day as PDUFA result."}
+    {"date": "2026-07-15", "action": "BUY", "ticker": "CELC", "shares": 2, "price": 104.29, "amount": 208.58, "commission": 1.00, "notes": "Pre-PDUFA entry. PDUFA July 17. IBKR avg $104.29. Strategy: sell same day as PDUFA result."},
+    {"date": "2026-07-15", "action": "SELL", "ticker": "CELC", "shares": 2, "price": 91.63, "gross_proceeds": 183.26, "commission": 1.00, "net_proceeds": 182.26, "cost_basis_sold": 208.58, "net_pnl": -26.32, "notes": "Cut loss. REVTORPYK FDA approved Jul 14 (3 days early) but sell-the-news on delayed commercial launch (late Q3) + tolerability concerns. Stock peaked ~$111 on approval, declined to $91.63. GTC at $152 never filled — approval move only +7% not +45%. Redeploying to CAPR pre-AdCom Jul 29."}
   ]
 }
