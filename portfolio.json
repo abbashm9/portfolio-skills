@@ -15,6 +15,30 @@
   },
   "positions": [
     {
+      "ticker": "CAPR",
+      "company": "Capricor Therapeutics, Inc.",
+      "sector": "Biotechnology",
+      "shares": 16,
+      "entry_price": 20.35,
+      "cost_basis": 325.60,
+      "entry_date": "2026-07-15",
+      "status": "open",
+      "enhanced_news_watch": true,
+      "stop_loss": 13.0,
+      "stop_loss_pct": -36.1,
+      "tp1": { "price": 35.0, "sell_pct": 100, "reason": "AdCom positive vote reaction — sell same day July 29. Do NOT hold to PDUFA Aug 22." },
+      "tp2": null,
+      "catalyst": "FDA AdCom vote — Deramiocel (CAP-1002) for DMD cardiomyopathy",
+      "catalyst_date": "2026-07-29",
+      "adcom_date": "2026-07-29",
+      "pdufa_date": "2026-08-22",
+      "approval_probability_pct": 60,
+      "halal_verified": "2026-07-15",
+      "halal_source": "business_model",
+      "halal_note": "✅ Clean. Cardiac cell therapy for rare disease (DMD) — permissible business.",
+      "notes": "16 shares @ $20.35. Filled Jul 15. GTC sell $33-35 set in IBKR. KEY DATE: Jul 25 — FDA briefing docs released. Read them. If FDA skeptical of 2.4% LVEF data → consider cutting before AdCom. STRATEGY: sell AdCom day reaction same day (Jul 29). Do NOT hold to PDUFA Aug 22. Prior CRL Jul 2025 (HOPE-2 insufficient evidence, disputed). Resubmitted with HOPE-3 Phase 3 (n=106, met ALL endpoints: PUL p=0.03, LVEF p=0.04). FDA lifted CRL, no review issues identified. Class 2 resubmission. CTGTAC committee. Updated probability: 55-65%. Roth Capital $43 target Buy. Bull: $35 AdCom day. Bear: $13. Win: +$232 net. Lose: -$120 net."
+    },
+    {
       "ticker": "VERA",
       "company": "Vera Therapeutics, Inc.",
       "sector": "Biotechnology",
@@ -23,6 +47,7 @@
       "cost_basis": 334.2,
       "entry_date": "2026-06-29",
       "status": "open",
+      "enhanced_news_watch": true,
       "stop_loss": 38.0,
       "stop_loss_pct": -9.0,
       "tp1": {
@@ -69,7 +94,7 @@
     {
       "ticker": "CAPR",
       "company": "Capricor Therapeutics, Inc.",
-      "verdict": "🟠 ORDER PLACED — 16 shares @ $20.35 limit (Jul 15, pending fill). AdCom July 29. GTC sell $33-35 must be set on fill. READ FDA BRIEFING DOCS July 25.",
+      "verdict": "✅ ENTERED — 16 shares @ $20.35 (Jul 15). GTC sell $33-35 set. AdCom July 29. READ FDA BRIEFING DOCS July 25 before holding.",
       "conviction": 7,
       "entry_target": 21.0,
       "stop": 13.0,
@@ -135,13 +160,13 @@
       "notes": "ARCHIVE: 8 shares total — 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. Track via positions[] array."
     }
   ],
-  "cash_available": 475.91,
-  "total_cost_basis": 334.20,
+  "cash_available": 149.31,
+  "total_cost_basis": 659.80,
   "totals": {
-    "positions_count": 1,
+    "positions_count": 2,
     "sectors_held": ["Biotechnology"],
-    "largest_position_pct": 100.0,
-    "concentration_warning": "100% of positions in Biotechnology — VERA (100%). Cash $475.91. Watching CAPR AdCom July 29 2026."
+    "largest_position_pct": 50.6,
+    "concentration_warning": "100% of positions in Biotechnology — CAPR (49.4%) + VERA (50.6%). CAPR AdCom July 29 is a binary event — GTC sell $33-35 set. VERA waiting for ORIGIN 3 eGFR data Q3 2026."
   },
   "education_tracker": {
     "last_concept_number": 4,
@@ -195,6 +220,7 @@
     {"date": "2026-07-02", "action": "BUY", "ticker": "VERA", "shares": 2, "price": 40.20, "amount": 80.40, "commission": 0.80, "notes": "Added 2 shares pre-PDUFA. IBKR fill $40.20 (dark pool). Blended avg $41.7755 across all 8 shares (commissions included in IBKR avg)."},
     {"date": "2026-07-09", "action": "SELL", "ticker": "ANET", "shares": 1.27, "price_blended": 187.26, "gross_proceeds": 237.83, "commission": 1.01, "net_proceeds": 236.82, "cost_basis_sold": 199.39, "net_pnl": 36.43, "notes": "Full exit. Two GTC fills: 1 share @ $187 (NYSE) + 0.27 shares @ $188.25 (IBKR partial). Net +18.2% (+$36.43). IBKR commission $1.01."},
     {"date": "2026-07-15", "action": "BUY", "ticker": "CELC", "shares": 2, "price": 104.29, "amount": 208.58, "commission": 1.00, "notes": "Pre-PDUFA entry. PDUFA July 17. IBKR avg $104.29. Strategy: sell same day as PDUFA result."},
-    {"date": "2026-07-15", "action": "SELL", "ticker": "CELC", "shares": 2, "price": 91.63, "gross_proceeds": 183.26, "commission": 1.00, "net_proceeds": 182.26, "cost_basis_sold": 208.58, "net_pnl": -26.32, "notes": "Cut loss. REVTORPYK FDA approved Jul 14 (3 days early) but sell-the-news on delayed commercial launch (late Q3) + tolerability concerns. Stock peaked ~$111 on approval, declined to $91.63. GTC at $152 never filled — approval move only +7% not +45%. Redeploying to CAPR pre-AdCom Jul 29."}
+    {"date": "2026-07-15", "action": "SELL", "ticker": "CELC", "shares": 2, "price": 91.63, "gross_proceeds": 183.26, "commission": 1.00, "net_proceeds": 182.26, "cost_basis_sold": 208.58, "net_pnl": -26.32, "notes": "Cut loss. REVTORPYK FDA approved Jul 14 (3 days early) but sell-the-news on delayed commercial launch (late Q3) + tolerability concerns. Stock peaked ~$111 on approval, declined to $91.63. GTC at $152 never filled — approval move only +7% not +45%. Redeploying to CAPR pre-AdCom Jul 29."},
+    {"date": "2026-07-15", "action": "BUY", "ticker": "CAPR", "shares": 16, "price": 20.35, "amount": 325.60, "commission": 1.00, "notes": "AdCom play. CTGTAC advisory committee Jul 29. PDUFA Aug 22. GTC sell $33-35 set. FDA briefing docs due Jul 25 — read before holding to AdCom. Prior CRL resubmission — HOPE-3 Phase 3 met all endpoints. Updated probability 55-65%."}
   ]
 }

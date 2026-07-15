@@ -196,6 +196,78 @@ Already done in Step 0A. For each watchlist item, calculate:
 - **Entry still valid?** If current_price > entry_target × 1.15: "ENTRY MOVED — re-analyze before buying". If current_price < entry_target × 0.90: "PRICE DROPPED — check thesis still intact".
 - **Event urgency:** ≤ 7 days → 🔴 URGENT. 8–14 days → 🟡 SOON. 15–30 days → 🟢 WATCH.
 
+### Step 2.6: Active Position News Scan — enhanced monitoring
+
+**Run in parallel with Step 2.5.** Applies to every position with `"enhanced_news_watch": true` in portfolio.json. Runs every day until that position is closed (removed from positions[]).
+
+**Purpose:** Surface any news that could change the thesis, signal early action, or require same-day response for binary-event positions. Nothing gets missed.
+
+#### 2.6A — For each `enhanced_news_watch: true` position, run 4 targeted searches in parallel
+
+**For CAPR / any AdCom-PDUFA position:**
+```
+"[TICKER]" OR "[drug name]" news [today's date] OR yesterday FDA advisory OR briefing OR analyst
+"[TICKER]" FDA "briefing document" OR "background material" OR "advisory committee" [current month] 2026
+"[TICKER]" analyst OR "price target" OR upgrade OR downgrade [this week] 2026
+"[drug name]" "[indication]" competitor OR "competing drug" OR "same class" data OR CRL [current month] 2026
+```
+
+**For VERA / any post-approval confirmatory trial position:**
+```
+"VERA" OR "Vera Therapeutics" OR "atacicept" OR "TRUTAKNA" news [today's date] OR yesterday
+"ORIGIN 3" OR "eGFR" OR "IgA nephropathy" confirmatory OR "full approval" data 2026
+"Vera Therapeutics" analyst OR "price target" OR upgrade OR downgrade [this week] 2026
+"IgA nephropathy" competitor OR "same class" OR "sparsentan" OR "iptacopan" data [current month] 2026
+```
+
+#### 2.6B — Classify every finding
+
+| Priority | Type | Action |
+|---|---|---|
+| 🚨 URGENT | FDA early action, briefing docs released, CRL signal, major competitor approval/CRL in same indication | Lead the email — surface ABOVE the hero banner |
+| ⚠️ WATCH | Analyst rating change, label expansion filing, competitor Phase 3 result, publication | Dedicated news section after macro card |
+| ℹ️ FYI | Routine press release, conference attendance | 1-line mention only |
+| — | Nothing new | Write "No material news for [TICKER] today." |
+
+#### 2.6C — Email output format
+
+Insert a **📰 POSITION NEWS** section immediately after the Macro Context card and before the Positions table. Always render it — even if empty — so Abbas knows the scan ran.
+
+```
+📰 POSITION NEWS — [today's date]
+
+🔵 CAPR — [finding, or "No material news today."]
+[1-2 sentences if something found. Source link. Action implication.]
+
+🟢 VERA — [finding, or "No material news today."]
+[1-2 sentences if something found. Source link. Action implication.]
+```
+
+**If 🚨 URGENT news found:** move it to the VERY TOP of the email, above the hero banner, in a red alert box:
+```
+🚨 URGENT — [TICKER]: [headline]
+[2-sentence summary of what happened and what it means for the position.]
+[Action: HOLD / CUT NOW / WAIT FOR MORE INFO]
+```
+
+#### 2.6D — Special: July 25 FDA Briefing Documents (CAPR)
+
+On or after July 25, 2026, the FDA releases its internal briefing documents for the CAPR AdCom (July 29). These are the single most important signal before the vote.
+
+Run these searches on July 25 and every day after until the AdCom:
+```
+"Capricor" OR "deramiocel" OR "CAP-1002" FDA "briefing document" OR "background material" July 2026
+site:fda.gov deramiocel "advisory committee" briefing 2026
+```
+
+If briefing documents are found:
+- Summarize FDA's stance on HOPE-3 data and the 2.4% LVEF improvement
+- **If FDA appears supportive:** recommend HOLD through AdCom
+- **If FDA is clearly skeptical:** recommend CONSIDER CUTTING before the AdCom vote to limit downside
+- Mark as 🚨 URGENT and place above hero banner
+
+If not yet available: note "FDA briefing docs not yet released — expected July 25."
+
 ### Step 2.7: Previous Day Movers — top gainers and losers
 
 **Run in parallel with Step 2.5.** Mandatory daily section — not optional, not skipped on weekends.
@@ -604,18 +676,19 @@ Build a responsive HTML email. Requirements:
 **Email section order (top to bottom):**
 
 1. **Hero banner** — total P&L + 1D/MTD/YTD returns (from IBKR if available, else calculate from Yahoo Finance prices), investment goal tracker
-2. **🌍 Macro context** — Buffett Indicator + S&P forward P/E from Step 2.9 (ALWAYS shown — this is the big picture frame for everything else)
-3. **⚠️ MANDATORY — Positions snapshot table** — ONE ROW PER POSITION: Status badge | Ticker | Close price | Day % | P&L $ | P&L % | then TOTAL row. NEVER omit this table, including weekend emails.
-4. **Exit alerts** — any position needing action
-5. **📈📉 Yesterday's Movers** — from Step 2.7 (always shown; Friday data on weekends) — small-cap ≥20% moves only
-6. **🏢 Large-cap on deck** — from Step 2.8, mega-cap earnings/catalyst radar (show when any name has event ≤21 days; omit if calendar is empty)
-7. **⏳ Pending Watchlist** — all watchlist items from portfolio.json (skip only if empty)
-8. **📡 Catalyst Plays** — top 3 candidates from Step 3.8
-9. **💵 Cash deployment** — from Step 3.7
-10. **🔄 Rotation suggestions** — from Step 4, if any
-11. **📊 IBKR Intelligence** — if available (interactive mode only); otherwise omit with note
-12. **📚 Today's concept** — education, in a colored box
-13. **Footer** — disclaimer, `"Prices: Yahoo Finance — [timestamp]"` (or IBKR if used), returns method
+2. **🌍 Macro context** — Buffett Indicator + S&P forward P/E from Step 2.9 (ALWAYS shown)
+3. **📰 Position News** — from Step 2.6, shown only when `enhanced_news_watch` positions exist. 🚨 URGENT news overrides all ordering and goes above the hero banner.
+4. **⚠️ MANDATORY — Positions snapshot table** — ONE ROW PER POSITION: Status badge | Ticker | Close price | Day % | P&L $ | P&L % | then TOTAL row. NEVER omit this table, including weekend emails.
+5. **Exit alerts** — any position needing action
+6. **📈📉 Yesterday's Movers** — from Step 2.7 (always shown; Friday data on weekends) — small-cap ≥20% moves only
+7. **🏢 Large-cap on deck** — from Step 2.8, mega-cap earnings/catalyst radar (show when any name has event ≤21 days; omit if calendar is empty)
+8. **⏳ Pending Watchlist** — all watchlist items from portfolio.json (skip only if empty)
+9. **📡 Catalyst Plays** — top 3 candidates from Step 3.8
+10. **💵 Cash deployment** — from Step 3.7
+11. **🔄 Rotation suggestions** — from Step 4, if any
+12. **📊 IBKR Intelligence** — if available (interactive mode only); otherwise omit with note
+13. **📚 Today's concept** — education, in a colored box
+14. **Footer** — disclaimer, `"Prices: Yahoo Finance — [timestamp]"` (or IBKR if used), returns method
 
 **⏳ Pending Watchlist section design:**
 
