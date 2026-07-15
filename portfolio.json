@@ -165,9 +165,9 @@
     "concentration_warning": "100% of positions in Biotechnology — VERA (61.7%) + CELC (38.3%). CELC PDUFA July 17 is a binary event — plan to exit same day."
   },
   "education_tracker": {
-    "last_concept_number": 4,
-    "last_concept_name": "Price/Book (P/B)",
-    "last_taught_date": "2026-07-14",
+    "last_concept_number": 5,
+    "last_concept_name": "PEG Ratio",
+    "last_taught_date": "2026-07-15",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
@@ -196,7 +196,8 @@
       "Operating Leverage",
       "Share-Based Compensation (SBC)",
       "Price/Sales (P/S)",
-      "Price/Book (P/B)"
+      "Price/Book (P/B)",
+      "PEG Ratio"
     ]
   },
   "history": [
