@@ -169,9 +169,9 @@
     "concentration_warning": "100% of positions in Biotechnology — CAPR (49.4%) + VERA (50.6%). CAPR AdCom July 29 is a binary event — GTC sell $33-35 set. VERA waiting for ORIGIN 3 eGFR data Q3 2026."
   },
   "education_tracker": {
-    "last_concept_number": 4,
-    "last_concept_name": "Price/Book (P/B)",
-    "last_taught_date": "2026-07-14",
+    "last_concept_number": 5,
+    "last_concept_name": "FDA Briefing Documents & AdCom Mechanics",
+    "last_taught_date": "2026-07-16",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
@@ -200,7 +200,8 @@
       "Operating Leverage",
       "Share-Based Compensation (SBC)",
       "Price/Sales (P/S)",
-      "Price/Book (P/B)"
+      "Price/Book (P/B)",
+      "FDA Briefing Documents & AdCom Mechanics"
     ]
   },
   "history": [
