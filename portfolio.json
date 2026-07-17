@@ -37,7 +37,7 @@
       "halal_source": "business_model",
       "halal_note": "✅ Clean. Cardiac cell therapy for rare disease (DMD) — permissible business.",
       "notes": "16 shares @ $20.35. Filled Jul 15. GTC sell $33-35 set in IBKR. KEY DATE: Jul 25 — FDA briefing docs released. Read them. If FDA skeptical of 2.4% LVEF data → consider cutting before AdCom. STRATEGY: sell AdCom day reaction same day (Jul 29). Do NOT hold to PDUFA Aug 22. Prior CRL Jul 2025 (HOPE-2 insufficient evidence, disputed). Resubmitted with HOPE-3 Phase 3 (n=106, met ALL endpoints: PUL p=0.03, LVEF p=0.04). FDA lifted CRL, no review issues identified. Class 2 resubmission. CTGTAC committee. Updated probability: 55-65%. Roth Capital $43 target Buy. Bull: $35 AdCom day. Bear: $13. Win: +$232 net. Lose: -$120 net."
-    },
+    }
   ],
   "watchlist": [
     {
@@ -139,9 +139,9 @@
     "concentration_warning": "100% of positions in CAPR. AdCom July 29 is binary — GTC sell $33-35 set. $450.23 cash available for next entry."
   },
   "education_tracker": {
-    "last_concept_number": 4,
-    "last_concept_name": "Price/Book (P/B)",
-    "last_taught_date": "2026-07-14",
+    "last_concept_number": 5,
+    "last_concept_name": "PEG Ratio",
+    "last_taught_date": "2026-07-17",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "Earnings Whisper Numbers",
@@ -170,7 +170,8 @@
       "Operating Leverage",
       "Share-Based Compensation (SBC)",
       "Price/Sales (P/S)",
-      "Price/Book (P/B)"
+      "Price/Book (P/B)",
+      "PEG Ratio"
     ]
   },
   "history": [
