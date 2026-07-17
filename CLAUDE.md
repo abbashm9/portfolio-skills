@@ -62,11 +62,8 @@ Reference `portfolio.json` in repo root for current positions. Last known state:
 
 | Ticker | Shares | Entry | Cost Basis |
 |--------|--------|-------|------------|
-| NVDA   | 1.3799 | $217.40 | $300.06 |
-| LLY    | 0.0986 | $994.87 | $98.11  |
-| AVGO   | 0.315  | $412.04 | $129.79 |
-| TSM    | 0.224  | $388.35 | $86.99 |
-Total cost basis: $614.95. Cash: ~$213.81.
+| CAPR   | 16     | $20.35 | $325.60  |
+Total cost basis: $325.60. Cash: ~$450.23. (VERA SL triggered Jul 17 @ $37.74, net P&L −$33.28)
 
 ## Known issues and constraints
 

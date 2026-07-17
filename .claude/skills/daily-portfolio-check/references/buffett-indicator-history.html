@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buffett Indicator Above 190% — Historical Case Studies</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080c10;
+      --surface:   #0d1117;
+      --border:    #1c2230;
+      --muted:     #8b9ab0;
+      --text:      #d4dce8;
+      --bright:    #eef2f8;
+      --amber:     #f59e0b;
+      --amber-dim: #92600a;
+      --red:       #ef4444;
+      --red-dim:   #7f1d1d;
+      --green:     #22c55e;
+      --green-dim: #14532d;
+      --blue:      #3b82f6;
+      --blue-dim:  #1e3a5f;
+      --card-glow: rgba(245,158,11,0.06);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 40px 56px;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--amber);
+      border-radius: 2px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 700;
+      color: var(--bright);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      max-width: 760px;
+      margin-bottom: 20px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    /* ── CURRENT READING BANNER ── */
+    .current-banner {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 40px;
+    }
+
+    .banner-inner {
+      background: linear-gradient(135deg, #1a0d00 0%, #0d0a00 100%);
+      border: 1px solid var(--amber-dim);
+      border-radius: 12px;
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 0% 50%, rgba(245,158,11,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .banner-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 6px;
+    }
+    .banner-value {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--amber);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .banner-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .banner-right {
+      text-align: right;
+    }
+    .status-pill {
+      display: inline-block;
+      background: rgba(239,68,68,0.15);
+      border: 1px solid rgba(239,68,68,0.4);
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+    .banner-warning {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 320px;
+      line-height: 1.5;
+    }
+    strong.amber { color: var(--amber); }
+
+    /* ── GAUGE ── */
+    .gauge-wrap {
+      padding: 0 40px;
+      max-width: 1100px;
+      margin: 0 auto 48px;
+    }
+    .gauge-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .gauge-track {
+      height: 10px;
+      background: var(--border);
+      border-radius: 100px;
+      position: relative;
+      overflow: visible;
+    }
+    .gauge-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--green) 0%, #eab308 40%, #f97316 65%, var(--red) 100%);
+    }
+    .gauge-marker {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      background: var(--amber);
+      border: 3px solid var(--bg);
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px var(--amber), 0 0 12px rgba(245,158,11,0.6);
+    }
+    .gauge-ticks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .gauge-ticks span { position: relative; }
+    .gauge-threshold {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 20px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── CASE STUDY CARDS ── */
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .case-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+      position: relative;
+    }
+    .case-card:hover { border-color: rgba(245,158,11,0.3); }
+    .case-card::before {
+      content: '';
+      display: block;
+      height: 3px;
+    }
+    .case-card.dotcom::before  { background: linear-gradient(90deg, #ef4444, #f97316); }
+    .case-card.bubble::before  { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+    .case-card.current::before { background: linear-gradient(90deg, #dc2626, #7f1d1d); }
+
+    .card-header {
+      padding: 28px 28px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-era {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .dotcom  .card-era { color: #f97316; }
+    .bubble  .card-era { color: var(--amber); }
+    .current .card-era { color: var(--red); }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--bright);
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* peak indicator display */
+    .peak-display {
+      padding: 20px 28px;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .peak-num {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .dotcom  .peak-num { color: #f97316; }
+    .bubble  .peak-num { color: var(--amber); }
+    .current .peak-num { color: var(--red); }
+
+    .peak-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .peak-note {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* mini bar chart */
+    .mini-chart {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mini-chart-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .bar-row:last-child { margin-bottom: 0; }
+    .bar-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      width: 56px;
+      flex-shrink: 0;
+    }
+    .bar-track {
+      flex: 1;
+      height: 20px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      min-width: 40px;
+    }
+    .bar-fill.red    { background: linear-gradient(90deg, #7f1d1d, #ef4444); }
+    .bar-fill.orange { background: linear-gradient(90deg, #78350f, #f97316); }
+    .bar-fill.amber  { background: linear-gradient(90deg, #92400e, #f59e0b); }
+    .bar-fill.pending { background: repeating-linear-gradient(45deg, #1c2230, #1c2230 4px, #263044 4px, #263044 8px); color: var(--muted); justify-content: center; }
+
+    /* stats grid */
+    .stats-grid {
+      padding: 20px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stat-item {}
+    .stat-val {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--bright);
+      letter-spacing: -0.02em;
+    }
+    .stat-val.red    { color: var(--red); }
+    .stat-val.amber  { color: var(--amber); }
+    .stat-val.green  { color: var(--green); }
+    .stat-val.muted  { color: var(--muted); }
+    .stat-key {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* timeline inside card */
+    .card-timeline {
+      padding: 20px 28px;
+      border-top: 1px solid var(--border);
+    }
+    .card-timeline-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .tl-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    .tl-dot.red    { background: var(--red); box-shadow: 0 0 6px rgba(239,68,68,0.5); }
+    .tl-dot.amber  { background: var(--amber); box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+    .tl-dot.green  { background: var(--green); box-shadow: 0 0 6px rgba(34,197,94,0.5); }
+    .tl-dot.muted  { background: var(--muted); }
+    .tl-date {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .tl-text {
+      font-size: 12px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ── LESSONS TABLE ── */
+    .lessons {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .comparison-table th {
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .comparison-table th:first-child { border-radius: 8px 0 0 0; }
+    .comparison-table th:last-child  { border-radius: 0 8px 0 0; }
+    .comparison-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .t-label {
+      font-weight: 600;
+      color: var(--bright);
+      font-size: 12px;
+    }
+    .t-num {
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .t-num.red   { color: var(--red); }
+    .t-num.amber { color: var(--amber); }
+    .t-num.dim   { color: var(--muted); font-style: italic; font-size: 12px; }
+
+    /* ── PORTFOLIO IMPLICATION BOX ── */
+    .implication {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+    .impl-box {
+      background: linear-gradient(135deg, #0a1628 0%, #080c10 100%);
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 16px;
+      padding: 36px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .impl-box::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(59,130,246,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .impl-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--bright);
+      margin-bottom: 8px;
+    }
+    .impl-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .impl-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .impl-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .impl-icon {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .impl-item-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--bright);
+      margin-bottom: 6px;
+    }
+    .impl-item-text {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-left {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .footer-right {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    /* pulsing dot for current */
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse 1.8s ease-in-out infinite;
+      margin-right: 8px;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+      50% { opacity: 0.8; transform: scale(1.2); box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    @media (max-width: 600px) {
+      .hero, .current-banner, .gauge-wrap, .section, .lessons, .implication, .footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .banner-inner { flex-direction: column; }
+      .banner-right { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Macro Risk Research</div>
+  <h1>Buffett Indicator Above 190%<br>A History of What Comes Next</h1>
+  <p class="hero-sub">
+    Warren Buffett called his own indicator "probably the best single measure of where valuations stand."
+    He also said that above 200% is <em>"playing with fire."</em>
+    Here is every time the market has approached or breached that level — and what followed.
+  </p>
+</div>
+
+<!-- CURRENT READING BANNER -->
+<div class="current-banner">
+  <div class="banner-inner">
+    <div>
+      <div class="banner-label">Current Reading — June 2026</div>
+      <div class="banner-value">232.5%</div>
+      <div class="banner-sub">Wilshire 5000 ÷ US GDP · Source: GuruFocus, updated daily</div>
+    </div>
+    <div class="banner-right">
+      <div class="status-pill"><span class="pulse-dot"></span>Significantly Overvalued</div>
+      <div class="banner-warning">
+        <strong class="amber">32.5 points above</strong> Buffett's own "playing with fire" threshold.
+        Projected annual return from this level: <strong class="amber">-1.0%</strong> (incl. dividends).
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GAUGE -->
+<div class="gauge-wrap">
+  <div class="gauge-label-row">
+    <span>Undervalued (&lt;80%)</span>
+    <span>Fair Value (~100%)</span>
+    <span>Overvalued (&gt;120%)</span>
+    <span>Danger Zone (&gt;200%)</span>
+  </div>
+  <div class="gauge-track">
+    <!-- colored fill goes to 232.5% out of 260% max = ~89% width -->
+    <div class="gauge-fill" style="width: 89%;"></div>
+    <!-- dot-com peak marker ~61% of 260 = ~59% -->
+    <div class="gauge-threshold" style="left: 61%; background: rgba(249,115,22,0.4);"></div>
+    <!-- 200% danger zone marker = 77% -->
+    <div class="gauge-threshold" style="left: 77%; background: rgba(239,68,68,0.5);"></div>
+    <!-- current marker at 89% -->
+    <div class="gauge-marker" style="left: 89%;"></div>
+  </div>
+  <div class="gauge-ticks">
+    <span>0%</span>
+    <span>65%</span>
+    <span>100%</span>
+    <span>130%</span>
+    <span>160% ← dot-com</span>
+    <span>200% ← fire</span>
+    <span>232% ← now</span>
+  </div>
+</div>
+
+<!-- CASE STUDIES -->
+<div class="section">
+  <div class="section-title">Historical Case Studies</div>
+
+  <div class="case-grid">
+
+    <!-- CASE 1: DOT-COM -->
+    <div class="case-card dotcom">
+      <div class="card-header">
+        <div class="card-era">Case Study 01 · 1999–2002</div>
+        <div class="card-title">The Dot-Com Bubble</div>
+        <div class="card-subtitle">
+          Internet mania pushed equities far beyond any rational anchor to the real economy.
+        </div>
+      </div>
+
+      <div class="peak-display">
+        <div>
+          <div class="peak-num">~160%</div>
+        </div>
+        <div>
+          <div class="peak-label">Indicator Peak</div>
+          <div class="peak-note">Q1 2000 · Wilshire/GDP basis<br>(~189% on Buffett's original GNP basis)</div>
+        </div>
+      </div>
+
+      <div class="mini-chart">
+        <div class="mini-chart-title">Peak-to-Trough Drawdown</div>
+        <div class="bar-row">
+          <div class="bar-name">NASDAQ</div>
+          <div class="bar-track">
+            <div class="bar-fill red" style="width: 78%;">−78%</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">S&P 500</div>
+          <div class="bar-track">
+            <div class="bar-fill orange" style="width: 49%;">−49%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-val red">−78%</div>
+          <div class="stat-key">NASDAQ Loss</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val red">−49%</div>
+          <div class="stat-key">S&P 500 Loss</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val amber">2.5 yrs</div>
+          <div class="stat-key">Bear Duration</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val amber">6 yrs</div>
+          <div class="stat-key">To Full Recovery</div>
+        </div>
+      </div>
+
+      <div class="card-timeline">
+        <div class="card-timeline-title">Key Dates</div>
+        <div class="tl-item">
+          <div class="tl-dot amber"></div>
+          <div>
+            <div class="tl-date">Mar 10, 2000</div>
+            <div class="tl-text">NASDAQ peaks at 5,048. S&P peaks March 24. Indicator near all-time high.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot red"></div>
+          <div>
+            <div class="tl-date">2001</div>
+            <div class="tl-text">Buffett publishes the indicator in <em>Fortune</em> (Dec 2001), explaining why the crash was predictable.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot red"></div>
+          <div>
+            <div class="tl-date">Oct 9, 2002</div>
+            <div class="tl-text">NASDAQ bottoms at 1,114 (−78%). S&P 500 at 776 (−49%). Indicator falls to ~75%.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot green"></div>
+          <div>
+            <div class="tl-date">2006</div>
+            <div class="tl-text">S&P 500 finally recovers to pre-bubble levels. Six years of dead money for buy-and-hold investors.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 2: 2021 EVERYTHING BUBBLE -->
+    <div class="case-card bubble">
+      <div class="card-header">
+        <div class="card-era">Case Study 02 · 2021–2022</div>
+        <div class="card-title">The Everything Bubble</div>
+        <div class="card-subtitle">
+          Post-COVID stimulus, zero interest rates, and meme stocks drove the indicator to 200% for the first time.
+        </div>
+      </div>
+
+      <div class="peak-display">
+        <div>
+          <div class="peak-num">~200%</div>
+        </div>
+        <div>
+          <div class="peak-label">Indicator Peak</div>
+          <div class="peak-note">Nov 2021 · First-ever crossing of 200%<br>(172% on Wilshire/GDP; ~200% on original)</div>
+        </div>
+      </div>
+
+      <div class="mini-chart">
+        <div class="mini-chart-title">Peak-to-Trough Drawdown</div>
+        <div class="bar-row">
+          <div class="bar-name">NASDAQ</div>
+          <div class="bar-track">
+            <div class="bar-fill red" style="width: 37%;">−37%</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">S&P 500</div>
+          <div class="bar-track">
+            <div class="bar-fill orange" style="width: 25%;">−25%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-val red">−37%</div>
+          <div class="stat-key">NASDAQ Loss</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val red">−25%</div>
+          <div class="stat-key">S&P 500 Loss</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val amber">~10 mo</div>
+          <div class="stat-key">Bear Duration</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val amber">~2 yrs</div>
+          <div class="stat-key">To Full Recovery</div>
+        </div>
+      </div>
+
+      <div class="card-timeline">
+        <div class="card-timeline-title">Key Dates</div>
+        <div class="tl-item">
+          <div class="tl-dot amber"></div>
+          <div>
+            <div class="tl-date">Feb 2021</div>
+            <div class="tl-text">Indicator hits all-time high at ~189% (Wilshire) / ~200% (original). Markets shrug — stimulus flows keep arriving.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot amber"></div>
+          <div>
+            <div class="tl-date">Jan 4, 2022</div>
+            <div class="tl-text">S&P 500 peaks at 4,796. Fed has not yet hiked. Rate hike cycle begins March 2022.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot red"></div>
+          <div>
+            <div class="tl-date">Oct 12, 2022</div>
+            <div class="tl-text">S&P 500 troughs at 3,577 (−25.4%). NASDAQ bottom: −37%. Indicator falls back below 130%.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot green"></div>
+          <div>
+            <div class="tl-date">Early 2024</div>
+            <div class="tl-text">Markets recover fully, led by AI mega-cap run. Indicator resumes climb past 200%.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 3: CURRENT -->
+    <div class="case-card current">
+      <div class="card-header">
+        <div class="card-era" style="color: var(--red);">Case Study 03 · 2024–Present</div>
+        <div class="card-title">The Current Cycle</div>
+        <div class="card-subtitle">
+          AI euphoria and Big Tech concentration have driven the indicator to levels with no historical precedent.
+        </div>
+      </div>
+
+      <div class="peak-display">
+        <div>
+          <div class="peak-num" style="color: var(--red);">232.5%</div>
+        </div>
+        <div>
+          <div class="peak-label">Current Level <span class="pulse-dot"></span></div>
+          <div class="peak-note">June 2026 · Active reading<br>No prior cycle has reached this level</div>
+        </div>
+      </div>
+
+      <div class="mini-chart">
+        <div class="mini-chart-title">Drawdown (if prior cycles repeat)</div>
+        <div class="bar-row">
+          <div class="bar-name">Bear case</div>
+          <div class="bar-track">
+            <div class="bar-fill pending" style="width: 100%;">Historical avg: −30% to −50%</div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-name">Soft case</div>
+          <div class="bar-track">
+            <div class="bar-fill pending" style="width: 100%;">Mild correction: −15% to −25%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-val red">232.5%</div>
+          <div class="stat-key">Indicator Level</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val red">−1.0%</div>
+          <div class="stat-key">Projected Yr. Return</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val muted">Unresolved</div>
+          <div class="stat-key">Bear Duration</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val muted">Unresolved</div>
+          <div class="stat-key">Recovery Timeline</div>
+        </div>
+      </div>
+
+      <div class="card-timeline">
+        <div class="card-timeline-title">What We Know So Far</div>
+        <div class="tl-item">
+          <div class="tl-dot green"></div>
+          <div>
+            <div class="tl-date">Early 2024</div>
+            <div class="tl-text">Post-2022 recovery fully complete. AI narrative drives NVDA, MSFT, Meta to new ATHs.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot amber"></div>
+          <div>
+            <div class="tl-date">Late 2024</div>
+            <div class="tl-text">Indicator crosses 200% for the second time ever. Buffett himself holds record levels of T-bills at Berkshire — $300B+.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot red"></div>
+          <div>
+            <div class="tl-date">Apr 2025</div>
+            <div class="tl-text">Tariff shock briefly dips indicator to ~180%. Market rebounds sharply. Indicator resumes climb.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot red"></div>
+          <div>
+            <div class="tl-date">Jun 2026</div>
+            <div class="tl-text">Reaches 232.5% — new all-time high. No prior episode in US history has ended without a significant correction.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="lessons">
+  <div class="section-title">Side-by-Side Comparison</div>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Dot-Com (2000)</th>
+        <th>Everything Bubble (2021)</th>
+        <th>Current Cycle (2026)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="t-label">Peak Indicator Level</td>
+        <td><span class="t-num amber">~160%</span></td>
+        <td><span class="t-num amber">~200%</span></td>
+        <td><span class="t-num red">232.5%</span></td>
+      </tr>
+      <tr>
+        <td class="t-label">Time Above 150% Before Peak</td>
+        <td>~2 years</td>
+        <td>~6 months</td>
+        <td>~18 months (ongoing)</td>
+      </tr>
+      <tr>
+        <td class="t-label">NASDAQ Peak-to-Trough</td>
+        <td><span class="t-num red">−78%</span></td>
+        <td><span class="t-num red">−37%</span></td>
+        <td><span class="t-num dim">TBD</span></td>
+      </tr>
+      <tr>
+        <td class="t-label">S&P 500 Peak-to-Trough</td>
+        <td><span class="t-num red">−49%</span></td>
+        <td><span class="t-num red">−25%</span></td>
+        <td><span class="t-num dim">TBD</span></td>
+      </tr>
+      <tr>
+        <td class="t-label">Bear Market Duration</td>
+        <td>~2.5 years</td>
+        <td>~10 months</td>
+        <td><span class="t-num dim">TBD</span></td>
+      </tr>
+      <tr>
+        <td class="t-label">Recovery (to prior ATH)</td>
+        <td>~6 years</td>
+        <td>~2 years</td>
+        <td><span class="t-num dim">TBD</span></td>
+      </tr>
+      <tr>
+        <td class="t-label">Trigger for Reversal</td>
+        <td>Earnings reality check + rate hikes</td>
+        <td>Fed rate hike cycle (40-yr high inflation)</td>
+        <td>Unknown — tariffs? recession? AI plateau?</td>
+      </tr>
+      <tr>
+        <td class="t-label">What Buffett Did</td>
+        <td>Avoided tech entirely. Outperformed.</td>
+        <td>Bought banks, energy. Stockpiled cash.</td>
+        <td>Holds $300B+ in T-bills. Net seller of equities.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PORTFOLIO IMPLICATION -->
+<div class="implication">
+  <div class="section-title">What This Means for Your Portfolio</div>
+  <div class="impl-box">
+    <div class="impl-title">Reading Context for Abbas's Positions</div>
+    <div class="impl-sub">
+      The Buffett Indicator does not tell you which stocks to sell — but it does define the macro risk environment
+      your individual positions live inside. At 232.5%, the margin for error on new capital deployment is thin.
+    </div>
+    <div class="impl-grid">
+      <div class="impl-item">
+        <div class="impl-icon">🏦</div>
+        <div class="impl-item-title">Hold Your ~$214 Cash</div>
+        <div class="impl-item-text">
+          At 232.5%, deploying idle cash aggressively is fighting the macro. Every prior cycle at this level has
+          eventually reset. Cash earns optionality — a correction of 25–40% would make your next entry
+          dramatically more favorable.
+        </div>
+      </div>
+      <div class="impl-item">
+        <div class="impl-icon">🎯</div>
+        <div class="impl-item-title">Individual Catalysts Still Work</div>
+        <div class="impl-item-text">
+          NVDA in 2023 tripled inside an overvalued market. Catalysts override macro for short holds.
+          Your existing positions (NVDA, AVGO, TSM, LLY) are catalyst-driven — that logic still applies.
+        </div>
+      </div>
+      <div class="impl-item">
+        <div class="impl-icon">🔒</div>
+        <div class="impl-item-title">Tighter Stop Discipline</div>
+        <div class="impl-item-text">
+          In a high-indicator environment, drawdowns can cascade fast. Prior cycles show market-wide drops
+          of 25–49%. Honoring stops matters more when the macro backdrop can amplify losses.
+        </div>
+      </div>
+      <div class="impl-item">
+        <div class="impl-icon">📊</div>
+        <div class="impl-item-title">Daily Context Signal</div>
+        <div class="impl-item-text">
+          The indicator updates daily. Consider checking it alongside the daily portfolio email — a sustained
+          move below 200% would signal regime shift; a push to 250%+ would signal extreme danger.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">
+    Buffett Indicator research · Part of daily-portfolio-check skill reference · Portfolio: Abbas Al Madani
+  </div>
+  <div class="footer-right">
+    Sources: GuruFocus (live), Wikipedia, Business Insider, Fortune (Buffett 2001) · Last updated June 2026
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-15T12:00:00+03:00",
+  "last_updated": "2026-07-17T00:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -38,36 +38,6 @@
       "halal_note": "✅ Clean. Cardiac cell therapy for rare disease (DMD) — permissible business.",
       "notes": "16 shares @ $20.35. Filled Jul 15. GTC sell $33-35 set in IBKR. KEY DATE: Jul 25 — FDA briefing docs released. Read them. If FDA skeptical of 2.4% LVEF data → consider cutting before AdCom. STRATEGY: sell AdCom day reaction same day (Jul 29). Do NOT hold to PDUFA Aug 22. Prior CRL Jul 2025 (HOPE-2 insufficient evidence, disputed). Resubmitted with HOPE-3 Phase 3 (n=106, met ALL endpoints: PUL p=0.03, LVEF p=0.04). FDA lifted CRL, no review issues identified. Class 2 resubmission. CTGTAC committee. Updated probability: 55-65%. Roth Capital $43 target Buy. Bull: $35 AdCom day. Bear: $13. Win: +$232 net. Lose: -$120 net."
     },
-    {
-      "ticker": "VERA",
-      "company": "Vera Therapeutics, Inc.",
-      "sector": "Biotechnology",
-      "shares": 8,
-      "entry_price": 41.7755,
-      "cost_basis": 334.2,
-      "entry_date": "2026-06-29",
-      "status": "open",
-      "enhanced_news_watch": true,
-      "stop_loss": 38.0,
-      "stop_loss_pct": -9.0,
-      "tp1": {
-        "price": 55.0,
-        "sell_pct": 50,
-        "reason": "Post-approval stabilization zone — sell half"
-      },
-      "tp2": {
-        "price": 78.0,
-        "sell_pct": 50,
-        "reason": "Analyst consensus midpoint ($68-83)"
-      },
-      "catalyst": "ORIGIN 3 confirmatory eGFR data — expected Q3 2026",
-      "catalyst_date": null,
-      "approval_probability_pct": null,
-      "halal_verified": "2026-06-29",
-      "halal_source": "business_model",
-      "halal_note": "✅ Clean. Rare disease therapeutics — permissible business.",
-      "notes": "8 shares: 6 @ $42 (Jun 29) + 2 @ $40.20 (Jul 2). IBKR blended avg $41.7755. FDA APPROVED Jul 7 2026 — atacicept branded TRUTAKNA, accelerated approval for IgAN. Stock settled at ~$40-42 post-approval (sell-the-news). Full approval contingent on ORIGIN 3 eGFR confirmatory data Q3 2026. Stop $38 (pre-PDUFA floor). TP1 $55 on positive eGFR. 14 analysts avg target $78, range $43-125 (HC Wainwright). IBKR price Jul 14: $40.70."
-    }
   ],
   "watchlist": [
     {
@@ -139,34 +109,34 @@
     {
       "ticker": "VERA",
       "company": "Vera Therapeutics, Inc.",
-      "verdict": "ARCHIVE — position entered June 29, watchlist entry stale",
+      "verdict": "ARCHIVE — SL triggered Jul 17 @ $37.74. Net P&L: −$33.28. Stock continued drifting post-approval below $38 floor.",
       "conviction": 0,
       "entry_target": 34.04,
-      "stop": 24.5,
-      "stop_reason": "Stale — see active position",
+      "stop": 38.0,
+      "stop_reason": "SL hit Jul 17 @ $37.74",
       "tp1": 55.0,
-      "tp1_reason": "Post-approval stabilization",
+      "tp1_reason": "Was post-approval target — event passed",
       "tp2": 78.0,
-      "tp2_reason": "Analyst consensus midpoint",
+      "tp2_reason": "Was analyst consensus midpoint — moot",
       "pdufa_date": "2026-07-07",
-      "pdufa_drug": "Atacicept",
+      "pdufa_drug": "Atacicept (TRUTAKNA)",
       "indication": "IgA Nephropathy (IgAN)",
-      "approval_probability_pct": 89,
+      "approval_probability_pct": 100,
       "halal_status": "verified",
       "halal_note": "Verified Musaffa June 29 2026.",
       "broker_blocker": null,
       "position_size_target": 240,
       "added_date": "2026-06-10",
-      "notes": "ARCHIVE: 8 shares total — 6 @ $42 (Jun 29) + 2 @ ~$41.10 (Jul 3). Blended avg $41.7755. Track via positions[] array."
+      "notes": "ARCHIVE. 8 shares: 6 @ $42 (Jun 29) + 2 @ $40.20 (Jul 2). Blended avg $41.7755. FDA APPROVED Jul 7 (TRUTAKNA, accelerated approval IgAN). Classic sell-the-news — stock drifted from $42 to $37 range. SL $38 triggered Jul 17 @ $37.74. Gross $301.92 − $1 commission = $300.92 net. Net P&L: −$33.28 (−9.9%)."
     }
   ],
-  "cash_available": 149.31,
-  "total_cost_basis": 659.80,
+  "cash_available": 450.23,
+  "total_cost_basis": 325.60,
   "totals": {
-    "positions_count": 2,
+    "positions_count": 1,
     "sectors_held": ["Biotechnology"],
-    "largest_position_pct": 50.6,
-    "concentration_warning": "100% of positions in Biotechnology — CAPR (49.4%) + VERA (50.6%). CAPR AdCom July 29 is a binary event — GTC sell $33-35 set. VERA waiting for ORIGIN 3 eGFR data Q3 2026."
+    "largest_position_pct": 100.0,
+    "concentration_warning": "100% of positions in CAPR. AdCom July 29 is binary — GTC sell $33-35 set. $450.23 cash available for next entry."
   },
   "education_tracker": {
     "last_concept_number": 4,
@@ -221,6 +191,7 @@
     {"date": "2026-07-09", "action": "SELL", "ticker": "ANET", "shares": 1.27, "price_blended": 187.26, "gross_proceeds": 237.83, "commission": 1.01, "net_proceeds": 236.82, "cost_basis_sold": 199.39, "net_pnl": 36.43, "notes": "Full exit. Two GTC fills: 1 share @ $187 (NYSE) + 0.27 shares @ $188.25 (IBKR partial). Net +18.2% (+$36.43). IBKR commission $1.01."},
     {"date": "2026-07-15", "action": "BUY", "ticker": "CELC", "shares": 2, "price": 104.29, "amount": 208.58, "commission": 1.00, "notes": "Pre-PDUFA entry. PDUFA July 17. IBKR avg $104.29. Strategy: sell same day as PDUFA result."},
     {"date": "2026-07-15", "action": "SELL", "ticker": "CELC", "shares": 2, "price": 91.63, "gross_proceeds": 183.26, "commission": 1.00, "net_proceeds": 182.26, "cost_basis_sold": 208.58, "net_pnl": -26.32, "notes": "Cut loss. REVTORPYK FDA approved Jul 14 (3 days early) but sell-the-news on delayed commercial launch (late Q3) + tolerability concerns. Stock peaked ~$111 on approval, declined to $91.63. GTC at $152 never filled — approval move only +7% not +45%. Redeploying to CAPR pre-AdCom Jul 29."},
-    {"date": "2026-07-15", "action": "BUY", "ticker": "CAPR", "shares": 16, "price": 20.35, "amount": 325.60, "commission": 1.00, "notes": "AdCom play. CTGTAC advisory committee Jul 29. PDUFA Aug 22. GTC sell $33-35 set. FDA briefing docs due Jul 25 — read before holding to AdCom. Prior CRL resubmission — HOPE-3 Phase 3 met all endpoints. Updated probability 55-65%."}
+    {"date": "2026-07-15", "action": "BUY", "ticker": "CAPR", "shares": 16, "price": 20.35, "amount": 325.60, "commission": 1.00, "notes": "AdCom play. CTGTAC advisory committee Jul 29. PDUFA Aug 22. GTC sell $33-35 set. FDA briefing docs due Jul 25 — read before holding to AdCom. Prior CRL resubmission — HOPE-3 Phase 3 met all endpoints. Updated probability 55-65%."},
+    {"date": "2026-07-17", "action": "SELL", "ticker": "VERA", "shares": 8, "price": 37.74, "gross_proceeds": 301.92, "commission": 1.00, "net_proceeds": 300.92, "cost_basis_sold": 334.20, "net_pnl": -33.28, "notes": "SL triggered @ $37.74. Classic post-approval drift — TRUTAKNA FDA approved Jul 7 (IgAN) but sell-the-news continued below $38 support. Entry blended avg $41.7755. Net loss −9.9%."}
   ]
 }
