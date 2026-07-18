@@ -43,7 +43,7 @@
     {
       "ticker": "CELC",
       "company": "Celcuity Inc.",
-      "verdict": "ARCHIVE — EXITED Jul 15 at $91.63. Net P&L: −$26.32. FDA approved REVTORPYK Jul 14 (3 days early) but sell-the-news on delayed commercial launch (late Q3). Cash redeployed to CAPR.",
+      "verdict": "ARCHIVE — EXITED Jul 15 at $91.63. Net P&L: −26.32. FDA approved REVTORPYK Jul 14 (3 days early) but sell-the-news on delayed commercial launch (late Q3). Cash redeployed to CAPR.",
       "conviction": 0,
       "entry_target": 104.0,
       "stop": 67.0,
@@ -59,7 +59,7 @@
       "halal_note": "✅ Clean. Oncology/cancer therapeutics — permissible business.",
       "position_size_target": 104,
       "added_date": "2026-07-14",
-      "notes": "ARCHIVE. Entered Jul 15 @ $104.29. FDA approved REVTORPYK Jul 14 (early via RTOR). Stock peaked ~$111 on approval day then sell-the-news to $91.63. Delayed commercial launch (late Q3) + tolerability concerns drove decline. Exited Jul 15 at $91.63 for −$26.32 net loss. Lesson: set GTC sell at realistic day-1 reaction price, not 12-month analyst target. Next CELC catalyst: Q2 earnings (Aug), sNDA filing PIK3CA mutant population (Q3). HC Wainwright $155, Citizens $160, avg $160.64."
+      "notes": "ARCHIVE. Entered Jul 15 @ $104.29. FDA approved REVTORPYK Jul 14 (early via RTOR). Stock peaked ~$111 on approval day then sell-the-news to $91.63. Delayed commercial launch (late Q3) + tolerability concerns drove decline. Exited Jul 15 at $91.63 for −26.32 net loss. Lesson: set GTC sell at realistic day-1 reaction price, not 12-month analyst target. Next CELC catalyst: Q2 earnings (Aug), sNDA filing PIK3CA mutant population (Q3). HC Wainwright $155, Citizens $160, avg $160.64."
     },
     {
       "ticker": "CAPR",
@@ -109,7 +109,7 @@
     {
       "ticker": "VERA",
       "company": "Vera Therapeutics, Inc.",
-      "verdict": "ARCHIVE — SL triggered Jul 17 @ $37.74. Net P&L: −$33.28. Stock continued drifting post-approval below $38 floor.",
+      "verdict": "ARCHIVE — SL triggered Jul 17 @ $37.74. Net P&L: −33.28. Stock continued drifting post-approval below $38 floor.",
       "conviction": 0,
       "entry_target": 34.04,
       "stop": 38.0,
@@ -139,11 +139,25 @@
     "concentration_warning": "100% of positions in CAPR. AdCom July 29 is binary — GTC sell $33-35 set. $450.23 cash available for next entry."
   },
   "education_tracker": {
-    "last_concept_number": 5,
-    "last_concept_name": "PEG Ratio",
-    "last_taught_date": "2026-07-17",
+    "last_concept_number": 2,
+    "last_concept_name": "EV/EBITDA",
+    "last_taught_date": "2026-07-18",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
+      "EV/EBITDA",
+      "Price/Sales (P/S)",
+      "Price/Book (P/B)",
+      "PEG Ratio",
+      "Gross Margin vs Operating Margin vs Net Margin",
+      "Free Cash Flow (FCF)",
+      "Return on Invested Capital (ROIC)",
+      "Operating Leverage",
+      "Share-Based Compensation (SBC)",
+      "Hyperscaler Capex",
+      "DRAM/NAND Cycle",
+      "Foundry vs Fabless",
+      "GLP-1 mechanism & TAM",
+      "Process Node Transitions",
       "Earnings Whisper Numbers",
       "Options-Implied Move",
       "Short Interest & Squeeze Setups",
@@ -157,21 +171,8 @@
       "EV/EBITDA Part 2 - calculating it yourself",
       "FCF Part 2 - owner earnings",
       "Forward P/E Part 2 — analyst revision trends",
-      "Hyperscaler capex Part 2 — the actual flows",
-      "Sector Rotation Part 2 — ETF flows as real-time signal",
-      "Hyperscaler Capex",
-      "DRAM/NAND Cycle",
-      "Foundry vs Fabless",
-      "GLP-1 mechanism & TAM",
-      "Process Node Transitions",
-      "Gross Margin vs Operating Margin vs Net Margin",
-      "Free Cash Flow (FCF)",
-      "Return on Invested Capital (ROIC)",
-      "Operating Leverage",
-      "Share-Based Compensation (SBC)",
-      "Price/Sales (P/S)",
-      "Price/Book (P/B)",
-      "PEG Ratio"
+      "Hyperscaler Capex Part 2 — the actual flows",
+      "Sector Rotation Part 2 — ETF flows as real-time signal"
     ]
   },
   "history": [
