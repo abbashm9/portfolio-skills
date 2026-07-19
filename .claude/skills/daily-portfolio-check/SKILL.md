@@ -272,10 +272,13 @@ If not yet available: note "FDA briefing docs not yet released — expected July
 
 **Run in parallel with Step 2.5.** Mandatory daily section — not optional, not skipped on weekends.
 
-**Purpose:**
-1. Understand what the market rewarded and punished yesterday
-2. Catch actionable names still in motion (gap-and-go continuation, follow-through day 2)
-3. Check contagion — did any loser's cause affect your holdings or watchlist?
+**Purpose (read this before building the section):**
+The movers section is CATALYST INTELLIGENCE, not a "should I chase this?" screen. Abbas already knows whether to trade it. What he needs is:
+1. **What drove the 20%+ move?** — FDA approval, M&A deal, contract award, earnings beat, short squeeze, sector rotation. Understanding the catalyst type is the entire point.
+2. **Contagion** — did the loser's catalyst affect his holdings or watchlist? Same drug class? Same sector?
+3. **Market signal** — what is the market rewarding/punishing right now? This frames every other decision in the email.
+
+The "still in play?" judgment is secondary. Lead with the catalyst explanation.
 
 #### 2.7A — Fetch the movers (4 searches in parallel)
 
@@ -286,7 +289,16 @@ If not yet available: note "FDA briefing docs not yet released — expected July
 "stocks down 30 percent" OR "stocks down 50 percent" [previous trading date] reason catalyst small cap
 ```
 
-Target: top 10 gainers (by % gain) and top 10 losers (by % loss) for the previous trading day. **Minimum threshold: ≥ 20% move. Anything under 20% is noise — exclude it.** Large-cap stocks (market cap > $5B) moving less than 20% are explicitly excluded — Abbas wants NXTC +200%, CNEY +58%, VEEE +54% type movers, not Meta or NVIDIA on a typical good session. Sort all results by % move descending before any further filtering.
+Target: top 10 gainers (by % gain) and top 10 losers (by % loss) for the previous trading day.
+
+**HARD FILTER — apply before any other step:**
+- **Minimum move: ≥ 20%.** A stock that moved +8%, +12%, or +2% does NOT appear. Not as an honorable mention, not as a footnote — it does not appear at all.
+- **Large-cap exclusion:** Any stock with market cap > $5B is excluded UNLESS it moved ≥ 20%. TRP at +8%? Gone. NVIDIA at +4%? Gone. These belong in the Large-cap section (Step 2.8), not here.
+- **If a name doesn't clearly meet both filters, default to excluding it.** When in doubt, cut it.
+
+Abbas wants the NXTC +200%, CNEY +58%, VEEE +54% class of movers — small/micro-cap names with a specific catalyst that drove a massive single-day move. If searches don't return names at that level, trigger the fallback (see 2.7D). Never populate this section with sub-20% moves just to fill space.
+
+Sort all surviving results by % move descending before any further analysis.
 
 #### 2.7B — Identify the reason (1 search per mover, all in parallel)
 
@@ -320,27 +332,29 @@ For each mover that passes the filter, determine:
 
 **📈 Top Gainers — [previous trading date]**
 
-| Ticker | +% | Catalyst | Type | Still in play? |
+| Ticker | +% | What happened (catalyst detail) | Type | Contagion / note |
 |---|---|---|---|---|
-| TICKER | +X% | [1-line reason] | FDA / Earnings / Deal / Squeeze | ✅ RUNNABLE — [why] / ❌ FADED |
+| TICKER | +X% | [Specific catalyst — e.g., "FDA approved [DRUG] for [INDICATION]", "Acquired by [COMPANY] at $X/share", "Won $200M DoD contract for [SYSTEM]", "Q2 EPS beat by 40%, guidance raised"] | FDA / M&A / Contract / Earnings / Squeeze | [If relevant to holdings — else "None"] |
 
-Show top 5 gainers sorted by % move descending (highest first), minimum ≥ 20%. If a gainer is RUNNABLE and halal-clean, add:
-> 🔔 **[TICKER] still running** — [1-line thesis for continuation]. Say `analyze [TICKER]` for the full setup.
+**The "What happened" column is the most important.** Give the actual catalyst, not a vague label. Examples of what NOT to write: "positive news", "beat estimates", "FDA event." Examples of what TO write: "FDA approved DRUG for INDICATION — accelerated approval", "Merck acquired at $X per share (X% premium)", "DoD contract worth $X for [system]."
+
+Show top 5 gainers sorted by % move descending (highest first), minimum ≥ 20%. If a gainer's catalyst is directly relevant to Abbas's holdings or watchlist, flag it:
+> 🔔 **[TICKER] +X% on [catalyst]** — [1-sentence implication for your portfolio]. 
 
 **If no gainer cleared ≥20%:** show:
-> *No small-cap gainers found clearing the 20% threshold for [date]. Market was quiet or search returned insufficient data. Large-cap movers (META +6%, NVDA +4%) excluded by design — see "Large-cap on deck" section for those.*
+> *No small-cap gainers cleared the 20% threshold for [date]. Market was quiet or searches returned insufficient data. Large-cap movers excluded by design — see "Large-cap on deck" for mega-cap activity.*
 
 **📉 Top Losers — [previous trading date]**
 
-| Ticker | -% | Catalyst | Type | Contagion to your portfolio? |
+| Ticker | -% | What happened (catalyst detail) | Type | Contagion to your portfolio? |
 |---|---|---|---|---|
-| TICKER | -X% | [1-line reason] | CRL / Miss / Cut / Downgrade | ⚠️ Affects [HELD TICKER] because [reason] / None |
+| TICKER | -X% | [Specific catalyst — e.g., "FDA issued CRL for [DRUG] — insufficient efficacy data", "Q2 EPS missed by 30%, guidance cut", "DOJ investigation announced"] | CRL / Miss / Regulatory / Downgrade | ⚠️ Affects [HELD TICKER] because [reason] / None |
 
-Show top 5 losers sorted by % move descending (largest drop first), minimum ≥ 20%. If contagion exists, add:
-> ⚠️ **[LOSER] CRL may signal sector headwind for [HELD/WATCHLIST TICKER]** — [1-line explanation].
+Show top 5 losers sorted by % move descending (largest drop first), minimum ≥ 20%. If contagion exists:
+> ⚠️ **[LOSER] -X% on [catalyst] — watch [HELD TICKER]** — [1-line explanation of the link].
 
 **If no loser cleared ≥20%:** show:
-> *No small-cap losers found clearing the 20% threshold for [date].*
+> *No small-cap losers cleared the 20% threshold for [date].*
 
 **On weekends:** use Friday's movers data. Label clearly: "📈 Friday's Movers — [date]"
 
