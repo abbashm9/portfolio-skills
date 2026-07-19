@@ -579,7 +579,9 @@ Status emoji: ✅ HOLD / ⚠️ WATCH / 🔔 ACTION / 🚨 ALERT
 - **Gate 2:** Market cap < $2B? ≥ $2B → drop.
 - **Gate 3:** Halal quick check. Obvious forbidden business → drop. Unclear → keep with ⚠️.
 
-#### 3.5.3 — Score survivors (5-point pre-score)
+#### 3.5.3 — Score survivors AND group by sector
+
+**Score each survivor (5-point pre-score):**
 
 | Factor | Points |
 |---|---|
@@ -589,11 +591,46 @@ Status emoji: ✅ HOLD / ⚠️ WATCH / 🔔 ACTION / 🚨 ALERT
 | Appears in 2+ search sources OR categories | 1 |
 | Smart money signal (insider buy, unusual options, 13F) | 1 |
 
-Keep top 3, enforce sector balance. Feed into Step 3.8, 3.7, 4.
+**Then group survivors by sector bucket:**
 
-### Step 3.8: Condensed analysis — top candidates from Step 3.5
+| Bucket | Sectors covered |
+|---|---|
+| 🧬 Biotech / Pharma | FDA, PDUFA, AdCom, clinical data |
+| 💻 Tech / AI / Semis | AI, data center, semiconductors, software |
+| 🏗️ Industrial / Defense | contracts, aerospace, government awards |
+| ⚡ Energy / Clean Tech | oil & gas, nuclear, renewables |
+| 🛍️ Consumer / Retail | retail, consumer discretionary, e-commerce |
+| 🏦 Financials / Other | fintech, REITs, anything else |
 
-For each of the top 3 candidates, run 5 searches in parallel:
+**Select:**
+- **Top 1 candidate per sector bucket** (highest pre-score within bucket) → this becomes the Sector Snapshot table in the email
+- **Top 3 overall by pre-score** (any sector) → these get the full deep-dive in Step 3.8
+
+If a bucket has no survivor, omit it from the table. The goal is breadth first, depth second.
+
+### Step 3.8: Condensed analysis — sector snapshot + deep dives
+
+**This section has two parts:**
+
+#### 3.8A — Sector Snapshot table (all sector-bucket winners from 3.5.3)
+
+Produce a compact table showing the top candidate from each sector bucket. No deep-dive — just enough to orient Abbas across the full market. This is the "what's best in class right now" view.
+
+**📡 Catalyst Radar — [today's date]**
+
+| Sector | Ticker | Catalyst | Date | Pre-score | Halal | Action |
+|---|---|---|---|---|---|---|
+| 🧬 Biotech | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
+| 💻 Tech/AI | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
+| 🏗️ Defense | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
+| ⚡ Energy | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
+| 🛍️ Consumer | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
+
+Omit any bucket with no survivor. Include a bucket even if it only has a SKIP candidate — Abbas needs to see that the sector was scanned and had nothing worth pursuing today.
+
+#### 3.8B — Deep dives (top 3 overall by pre-score)
+
+For each of the top 3 candidates by pre-score, run 5 searches in parallel:
 - `"[TICKER]" earnings date OR PDUFA OR catalyst confirmed [current month] [next month]`
 - `"[TICKER]" market cap float short interest`
 - `"[TICKER]" revenue growth OR "earnings history" OR "beat estimates" OR "phase 3" history`
@@ -697,7 +734,7 @@ Build a responsive HTML email. Requirements:
 6. **📈📉 Yesterday's Movers** — from Step 2.7 (always shown; Friday data on weekends) — small-cap ≥20% moves only
 7. **🏢 Large-cap on deck** — from Step 2.8, mega-cap earnings/catalyst radar (show when any name has event ≤21 days; omit if calendar is empty)
 8. **⏳ Pending Watchlist** — all watchlist items from portfolio.json (skip only if empty)
-9. **📡 Catalyst Plays** — top 3 candidates from Step 3.8
+9. **📡 Catalyst Radar** — sector snapshot table (all bucket winners from 3.8A) + deep dives on top 3 (from 3.8B)
 10. **💵 Cash deployment** — from Step 3.7
 11. **🔄 Rotation suggestions** — from Step 4, if any
 12. **📊 IBKR Intelligence** — if available (interactive mode only); otherwise omit with note
