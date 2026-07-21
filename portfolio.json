@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-20T06:00:00+03:00",
+  "last_updated": "2026-07-21T06:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -143,9 +143,9 @@
     "concentration_warning": "100% of positions in CAPR. AdCom July 29 is binary — GTC sell $33-35 set. $450.23 cash available for next entry."
   },
   "education_tracker": {
-    "last_concept_number": 29,
-    "last_concept_name": "Hyperscaler Capex Part 2 — the actual flows",
-    "last_taught_date": "2026-07-20",
+    "last_concept_number": 30,
+    "last_concept_name": "Sector Rotation Part 2 — ETF flows as real-time signal",
+    "last_taught_date": "2026-07-21",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
