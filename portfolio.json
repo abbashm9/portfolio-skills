@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-21T06:00:00+03:00",
+  "last_updated": "2026-07-23T06:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -143,9 +143,9 @@
     "concentration_warning": "100% in CAPR. Single binary event Jul 29 AdCom. Cash $454.71 available for new trade."
   },
   "education_tracker": {
-    "last_concept_number": 30,
-    "last_concept_name": "Sector Rotation Part 2 — ETF flows as real-time signal",
-    "last_taught_date": "2026-07-21",
+    "last_concept_number": 1,
+    "last_concept_name": "Forward P/E vs Trailing P/E",
+    "last_taught_date": "2026-07-23",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
