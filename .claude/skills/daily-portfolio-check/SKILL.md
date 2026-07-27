@@ -204,21 +204,16 @@ Already done in Step 0A. For each watchlist item, calculate:
 
 #### 2.6A — For each `enhanced_news_watch: true` position, run 4 targeted searches in parallel
 
-**For CAPR / any AdCom-PDUFA position:**
+Build the queries dynamically from that position's `ticker`, `company`, and `notes`/`catalyst` fields in portfolio.json — do not hardcode ticker names in this skill, they change as positions rotate:
+
 ```
-"[TICKER]" OR "[drug name]" news [today's date] OR yesterday FDA advisory OR briefing OR analyst
-"[TICKER]" FDA "briefing document" OR "background material" OR "advisory committee" [current month] 2026
+"[TICKER]" OR "[company name]" news [today's date] OR yesterday
 "[TICKER]" analyst OR "price target" OR upgrade OR downgrade [this week] 2026
-"[drug name]" "[indication]" competitor OR "competing drug" OR "same class" data OR CRL [current month] 2026
+"[TICKER]" unusual options OR "volume spike" OR breakout OR breakdown [today's date] OR [this week]
+"[TICKER]" competitor OR "same sector" news [current month] 2026
 ```
 
-**For VERA / any post-approval confirmatory trial position:**
-```
-"VERA" OR "Vera Therapeutics" OR "atacicept" OR "TRUTAKNA" news [today's date] OR yesterday
-"ORIGIN 3" OR "eGFR" OR "IgA nephropathy" confirmatory OR "full approval" data 2026
-"Vera Therapeutics" analyst OR "price target" OR upgrade OR downgrade [this week] 2026
-"IgA nephropathy" competitor OR "same class" OR "sparsentan" OR "iptacopan" data [current month] 2026
-```
+If the position's `catalyst` field names a specific dated event (earnings, FDA, etc.), add a 5th targeted query for that event. Otherwise these 4 generic queries are sufficient — momentum positions don't have a single binary date to monitor, they need general news/flow monitoring instead.
 
 #### 2.6B — Classify every finding
 
@@ -250,23 +245,12 @@ Insert a **📰 POSITION NEWS** section immediately after the Macro Context card
 [Action: HOLD / CUT NOW / WAIT FOR MORE INFO]
 ```
 
-#### 2.6D — Special: July 25 FDA Briefing Documents (CAPR)
+#### 2.6D — Position holding-period check
 
-On or after July 25, 2026, the FDA releases its internal briefing documents for the CAPR AdCom (July 29). These are the single most important signal before the vote.
+Momentum positions are meant to be fast — days, not weeks (see decisions.md, 2026-07-27 pivot away from binary-catalyst holds). For every open position, compute trading days since `entry_date`.
 
-Run these searches on July 25 and every day after until the AdCom:
-```
-"Capricor" OR "deramiocel" OR "CAP-1002" FDA "briefing document" OR "background material" July 2026
-site:fda.gov deramiocel "advisory committee" briefing 2026
-```
-
-If briefing documents are found:
-- Summarize FDA's stance on HOPE-3 data and the 2.4% LVEF improvement
-- **If FDA appears supportive:** recommend HOLD through AdCom
-- **If FDA is clearly skeptical:** recommend CONSIDER CUTTING before the AdCom vote to limit downside
-- Mark as 🚨 URGENT and place above hero banner
-
-If not yet available: note "FDA briefing docs not yet released — expected July 25."
+- **Held > 10 trading days with no fresh momentum signal:** flag 🔔 "Stale — thesis was [X] days ago, no continuation signal since. Consider exit regardless of P&L."
+- **Held > 15 trading days:** escalate to ⚠️ WATCH regardless of P&L — this isn't the kind of position this strategy is built to hold.
 
 ### Step 2.7: Previous Day Movers — top gainers and losers
 
@@ -543,41 +527,39 @@ Status emoji: ✅ HOLD / ⚠️ WATCH / 🔔 ACTION / 🚨 ALERT
 7. `"spin-off" OR "strategic review" OR "divestiture" small mid cap catalyst 2026`
 8. `"partnership" OR "licensing deal" OR "milestone payment" small cap biotech OR tech [current month] 2026`
 
-**Tech, AI, semiconductors & sector momentum (8 searches):**
-9. `AI OR "artificial intelligence" OR "data center" small mid cap catalyst earnings [current month] [next month] 2026`
-10. `semiconductor OR "chip" OR "HBM" OR "CoWoS" small cap catalyst upcoming [current month] 2026`
-11. `defense OR aerospace "contract win" OR "LPTA award" small cap [current month] 2026`
-12. `energy OR "clean energy" OR "nuclear" small mid cap catalyst [current month] [next month] 2026`
-13. `"52-week high" breakout small cap high volume catalyst [current week] 2026`
-14. `"short squeeze" catalyst upcoming [current month] high short interest "days to cover" small cap 2026`
-15. `"unusual options activity" small cap [today's date] OR [this week] bullish call sweep`
-16. `"insider buying" cluster "Form 4" multiple executives small cap [current month] 2026`
+**Tech, AI, semiconductors & sector momentum (7 searches):**
+9. `AI OR "artificial intelligence" OR "data center" small mid cap momentum breakout [current week] 2026`
+10. `semiconductor OR "chip" OR "HBM" OR "CoWoS" small cap momentum breakout [current week] 2026`
+11. `energy OR "clean energy" OR "nuclear" small mid cap momentum breakout [current week] 2026`
+12. `"52-week high" breakout small cap high volume [current week] 2026`
+13. `"short squeeze" setup high short interest "days to cover" small cap 2026`
+14. `"unusual options activity" small cap [today's date] OR [this week] bullish call sweep`
+15. `"insider buying" cluster "Form 4" multiple executives small cap [current month] 2026`
 
 **Market structure & momentum signals (6 searches):**
-17. `"premarket gainers" OR "premarket movers" catalyst [today's date] small cap`
-18. `"most active" OR "volume spike" small mid cap catalyst [today's date] OR [this week]`
-19. `"gamma squeeze" OR "options expiry" catalyst small cap [current week] [next week] 2026`
-20. `"breakout" "bull flag" OR "cup and handle" small cap high volume [current week] 2026`
-21. `"institutional buying" 13F "new position" small cap [current month] 2026`
-22. `"heavily shorted" "upcoming catalyst" OR "short interest" small cap 2026 [current month]`
+16. `"premarket gainers" OR "premarket movers" [today's date] small cap -defense -pentagon -military`
+17. `"most active" OR "volume spike" small mid cap [today's date] OR [this week]`
+18. `"gamma squeeze" OR "options expiry" catalyst small cap [current week] [next week] 2026`
+19. `"breakout" "bull flag" OR "cup and handle" small cap high volume [current week] 2026`
+20. `"institutional buying" 13F "new position" small cap [current month] 2026`
+21. `"heavily shorted" "short interest" squeeze setup small cap 2026 [current month]`
 
-**FDA & biotech (8 searches):**
-23. `FDA PDUFA action dates [current month] [next month] upcoming decisions`
-24. `"advisory committee" OR AdCom meeting scheduled [current month] [next month] FDA 2026`
-25. `"phase 3" "top-line data" OR "data readout" expected [current month] [next month] 2026`
-26. `site:biopharmcatalyst.com PDUFA [current month] OR [next month]`
-27. `biotech catalyst calendar [current month] [next month] 2026`
-28. `"complete response letter" resubmission PDUFA upcoming 2026`
-29. `"interim analysis" OR "primary endpoint" met OR "phase 2b" results [current month] [next month] 2026`
-30. `"rare disease" OR "orphan drug" PDUFA OR "breakthrough therapy" designation upcoming [current month] 2026`
+**Broad sector-agnostic sweep (7 searches — replaces the retired FDA/biotech-only block, see decisions.md 2026-07-27):**
+22. `biotech OR pharma momentum breakout OR "gapped up" small cap [current week] 2026`
+23. `consumer OR retail OR e-commerce momentum breakout small mid cap [current week] 2026`
+24. `industrials OR materials OR shipping momentum breakout -defense -military small mid cap [current week] 2026`
+25. `fintech OR financials momentum breakout small mid cap [current week] 2026`
+26. `"earnings beat" OR "guidance raised" reaction gap up small mid cap [current week] 2026`
+27. `"analyst upgrade" "price target raised" small cap [current week] 2026`
+28. `sector rotation ETF inflows [current week] 2026 leading sector`
 
-**Sector balance rule:** Top 3 final candidates must not all be from the same sector. If all biotech, promote highest-scoring non-pharma into third slot.
+**Sector balance rule:** Top 3 final candidates must not all be from the same sector. **Hard exclusions:** drop any defense/military contractor on sight, regardless of signal strength — separate rule from the halal screen, see stock-finder skill. A dated future event (earnings, FDA, etc.) alone is no longer sufficient to include a candidate — it needs a live technical/flow signal firing now, not just a date on the calendar.
 
 #### 3.5.2 — Rapid 3-gate pre-screen
 
-- **Gate 1:** Confirmed catalyst date ≤ 45 days? No confirmed date → drop.
-- **Gate 2:** Market cap < $2B? ≥ $2B → drop.
-- **Gate 3:** Halal quick check. Obvious forbidden business → drop. Unclear → keep with ⚠️.
+- **Gate 1:** Live momentum/flow signal in the last 5 trading days (breakout, gap-up continuation, unusual options, insider cluster, clear RS leadership)? No live signal, just a future dated event → drop.
+- **Gate 2:** Market cap < $2B AND liquid enough (avg 90d $ volume) to exit within a session or two? Fails either → drop.
+- **Gate 3:** Defense/military contractor → drop, no exceptions. Halal quick check: obvious forbidden business → drop. Unclear → keep with ⚠️.
 
 #### 3.5.3 — Score survivors AND group by sector
 
@@ -585,8 +567,8 @@ Status emoji: ✅ HOLD / ⚠️ WATCH / 🔔 ACTION / 🚨 ALERT
 
 | Factor | Points |
 |---|---|
-| Event ≤ 14 days out | 2 |
-| Event 15–45 days out | 1 |
+| Signal fired last 1-2 trading days (fresher = better) | 2 |
+| Signal fired 3-5 trading days ago, still intact | 1 |
 | Short interest ≥ 15% float | 1 |
 | Appears in 2+ search sources OR categories | 1 |
 | Smart money signal (insider buy, unusual options, 13F) | 1 |
@@ -595,9 +577,9 @@ Status emoji: ✅ HOLD / ⚠️ WATCH / 🔔 ACTION / 🚨 ALERT
 
 | Bucket | Sectors covered |
 |---|---|
-| 🧬 Biotech / Pharma | FDA, PDUFA, AdCom, clinical data |
+| 🧬 Biotech / Pharma | momentum/flow only — no FDA-date discovery, see decisions.md |
 | 💻 Tech / AI / Semis | AI, data center, semiconductors, software |
-| 🏗️ Industrial / Defense | contracts, aerospace, government awards |
+| 🏗️ Industrial / Materials | manufacturing, shipping, materials — excludes defense/military |
 | ⚡ Energy / Clean Tech | oil & gas, nuclear, renewables |
 | 🛍️ Consumer / Retail | retail, consumer discretionary, e-commerce |
 | 🏦 Financials / Other | fintech, REITs, anything else |
@@ -689,12 +671,14 @@ If `cash_available − $2 < $30`: "Too small for a meaningful new position. Hold
 
 If `cash_available − $2 ≥ $30`, always provide:
 > 💵 **Cash deployment — $[deployable] available**
-> - **Option A — Catalyst play:** [TOP CANDIDATE], buy [N] shares at ~$[price]. Event: [date]. Upside: +[%]. Downside: [%]. Position: $[amount] = [%]% of portfolio.
+> - **Option A — New momentum play:** [TOP CANDIDATE], buy [N] shares at ~$[price]. Signal: [what fired, how fresh]. Target: +5-15% over [1-10] trading days. Invalidation level: [price]. Position: $[amount] = [%]% of portfolio.
 > - **Option B — Add to existing:** [TICKER] (Risk: [score]/100), buy [N] shares at ~$[price]. Net position: [shares] shares, avg ~$[blended].
 > - **Recommended:** [A or B] because [1-line reason].
 > - **Your call.**
 
-Max allocation per catalyst play: 30% of total portfolio value.
+**Max allocation per position: 15-18% of total portfolio value** (revised 2026-07-27 — see decisions.md). The strategy is now several smaller momentum positions run concurrently, not one dominant name. Target 5-7 open positions when cash allows; don't let any single name become >20% of the account.
+
+**Stop order type — mandatory:** every stop must be a **stop-limit**, not a plain stop-market. A plain STOP becomes a market order on trigger and has zero protection against a gap (this is exactly what turned a planned -36% CAPR stop into an actual -72% fill on 2026-07-27). Set the limit a few percent below the stop trigger — enough to fill in normal conditions, tight enough to avoid a catastrophic gap fill. If a name gaps clean through even the limit, it won't fill and needs a manual same-day decision instead of a silent worse-than-planned exit.
 
 ### Step 4: Rotation suggestions (intelligence-driven)
 
@@ -812,7 +796,7 @@ If GitHub write fails: fall back to `create_draft` via Gmail connector. Log "GIT
 
 If NYSE was closed today (weekend, US holiday):
 - Subject: `📊 Daily Portfolio: Markets closed | [top catalyst play if found]`
-- Note that markets were closed, then **run Steps 3.5 and 3.8 fully** — FDA calendar doesn't pause on weekends
+- Note that markets were closed, then **run Steps 3.5 and 3.8 fully** using the most recent trading session's data — momentum signals from Friday are still fresh Monday morning
 - Include full 📡 Catalyst Plays section
 - Skip positions table and exit alerts
 - Include education concept

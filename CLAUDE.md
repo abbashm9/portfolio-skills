@@ -7,7 +7,7 @@ This repository contains personal Claude skills for Abbas Al Madani's halal stoc
 - **Name:** Abbas Al Madani, based in Kuwait
 - **Trading background:** 8 years in forex and indices, new to single-name US equities
 - **Tone preference:** Pragmatic, direct, no condescension. Treat as an experienced trader.
-- **Strategy:** Halal-compliant (personal definition), aggressive growth, no withdrawals
+- **Strategy:** Halal-compliant (personal definition), aggressive growth, no withdrawals. As of 2026-07-27: momentum/technical discovery, sector-agnostic except haram businesses + defense/military contractors excluded. Binary-catalyst (FDA PDUFA/AdCom) trading paused — see `decisions.md`. Target 5-15% gains held days not weeks, max 15-18% position size, 5-7 concurrent positions, stop-limit orders only (never plain stop-market).
 - **Halal definition:** Business activity only. A stock is halal if the company's core business is permissible (no alcohol, gambling, weapons, pork, pornography, conventional banking/insurance as primary business). Financial ratio screens (debt levels, interest income %) are irrelevant — Abbas is a capital gains trader, not a dividend investor, so he receives none of the company's interest income. Do NOT require Musaffa/AAOIFI financial ratio checks. Only screen the business model.
 - **Broker:** Interactive Brokers (IBKR). Commission ~$1.00 per trade (buy or sell). Entry already paid — only ~$1 exit commission remains on open positions. Round-trip = ~$2.
 
@@ -16,14 +16,19 @@ This repository contains personal Claude skills for Abbas Al Madani's halal stoc
 portfolio-skills/
 ├── CLAUDE.md                          ← this file
 ├── portfolio.json                     ← live portfolio state (single source of truth)
+├── decisions.md                       ← append-only strategy decision log
 ├── .claude/
 │   └── skills/
 │       ├── daily-portfolio-check/     ← runs as Cloud Routine, emails daily report
 │       │   ├── SKILL.md
 │       │   └── references/
-│       └── portfolio-manager/         ← chat-triggered updates to portfolio.json
-│           ├── SKILL.md
-│           └── references/
+│       ├── portfolio-manager/         ← chat-triggered updates to portfolio.json
+│       │   ├── SKILL.md
+│       │   └── references/
+│       ├── stock-finder/              ← on-demand momentum discovery (sector-agnostic)
+│       ├── stock-analyzer/            ← deep dive on a named ticker
+│       ├── stock-risk-report/         ← visual risk report on a named ticker
+│       └── halal-stock-picker/        ← monthly halal pick list
 
 
 ## Workflow expectations
@@ -58,12 +63,9 @@ When Abbas asks you to make changes:
 
 ## Current portfolio state
 
-Reference `portfolio.json` in repo root for current positions. Last known state:
+Reference `portfolio.json` in repo root for current positions — this table goes stale fast, always verify against the file. Last known state (2026-07-27):
 
-| Ticker | Shares | Entry | Cost Basis |
-|--------|--------|-------|------------|
-| CAPR   | 16     | $20.35 | $325.60  |
-Total cost basis: $325.60. Cash: ~$450.23. (VERA SL triggered Jul 17 @ $37.74, net P&L −$33.28)
+No open positions. Fully in cash: $546.58. CAPR stopped out same day (-$234.73) two days before its AdCom — see `decisions.md` for the strategy pivot this triggered.
 
 ## Known issues and constraints
 

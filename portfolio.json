@@ -1,10 +1,11 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-21T06:00:00+03:00",
+  "last_updated": "2026-07-27T00:00:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
-  "strategy": "halal_aggressive_growth",
+  "strategy": "halal_aggressive_growth_momentum",
+  "strategy_note": "Pivoted 2026-07-27 from binary-catalyst (FDA PDUFA/AdCom) trading to daily momentum/technical discovery, sector-agnostic except haram businesses + defense/military contractors excluded. Target 5-15% gains held days not weeks, 15-18% max position size, 5-7 concurrent positions, stop-limit orders only. See decisions.md.",
   "withdrawal_intent": false,
   "investment_goal": {
     "target_total_value": 1000.0,
@@ -13,36 +14,7 @@
     "gain_needed": 180.0,
     "note": "Reach $1000 total account value (positions + cash) by end of July 2026. Monthly investment target — not a withdrawal."
   },
-  "positions": [
-    {
-      "ticker": "CAPR",
-      "company": "Capricor Therapeutics, Inc.",
-      "sector": "Biotechnology",
-      "shares": 16,
-      "entry_price": 20.35,
-      "cost_basis": 325.6,
-      "entry_date": "2026-07-15",
-      "status": "open",
-      "enhanced_news_watch": true,
-      "stop_loss": 13.0,
-      "stop_loss_pct": -36.1,
-      "tp1": {
-        "price": 35.0,
-        "sell_pct": 100,
-        "reason": "AdCom positive vote reaction — sell same day July 29. Do NOT hold to PDUFA Aug 22."
-      },
-      "tp2": null,
-      "catalyst": "FDA AdCom vote — Deramiocel (CAP-1002) for DMD cardiomyopathy",
-      "catalyst_date": "2026-07-29",
-      "adcom_date": "2026-07-29",
-      "pdufa_date": "2026-08-22",
-      "approval_probability_pct": 60,
-      "halal_verified": "2026-07-15",
-      "halal_source": "business_model",
-      "halal_note": "✅ Clean. Cardiac cell therapy for rare disease (DMD) — permissible business.",
-      "notes": "16 shares @ $20.35. Filled Jul 15. GTC sell $33-35 set in IBKR. KEY DATE: Jul 25 — FDA briefing docs released. Read them. If FDA skeptical of 2.4% LVEF data → consider cutting before AdCom. STRATEGY: sell AdCom day reaction same day (Jul 29). Do NOT hold to PDUFA Aug 22. Prior CRL Jul 2025 (HOPE-2 insufficient evidence, disputed). Resubmitted with HOPE-3 Phase 3 (n=106, met ALL endpoints: PUL p=0.03, LVEF p=0.04). FDA lifted CRL, no review issues identified. Class 2 resubmission. CTGTAC committee. Updated probability: 55-65%. Roth Capital $43 target Buy. Bull: $35 AdCom day. Bear: $13. Win: +$232 net. Lose: -$120 net."
-    }
-  ],
+  "positions": [],
   "watchlist": [
     {
       "ticker": "CELC",
@@ -68,15 +40,15 @@
     {
       "ticker": "CAPR",
       "company": "Capricor Therapeutics, Inc.",
-      "verdict": "✅ ENTERED — 16 shares @ $20.35 (Jul 15). GTC sell $33-35 set. AdCom July 29. READ FDA BRIEFING DOCS July 25 before holding.",
-      "conviction": 7,
+      "verdict": "ARCHIVE — STOPPED OUT Jul 27 @ $5.80, two days BEFORE the Jul 29 AdCom vote. Stop was correctly set at $14, but market gapped down hard at the open pre-AdCom and the STOP (market-on-trigger) order filled at $5.80 — 59% below the stop trigger. Net P&L: -$234.73 (-71.9%).",
+      "conviction": 0,
       "entry_target": 21.0,
-      "stop": 13.0,
-      "stop_reason": "Below post-AdCom support; CRL scenario floor $11-13",
+      "stop": 14.0,
+      "stop_reason": "Stop correctly placed at $14.00. Root cause of the $5.80 fill: this was a plain STOP order, not stop-limit — once triggered by the gap-down open it executed as a market order against whatever price was available, and CAPR gapped straight through with no liquidity in between. Confirms stop-losses do not protect against gap risk on binary-catalyst biotech — the mechanism assumes gradual price movement that pre-event gaps don't respect.",
       "tp1": 35.0,
-      "tp1_reason": "AdCom positive vote reaction — sell the event, don't hold to PDUFA Aug 22",
+      "tp1_reason": "Was AdCom positive vote reaction target — never reached, stopped out pre-event",
       "tp2": 52.0,
-      "tp2_reason": "Full approval scenario — outside July 31 window",
+      "tp2_reason": "Full approval scenario — moot, position closed",
       "pdufa_date": "2026-08-22",
       "adcom_date": "2026-07-29",
       "drug": "Deramiocel (CAP-1002) for DMD cardiomyopathy",
@@ -85,7 +57,7 @@
       "halal_note": "✅ Clean by business-activity standard. Cardiac cell therapy for DMD — permissible.",
       "position_size_target": 150,
       "added_date": "2026-06-29",
-      "notes": "ORDER PLACED Jul 15: 16 shares @ $20.35 limit — pending fill. AdCom Jul 29 CONFIRMED. PDUFA Aug 22. KEY DATES: (1) Jul 25 — FDA releases briefing documents 2 business days before AdCom. READ THEM. If FDA skeptical of 2.4% LVEF improvement → cut before AdCom. If supportive → hold. (2) Jul 29 — AdCom vote. GTC sell at $33-35 must be pre-set. Sell same day regardless of outcome. Do NOT hold to PDUFA Aug 22."
+      "notes": "ARCHIVE. Entered 16 shares @ $20.35 Jul 15. STOPPED OUT Jul 27 2026 13:30 UTC on DARK exchange: GTC STOP order (trigger $14) filled at $5.80 after a gap-down open ahead of the Jul 29 AdCom. Commission $0.93. Net proceeds $91.87. Realized P&L -$234.73 (cost basis incl. commission $326.60). Position never saw the catalyst it was entered for. CONFIRMED LESSON: plain STOP orders become market orders on trigger and offer zero protection against gap risk — in a binary-catalyst name, the whole point of the trade (the gap) is exactly what breaks the stop. This, plus CELC (-26.32) and VERA (-33.28) — both also binary PDUFA/AdCom plays that missed target and closed well below plan — is the direct evidence behind the Jul 27 2026 decision to pause binary-catalyst trading and pivot to daily momentum discovery. See decisions.md."
     },
     {
       "ticker": "VRDN",
@@ -134,13 +106,13 @@
       "notes": "ARCHIVE. 8 shares: 6 @ $42 (Jun 29) + 2 @ $40.20 (Jul 2). Blended avg $41.7755. FDA APPROVED Jul 7 (TRUTAKNA, accelerated approval IgAN). Classic sell-the-news. SL $38 triggered Jul 17 @ $37.74. Net P&L: −33.28 (−9.9%)."
     }
   ],
-  "cash_available": 454.71,
-  "total_cost_basis": 325.60,
+  "cash_available": 546.58,
+  "total_cost_basis": 0,
   "totals": {
-    "positions_count": 1,
-    "sectors_held": ["Biotechnology"],
-    "largest_position_pct": 100,
-    "concentration_warning": "100% in CAPR. Single binary event Jul 29 AdCom. Cash $454.71 available for new trade."
+    "positions_count": 0,
+    "sectors_held": [],
+    "largest_position_pct": 0,
+    "concentration_warning": "Fully in cash ($546.58) after CAPR stop-out Jul 27. No open positions."
   },
   "education_tracker": {
     "last_concept_number": 30,
@@ -200,6 +172,7 @@
     {"date": "2026-07-15", "action": "BUY", "ticker": "CAPR", "shares": 16, "price": 20.35, "amount": 325.60, "commission": 1.00, "notes": "AdCom play. CTGTAC advisory committee Jul 29. PDUFA Aug 22. GTC sell $33-35 set. FDA briefing docs due Jul 25 — read before holding to AdCom. Prior CRL resubmission — HOPE-3 Phase 3 met all endpoints. Updated probability 55-65%."},
     {"date": "2026-07-17", "action": "SELL", "ticker": "VERA", "shares": 8, "price": 37.74, "gross_proceeds": 301.92, "commission": 1.00, "net_proceeds": 300.92, "cost_basis_sold": 334.20, "net_pnl": -33.28, "notes": "SL triggered @ $37.74. Classic post-approval drift — TRUTAKNA FDA approved Jul 7 (IgAN) but sell-the-news continued below $38 support. Entry blended avg $41.7755. Net loss −9.9%."},
     {"date": "2026-07-20", "action": "BUY", "ticker": "META", "shares": 0.6, "price": 645.55, "amount": 387.33, "commission": 0.01, "notes": "Momentum hold into Q2 earnings (~Jul 29-30). TP $700+. SL $610. Same-week catalyst as CAPR AdCom — plan both exits."},
-    {"date": "2026-07-21", "action": "SELL", "ticker": "META", "shares": 0.6, "price": 654.71, "gross_proceeds": 392.83, "commission": 1.01, "net_proceeds": 391.82, "cost_basis_sold": 387.33, "net_pnl": 4.49, "notes": "Full exit. Closed before Q2 earnings. +1.2% in 1 day. Net P&L +$4.49."}
+    {"date": "2026-07-21", "action": "SELL", "ticker": "META", "shares": 0.6, "price": 654.71, "gross_proceeds": 392.83, "commission": 1.01, "net_proceeds": 391.82, "cost_basis_sold": 387.33, "net_pnl": 4.49, "notes": "Full exit. Closed before Q2 earnings. +1.2% in 1 day. Net P&L +$4.49."},
+    {"date": "2026-07-27", "action": "SELL", "ticker": "CAPR", "shares": 16, "price": 5.80, "gross_proceeds": 92.80, "commission": 0.93, "net_proceeds": 91.87, "cost_basis_sold": 326.60, "net_pnl": -234.73, "notes": "GTC STOP order filled 13:30 UTC on DARK exchange, order described as '5.8 Stop, Gtc'. Two days BEFORE the Jul 29 AdCom vote this trade was built around. Planned stop was $13.00 per entry notes — actual order trigger was $5.80. Root cause (fat-finger at entry vs. later modification) unconfirmed. Net -71.9%."}
   ]
 }
