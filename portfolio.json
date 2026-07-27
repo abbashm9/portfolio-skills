@@ -145,9 +145,9 @@
     "concentration_warning": "100% in CAPR. Single binary event Jul 29 AdCom. Cash $454.71 available for new trade."
   },
   "education_tracker": {
-    "last_concept_number": 4,
-    "last_concept_name": "FDA Briefing Document Analysis: Reading Pre-Vote Intelligence",
-    "last_taught_date": "2026-07-26",
+    "last_concept_number": 5,
+    "last_concept_name": "Expected Value (EV) Thinking for Binary Events",
+    "last_taught_date": "2026-07-27",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -181,7 +181,8 @@
       "Sector Rotation Part 2 — ETF flows as real-time signal",
       "FDA Advisory Committee Mechanics",
       "Surrogate Endpoints vs Clinical Endpoints",
-      "FDA Briefing Document Analysis: Reading Pre-Vote Intelligence"
+      "FDA Briefing Document Analysis: Reading Pre-Vote Intelligence",
+      "Expected Value (EV) Thinking for Binary Events"
     ]
   },
   "history": [
