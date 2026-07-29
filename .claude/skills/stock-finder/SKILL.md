@@ -72,7 +72,28 @@ These return topic keys; pass each to `get_theme_details` to pull associated com
 19. `industrials OR materials OR shipping momentum small mid cap -defense -military [current week] 2026`
 20. `fintech OR financials momentum small mid cap [current week] 2026`
 
-From this batch, extract all distinct tickers mentioned. Aim for 15-25 raw candidates. Duplicates across sources = stronger signal. Immediately drop any name that's a defense/military contractor (or whose catalyst is a military contract) or fails the haram screen on sight — don't waste a Phase 2 slot on it.
+**Large cap & mega cap — MANDATORY lane, never skip (5 searches):**
+
+Added 2026-07-29 because Abbas pointed out he wasn't seeing a familiar name in any scan. That wasn't a judgment call — every search above has "small mid cap" hardcoded, so large caps were *structurally invisible* to this skill. They are not second-class candidates; on some tapes they're the best setups available.
+
+21. `large cap OR "S&P 500" stocks "52-week high" breakout [this week] [current month] 2026`
+22. `"earnings beat" "raised guidance" large cap stock jumped OR surged [today's date] OR [this week] 2026`
+23. `mega cap OR "Dow" rotation winners leading sector [this week] 2026 breakout`
+24. `"most oversold" OR "RSI below 30" large cap quality stocks bounce candidates [current week] 2026`
+25. `large cap "analyst upgrade" "price target raised" [this week] 2026`
+
+**Why large caps often beat small caps for this strategy — three structural advantages:**
+1. **The binary event is usually already behind them.** A mega-cap that beat and raised *yesterday* has its earnings risk resolved — there's nothing left to time-stop before. Compare that to a small cap running *into* a catalyst, which is the exact CAPR failure mode. Post-earnings large caps are the single cleanest setup shape this strategy can take.
+2. **Liquidity is never the constraint.** Hundreds of millions in daily volume means the fast exit the whole strategy depends on is guaranteed.
+3. **Post-earnings drift is a real, well-documented tendency** in liquid names that beat *and* raise on heavy volume — that's continuation, exactly what this skill hunts.
+
+Their trade-off: smaller percentage moves, so target 4-10% rather than 15%+, and R:R depends heavily on not chasing an extended gap (see Phase 2 Gate 4).
+
+**Rotation awareness:** when the market is violently rotating (e.g. money fleeing tech/semis into value/industrials/healthcare), the large-cap lane is where that shows up first. Read the rotation from searches 15 and 23, then bias the whole scan toward the receiving side of the flow, not the side being sold.
+
+From this batch, extract all distinct tickers mentioned. Aim for 15-25 raw candidates across ALL cap sizes. Duplicates across sources = stronger signal. Immediately drop any name that's a defense/military contractor (or whose catalyst is a military contract) or fails the haram screen on sight — don't waste a Phase 2 slot on it.
+
+**Cap-size balance rule:** the final shortlist must not be all-small-cap or all-large-cap unless the scan genuinely produced nothing on one side — and if so, say that explicitly. Tag every shortlisted name with its cap size so the mix is visible at a glance.
 
 **If a batch of searches comes back generic** (trend commentary, ETF think-pieces, no concrete tickers): run 2-3 targeted follow-ups on curated mover roundups (e.g. WebFetch a movers-list article that the search surfaced) rather than re-running the same generic queries. Concrete tickers with named catalysts are the goal; commentary is noise.
 
@@ -90,15 +111,23 @@ For each raw candidate, apply a 3-gate filter. 30-60 seconds per name, not a dee
 
 **Gate 2 — Liquid enough for a fast exit, and sizeable on this account?**
 - From the same `get_price_snapshot` call: average daily $ volume should be enough to enter and exit a position in this size without meaningfully moving the price — thin/illiquid micro-caps make a fast in-and-out plan pointless (you can get the momentum entry but not the fast exit)
-- **Price-per-share sanity:** this is a small account (fetch current value from `portfolio.json` — recently in the ~$500-800 range). If a single share is a large chunk of the max 15-18% position (roughly, share price > ~half the max position $), the name can't size sanely no matter how good the setup. Don't shortlist it — mention it in a one-line "real setup, wrong account size" note instead.
+- **Sizing check — fractional shares change this, do NOT reflexively reject a high-priced stock.** IBKR supports fractional shares on most large US names, and Abbas's `portfolio-manager` skill explicitly handles fractional entries ("add 0.5 NVDA at $225"). So a $240 stock sizes fine on a $550 account: 15% = ~$82 = ~0.34 shares. **A high share price is only disqualifying if the name is NOT fractional-eligible** — that's the actual test, not the share price. (This gate previously read "share price > half the max position → drop," which wrongly killed a valid large-cap candidate on 2026-07-28. Fixed 2026-07-29.)
+  - Where fractional eligibility is unclear, keep the candidate and flag it: "requires fractional — confirm enabled before entering."
+  - The one real sizing constraint that remains: commission. ~$2 round trip on an ~$82 position is ~2.4% of the position, so the trade must clear ~2.4% just to break even. State this drag explicitly on any small-dollar position; it argues for targets ≥5%, not 2-3% scalps.
 - If avg_90d_usd_volume looks too thin to exit within a session or two: drop it
 
 **Gate 3 — Exclusion + halal quick check**
 - Defense/military contractor, or catalyst is a gov/DoD contract award? Drop, no exceptions.
 - Obvious haram business (bank, insurer, alcohol, gambling, weapons, adult, tobacco)? Drop.
+- **Large-cap-specific halal traps** — check these, they're easy to wave through on a familiar name: cruise lines and casinos/resorts (onboard casino + alcohol revenue), airlines/hotels only if alcohol is incidental (usually fine), diversified holdings with a conventional insurance or lending arm as a *primary* segment (e.g. a retailer's credit arm is incidental — fine; an insurer is not). Judge on the CORE business, and flag ⚠️ when a major segment is questionable rather than silently passing it.
 - Unclear? Keep with ⚠️ flag, Abbas confirms before entering.
 
-Candidates surviving all 3 gates go to Phase 3.
+**Gate 4 — Is there room left, or is this already extended?** *(added 2026-07-29 — matters most on big gap days)*
+- Measure where the current price sits inside the signal day's range, and how far the stop must go to sit below a real invalidation level.
+- **If entering now means risking more to the stop than the realistic distance to the first genuine resistance/target, the setup is real but the ENTRY is bad.** Don't drop the candidate and don't recommend chasing it — shortlist it as "WAIT FOR PULLBACK" with the specific price zone that would make the R:R work.
+- This is the single most common way a genuinely good momentum setup turns into a bad trade: correct thesis, chased entry.
+
+Candidates surviving all 4 gates go to Phase 3.
 
 ---
 
@@ -135,13 +164,16 @@ Format:
 >
 > ---
 >
-> **#1 — [TICKER] | [COMPANY NAME]** ⭐⭐⭐⭐⭐ (5/5) `[SECTOR]`
+> **#1 — [TICKER] | [COMPANY NAME]** ⭐⭐⭐⭐⭐ (5/5) `[SECTOR]` `[SMALL/MID/LARGE CAP]`
 > - **Signal:** [what fired — e.g. "Broke above $42 resistance on 3x avg volume Tuesday, held the breakout Wednesday"] — [X] trading days ago
 > - **Price:** $[X] (IBKR live) | **Avg daily $ vol:** $[X]M (IBKR) | **RS vs SPY:** [outperforming/underperforming, by how much]
 > - **Why it's interesting:** [2-3 sentences — the specific setup, not generic. What's the actual edge and why now.]
-> - **Realistic near-term target:** +[5-15]% over [1-10] trading days — [reason, e.g. next resistance level, measured move from the flag]
+> - **Realistic near-term target:** +[4-15]% over [1-10] trading days — [reason: next resistance level, measured move, analyst target cluster]
+> - **Entry read:** BUY AT MARKET / **WAIT FOR PULLBACK to $[zone]** — [if extended, say so and give the zone that makes R:R work; never recommend chasing]
+> - **Event window:** [earnings/catalyst already behind it ✅ / dated event [X] on [date] → time-stop [date]]
 > - **Halal:** ✅ Verified / ⚠️ Unverified — check before entering / ❌ Fails
 > - **Defense/military check:** ✅ Clear
+> - **Sizing note:** [only if relevant — "requires fractional shares" / commission drag on a small position]
 > - **Next step:** `analyze [TICKER]`
 >
 > ---

@@ -1,4 +1,6 @@
-# Conviction Scoring Rubric — 0 to 10 (Momentum Era, v2)
+# Conviction Scoring Rubric — 0 to 11 (Momentum Era, v2)
+
+> **Arithmetic note:** the nine factors below sum to a maximum of **11** (two factors are worth 2 points, seven are worth 1). An earlier draft of this file said "10 points total" while listing factors that added to 11 — corrected 2026-07-29. Always score out of 11 and show the table; the interpretation bands below are calibrated to 11.
 
 Rebuilt 2026-07-29 for the post-pivot momentum strategy (see `decisions.md`, 2026-07-27). The old rubric scored binary-catalyst quality (confirmed event dates, AdCom votes, approval probability) — none of which is the thesis anymore. This one scores what actually predicts a fast momentum trade working: signal freshness, structure, participation, and whether the company can blow up underneath the trade.
 
@@ -6,7 +8,7 @@ Every analyzed stock gets a score with a point-by-point breakdown — never just
 
 ---
 
-## Scoring breakdown (10 points total)
+## Scoring breakdown (11 points total)
 
 ### 1. Signal freshness (0, 1, or 2 points)
 
@@ -90,11 +92,13 @@ Every analyzed stock gets a score with a point-by-point breakdown — never just
 
 | Score | Label | Recommendation |
 |---|---|---|
-| 8-10 | **Strong setup** | BUY — full 15-18% sizing (10-12% if fundamentals-flagged) |
-| 7 | **Good setup** | BUY — standard sizing, tighter time-stop |
+| 9-11 | **Strong setup** | BUY — full 15-18% sizing (10-12% if fundamentals-flagged) |
+| 7-8 | **Good setup** | BUY — standard sizing, tighter time-stop |
 | 5-6 | **Borderline** | WATCH — state exactly what flips it to BUY (usually one more confirmation day or a pullback entry) |
 | 3-4 | **Weak** | SKIP — no live edge or bad structure |
 | 0-2 | **No setup** | SKIP — do not force it |
+
+**The R:R factor is special — a high score with R:R = 0 means "right stock, wrong price."** When a name scores 9+ but loses only the risk/reward point because it's extended after a big move, the correct output is not BUY and not SKIP: it's **WAIT FOR PULLBACK**, with the specific entry zone that makes the R:R work stated as a number. Chasing a great setup at a bad price is how a correct thesis becomes a losing trade.
 
 ---
 
