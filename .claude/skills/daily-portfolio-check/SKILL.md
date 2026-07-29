@@ -3,9 +3,11 @@ name: daily-portfolio-check
 description: Run a daily post-market portfolio review for Abbas's halal stock portfolio — fetches live closing prices, calculates P&L per position and total, evaluates each position against its exit strategy (stop-loss, take-profit ladder, time-based exit, catalyst), flags any positions needing action, proposes rebalancing or rotation moves, and produces a designed HTML email report with a daily education module on US equity concepts. Since Abbas isn't withdrawing money, suggestions can be aggressive (e.g., trim 30% of a winner to buy 1 share of a new high-conviction name). Use whenever Abbas says "daily check", "portfolio check", "how am I doing", "market closed", "check my stocks", "run the daily", or any variant of "review my portfolio." Trigger even if he just says "daily" or pastes a screenshot of his brokerage app at end of day.
 ---
 
-# Daily Portfolio Check (v2 — HTML Email + Education)
+# Daily Portfolio Check (v3 — positions/exits/macro/cash only, discovery moved to on-demand skills)
 
 A post-NYSE-close daily review skill for Abbas's halal stock portfolio. Outputs a designed HTML email report and emails it via Gmail connector.
+
+**Scope, 2026-07-29:** This skill covers the portfolio he actually holds — positions, exits, macro context, cash deployment. Full-market catalyst discovery (scanning the entire market for new candidates) is `stock-finder`, run on demand. Deep single-ticker research is `stock-analyzer`, run on demand. Those don't belong in an automated daily routine that runs regardless of whether there's anything to discover — the prior version ran 60-90+ live searches a day even on a 100%-cash account and hit the session token limit before sending (2026-07-28 incident, no email that day).
 
 ## Critical user context
 
@@ -165,7 +167,7 @@ Top 2 themes + peer companies per position.
 ```
 search_investment_topics → query: "[primary theme keyword]"
 ```
-Use to enrich Step 3.5 catalyst radar.
+Use for context only — not a discovery step. This skill does not scan the market for new candidates; see Scope note above.
 
 All 1.5 results are non-blocking. If unavailable (routine mode), omit the IBKR Intelligence section from the email and note: "📊 IBKR Intelligence — unavailable in routine mode. Run daily check in chat for full broker analytics."
 
@@ -252,89 +254,66 @@ Momentum positions are meant to be fast — days, not weeks (see decisions.md, 2
 - **Held > 10 trading days with no fresh momentum signal:** flag 🔔 "Stale — thesis was [X] days ago, no continuation signal since. Consider exit regardless of P&L."
 - **Held > 15 trading days:** escalate to ⚠️ WATCH regardless of P&L — this isn't the kind of position this strategy is built to hold.
 
-### Step 2.7: Previous Day Movers — top gainers and losers
+### Step 2.7: Previous Day Movers — top gainers and losers (capped)
 
-**Run in parallel with Step 2.5.** Mandatory daily section — not optional, not skipped on weekends.
+**Run in parallel with Step 2.5.** Mandatory daily section — not optional, not skipped on weekends. **Capped hard, 2026-07-29** — this is a quick market-temperature read, not a discovery scan. If Abbas wants to actually trade a mover, that's what `stock-finder`/`stock-analyzer` are for.
 
-**Purpose (read this before building the section):**
-The movers section is CATALYST INTELLIGENCE, not a "should I chase this?" screen. Abbas already knows whether to trade it. What he needs is:
-1. **What drove the 20%+ move?** — FDA approval, M&A deal, contract award, earnings beat, short squeeze, sector rotation. Understanding the catalyst type is the entire point.
-2. **Contagion** — did the loser's catalyst affect his holdings or watchlist? Same drug class? Same sector?
-3. **Market signal** — what is the market rewarding/punishing right now? This frames every other decision in the email.
+**Purpose:** A fast catalyst-intelligence snapshot — what drove yesterday's biggest small-cap moves, and whether either side touches a current holding or watchlist name. Lead with the catalyst, not a "should I chase this?" judgment.
 
-The "still in play?" judgment is secondary. Lead with the catalyst explanation.
-
-#### 2.7A — Fetch the movers (4 searches in parallel)
+#### 2.7A — Fetch the movers (2 searches, in parallel)
 
 ```
-"top percentage gainers" small cap yesterday OR [previous trading date] NYSE NASDAQ site:finviz.com OR "percent gain"
-"biggest stock gainers" "50 percent" OR "100 percent" OR "200 percent" [previous trading date] 2026 small cap catalyst
+"top percentage gainers" small cap yesterday OR [previous trading date] NYSE NASDAQ "percent gain"
 "top stock losers" small cap yesterday OR [previous trading date] NYSE NASDAQ "down percent"
-"stocks down 30 percent" OR "stocks down 50 percent" [previous trading date] reason catalyst small cap
 ```
 
-Target: top 10 gainers (by % gain) and top 10 losers (by % loss) for the previous trading day.
+Target: top 3 gainers and top 3 losers for the previous trading day.
 
 **HARD FILTER — apply before any other step:**
-- **Minimum move: ≥ 20%.** A stock that moved +8%, +12%, or +2% does NOT appear. Not as an honorable mention, not as a footnote — it does not appear at all.
-- **Large-cap exclusion:** Any stock with market cap > $5B is excluded UNLESS it moved ≥ 20%. TRP at +8%? Gone. NVIDIA at +4%? Gone. These belong in the Large-cap section (Step 2.8), not here.
-- **If a name doesn't clearly meet both filters, default to excluding it.** When in doubt, cut it.
+- **Minimum move: ≥ 20%.** A stock that moved +8%, +12%, or +2% does NOT appear.
+- **Large-cap exclusion:** Any stock with market cap > $5B is excluded UNLESS it moved ≥ 20%.
+- **If a name doesn't clearly meet both filters, default to excluding it.**
 
-Abbas wants the NXTC +200%, CNEY +58%, VEEE +54% class of movers — small/micro-cap names with a specific catalyst that drove a massive single-day move. If searches don't return names at that level, trigger the fallback (see 2.7D). Never populate this section with sub-20% moves just to fill space.
+Sort surviving results by % move descending.
 
-Sort all surviving results by % move descending before any further analysis.
+#### 2.7B — Identify the reason (1 search per mover, max 6 total, all in parallel)
 
-#### 2.7B — Identify the reason (1 search per mover, all in parallel)
-
-For each mover, run:
+For each of the top 3 gainers and top 3 losers, run:
 ```
 "[TICKER]" [previous date] OR yesterday reason gain OR loss earnings OR FDA OR contract OR upgrade OR downgrade OR guidance
 ```
 
-Classify each move:
-- **FDA** — PDUFA approval, CRL, AdCom result, label expansion
-- **Earnings** — beat/miss, guidance raise/cut, revenue surprise
-- **Contract/Deal** — government contract, M&A, partnership, licensing
-- **Analyst** — upgrade/downgrade, price target change, initiation
-- **Macro/Sector** — sector ETF rotation, interest rate move, geopolitical
-- **Short squeeze** — high short interest + positive catalyst
-- **Technical** — breakout, index rebalancing, no clear fundamental reason
-- **Unknown** — no identifiable catalyst found
+Classify each move: FDA / Earnings / Contract-Deal / Analyst / Macro-Sector / Short squeeze / Technical / Unknown.
 
 #### 2.7C — Build the movers table
 
-**LARGE-CAP FILTER (apply first, before any other analysis):** Drop every mover where market cap > $5B AND move < 20%. Large-cap names on a normal session are index noise, not opportunity. If Meta, NVIDIA, Apple, or any other mega-cap appears in raw results at +4-8%, remove it before building the table. This section is exclusively for small/micro-cap movers that Abbas would otherwise miss — the NXTC +201%, CNEY +58%, VEEE +54% class. Only names passing this filter proceed to the table.
-
-For each mover that passes the filter, determine:
-- **Still actionable?** Flag as ✅ RUNNABLE or ❌ FADED. RUNNABLE = catalyst-driven + more runway. FADED = one-day spike on no ongoing catalyst.
-- **Contagion check:** Does the loser's reason affect any current positions or watchlist tickers? Same sector? Same drug class?
-- **Halal quick check** (gainers only, if actionable): Drop if forbidden business.
+For each mover that passes the filter:
+- **Contagion check:** Does the mover's reason affect any current position or watchlist ticker? Same sector? Same drug class?
+- **Halal quick check** (gainers only): Drop if forbidden business.
 
 #### 2.7D — Email output format
 
-**MANDATORY: This section MUST always appear in the email.** Even if searches returned nothing useful, or no mover cleared 20%, still render the section header and a fallback note. Never omit this section entirely.
+**MANDATORY: This section MUST always appear in the email**, even if nothing cleared 20%.
 
 **📈 Top Gainers — [previous trading date]**
 
 | Ticker | +% | What happened (catalyst detail) | Type | Contagion / note |
 |---|---|---|---|---|
-| TICKER | +X% | [Specific catalyst — e.g., "FDA approved [DRUG] for [INDICATION]", "Acquired by [COMPANY] at $X/share", "Won $200M DoD contract for [SYSTEM]", "Q2 EPS beat by 40%, guidance raised"] | FDA / M&A / Contract / Earnings / Squeeze | [If relevant to holdings — else "None"] |
+| TICKER | +X% | [Specific catalyst — e.g., "FDA approved [DRUG] for [INDICATION]"] | FDA / M&A / Contract / Earnings / Squeeze | [If relevant to holdings — else "None"] |
 
-**The "What happened" column is the most important.** Give the actual catalyst, not a vague label. Examples of what NOT to write: "positive news", "beat estimates", "FDA event." Examples of what TO write: "FDA approved DRUG for INDICATION — accelerated approval", "Merck acquired at $X per share (X% premium)", "DoD contract worth $X for [system]."
-
-Show top 5 gainers sorted by % move descending (highest first), minimum ≥ 20%. If a gainer's catalyst is directly relevant to Abbas's holdings or watchlist, flag it:
-> 🔔 **[TICKER] +X% on [catalyst]** — [1-sentence implication for your portfolio]. 
+Show up to 3 gainers, sorted by % move descending, minimum ≥ 20%. If a gainer's catalyst is directly relevant to Abbas's holdings or watchlist, flag it:
+> 🔔 **[TICKER] +X% on [catalyst]** — [1-sentence implication for your portfolio].
 
 **If no gainer cleared ≥20%:** show:
-> *No small-cap gainers cleared the 20% threshold for [date]. Market was quiet or searches returned insufficient data. Large-cap movers excluded by design — see "Large-cap on deck" for mega-cap activity.*
+> *No small-cap gainers cleared the 20% threshold for [date].*
 
 **📉 Top Losers — [previous trading date]**
 
 | Ticker | -% | What happened (catalyst detail) | Type | Contagion to your portfolio? |
 |---|---|---|---|---|
-| TICKER | -X% | [Specific catalyst — e.g., "FDA issued CRL for [DRUG] — insufficient efficacy data", "Q2 EPS missed by 30%, guidance cut", "DOJ investigation announced"] | CRL / Miss / Regulatory / Downgrade | ⚠️ Affects [HELD TICKER] because [reason] / None |
+| TICKER | -X% | [Specific catalyst — e.g., "FDA issued CRL for [DRUG]"] | CRL / Miss / Regulatory / Downgrade | ⚠️ Affects [HELD TICKER] because [reason] / None |
 
-Show top 5 losers sorted by % move descending (largest drop first), minimum ≥ 20%. If contagion exists:
+Show up to 3 losers, sorted by % move descending, minimum ≥ 20%. If contagion exists:
 > ⚠️ **[LOSER] -X% on [catalyst] — watch [HELD TICKER]** — [1-line explanation of the link].
 
 **If no loser cleared ≥20%:** show:
@@ -342,65 +321,44 @@ Show top 5 losers sorted by % move descending (largest drop first), minimum ≥ 
 
 **On weekends:** use Friday's movers data. Label clearly: "📈 Friday's Movers — [date]"
 
-#### 2.7E — Pattern extraction: inject learnings into today's catalyst scan
+### Step 2.8: Large-cap earnings & catalyst watch (capped)
 
-For every gainer ≥ 20%, run:
-```
-"[TICKER]" "unusual options" OR "Form 4" OR "short interest" OR "analyst initiation" OR "contract" [2-4 days before the move date]
-```
+**Run in parallel with Step 2.7.** Mandatory daily section. **Capped hard, 2026-07-29** — a radar line, not a research pass.
 
-Extract the precursor pattern and feed it into Step 3.5.1 searches for today:
-- Big gainer preceded by unusual options → add `"[SAME SECTOR]" "unusual call buying" OR "sweep" [today]` to Step 3.5.1
-- Big gainer on earnings beat → add `"[PEER TICKERS]" earnings [month] guidance` to Step 3.5.1
-- Big gainer on sector rotation → add `[SECTOR ETF] inflows [today]` to Step 3.5.1
+**Purpose:** Flag mega-cap names (AAPL, MSFT, NVDA, META, AMZN, GOOG, TSLA, AMD, AVGO, TSM, LLY, and any other name >$50B market cap) with earnings inside the next 21 days. They never appear in the Movers section since they rarely move 20%+ in a day.
 
-**In the email:** add under each big gainer:
-> 🔍 **Precursor signal:** [what smart money was doing 1-3 days before] — scanning for same pattern in [SECTOR/PEERS] today.
-
-### Step 2.8: Large-cap earnings & catalyst watch
-
-**Run in parallel with Step 2.7.** This is a mandatory daily section — separate from movers, separate from catalyst plays.
-
-**Purpose:** Surface mega-cap setups (AAPL, MSFT, NVDA, META, AMZN, GOOG, TSLA, AMD, AVGO, TSM, LLY, and any other name >$50B market cap) where there's a tradeable catalyst coming up — earnings, product launch, analyst day, major contract. These names rarely move 20%+ on a single day but can be exceptional pre-earnings entries or rotation targets. They never appear in the Movers section for that reason.
-
-#### 2.8A — Fetch the upcoming large-cap events (3 searches in parallel)
+#### 2.8A — Fetch the upcoming large-cap events (1 search)
 
 ```
-"earnings date" NVDA OR META OR AAPL OR MSFT OR AMZN OR GOOG OR TSLA OR AMD OR AVGO OR TSM [current month] [next month] 2026
-"earnings date" LLY OR JNJ OR PFE OR MRK OR ABBV OR BMY large cap pharma [current month] [next month] 2026
-mega cap "catalyst" OR "product launch" OR "analyst day" OR "investor day" OR "AI announcement" [current month] [next month] 2026
+"earnings date" NVDA OR META OR AAPL OR MSFT OR AMZN OR GOOG OR TSLA OR AMD OR AVGO OR TSM OR LLY [current month] [next month] 2026
 ```
 
-Target: identify which mega-caps have earnings within the next 21 days. Focus on names where there's a directional thesis — either a strong expected beat, a guidance raise, a new product reveal, or a sector tailwind.
+Target: identify which mega-caps have earnings within the next 21 days.
 
-#### 2.8B — For each name with an event ≤ 21 days, run 1 quick search
+#### 2.8B — For up to 2 names with an event ≤ 21 days, run 1 quick search each
 
 ```
-"[TICKER]" earnings [date] consensus estimate "beat" OR "guidance" OR "AI" OR "data center" OR "revenue" 2026
+"[TICKER]" earnings [date] consensus estimate "beat" OR "guidance" 2026
 ```
 
-Produce a 1-line setup note per name. You are looking for pre-earnings entry opportunities — not post-event analysis.
+Produce a 1-line setup note per name.
 
 #### 2.8C — Email output format
 
-Keep this section tight — it's a radar, not a deep dive. 3–5 names max.
+Keep this section tight — a radar, not a deep dive. 2–3 names max.
 
 **🏢 Large-cap on deck — next 21 days**
 
-| Ticker | Event | Date | Setup in 1 line | Implied move | Direction |
-|---|---|---|---|---|---|
-| NVDA | Earnings | Jul 23 | AI data center demand accelerating; Jensen guidance track record | ±X% | 🟢 Bullish / 🔴 Bearish / ⚪ Neutral |
-| META | Earnings | Jul 30 | Ad revenue reacceleration, AI capex update | ±X% | 🟢 Bullish |
-| ... | | | | | |
-
-**Implied move:** Use the options market implied move if findable via search (`"[TICKER]" "implied move" earnings 2026`). If not findable, estimate: large-cap tech typically ±5-10% on earnings.
+| Ticker | Event | Date | Setup in 1 line | Direction |
+|---|---|---|---|---|
+| NVDA | Earnings | Jul 23 | AI data center demand accelerating | 🟢 Bullish / 🔴 Bearish / ⚪ Neutral |
 
 **Direction:** Your read based on the 1-line search — is the setup leaning bullish, bearish, or genuinely 50/50? Don't manufacture a view where you don't have one.
 
-**Below the table, for any name with a 🟢 Bullish tag**, add a callout:
-> 💡 **[TICKER] earnings [date]** — [1-line entry thesis]. Pre-earnings entry: buy X days before, exit before print OR hold through. Say `analyze [TICKER]` for full setup with entry/stop/TP.
+Below the table, for any name with a 🟢 Bullish tag, add:
+> 💡 **[TICKER] earnings [date]** — [1-line entry thesis]. Say `analyze [TICKER]` for the full setup.
 
-**On weekends:** still run this section using the same event calendar. Upcoming events don't pause on weekends.
+**On weekends:** still run this section using the same event calendar.
 
 ### Step 2.9: Macro context — Buffett Indicator & market temperature
 
@@ -485,7 +443,7 @@ Trend:              [↑ Rising / ↓ Falling / → Flat]
 **Historical reference note** (1 line, grey text at bottom of card):
 > *Last historical episodes at this level: [2000 dot-com peak, 2021 COVID bubble peak] — see buffett-indicator-history.html for full case studies.*
 
-This card takes 3 seconds to read and gives Abbas the macro frame for the entire email. Everything else — position decisions, catalyst plays, cash deployment — should be read through this macro lens.
+This card takes 3 seconds to read and gives Abbas the macro frame for the entire email. Everything else — position decisions, exits, cash deployment — should be read through this macro lens.
 
 ### Step 3: Exit-strategy check per position (in order)
 
@@ -511,145 +469,6 @@ For each position, run these two searches in parallel:
 
 Status emoji: ✅ HOLD / ⚠️ WATCH / 🔔 ACTION / 🚨 ALERT
 
-### Step 3.5: Catalyst Discovery — full market scan
-
-**Purpose:** Surface small/mid-cap names with imminent catalysts across the ENTIRE market — earnings beats, AI contract wins, FDA events, short squeezes, sector momentum plays. Find stocks about to move 30–60% in any sector.
-
-#### 3.5.1 — Cast the net (30 searches in parallel)
-
-**Earnings & corporate catalysts (8 searches):**
-1. `small cap "earnings beat" OR "EPS beat" "revenue beat" upcoming [current month] [next month] catalyst`
-2. `small mid cap "guidance raised" OR "raised guidance" OR "raised full year outlook" [current month] 2026`
-3. `"contract award" OR "government contract" OR "IDIQ contract" small cap [current month] 2026`
-4. `"analyst upgrade" "price target raised" small cap outperform [current week] [current month] 2026`
-5. `"product launch" OR "FDA clearance 510k" OR "CE mark" medical device small cap [current month] [next month] 2026`
-6. `upcoming earnings small cap "whisper number" OR "earnings whisper" beat expected [current month]`
-7. `"spin-off" OR "strategic review" OR "divestiture" small mid cap catalyst 2026`
-8. `"partnership" OR "licensing deal" OR "milestone payment" small cap biotech OR tech [current month] 2026`
-
-**Tech, AI, semiconductors & sector momentum (7 searches):**
-9. `AI OR "artificial intelligence" OR "data center" small mid cap momentum breakout [current week] 2026`
-10. `semiconductor OR "chip" OR "HBM" OR "CoWoS" small cap momentum breakout [current week] 2026`
-11. `energy OR "clean energy" OR "nuclear" small mid cap momentum breakout [current week] 2026`
-12. `"52-week high" breakout small cap high volume [current week] 2026`
-13. `"short squeeze" setup high short interest "days to cover" small cap 2026`
-14. `"unusual options activity" small cap [today's date] OR [this week] bullish call sweep`
-15. `"insider buying" cluster "Form 4" multiple executives small cap [current month] 2026`
-
-**Market structure & momentum signals (6 searches):**
-16. `"premarket gainers" OR "premarket movers" [today's date] small cap -defense -pentagon -military`
-17. `"most active" OR "volume spike" small mid cap [today's date] OR [this week]`
-18. `"gamma squeeze" OR "options expiry" catalyst small cap [current week] [next week] 2026`
-19. `"breakout" "bull flag" OR "cup and handle" small cap high volume [current week] 2026`
-20. `"institutional buying" 13F "new position" small cap [current month] 2026`
-21. `"heavily shorted" "short interest" squeeze setup small cap 2026 [current month]`
-
-**Broad sector-agnostic sweep (7 searches — replaces the retired FDA/biotech-only block, see decisions.md 2026-07-27):**
-22. `biotech OR pharma momentum breakout OR "gapped up" small cap [current week] 2026`
-23. `consumer OR retail OR e-commerce momentum breakout small mid cap [current week] 2026`
-24. `industrials OR materials OR shipping momentum breakout -defense -military small mid cap [current week] 2026`
-25. `fintech OR financials momentum breakout small mid cap [current week] 2026`
-26. `"earnings beat" OR "guidance raised" reaction gap up small mid cap [current week] 2026`
-27. `"analyst upgrade" "price target raised" small cap [current week] 2026`
-28. `sector rotation ETF inflows [current week] 2026 leading sector`
-
-**Sector balance rule:** Top 3 final candidates must not all be from the same sector. **Hard exclusions:** drop any defense/military contractor on sight, regardless of signal strength — separate rule from the halal screen, see stock-finder skill. A dated future event (earnings, FDA, etc.) alone is no longer sufficient to include a candidate — it needs a live technical/flow signal firing now, not just a date on the calendar.
-
-#### 3.5.2 — Rapid 3-gate pre-screen
-
-- **Gate 1:** Live momentum/flow signal in the last 5 trading days (breakout, gap-up continuation, unusual options, insider cluster, clear RS leadership)? No live signal, just a future dated event → drop.
-- **Gate 2:** Market cap < $2B AND liquid enough (avg 90d $ volume) to exit within a session or two? Fails either → drop.
-- **Gate 3:** Defense/military contractor → drop, no exceptions. Halal quick check: obvious forbidden business → drop. Unclear → keep with ⚠️.
-
-#### 3.5.3 — Score survivors AND group by sector
-
-**Score each survivor (5-point pre-score):**
-
-| Factor | Points |
-|---|---|
-| Signal fired last 1-2 trading days (fresher = better) | 2 |
-| Signal fired 3-5 trading days ago, still intact | 1 |
-| Short interest ≥ 15% float | 1 |
-| Appears in 2+ search sources OR categories | 1 |
-| Smart money signal (insider buy, unusual options, 13F) | 1 |
-
-**Then group survivors by sector bucket:**
-
-| Bucket | Sectors covered |
-|---|---|
-| 🧬 Biotech / Pharma | momentum/flow only — no FDA-date discovery, see decisions.md |
-| 💻 Tech / AI / Semis | AI, data center, semiconductors, software |
-| 🏗️ Industrial / Materials | manufacturing, shipping, materials — excludes defense/military |
-| ⚡ Energy / Clean Tech | oil & gas, nuclear, renewables |
-| 🛍️ Consumer / Retail | retail, consumer discretionary, e-commerce |
-| 🏦 Financials / Other | fintech, REITs, anything else |
-
-**Select:**
-- **Top 1 candidate per sector bucket** (highest pre-score within bucket) → this becomes the Sector Snapshot table in the email
-- **Top 3 overall by pre-score** (any sector) → these get the full deep-dive in Step 3.8
-
-If a bucket has no survivor, omit it from the table. The goal is breadth first, depth second.
-
-### Step 3.8: Condensed analysis — sector snapshot + deep dives
-
-**This section has two parts:**
-
-#### 3.8A — Sector Snapshot table (all sector-bucket winners from 3.5.3)
-
-Produce a compact table showing the top candidate from each sector bucket. No deep-dive — just enough to orient Abbas across the full market. This is the "what's best in class right now" view.
-
-**📡 Catalyst Radar — [today's date]**
-
-| Sector | Ticker | Catalyst | Date | Pre-score | Halal | Action |
-|---|---|---|---|---|---|---|
-| 🧬 Biotech | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
-| 💻 Tech/AI | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
-| 🏗️ Defense | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
-| ⚡ Energy | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
-| 🛍️ Consumer | TICKER | [event + 1-line reason] | [date] | [X]/5 | ✅/⚠️/❌ | INVESTIGATE / WATCH / SKIP |
-
-Omit any bucket with no survivor. Include a bucket even if it only has a SKIP candidate — Abbas needs to see that the sector was scanned and had nothing worth pursuing today.
-
-#### 3.8B — Deep dives (top 3 overall by pre-score)
-
-For each of the top 3 candidates by pre-score, run 5 searches in parallel:
-- `"[TICKER]" earnings date OR PDUFA OR catalyst confirmed [current month] [next month]`
-- `"[TICKER]" market cap float short interest`
-- `"[TICKER]" revenue growth OR "earnings history" OR "beat estimates" OR "phase 3" history`
-- `"[TICKER]" balance sheet OR "cash position" OR dilution OR debt 2026`
-- `"[TICKER]" insider buying OR "Form 4" OR institutional 13F OR "analyst target" 2026`
-
-For each candidate, produce this block in the email:
-
----
-
-> **🔬 [TICKER] — [COMPANY NAME]** `[SECTOR / CATALYST TYPE]`
-> **Catalyst:** [event type] on [exact date] — [X] days away
-> **Market cap:** $[X]M | **Float:** $[X]M | **Short interest:** [X]%
->
-> **Edge:** [1-line reason — specific setup]
->
-> **Probability:** [X]% — [1-line rationale]
->
-> **Scenarios:**
-> - ✅ If positive: ~$[price] (+[%]) — [real level reason]
-> - 💀 If negative: ~$[price] (-[%]) — [real level reason]
-> - Expected value on 30% position (~$[amount]): **+$[EV] / -$[EV]**
->
-> **Smart money:** [insider buys / unusual options / institutional buildup / none visible]
-> **Key risk:** [the one thing that kills this trade]
->
-> **Halal:** ✅ Clean / ⚠️ Unverified / ❌ Fails
->
-> **Conviction: [X]/5** → [INVESTIGATE / WATCH / SKIP]
-> *Run `analyze [TICKER]` for the full 8-section deep dive before entering.*
-
----
-
-**INVESTIGATE** = pre-score 4–5, halal clear, event ≤ 14 days
-**WATCH** = pre-score 3, or event 15–45 days, or halal unverified
-**SKIP** = pre-score ≤ 2, or halal fails, or no confirmed date
-
 ### Step 3.6: Risk-score current holdings
 
 Calculate per position:
@@ -669,26 +488,27 @@ Use `cash_available` from portfolio.json. Deployable = `cash_available − $2` (
 
 If `cash_available − $2 < $30`: "Too small for a meaningful new position. Holding as dry powder."
 
-If `cash_available − $2 ≥ $30`, always provide:
+If `cash_available − $2 ≥ $30`:
 > 💵 **Cash deployment — $[deployable] available**
-> - **Option A — New momentum play:** [TOP CANDIDATE], buy [N] shares at ~$[price]. Signal: [what fired, how fresh]. Target: +5-15% over [1-10] trading days. Invalidation level: [price]. Position: $[amount] = [%]% of portfolio.
-> - **Option B — Add to existing:** [TICKER] (Risk: [score]/100), buy [N] shares at ~$[price]. Net position: [shares] shares, avg ~$[blended].
-> - **Recommended:** [A or B] because [1-line reason].
+> - No fresh discovery candidate is generated automatically here — that's what `stock-finder` is for, run it on demand when there's cash to deploy and you want new ideas.
+> - **Add to existing:** [TICKER] (Risk: [score]/100), buy [N] shares at ~$[price]. Net position: [shares] shares, avg ~$[blended].
 > - **Your call.**
 
 **Max allocation per position: 15-18% of total portfolio value** (revised 2026-07-27 — see decisions.md). The strategy is now several smaller momentum positions run concurrently, not one dominant name. Target 5-7 open positions when cash allows; don't let any single name become >20% of the account.
 
 **Stop order type — mandatory:** every stop must be a **stop-limit**, not a plain stop-market. A plain STOP becomes a market order on trigger and has zero protection against a gap (this is exactly what turned a planned -36% CAPR stop into an actual -72% fill on 2026-07-27). Set the limit a few percent below the stop trigger — enough to fill in normal conditions, tight enough to avoid a catastrophic gap fill. If a name gaps clean through even the limit, it won't fill and needs a manual same-day decision instead of a silent worse-than-planned exit.
 
-### Step 4: Rotation suggestions (intelligence-driven)
+### Step 4: Rotation suggestions (from current holdings + watchlist only)
 
 Propose moves when:
-- Position hits TP1/TP2 → suggest redeployment target from Step 3.5
-- New high-conviction name has near-term catalyst → suggest trimming a winner
+- Position hits TP1/TP2 → suggest trimming, note cash freed
+- A watchlist name (already tracked in portfolio.json) crosses its entry trigger → surface it
 - Position is dead money (flat 30+ days) → suggest rotation
 - Pre-binary-event (within 5 days) → suggest risk-management trim
 
-Format: exact shares to sell, exact $ freed, exact shares to buy, 1-line rationale, 1-line risk, "Your call."
+This step draws only from positions[] and watchlist[] already in portfolio.json — it does not scan the market for new names. New-candidate discovery is `stock-finder`, run on demand.
+
+Format: exact shares to sell, exact $ freed, exact shares to buy (if a watchlist name), 1-line rationale, 1-line risk, "Your call."
 
 ### Step 5: Select today's education concept
 
@@ -715,15 +535,14 @@ Build a responsive HTML email. Requirements:
 3. **📰 Position News** — from Step 2.6, shown only when `enhanced_news_watch` positions exist. 🚨 URGENT news overrides all ordering and goes above the hero banner.
 4. **⚠️ MANDATORY — Positions snapshot table** — ONE ROW PER POSITION: Status badge | Ticker | Close price | Day % | P&L $ | P&L % | then TOTAL row. NEVER omit this table, including weekend emails.
 5. **Exit alerts** — any position needing action
-6. **📈📉 Yesterday's Movers** — from Step 2.7 (always shown; Friday data on weekends) — small-cap ≥20% moves only
+6. **📈📉 Yesterday's Movers** — from Step 2.7 (always shown; Friday data on weekends) — small-cap ≥20% moves only, capped to top 3 per side
 7. **🏢 Large-cap on deck** — from Step 2.8, mega-cap earnings/catalyst radar (show when any name has event ≤21 days; omit if calendar is empty)
 8. **⏳ Pending Watchlist** — all watchlist items from portfolio.json (skip only if empty)
-9. **📡 Catalyst Radar** — sector snapshot table (all bucket winners from 3.8A) + deep dives on top 3 (from 3.8B)
-10. **💵 Cash deployment** — from Step 3.7
-11. **🔄 Rotation suggestions** — from Step 4, if any
-12. **📊 IBKR Intelligence** — if available (interactive mode only); otherwise omit with note
-13. **📚 Today's concept** — education, in a colored box
-14. **Footer** — disclaimer, `"Prices: Yahoo Finance — [timestamp]"` (or IBKR if used), returns method
+9. **💵 Cash deployment** — from Step 3.7
+10. **🔄 Rotation suggestions** — from Step 4, if any
+11. **📊 IBKR Intelligence** — if available (interactive mode only); otherwise omit with note
+12. **📚 Today's concept** — education, in a colored box
+13. **Footer** — disclaimer, `"Prices: Yahoo Finance — [timestamp]"` (or IBKR if used), returns method
 
 **⏳ Pending Watchlist section design:**
 
@@ -741,14 +560,6 @@ For each watchlist item:
 
 Price drift warning: if current_price > entry_target × 1.20, add:
 > ⚠️ **Entry window at risk** — [TICKER] has moved +X% above target. Re-run `analyze [TICKER]` to re-derive levels before entering.
-
-**📡 Catalyst Plays section design:**
-
-Dark card (`background: #0f1117; border-left: 3px solid #6366f1;`). Header: "📡 Catalyst Plays — [today's date]".
-
-Per candidate: Ticker + company (bold), catalyst + date + countdown, probability bar, bull/bear scenarios, EV on 30% position, smart money signal, halal badge, conviction badge, call to action.
-
-SKIP candidates shown at 0.5 opacity with grey badge.
 
 **📊 IBKR Intelligence section (interactive mode only):**
 
@@ -795,9 +606,9 @@ If GitHub write fails: fall back to `create_draft` via Gmail connector. Log "GIT
 ### Step 8: Handle market-closed days
 
 If NYSE was closed today (weekend, US holiday):
-- Subject: `📊 Daily Portfolio: Markets closed | [top catalyst play if found]`
-- Note that markets were closed, then **run Steps 3.5 and 3.8 fully** using the most recent trading session's data — momentum signals from Friday are still fresh Monday morning
-- Include full 📡 Catalyst Plays section
+- Subject: `📊 Daily Portfolio: Markets closed`
+- Note that markets were closed
+- Include full Movers (2.7) and Large-cap on deck (2.8) sections using the most recent trading session's data
 - Skip positions table and exit alerts
 - Include education concept
 
@@ -835,3 +646,5 @@ When Abbas reports new buys/sells in chat, redirect to portfolio-manager skill. 
 - Give financial advice — research only
 - Daily halal compliance lectures — quarterly check only
 - Generic education — every concept anchors to Abbas's actual portfolio
+- **Full-market catalyst discovery** — scanning the entire market for new candidates across sectors is `stock-finder`, run on demand, not part of the daily routine (removed 2026-07-29 after a token-limit failure caused by this scope creep — see `decisions.md`)
+- **Multi-candidate deep-dive research** — that's `stock-analyzer`, run on demand per ticker
