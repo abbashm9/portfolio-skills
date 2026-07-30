@@ -115,9 +115,9 @@
     "concentration_warning": "Fully in cash ($546.58) after CAPR stop-out Jul 27. No open positions."
   },
   "education_tracker": {
-    "last_concept_number": 5,
-    "last_concept_name": "Expected Value (EV) Thinking for Binary Events",
-    "last_taught_date": "2026-07-27",
+    "last_concept_number": 35,
+    "last_concept_name": "The Buffett Indicator",
+    "last_taught_date": "2026-07-30",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -152,7 +152,8 @@
       "FDA Advisory Committee Mechanics",
       "Surrogate Endpoints vs Clinical Endpoints",
       "FDA Briefing Document Analysis: Reading Pre-Vote Intelligence",
-      "Expected Value (EV) Thinking for Binary Events"
+      "Expected Value (EV) Thinking for Binary Events",
+      "The Buffett Indicator"
     ]
   },
   "history": [
@@ -396,11 +397,11 @@
       "action": "SELL",
       "ticker": "CAPR",
       "shares": 16,
-      "price": 5.80,
-      "gross_proceeds": 92.80,
+      "price": 5.8,
+      "gross_proceeds": 92.8,
       "commission": 0.93,
       "net_proceeds": 91.87,
-      "cost_basis_sold": 326.60,
+      "cost_basis_sold": 326.6,
       "net_pnl": -234.73,
       "notes": "GTC STOP order filled 13:30 UTC on DARK exchange, order described as '5.8 Stop, Gtc'. Two days BEFORE the Jul 29 AdCom vote this trade was built around. Stop was correctly placed at $14.00 per entry notes; market gapped down hard at the open pre-AdCom and the plain STOP order triggered as a market order, filling 59% below trigger. Net -71.9%. Root cause and strategy pivot documented in decisions.md (2026-07-27)."
     }
