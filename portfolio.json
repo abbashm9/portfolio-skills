@@ -115,9 +115,9 @@
     "concentration_warning": "Fully in cash ($546.58) after CAPR stop-out Jul 27. No open positions."
   },
   "education_tracker": {
-    "last_concept_number": 36,
-    "last_concept_name": "Recovery Math: Why a Loss and Its Reversal Aren't Symmetric",
-    "last_taught_date": "2026-07-31",
+    "last_concept_number": 37,
+    "last_concept_name": "Stop-Limit vs Stop-Market Orders",
+    "last_taught_date": "2026-08-01",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -154,7 +154,8 @@
       "FDA Briefing Document Analysis: Reading Pre-Vote Intelligence",
       "Expected Value (EV) Thinking for Binary Events",
       "The Buffett Indicator",
-      "Recovery Math: Why a Loss and Its Reversal Aren't Symmetric"
+      "Recovery Math: Why a Loss and Its Reversal Aren't Symmetric",
+      "Stop-Limit vs Stop-Market Orders"
     ]
   },
   "history": [
