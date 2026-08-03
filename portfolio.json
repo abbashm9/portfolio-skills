@@ -115,9 +115,9 @@
     "concentration_warning": "Fully in cash ($546.58) after CAPR stop-out Jul 27. No open positions."
   },
   "education_tracker": {
-    "last_concept_number": 38,
-    "last_concept_name": "Cash as a Position — The Hidden Cost of Forcing a Trade",
-    "last_taught_date": "2026-08-02",
+    "last_concept_number": 39,
+    "last_concept_name": "Multiple Expansion (and Compression)",
+    "last_taught_date": "2026-08-03",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -156,7 +156,8 @@
       "The Buffett Indicator",
       "Recovery Math: Why a Loss and Its Reversal Aren't Symmetric",
       "Stop-Limit vs Stop-Market Orders",
-      "Cash as a Position — The Hidden Cost of Forcing a Trade"
+      "Cash as a Position — The Hidden Cost of Forcing a Trade",
+      "Multiple Expansion (and Compression)"
     ]
   },
   "history": [
