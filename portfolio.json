@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-08-04T03:15:00+03:00",
+  "last_updated": "2026-08-04T03:30:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -25,7 +25,7 @@
       "entry_date": "2026-07-31",
       "stop_trigger": 231.5,
       "stop_limit": 228.5,
-      "stop_status": "NOT PLACED — verified missing via IBKR API 2026-08-04 03:12 Kuwait. Open orders list is EMPTY. Planned stop-limit (trigger $231.50 / limit $228.50, below the 7/28 breakout-day low of $232.50) was never entered. Price $233.36 at check time — under $2 above the trigger level. PLACE IT.",
+      "stop_status": "PARTIALLY WRONG — orders placed 2026-08-04 00:24 UTC: TP1 sell limit $250 GTC (order 61789562) is correct, but the stop went in as a PLAIN STOP at $228 (order 61789563), not the planned stop-limit trigger $231.50 / limit $228.50. Plain stop = market order on trigger (the CAPR failure mode) and $228 is below the $232.50 structural level, cutting R:R from 4.8:1 to ~2.3:1. Abbas flagged 2026-08-04 03:25 Kuwait — recommend cancel/replace with stop-limit 231.50/228.50. Also verify the two orders are OCA-linked.",
       "tp1": 250.0,
       "tp2": 258.0,
       "time_stop": null,
@@ -134,7 +134,7 @@
       "Healthcare — CRO/clinical research"
     ],
     "largest_position_pct": 17.1,
-    "concentration_warning": "Single position: IQV $93.46 market value (17.1% of $545.12 net liq), $451.65 cash. Within the 15-18% sizing band. NO STOP-LIMIT LIVE as of 2026-08-04 — see positions[0].stop_status."
+    "concentration_warning": "Single position: IQV $93.46 market value (17.1% of $545.12 net liq), $451.65 cash. Within the 15-18% sizing band. TP1 $250 limit is live; stop is a PLAIN STOP $228, not the planned stop-limit — see positions[0].stop_status."
   },
   "education_tracker": {
     "last_concept_number": 39,
