@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-07-27T00:00:00+03:00",
+  "last_updated": "2026-08-04T03:15:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -14,7 +14,27 @@
     "gain_needed": 180.0,
     "note": "Reach $1000 total account value (positions + cash) by end of July 2026. Monthly investment target — not a withdrawal."
   },
-  "positions": [],
+  "positions": [
+    {
+      "ticker": "IQV",
+      "company": "IQVIA Holdings Inc.",
+      "shares": 0.4005,
+      "avg_fill_price": 234.67,
+      "commission": 0.94,
+      "cost_basis": 94.93,
+      "entry_date": "2026-07-31",
+      "stop_trigger": 231.5,
+      "stop_limit": 228.5,
+      "stop_status": "NOT PLACED — verified missing via IBKR API 2026-08-04 03:12 Kuwait. Open orders list is EMPTY. Planned stop-limit (trigger $231.50 / limit $228.50, below the 7/28 breakout-day low of $232.50) was never entered. Price $233.36 at check time — under $2 above the trigger level. PLACE IT.",
+      "tp1": 250.0,
+      "tp2": 258.0,
+      "time_stop": null,
+      "time_stop_reason": "None needed — Q2 reported 7/28, next print late October.",
+      "halal_status": "verified",
+      "halal_note": "✅ Clean. Clinical research / healthcare data (CRO) — permissible business.",
+      "notes": "Momentum entry per 7/29 plan: Q2 beat + raised guidance, +13.9% breakout 7/28 to new 52w high on 4.6x volume. GTC limit $234.67 filled 7/31 13:35 UTC inside the $234-237 pullback entry zone (explicitly not chasing the $242.94 close). R:R at fill vs $231.50 stop / $250 TP1 = 4.8:1. Commission $0.94 on entry confirms IBKR Pro tiered pricing (~$1.9 round trip ≈ 2% of this position)."
+    }
+  ],
   "watchlist": [
     {
       "ticker": "CELC",
@@ -106,13 +126,15 @@
       "notes": "ARCHIVE. 8 shares: 6 @ $42 (Jun 29) + 2 @ $40.20 (Jul 2). Blended avg $41.7755. FDA APPROVED Jul 7 (TRUTAKNA, accelerated approval IgAN). Classic sell-the-news. SL $38 triggered Jul 17 @ $37.74. Net P&L: −33.28 (−9.9%)."
     }
   ],
-  "cash_available": 546.58,
+  "cash_available": 451.65,
   "total_cost_basis": 0,
   "totals": {
-    "positions_count": 0,
-    "sectors_held": [],
-    "largest_position_pct": 0,
-    "concentration_warning": "Fully in cash ($546.58) after CAPR stop-out Jul 27. No open positions."
+    "positions_count": 1,
+    "sectors_held": [
+      "Healthcare — CRO/clinical research"
+    ],
+    "largest_position_pct": 17.1,
+    "concentration_warning": "Single position: IQV $93.46 market value (17.1% of $545.12 net liq), $451.65 cash. Within the 15-18% sizing band. NO STOP-LIMIT LIVE as of 2026-08-04 — see positions[0].stop_status."
   },
   "education_tracker": {
     "last_concept_number": 39,
@@ -408,6 +430,16 @@
       "cost_basis_sold": 326.6,
       "net_pnl": -234.73,
       "notes": "GTC STOP order filled 13:30 UTC on DARK exchange, order described as '5.8 Stop, Gtc'. Two days BEFORE the Jul 29 AdCom vote this trade was built around. Stop was correctly placed at $14.00 per entry notes; market gapped down hard at the open pre-AdCom and the plain STOP order triggered as a market order, filling 59% below trigger. Net -71.9%. Root cause and strategy pivot documented in decisions.md (2026-07-27)."
+    },
+    {
+      "date": "2026-07-31",
+      "action": "BUY",
+      "ticker": "IQV",
+      "shares": 0.4005,
+      "price": 234.67,
+      "amount": 93.99,
+      "commission": 0.94,
+      "notes": "GTC limit $234.67 filled 13:35 UTC (order 130630487). Pullback entry inside $234-237 zone per 7/29 plan after the 7/28 earnings breakout. Fractional shares confirmed working. Total cost incl. commission $94.93."
     }
   ]
 }
