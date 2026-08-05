@@ -41,6 +41,8 @@ A post-NYSE-close daily review skill for Abbas's halal stock portfolio. Outputs 
 
 5. **Cash deployment minimum:** Don't suggest buying into a new position if the cash being deployed (after commission) would result in a position worth < $30. Too small to be meaningful.
 
+6. **No naked entry suggestions (added 2026-08-05):** every buy, add-to-position, or rotation suggestion anywhere in the email MUST include a complete order plan with explicit dollar levels — entry limit price, stop-limit trigger + limit prices (from real support structure, per Step 3's level derivation), and TP1 — plus share count. Never suggest an entry with only a thesis and a current price. Root cause: on 2026-08-04 Abbas placed three GTC buy orders straight from these emails with no stop legs, because the emails named tickers without SL/TP levels. If levels can't be derived, say in bold "no order until levels are derived — run `analyze [TICKER]`" instead of omitting them.
+
 ## Sources of truth: Yahoo Finance JSON API (prices) + portfolio.json (metadata)
 
 **Price source: Yahoo Finance JSON API via WebFetch — primary for all automated runs.**
