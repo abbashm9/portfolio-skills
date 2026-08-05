@@ -152,6 +152,8 @@ Sort by score descending.
 
 Present the top **5-10 candidates** — but **only if that many real ones exist.**
 
+**Order-plan rule — MANDATORY, added 2026-08-05.** Every shortlisted candidate must carry a complete, copy-paste order plan with explicit DOLLAR levels — entry limit price, stop-limit trigger AND limit prices (derived from the actual invalidation level found in Gate 4, never a percentage guess), TP1 sell limit (TP2 if a clear second resistance exists), and share count at default ~15% sizing. Reason this is non-negotiable: Abbas places GTC orders directly from this email. On 2026-08-04 three buy limits (AXTI, SPXC, GOOG) went into IBKR with NO stop leg and no TP reference because the shortlist email only stated "+X% target" — the levels lived one step away in `stock-analyzer`, which is not a reliable step to assume. The email must be safe to act on directly. If a stop or TP genuinely cannot be derived within the scan, the candidate's order plan must say in bold: **"DO NOT place any order yet — run `analyze [TICKER]` for levels first"** — never leave the fields blank or vague.
+
 **Honesty rule — never pad a thin scan.** Some days the market simply doesn't offer 5 fresh setups that clear the gates. When the scan yields only 1-3 real candidates, present exactly those and say plainly "thin day — [X] candidates cleared the gates," with a short list of what got cut and why (stale, faded-vs-IBKR, excluded, illiquid, wrong account size). A padded list of stale or weak names is worse than a short honest one — every padded name is a candidate for a bad entry. Show the rejects; that's the analyst showing their work.
 
 Format:
@@ -170,6 +172,7 @@ Format:
 > - **Why it's interesting:** [2-3 sentences — the specific setup, not generic. What's the actual edge and why now.]
 > - **Realistic near-term target:** +[4-15]% over [1-10] trading days — [reason: next resistance level, measured move, analyst target cluster]
 > - **Entry read:** BUY AT MARKET / **WAIT FOR PULLBACK to $[zone]** — [if extended, say so and give the zone that makes R:R work; never recommend chasing]
+> - **Order plan (all three legs together, GTC):** BUY limit **$[X.XX]** · stop-limit trigger **$[X.XX]** / limit **$[X.XX]** (just below [the specific invalidation level — e.g. "the $42 breakout shelf"]) · TP1 sell limit **$[X.XX]** [· TP2 $[X.XX]] · size ~[N] shares ≈ $[X] (~15% of account) · R:R [X.X]:1
 > - **Event window:** [earnings/catalyst already behind it ✅ / dated event [X] on [date] → time-stop [date]]
 > - **Halal:** ✅ Verified / ⚠️ Unverified — check before entering / ❌ Fails
 > - **Defense/military check:** ✅ Clear
