@@ -163,9 +163,9 @@
     "concentration_warning": "All cash ($542.01 net liq, IBKR-verified 2026-08-05). Three GTC buy limits pending (AXTI, SPXC, GOOG — see pending_orders); if all fill they commit ~$325.50 (60% of cash) across 3 positions. None has a visible stop leg — place stop-limits on fill per strategy."
   },
   "education_tracker": {
-    "last_concept_number": 41,
-    "last_concept_name": "Moving Averages (50-day / 200-day) as Institutional Support",
-    "last_taught_date": "2026-08-05",
+    "last_concept_number": 42,
+    "last_concept_name": "Beat-and-Raise vs. Miss-and-Guide-Down",
+    "last_taught_date": "2026-08-06",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -207,7 +207,8 @@
       "Cash as a Position — The Hidden Cost of Forcing a Trade",
       "Multiple Expansion (and Compression)",
       "Bookings / Book-to-Bill Ratio (Services & CRO Businesses)",
-      "Moving Averages (50-day / 200-day) as Institutional Support"
+      "Moving Averages (50-day / 200-day) as Institutional Support",
+      "Beat-and-Raise vs. Miss-and-Guide-Down"
     ]
   },
   "history": [
