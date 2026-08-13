@@ -163,9 +163,9 @@
     "concentration_warning": "All cash ($542.01 net liq, IBKR-verified 2026-08-05). Three GTC buy limits pending (AXTI, SPXC, GOOG — see pending_orders); if all fill they commit ~$325.50 (60% of cash) across 3 positions. None has a visible stop leg — place stop-limits on fill per strategy."
   },
   "education_tracker": {
-    "last_concept_number": 46,
-    "last_concept_name": "Backlog / RPO (Remaining Performance Obligation)",
-    "last_taught_date": "2026-08-12",
+    "last_concept_number": 47,
+    "last_concept_name": "Merger Arbitrage — Trading the Deal Spread",
+    "last_taught_date": "2026-08-13",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -212,7 +212,8 @@
       "GTC Orders and the Staleness Trap",
       "Bracket Orders (OCO)",
       "Marketable vs. Resting Limit Orders",
-      "Backlog / RPO (Remaining Performance Obligation)"
+      "Backlog / RPO (Remaining Performance Obligation)",
+      "Merger Arbitrage — Trading the Deal Spread"
     ]
   },
   "history": [
