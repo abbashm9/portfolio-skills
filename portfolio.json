@@ -44,7 +44,7 @@
       "order_id": 359742634,
       "tif": "GTC",
       "placed": "2026-08-04T18:38:42Z",
-      "status": "NEW — not filled as of 2026-08-05. Paired SELL 0.3 GOOG limit $408 (order 359742635) placed same minute — appears to be a bracket; NO STOP LEG VISIBLE on any of these orders, add stop-limits on fill per strategy_note."
+      "status": "NEW — not filled as of 2026-08-05. Paired SELL 0.3 GOOG limit $408 (order 359742635) placed same minute — appears to be a bracket; NO STOP LEG VISIBLE on any of these orders, add stop-limits on fill per strategy_note. ⚠️ FLAGGED 2026-08-15 and again 2026-08-16 by daily-portfolio-check: GOOG has traded well below this $365 limit since at least 2026-08-14 (~$343-346), meaning this GTC buy limit has very likely already filled — a limit buy executes whenever price is at or below the limit. This status field has not been confirmed against IBKR in 11+ days. If filled, the position is unprotected (no stop). VERIFY IN IBKR — do not treat 'NEW — not filled' as current fact until re-synced via portfolio-manager."
     }
   ],
   "watchlist": [
@@ -105,7 +105,7 @@
       "halal_note": "✅ Clean by business-activity standard. Cardiac cell therapy for DMD — permissible.",
       "position_size_target": 150,
       "added_date": "2026-06-29",
-      "notes": "ARCHIVE. Entered 16 shares @ $20.35 Jul 15. STOPPED OUT Jul 27 2026 13:30 UTC on DARK exchange: GTC STOP order (trigger $14) filled at $5.80 after a gap-down open ahead of the Jul 29 AdCom. Commission $0.93. Net proceeds $91.87. Realized P&L -$234.73 (cost basis incl. commission $326.60). Position never saw the catalyst it was entered for. CONFIRMED LESSON: plain STOP orders become market orders on trigger and offer zero protection against gap risk — in a binary-catalyst name, the whole point of the trade (the gap) is exactly what breaks the stop. This, plus CELC (-26.32) and VERA (-33.28) — both also binary PDUFA/AdCom plays that missed target and closed well below plan — is the direct evidence behind the Jul 27 2026 decision to pause binary-catalyst trading and pivot to daily momentum discovery. See decisions.md."
+      "notes": "ARCHIVE. Entered 16 shares @ $20.35 Jul 15. STOPPED OUT Jul 27 2026 13:30 UTC on DARK exchange: GTC STOP order (trigger $14) filled at $5.80 after a gap-down open ahead of the Jul 29 AdCom. Commission $0.93. Net proceeds $91.87. Realized P&L -$234.73 (cost basis incl. commission $326.60). Position never saw the catalyst it was entered for. CONFIRMED LESSON: plain STOP orders become market orders on trigger and offer zero protection against gap risk — in a binary-catalyst name, the whole point of the trade (the gap) is exactly what breaks the stop. This, plus CELC (-26.32) and VERA (-33.28) — both also binary PDUFA/AdCom plays that missed target and closed well below plan — is the direct evidence behind the Jul 27 2026 decision to pause binary-catalyst trading and pivot to daily momentum discovery. See decisions.md. NOTE 2026-08-14/15: CAPR surged 63-67% (after-hours) on FDA agreeing to review new upper-limb function data, PDUFA-related decision expected by Aug 22 — binary-catalyst trading remains paused, no re-entry."
     },
     {
       "ticker": "VRDN",
@@ -160,12 +160,12 @@
     "positions_count": 0,
     "sectors_held": [],
     "largest_position_pct": 0,
-    "concentration_warning": "All cash ($542.01 net liq, IBKR-verified 2026-08-05). Three GTC buy limits pending (AXTI, SPXC, GOOG — see pending_orders); if all fill they commit ~$325.50 (60% of cash) across 3 positions. None has a visible stop leg — place stop-limits on fill per strategy."
+    "concentration_warning": "All cash ($542.01 net liq, IBKR-verified 2026-08-05). Three GTC buy limits pending (AXTI, SPXC, GOOG — see pending_orders); if all fill they commit ~$325.50 (60% of cash) across 3 positions. None has a visible stop leg — place stop-limits on fill per strategy. ⚠️ As of 2026-08-16 the GOOG leg is very likely already filled (price traded well below its $365 limit since ~2026-08-14) and unconfirmed against IBKR for 11+ days — see pending_orders note."
   },
   "education_tracker": {
-    "last_concept_number": 48,
-    "last_concept_name": "Cash as a Position, Part 2 — Sizing Dry Powder to Valuation Extremes",
-    "last_taught_date": "2026-08-14",
+    "last_concept_number": 50,
+    "last_concept_name": "Pattern Day Trader (PDT) Rule",
+    "last_taught_date": "2026-08-16",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -214,7 +214,9 @@
       "Marketable vs. Resting Limit Orders",
       "Backlog / RPO (Remaining Performance Obligation)",
       "Merger Arbitrage — Trading the Deal Spread",
-      "Cash as a Position, Part 2 — Sizing Dry Powder to Valuation Extremes"
+      "Cash as a Position, Part 2 — Sizing Dry Powder to Valuation Extremes",
+      "Buy Limit Fill Logic — Why Price-Below-Limit Guarantees a Fill",
+      "Pattern Day Trader (PDT) Rule"
     ]
   },
   "history": [
