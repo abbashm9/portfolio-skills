@@ -163,9 +163,9 @@
     "concentration_warning": "All cash ($542.01 net liq, IBKR-verified 2026-08-05). Three GTC buy limits pending (AXTI, SPXC, GOOG — see pending_orders); if all fill they commit ~$325.50 (60% of cash) across 3 positions. None has a visible stop leg — place stop-limits on fill per strategy. ⚠️ As of 2026-08-16 the GOOG leg is very likely already filled (price traded well below its $365 limit since ~2026-08-14) and unconfirmed against IBKR for 11+ days — see pending_orders note."
   },
   "education_tracker": {
-    "last_concept_number": 52,
-    "last_concept_name": "Buying Power vs. Net Liquidation Value",
-    "last_taught_date": "2026-08-18",
+    "last_concept_number": 53,
+    "last_concept_name": "Opportunity Cost of Idle Cash (Cash Drag)",
+    "last_taught_date": "2026-08-19",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -218,7 +218,8 @@
       "Buy Limit Fill Logic — Why Price-Below-Limit Guarantees a Fill",
       "Pattern Day Trader (PDT) Rule",
       "Trade Confirmations vs. Order Status Pages",
-      "Buying Power vs. Net Liquidation Value"
+      "Buying Power vs. Net Liquidation Value",
+      "Opportunity Cost of Idle Cash (Cash Drag)"
     ]
   },
   "history": [
