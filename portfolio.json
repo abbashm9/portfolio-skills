@@ -44,7 +44,7 @@
       "order_id": 359742634,
       "tif": "GTC",
       "placed": "2026-08-04T18:38:42Z",
-      "status": "🚨 CONFIRMED FILLED 2026-08-23 via live IBKR check during the stock-finder routine: 0.3 shares @ avg cost $368.16. NOT YET reflected in positions[] above — portfolio-manager sync is needed to move this into an open position. Paired SELL 0.3 GOOG limit $408 (order 359742635) placed same minute — appears to be a bracket; NO STOP-LIMIT VISIBLE on the account as of the 2026-08-23 check. ⚠️ UNPROTECTED — flagged again 2026-08-24 by daily-portfolio-check: WebSearch put GOOG ~$338-346 (Aug 21 close), implying roughly −$7 to −$9 unrealized on the position. ACTION NEEDED: place a stop-limit today, then run portfolio-manager to move this from pending_orders into positions[] and correct cash_available (currently stale at $542.01, predates this fill by cost ~$110.45 + $1 commission)."
+      "status": "🚨 CONFIRMED FILLED 2026-08-23 via live IBKR check during the stock-finder routine: 0.3 shares @ avg cost $368.16. NOT YET reflected in positions[] above — portfolio-manager sync is needed to move this into an open position. Paired SELL 0.3 GOOG limit $408 (order 359742635) placed same minute — appears to be a bracket; NO STOP-LIMIT VISIBLE on the account as of the 2026-08-23 check. ⚠️ UNPROTECTED — flagged again 2026-08-24 by daily-portfolio-check: WebSearch put GOOG ~$338-346 (Aug 21 close), implying roughly −$7 to −$9 unrealized on the position. ACTION NEEDED: place a stop-limit today, then run portfolio-manager to move this from pending_orders into positions[] and correct cash_available (currently stale at $542.01, predates this fill by cost ~$110.45 + $1 commission). ⚠️ UPDATE 2026-08-25: still flagged unprotected/unsynced by daily-portfolio-check, 3rd straight day. WebSearch context only (Yahoo/stooq/stockanalysis.com all blocked again today) put GOOG ~$344.70 (Aug 24 close), implying roughly −$7 unrealized. NVDA reports earnings Aug 26 AMC — broader semi/AI sentiment volatility likely into that print, raising the cost of staying unprotected another day."
     }
   ],
   "watchlist": [
@@ -160,12 +160,12 @@
     "positions_count": 0,
     "sectors_held": [],
     "largest_position_pct": 0,
-    "concentration_warning": "All cash ($542.01 net liq, IBKR-verified 2026-08-05) — but STALE: this predates the confirmed GOOG fill. Three GTC buy limits were pending (AXTI, SPXC, GOOG — see pending_orders). ⚠️ 2026-08-24 UPDATE: Sunday's stock-finder run (2026-08-23) confirmed via live IBKR check that GOOG has FILLED (0.3 sh @ avg $368.16, unprotected, no stop) while AXTI and SPXC most likely have NOT (only GOOG showed as an open IBKR position, though the order-status endpoint itself errored during that check). Estimated real cash net of the GOOG fill: ≈$430. positions[] and cash_available above have NOT been resynced — run portfolio-manager to correct both and to add a stop-limit on GOOG."
+    "concentration_warning": "All cash ($542.01 net liq, IBKR-verified 2026-08-05) — but STALE: this predates the confirmed GOOG fill. Three GTC buy limits were pending (AXTI, SPXC, GOOG — see pending_orders). ⚠️ 2026-08-24 UPDATE: Sunday's stock-finder run (2026-08-23) confirmed via live IBKR check that GOOG has FILLED (0.3 sh @ avg $368.16, unprotected, no stop) while AXTI and SPXC most likely have NOT (only GOOG showed as an open IBKR position, though the order-status endpoint itself errored during that check). Estimated real cash net of the GOOG fill: ≈$430. positions[] and cash_available above have NOT been resynced — run portfolio-manager to correct both and to add a stop-limit on GOOG. ⚠️ 2026-08-25 UPDATE: still unresynced, 3rd straight day GOOG has sat unprotected. Yahoo/stooq/stockanalysis.com all blocked for daily-portfolio-check today too — price-source outage is now also 3 days running."
   },
   "education_tracker": {
-    "last_concept_number": 58,
-    "last_concept_name": "Naked / Unprotected Positions",
-    "last_taught_date": "2026-08-24",
+    "last_concept_number": 59,
+    "last_concept_name": "IV Crush",
+    "last_taught_date": "2026-08-25",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -224,7 +224,8 @@
       "Fiscal Quarter vs. Calendar Quarter Offset",
       "Complete Response Letter (CRL) & Resubmission Classes",
       "Order Duration Types — Day, GTC, IOC, FOK",
-      "Naked / Unprotected Positions"
+      "Naked / Unprotected Positions",
+      "IV Crush"
     ]
   },
   "history": [
