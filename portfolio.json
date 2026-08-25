@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_updated": "2026-08-05T12:00:00+03:00",
+  "last_updated": "2026-08-25T13:45:00+03:00",
   "owner": "Abbas Al Madani",
   "currency": "USD",
   "broker": "IBKR Pro Tiered",
@@ -12,41 +12,51 @@
     "target_date": "2026-07-31",
     "account_value_at_goal_set": 820.0,
     "gain_needed": 180.0,
-    "note": "Reach $1000 total account value (positions + cash) by end of July 2026. Monthly investment target — not a withdrawal. Target date passed with account at ~$542; goal needs a reset at next review."
+    "note": "Reach $1000 total account value by end of July 2026. Target date passed with account at ~$542; goal needs a reset at next review. 2026-08-25: net liq $535.68 — still awaiting goal reset."
   },
-  "positions": [],
-  "pending_orders": [
+  "positions": [
     {
-      "ticker": "AXTI",
-      "side": "BUY",
-      "shares": 2,
-      "limit_price": 58.0,
-      "order_id": 359742884,
-      "tif": "GTC",
-      "placed": "2026-08-04T18:41:51Z",
-      "status": "NEW — not filled as of 2026-08-05. ⚠️ FLAGGED 2026-08-23 by daily-portfolio-check: WebSearch (Yahoo/stooq still blocked, 2nd straight day) put AXTI recently trading anywhere from ~$46 to ~$70.74 (sources disagree) — well above this $58 limit. If the stock traded through $58 at any point since 2026-08-04, this buy limit has very likely already filled. Unconfirmed against IBKR for 19 days. VERIFY IN IBKR — do not treat 'NEW — not filled' as current fact until re-synced via portfolio-manager. ⚠️ UPDATE 2026-08-24: Sunday's stock-finder run (2026-08-23) did check IBKR live positions and found only GOOG open — no AXTI position — suggesting this leg has NOT filled. Not fully confirmed: the order-status endpoint itself errored 3x during that scan. Treat as 'probably still open' pending a clean portfolio-manager resync."
+      "ticker": "GOOG",
+      "company": "Alphabet Inc. Class C",
+      "shares": 0.3,
+      "entry_price": 364.83,
+      "entry_date": "2026-08-05",
+      "avg_cost_incl_commission": 368.16,
+      "cost_basis": 110.45,
+      "commission_paid": 1.0,
+      "stop_loss": 333.9,
+      "stop_type": "STOP (market-on-trigger, Abbas's explicit choice 2026-08-25 — wants guaranteed exit in a crash; acceptable on liquid large-cap)",
+      "stop_reason": "0.7% under the $336-338 August consolidation floor (tested 4x: Aug 18/19/20/21). Below it, no support until $314.94 July swing low.",
+      "tp1": 408.0,
+      "tp1_reason": "GTC sell-limit live since Aug 4 (order 359742635). OCA-bracketed with the stop via IBKR Exit Strategy per Abbas 2026-08-25.",
+      "catalyst": "NVDA earnings Aug 26 AMC (sector sentiment); GOOG own earnings late Oct",
+      "halal_status": "verified",
+      "halal_note": "Business-activity standard: core = search/ads/cloud/Android — permissible.",
+      "halal_verified": "2026-08-25",
+      "notes": "GTC limit $365 from Aug 4 filled Aug 5 @ $364.83. Sat unprotected 20 days (flagged 3x by daily-portfolio-check); stop finally placed 2026-08-25 via Exit Strategy bracket. IBKR alert also live: email at LAST<=333.90."
     },
     {
       "ticker": "SPXC",
-      "side": "BUY",
+      "company": "SPX Technologies Inc.",
       "shares": 0.5,
-      "limit_price": 200.0,
-      "order_id": 359742804,
-      "tif": "GTC",
-      "placed": "2026-08-04T18:41:00Z",
-      "status": "NEW — not filled as of 2026-08-05. ⚠️ UPDATE 2026-08-24: Sunday's stock-finder run (2026-08-23) checked IBKR live positions and found only GOOG open — no SPXC position — suggesting this leg has NOT filled either. Not fully confirmed: the order-status endpoint itself errored 3x during that scan. WebSearch 2026-08-24 puts SPXC ~$207.20, above this $200 limit (consistent with not filled, but doesn't rule out an earlier fill-then-rally)."
-    },
-    {
-      "ticker": "GOOG",
-      "side": "BUY",
-      "shares": 0.3,
-      "limit_price": 365.0,
-      "order_id": 359742634,
-      "tif": "GTC",
-      "placed": "2026-08-04T18:38:42Z",
-      "status": "🚨 CONFIRMED FILLED 2026-08-23 via live IBKR check during the stock-finder routine: 0.3 shares @ avg cost $368.16. NOT YET reflected in positions[] above — portfolio-manager sync is needed to move this into an open position. Paired SELL 0.3 GOOG limit $408 (order 359742635) placed same minute — appears to be a bracket; NO STOP-LIMIT VISIBLE on the account as of the 2026-08-23 check. ⚠️ UNPROTECTED — flagged again 2026-08-24 by daily-portfolio-check: WebSearch put GOOG ~$338-346 (Aug 21 close), implying roughly −$7 to −$9 unrealized on the position. ACTION NEEDED: place a stop-limit today, then run portfolio-manager to move this from pending_orders into positions[] and correct cash_available (currently stale at $542.01, predates this fill by cost ~$110.45 + $1 commission). ⚠️ UPDATE 2026-08-25: still flagged unprotected/unsynced by daily-portfolio-check, 3rd straight day. WebSearch context only (Yahoo/stooq/stockanalysis.com all blocked again today) put GOOG ~$344.70 (Aug 24 close), implying roughly −$7 unrealized. NVDA reports earnings Aug 26 AMC — broader semi/AI sentiment volatility likely into that print, raising the cost of staying unprotected another day."
+      "entry_price": 199.92,
+      "entry_date": "2026-08-24",
+      "avg_cost_incl_commission": 201.92,
+      "cost_basis": 100.96,
+      "commission_paid": 1.0,
+      "stop_loss": 186.9,
+      "stop_type": "STOP (market-on-trigger, Abbas's explicit choice 2026-08-25)",
+      "stop_reason": "1% under $187.64 Jul-29 earnings-day low / 13-week low.",
+      "tp1": 205.0,
+      "tp1_reason": "EXIT ORDER, not a profit target: GTC sell-limit $205 (order 1252227249) to close the position at small net profit. OCA-bracketed with the stop.",
+      "catalyst": "None inside window; next earnings Oct 29",
+      "halal_status": "verified-with-flag",
+      "halal_note": "Core business (HVAC/cooling) permissible, BUT Detection & Measurement segment includes Kranze Technology Solutions ($340M, defense electronics for US military) — trips the no-defense rule.",
+      "halal_verified": "2026-08-25",
+      "notes": "EXITING ON DEFENSE RULE (decision logged 2026-08-25). GTC limit buy from Aug 4 filled unattended Aug 24 with no bracket attached. stock-analyzer 2026-08-25: conviction 3/11, post-earnings pop fully retraced. Holding only until the $205 exit-limit or $186.90 stop fills. IBKR alert live: email at LAST<=186.90."
     }
   ],
+  "pending_orders": [],
   "watchlist": [
     {
       "ticker": "IQV",
@@ -154,13 +164,16 @@
       "notes": "ARCHIVE. 8 shares: 6 @ $42 (Jun 29) + 2 @ $40.20 (Jul 2). Blended avg $41.7755. FDA APPROVED Jul 7 (TRUTAKNA, accelerated approval IgAN). Classic sell-the-news. SL $38 triggered Jul 17 @ $37.74. Net P&L: −33.28 (−9.9%)."
     }
   ],
-  "cash_available": 542.01,
-  "total_cost_basis": 0,
+  "cash_available": 330.6,
+  "total_cost_basis": 211.41,
   "totals": {
-    "positions_count": 0,
-    "sectors_held": [],
-    "largest_position_pct": 0,
-    "concentration_warning": "All cash ($542.01 net liq, IBKR-verified 2026-08-05) — but STALE: this predates the confirmed GOOG fill. Three GTC buy limits were pending (AXTI, SPXC, GOOG — see pending_orders). ⚠️ 2026-08-24 UPDATE: Sunday's stock-finder run (2026-08-23) confirmed via live IBKR check that GOOG has FILLED (0.3 sh @ avg $368.16, unprotected, no stop) while AXTI and SPXC most likely have NOT (only GOOG showed as an open IBKR position, though the order-status endpoint itself errored during that check). Estimated real cash net of the GOOG fill: ≈$430. positions[] and cash_available above have NOT been resynced — run portfolio-manager to correct both and to add a stop-limit on GOOG. ⚠️ 2026-08-25 UPDATE: still unresynced, 3rd straight day GOOG has sat unprotected. Yahoo/stooq/stockanalysis.com all blocked for daily-portfolio-check today too — price-source outage is now also 3 days running."
+    "positions_count": 2,
+    "sectors_held": [
+      "Communication Services (GOOG)",
+      "Industrials/HVAC (SPXC)"
+    ],
+    "largest_position_pct": 52.2,
+    "concentration_warning": "GOOG is 52.2% of invested capital (but only ~20.6% of the $535.68 net liq — cash is 61.7% of the account, so real concentration risk is low). Net liq $535.68, cash $330.60, IBKR-verified 2026-08-25. AXTI GTC buy (2 @ $58, order 359742884) CANCELLED by Abbas 2026-08-25 — would have consumed $116 of cash on a stale Aug-4 thesis. Both positions now carry OCA brackets (TP + stop) as of 2026-08-25; the 20-day unprotected-GOOG / unsynced-state flag from daily-portfolio-check is RESOLVED."
   },
   "education_tracker": {
     "last_concept_number": 59,
@@ -499,6 +512,44 @@
       "cost_basis_sold": 94.93,
       "net_pnl": -4.56,
       "notes": "STOP-LOSS EXIT. Plain STOP $228 (order 61789563) triggered 13:49 UTC, filled $227.91 — only $0.09 slippage this time (liquid large-cap, no gap). The planned cancel/replace to stop-limit 231.50/228.50 flagged on 8/4 never happened before the trigger. Full exit, account all cash. IBKR-verified via trade log."
+    },
+    {
+      "date": "2026-08-05",
+      "action": "BUY",
+      "ticker": "GOOG",
+      "shares": 0.3,
+      "price": 364.83,
+      "amount": 109.45,
+      "commission": 1.0,
+      "notes": "GTC limit $365 (Aug 4) filled @ $364.83. Went unnoticed/unsynced for 20 days — surfaced by stock-finder 2026-08-23, fully reconciled via portfolio-manager 2026-08-25."
+    },
+    {
+      "date": "2026-08-24",
+      "action": "BUY",
+      "ticker": "SPXC",
+      "shares": 0.5,
+      "price": 199.92,
+      "amount": 99.96,
+      "commission": 1.0,
+      "notes": "GTC limit $199.92 (early Aug) filled unattended, no bracket. Next-day analysis: 3/11 conviction + Kranze defense exposure -> exit decision. Lesson logged: resting GTC entries must carry an attached bracket from placement."
+    },
+    {
+      "date": "2026-08-25",
+      "action": "STOP_UPDATE",
+      "ticker": "GOOG",
+      "shares": 0.3,
+      "price": 333.9,
+      "amount": 0,
+      "notes": "Exit Strategy OCA bracket placed: TP $408 / plain STOP $333.90 GTC. Plain stop is Abbas's explicit preference over stop-limit (guaranteed crash exit)."
+    },
+    {
+      "date": "2026-08-25",
+      "action": "STOP_UPDATE",
+      "ticker": "SPXC",
+      "shares": 0.5,
+      "price": 186.9,
+      "amount": 0,
+      "notes": "Exit Strategy OCA bracket placed: exit-limit $205 / plain STOP $186.90 GTC. Defense-rule exit in progress."
     }
   ]
 }
