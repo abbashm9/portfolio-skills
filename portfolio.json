@@ -33,7 +33,7 @@
       "halal_status": "verified",
       "halal_note": "Business-activity standard: core = search/ads/cloud/Android — permissible.",
       "halal_verified": "2026-08-25",
-      "notes": "GTC limit $365 from Aug 4 filled Aug 5 @ $364.83. Sat unprotected 20 days (flagged 3x by daily-portfolio-check); stop finally placed 2026-08-25 via Exit Strategy bracket. IBKR alert also live: email at LAST<=333.90."
+      "notes": "GTC limit $365 from Aug 4 filled Aug 5 @ $364.83. Sat unprotected 20 days (flagged 3x by daily-portfolio-check); stop finally placed 2026-08-25 via Exit Strategy bracket. IBKR alert also live: email at LAST<=333.90. FLAGGED 2026-09-10: price feed unavailable to daily-portfolio-check again today, but unverified web snapshots put the Sept 9 close at $328.38-$330.65, below the $333.90 stop — needs immediate IBKR verification to confirm whether the stop has fired."
     },
     {
       "ticker": "SPXC",
@@ -53,7 +53,7 @@
       "halal_status": "verified-with-flag",
       "halal_note": "Core business (HVAC/cooling) permissible, BUT Detection & Measurement segment includes Kranze Technology Solutions ($340M, defense electronics for US military) — trips the no-defense rule.",
       "halal_verified": "2026-08-25",
-      "notes": "EXITING ON DEFENSE RULE (decision logged 2026-08-25). GTC limit buy from Aug 4 filled unattended Aug 24 with no bracket attached. stock-analyzer 2026-08-25: conviction 3/11, post-earnings pop fully retraced. Holding only until the $205 exit-limit or $186.90 stop fills. IBKR alert live: email at LAST<=186.90. FLAGGED OVERDUE 2026-09-08 and 2026-09-09 by daily-portfolio-check: 15 days past the 2026-08-25 exit decision, still resting on a passive bracket instead of an active market exit — recommend cancelling the limit and exiting at market/aggressive marketable limit regardless of price."
+      "notes": "EXITING ON DEFENSE RULE (decision logged 2026-08-25). GTC limit buy from Aug 4 filled unattended Aug 24 with no bracket attached. stock-analyzer 2026-08-25: conviction 3/11, post-earnings pop fully retraced. Holding only until the $205 exit-limit or $186.90 stop fills. IBKR alert live: email at LAST<=186.90. FLAGGED OVERDUE 2026-09-08, 2026-09-09, and 2026-09-10 by daily-portfolio-check: 16 days past the 2026-08-25 exit decision, still resting on a passive bracket instead of an active market exit — recommend cancelling the limit and exiting at market/aggressive marketable limit regardless of price."
     }
   ],
   "pending_orders": [],
@@ -176,9 +176,9 @@
     "concentration_warning": "GOOG is 52.2% of invested capital (but only ~20.6% of the $535.68 net liq — cash is 61.7% of the account, so real concentration risk is low). Net liq $535.68, cash $330.60, IBKR-verified 2026-08-25. AXTI GTC buy (2 @ $58, order 359742884) CANCELLED by Abbas 2026-08-25 — would have consumed $116 of cash on a stale Aug-4 thesis. Both positions now carry OCA brackets (TP + stop) as of 2026-08-25; the 20-day unprotected-GOOG / unsynced-state flag from daily-portfolio-check is RESOLVED."
   },
   "education_tracker": {
-    "last_concept_number": 72,
-    "last_concept_name": "NBBO (National Best Bid and Offer)",
-    "last_taught_date": "2026-09-09",
+    "last_concept_number": 73,
+    "last_concept_name": "Execution Risk vs. Market Risk",
+    "last_taught_date": "2026-09-10",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -251,7 +251,8 @@
       "Segment-Level Halal Screening (Diversified Conglomerates)",
       "GTC Orders and Market Holidays",
       "Buffett Indicator Part 2 — Trend Velocity vs. Level",
-      "NBBO (National Best Bid and Offer)"
+      "NBBO (National Best Bid and Offer)",
+      "Execution Risk vs. Market Risk"
     ]
   },
   "history": [
