@@ -176,9 +176,9 @@
     "concentration_warning": "GOOG is 52.2% of invested capital (but only ~20.6% of the $535.68 net liq — cash is 61.7% of the account, so real concentration risk is low). Net liq $535.68, cash $330.60, IBKR-verified 2026-08-25. AXTI GTC buy (2 @ $58, order 359742884) CANCELLED by Abbas 2026-08-25 — would have consumed $116 of cash on a stale Aug-4 thesis. Both positions now carry OCA brackets (TP + stop) as of 2026-08-25; the 20-day unprotected-GOOG / unsynced-state flag from daily-portfolio-check is RESOLVED."
   },
   "education_tracker": {
-    "last_concept_number": 78,
-    "last_concept_name": "Price Feed Redundancy — Why \"No Price\" Beats \"Wrong Price\"",
-    "last_taught_date": "2026-09-15",
+    "last_concept_number": 79,
+    "last_concept_name": "IPO Lock-Up Expiration",
+    "last_taught_date": "2026-09-17",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -257,7 +257,8 @@
       "Stop Trigger Logic (Intraday Touch vs. Closing Price)",
       "Contingent Liabilities — Pricing Litigation Risk You Can't Quantify",
       "Real Rates and the Duration of a Growth Stock",
-      "Price Feed Redundancy — Why \"No Price\" Beats \"Wrong Price\""
+      "Price Feed Redundancy — Why \"No Price\" Beats \"Wrong Price\"",
+      "IPO Lock-Up Expiration"
     ]
   },
   "history": [
