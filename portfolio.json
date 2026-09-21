@@ -33,7 +33,7 @@
       "halal_status": "verified",
       "halal_note": "Business-activity standard: core = search/ads/cloud/Android — permissible.",
       "halal_verified": "2026-08-25",
-      "notes": "GTC limit $365 from Aug 4 filled Aug 5 @ $364.83. Sat unprotected 20 days (flagged 3x by daily-portfolio-check); stop finally placed 2026-08-25 via Exit Strategy bracket. IBKR alert also live: email at LAST<=333.90. FLAGGED 2026-09-10: price feed unavailable to daily-portfolio-check again today, but unverified web snapshots put the Sept 9 close at $328.38-$330.65, below the $333.90 stop — needs immediate IBKR verification to confirm whether the stop has fired. UPDATE 2026-09-18: price feed still fully blocked (network egress denies Yahoo Finance + stooq), but independent web context on 9/17 and 9/18 both suggest price has since traded well clear of the stop (~$342-349) — likely a false alarm, but still not formally confirmed via a live quote. Needs a direct IBKR check."
+      "notes": "GTC limit $365 from Aug 4 filled Aug 5 @ $364.83. Sat unprotected 20 days (flagged 3x by daily-portfolio-check); stop finally placed 2026-08-25 via Exit Strategy bracket. IBKR alert also live: email at LAST<=333.90. FLAGGED 2026-09-10: price feed unavailable to daily-portfolio-check again today, but unverified web snapshots put the Sept 9 close at $328.38-$330.65, below the $333.90 stop — needs immediate IBKR verification to confirm whether the stop has fired. UPDATE 2026-09-18: price feed still fully blocked (network egress denies Yahoo Finance + stooq), but independent web context on 9/17 and 9/18 both suggest price has since traded well clear of the stop (~$342-349) — likely a false alarm, but still not formally confirmed via a live quote. Needs a direct IBKR check. UPDATE 2026-09-21: price feed still fully blocked (12th+ consecutive day). Unverified web snapshot: Sept 18 close $344.41 (+0.21%), comfortably clear of $333.90 — still just a snapshot, not a confirmed quote."
     },
     {
       "ticker": "SPXC",
@@ -53,7 +53,7 @@
       "halal_status": "verified-with-flag",
       "halal_note": "Core business (HVAC/cooling) permissible, BUT Detection & Measurement segment includes Kranze Technology Solutions ($340M, defense electronics for US military) — trips the no-defense rule.",
       "halal_verified": "2026-08-25",
-      "notes": "EXITING ON DEFENSE RULE (decision logged 2026-08-25). GTC limit buy from Aug 4 filled unattended Aug 24 with no bracket attached. stock-analyzer 2026-08-25: conviction 3/11, post-earnings pop fully retraced. Holding only until the $205 exit-limit or $186.90 stop fills. IBKR alert live: email at LAST<=186.90. FLAGGED OVERDUE 2026-09-08, 2026-09-09, 2026-09-10, 2026-09-16, 2026-09-17, and again 2026-09-18 by daily-portfolio-check: now ~24 calendar days / ~18 trading days past the 2026-08-25 exit decision, still resting on a passive bracket instead of an active market exit — recommend cancelling the limit and exiting at market/aggressive marketable limit regardless of price. 2026-09-15: SPXC announced a $410M bolt-on acquisition of FIS Water (HVAC/water side of the business, unrelated to the Kranze defense segment) and was initiated Outperform at Wolfe Research the same day — neither changes the exit decision."
+      "notes": "EXITING ON DEFENSE RULE (decision logged 2026-08-25). GTC limit buy from Aug 4 filled unattended Aug 24 with no bracket attached. stock-analyzer 2026-08-25: conviction 3/11, post-earnings pop fully retraced. Holding only until the $205 exit-limit or $186.90 stop fills. IBKR alert live: email at LAST<=186.90. FLAGGED OVERDUE 2026-09-08, 2026-09-09, 2026-09-10, 2026-09-16, 2026-09-17, and again 2026-09-18 by daily-portfolio-check: now ~24 calendar days / ~18 trading days past the 2026-08-25 exit decision, still resting on a passive bracket instead of an active market exit — recommend cancelling the limit and exiting at market/aggressive marketable limit regardless of price. 2026-09-15: SPXC announced a $410M bolt-on acquisition of FIS Water (HVAC/water side of the business, unrelated to the Kranze defense segment) and was initiated Outperform at Wolfe Research the same day — neither changes the exit decision. FLAGGED URGENT 2026-09-21: unverified web snapshot puts the Sept 18 close at $181.77 — BELOW the $186.90 stop trigger. Exit now 27 calendar days / ~19 trading days overdue. Since the stop is a plain STOP (market-on-trigger), if price touched $186.90 intraday it should already have filled — daily-portfolio-check cannot confirm this without live price/IBKR access and flagged it as the lead urgent item in today's email. Needs immediate IBKR check for a fill; if still open, cancel the bracket and exit at market/aggressive marketable limit today."
     }
   ],
   "pending_orders": [],
@@ -176,9 +176,9 @@
     "concentration_warning": "GOOG is 52.2% of invested capital (but only ~20.6% of the $535.68 net liq — cash is 61.7% of the account, so real concentration risk is low). Net liq $535.68, cash $330.60, IBKR-verified 2026-08-25. AXTI GTC buy (2 @ $58, order 359742884) CANCELLED by Abbas 2026-08-25 — would have consumed $116 of cash on a stale Aug-4 thesis. Both positions now carry OCA brackets (TP + stop) as of 2026-08-25; the 20-day unprotected-GOOG / unsynced-state flag from daily-portfolio-check is RESOLVED."
   },
   "education_tracker": {
-    "last_concept_number": 82,
-    "last_concept_name": "New 52-Week Lows as a Capitulation Signal",
-    "last_taught_date": "2026-09-20",
+    "last_concept_number": 83,
+    "last_concept_name": "Average Daily Volume (ADV) and Why It Dictates Your Exit Method",
+    "last_taught_date": "2026-09-21",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -261,7 +261,8 @@
       "IPO Lock-Up Expiration",
       "Bolt-on Acquisitions",
       "52-Week High/Low as a Technical Reference Point",
-      "New 52-Week Lows as a Capitulation Signal"
+      "New 52-Week Lows as a Capitulation Signal",
+      "Average Daily Volume (ADV) and Why It Dictates Your Exit Method"
     ]
   },
   "history": [
