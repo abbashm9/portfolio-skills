@@ -176,9 +176,9 @@
     "concentration_warning": "GOOG is 52.2% of invested capital (but only ~20.6% of the $535.68 net liq — cash is 61.7% of the account, so real concentration risk is low). Net liq $535.68, cash $330.60, IBKR-verified 2026-08-25. AXTI GTC buy (2 @ $58, order 359742884) CANCELLED by Abbas 2026-08-25 — would have consumed $116 of cash on a stale Aug-4 thesis. Both positions now carry OCA brackets (TP + stop) as of 2026-08-25; the 20-day unprotected-GOOG / unsynced-state flag from daily-portfolio-check is RESOLVED. STALE AS OF 2026-10-01 — see SPXC position notes: Sept 29 IBKR data (via stock-finder) shows only GOOG open, cash $432.16, net liq $533.80. positions_count, cash_available and this warning all need a portfolio-manager sync."
   },
   "education_tracker": {
-    "last_concept_number": 94,
-    "last_concept_name": "The Russell 2000 — Your Discovery Hunting Ground's Benchmark",
-    "last_taught_date": "2026-10-04",
+    "last_concept_number": 95,
+    "last_concept_name": "Nasdaq Listing Standards & Delisting (The Minimum Equity Rule)",
+    "last_taught_date": "2026-10-05",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -273,7 +273,8 @@
       "Phase 2 vs Phase 3 Trial Data — Why the Market Reacts Differently",
       "Support and Resistance as Self-Fulfilling Levels",
       "The Wash Sale Rule",
-      "The Russell 2000 — Your Discovery Hunting Ground's Benchmark"
+      "The Russell 2000 — Your Discovery Hunting Ground's Benchmark",
+      "Nasdaq Listing Standards & Delisting (The Minimum Equity Rule)"
     ]
   },
   "history": [
