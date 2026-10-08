@@ -176,9 +176,9 @@
     "concentration_warning": "GOOG is 52.2% of invested capital (but only ~20.6% of the $535.68 net liq — cash is 61.7% of the account, so real concentration risk is low). Net liq $535.68, cash $330.60, IBKR-verified 2026-08-25. AXTI GTC buy (2 @ $58, order 359742884) CANCELLED by Abbas 2026-08-25 — would have consumed $116 of cash on a stale Aug-4 thesis. Both positions now carry OCA brackets (TP + stop) as of 2026-08-25; the 20-day unprotected-GOOG / unsynced-state flag from daily-portfolio-check is RESOLVED. STALE AS OF 2026-10-01 — see SPXC position notes: Sept 29 IBKR data (via stock-finder) shows only GOOG open, cash $432.16, net liq $533.80. positions_count, cash_available and this warning all need a portfolio-manager sync. UPDATE 2026-10-07: now confirmed by a second IBKR snapshot (Oct 6, via stock-finder): cash $432.16 again, net liq $535.17, still only GOOG open. Two independent reads, 8 days apart, agree exactly on cash — portfolio-manager sync is now overdue, not speculative."
   },
   "education_tracker": {
-    "last_concept_number": 97,
-    "last_concept_name": "Reconciliation by Cash Delta — and Why a Second Snapshot Beats a First",
-    "last_taught_date": "2026-10-07",
+    "last_concept_number": 98,
+    "last_concept_name": "Working Blind, Part 4 — A Total Block Isn't the Same Failure as a Blocked Host",
+    "last_taught_date": "2026-10-08",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -276,7 +276,8 @@
       "The Russell 2000 — Your Discovery Hunting Ground's Benchmark",
       "Nasdaq Listing Standards & Delisting (The Minimum Equity Rule)",
       "Working Blind, Part 3 — The Cost of a Month-Long Blackout",
-      "Reconciliation by Cash Delta — and Why a Second Snapshot Beats a First"
+      "Reconciliation by Cash Delta — and Why a Second Snapshot Beats a First",
+      "Working Blind, Part 4 — A Total Block Isn't the Same Failure as a Blocked Host"
     ]
   },
   "history": [
