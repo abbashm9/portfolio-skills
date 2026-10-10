@@ -33,7 +33,7 @@
       "halal_status": "verified",
       "halal_note": "Business-activity standard: core = search/ads/cloud/Android — permissible.",
       "halal_verified": "2026-08-25",
-      "notes": "GTC limit $365 from Aug 4 filled Aug 5 @ $364.83. Sat unprotected 20 days (flagged 3x by daily-portfolio-check); stop finally placed 2026-08-25 via Exit Strategy bracket. IBKR alert also live: email at LAST<=333.90. FLAGGED 2026-09-10: price feed unavailable to daily-portfolio-check again today, but unverified web snapshots put the Sept 9 close at $328.38-$330.65, below the $333.90 stop — needs immediate IBKR verification to confirm whether the stop has fired. UPDATE 2026-09-18: price feed still fully blocked (network egress denies Yahoo Finance + stooq), but independent web context on 9/17 and 9/18 both suggest price has since traded well clear of the stop (~$342-349) — likely a false alarm, but still not formally confirmed via a live quote. Needs a direct IBKR check. UPDATE 2026-09-21: price feed still fully blocked (12th+ consecutive day). Unverified web snapshot: Sept 18 close $344.41 (+0.21%), comfortably clear of $333.90 — still just a snapshot, not a confirmed quote. UPDATE 2026-09-23: unverified snapshot for Sept 22 close ~$348.80, still clear. UPDATE 2026-09-24: price feed still fully blocked (15th+ consecutive day) — Yahoo query1/query2 and stooq all returned EGRESS_BLOCKED. New unverified web snapshots (multiple sources) put GOOG at $334.98-$336.00 after a reported -3.4% to -3.6% one-day move on AI-capex/legal-overhang selling — only $1.08-$2.10 above the $333.90 stop, inside the 2% WATCH band and the closest approach to the stop flagged yet. Needs an immediate IBKR check; if this repeats tomorrow the stop may already be live. UPDATE 2026-09-25: price feed still fully blocked (16th consecutive day). Unverified web snapshot for Sept 24 close ~$338.30 (intraday range $331.83-$339.31) — clear of the $333.90 stop by ~1.3%, still inside the 2% WATCH band. Not confirmed via a live quote. UPDATE 2026-09-26: price feed still fully blocked (17th consecutive day). Friday Sep 25 saw a fresh ~3.6-3.8% one-day drop to the $337-339 area on Alphabet's FY26 capex guide raise ($195-205B, up from $180-190B), the ongoing Sep 18 AI-antitrust lawsuit overhang, and Meta's competing 'Muse' assistant — still ~1-1.5% above the $333.90 stop (inside the 2% WATCH band, not confirmed via a live quote). Tigress Financial raised its PT to $485 (Sep 22); consensus still ~$428-430. UPDATE 2026-10-01: price feed still fully blocked (22nd consecutive day — Yahoo query1/query2 and stooq all EGRESS_BLOCKED). Best available read is a 2-day-old IBKR mark relayed via the stock-finder routine's 2026-09-29 output: $338.31, unrealized -$8.96, still ~1.3% clear of the $333.90 stop. Not today's quote. UPDATE 2026-10-04: price feed still fully blocked (~25th consecutive day). Triangulated Friday Oct 2 close ~$340.05-340.35 (range $335.89-$342.78), ~1.8-1.9% above the $333.90 stop — still inside the 2% WATCH band, not confirmed via a live quote. New positive: Google unveiled Gemini 4 Argon (1M-token context) after Friday's close; Piper Sandler also flagged Google's TPU capacity sold out through 2028 (TSMC allocation). Needs a direct IBKR check before/at Monday's open. UPDATE 2026-10-07: price feed still fully blocked (28th consecutive day — Yahoo query1/query2 and stooq all EGRESS_BLOCKED). Best available read is now derived from yesterday's (Oct 6) stock-finder IBKR snapshot: net liq $535.17 minus cash $432.16 = implied GOOG value $103.01 / 0.3 shares = implied mark ~$343.37, ~2.8% above the $333.90 stop (just outside the 2% WATCH band on this derived figure) and consistent with the Sept 29 implied read (~$338.80) and the Oct 2 web-triangulated read (~$340) — a believable upward drift, not a jump. Still not a direct quote; needs a direct IBKR check. UPDATE 2026-10-09: price feed now fully unreachable at the DNS level (query1/query2/stooq AND a google.com control all failed ENOTFOUND via WebFetch) — 30th consecutive day of no live quote, consistent with the total session-egress block daily-portfolio-check first confirmed via a direct proxy check on 2026-10-08. Best available reference remains the Oct 2 triangulated close (~$343.50), cross-checked today against an undated 'current price' aggregator reading $344.10 — consistent, not a fresher confirmation. Still ~2.9% clear of the $333.90 stop on that reference. Needs a direct IBKR check."
+      "notes": "GTC limit $365 from Aug 4 filled Aug 5 @ $364.83. Sat unprotected 20 days (flagged 3x by daily-portfolio-check); stop finally placed 2026-08-25 via Exit Strategy bracket. IBKR alert also live: email at LAST<=333.90. FLAGGED 2026-09-10: price feed unavailable to daily-portfolio-check again today, but unverified web snapshots put the Sept 9 close at $328.38-$330.65, below the $333.90 stop — needs immediate IBKR verification to confirm whether the stop has fired. UPDATE 2026-09-18: price feed still fully blocked (network egress denies Yahoo Finance + stooq), but independent web context on 9/17 and 9/18 both suggest price has since traded well clear of the stop (~$342-349) — likely a false alarm, but still not formally confirmed via a live quote. Needs a direct IBKR check. UPDATE 2026-09-21: price feed still fully blocked (12th+ consecutive day). Unverified web snapshot: Sept 18 close $344.41 (+0.21%), comfortably clear of $333.90 — still just a snapshot, not a confirmed quote. UPDATE 2026-09-23: unverified snapshot for Sept 22 close ~$348.80, still clear. UPDATE 2026-09-24: price feed still fully blocked (15th+ consecutive day) — Yahoo query1/query2 and stooq all returned EGRESS_BLOCKED. New unverified web snapshots (multiple sources) put GOOG at $334.98-$336.00 after a reported -3.4% to -3.6% one-day move on AI-capex/legal-overhang selling — only $1.08-$2.10 above the $333.90 stop, inside the 2% WATCH band and the closest approach to the stop flagged yet. Needs an immediate IBKR check; if this repeats tomorrow the stop may already be live. UPDATE 2026-09-25: price feed still fully blocked (16th consecutive day). Unverified web snapshot for Sept 24 close ~$338.30 (intraday range $331.83-$339.31) — clear of the $333.90 stop by ~1.3%, still inside the 2% WATCH band. Not confirmed via a live quote. UPDATE 2026-09-26: price feed still fully blocked (17th consecutive day). Friday Sep 25 saw a fresh ~3.6-3.8% one-day drop to the $337-339 area on Alphabet's FY26 capex guide raise ($195-205B, up from $180-190B), the ongoing Sep 18 AI-antitrust lawsuit overhang, and Meta's competing 'Muse' assistant — still ~1-1.5% above the $333.90 stop (inside the 2% WATCH band, not confirmed via a live quote). Tigress Financial raised its PT to $485 (Sep 22); consensus still ~$428-430. UPDATE 2026-10-01: price feed still fully blocked (22nd consecutive day — Yahoo query1/query2 and stooq all EGRESS_BLOCKED). Best available read is a 2-day-old IBKR mark relayed via the stock-finder routine's 2026-09-29 output: $338.31, unrealized -$8.96, still ~1.3% clear of the $333.90 stop. Not today's quote. UPDATE 2026-10-04: price feed still fully blocked (~25th consecutive day). Triangulated Friday Oct 2 close ~$340.05-340.35 (range $335.89-$342.78), ~1.8-1.9% above the $333.90 stop — still inside the 2% WATCH band, not confirmed via a live quote. New positive: Google unveiled Gemini 4 Argon (1M-token context) after Friday's close; Piper Sandler also flagged Google's TPU capacity sold out through 2028 (TSMC allocation). Needs a direct IBKR check before/at Monday's open. UPDATE 2026-10-07: price feed still fully blocked (28th consecutive day — Yahoo query1/query2 and stooq all EGRESS_BLOCKED). Best available read is now derived from yesterday's (Oct 6) stock-finder IBKR snapshot: net liq $535.17 minus cash $432.16 = implied GOOG value $103.01 / 0.3 shares = implied mark ~$343.37, ~2.8% above the $333.90 stop (just outside the 2% WATCH band on this derived figure) and consistent with the Sept 29 implied read (~$338.80) and the Oct 2 web-triangulated read (~$340) — a believable upward drift, not a jump. Still not a direct quote; needs a direct IBKR check. UPDATE 2026-10-09: price feed now fully unreachable at the DNS level (query1/query2/stooq AND a google.com control all failed ENOTFOUND via WebFetch) — 30th consecutive day of no live quote, consistent with the total session-egress block daily-portfolio-check first confirmed via a direct proxy check on 2026-10-08. Best available reference remains the Oct 2 triangulated close (~$343.50), cross-checked today against an undated 'current price' aggregator reading $344.10 — consistent, not a fresher confirmation. Still ~2.9% clear of the $333.90 stop on that reference. Needs a direct IBKR check. UPDATE 2026-10-10: price feed still fully blocked (31st consecutive day, same DNS-level ENOTFOUND across query1/query2/stooq). Best available reference today is a web-search-triangulated ~$344.00 (undated aggregator snapshots clustering $340-344), consistent with the Oct 9 read. Still ~3.0% clear of the $333.90 stop on that reference. Needs a direct IBKR check."
     },
     {
       "ticker": "SPXC",
@@ -53,7 +53,7 @@
       "halal_status": "verified-with-flag",
       "halal_note": "Core business (HVAC/cooling) permissible, BUT Detection & Measurement segment includes Kranze Technology Solutions ($340M, defense electronics for US military) — trips the no-defense rule.",
       "halal_verified": "2026-08-25",
-      "notes": "EXITING ON DEFENSE RULE (decision logged 2026-08-25). GTC limit buy from Aug 4 filled unattended Aug 24 with no bracket attached. stock-analyzer 2026-08-25: conviction 3/11, post-earnings pop fully retraced. Holding only until the $205 exit-limit or $186.90 stop fills. IBKR alert live: email at LAST<=186.90. FLAGGED OVERDUE 2026-09-08, 2026-09-09, 2026-09-10, 2026-09-16, 2026-09-17, and again 2026-09-18 by daily-portfolio-check: now ~24 calendar days / ~18 trading days past the 2026-08-25 exit decision, still resting on a passive bracket instead of an active market exit — recommend cancelling the limit and exiting at market/aggressive marketable limit regardless of price. 2026-09-15: SPXC announced a $410M bolt-on acquisition of FIS Water (HVAC/water side of the business, unrelated to the Kranze defense segment) and was initiated Outperform at Wolfe Research the same day — neither changes the exit decision. FLAGGED URGENT 2026-09-21: unverified web snapshot puts the Sept 18 close at $181.77 — BELOW the $186.90 stop trigger. Exit now 27 calendar days / ~19 trading days overdue. Since the stop is a plain STOP (market-on-trigger), if price touched $186.90 intraday it should already have filled — daily-portfolio-check cannot confirm this without live price/IBKR access and flagged it as the lead urgent item in today's email. Needs immediate IBKR check for a fill; if still open, cancel the bracket and exit at market/aggressive marketable limit today. FLAGGED URGENT AGAIN 2026-09-23: unverified snapshot put Sept 22 close at $174.65, a fresh 52-week low, still below stop and unconfirmed. FLAGGED URGENT AGAIN 2026-09-24: price feed still fully blocked (15th+ consecutive day). Today's unverified web snapshots are wildly inconsistent across sources ($174.65-$197.29), but most cluster below the $186.90 stop. Exit decision now 30 calendar days / ~21 trading days overdue with no confirmation either way — this is now the single most time-critical item in the daily report. Needs immediate IBKR check today: confirm fill or cancel bracket and exit at market/aggressive marketable limit. FLAGGED URGENT AGAIN 2026-09-25: price feed still fully blocked (16th consecutive day). Three independent web sources now confirm a fresh 52-week low of $172.56 around Sept 22-23 (well below the $186.90 stop), consistent with the Sept 18/19 snapshots ($181.77, $176.57-$182.01) — the data now triangulates to a clear multi-day breach of the stop, not a single-source glitch. Exit decision now 31 calendar days / ~22 trading days overdue. Still no IBKR confirmation of a fill. This is the single most time-critical item in the daily report for the second day running — needs an immediate IBKR check today: confirm fill or cancel the bracket and exit at market/aggressive marketable limit. FLAGGED URGENT AGAIN 2026-09-26: price feed still fully blocked (17th consecutive day). Nvidia's warm-water-cooling keynote comments triggered a sector-wide selloff in air-cooling names (SPXC, Trane, Modine, Johnson Controls, Carrier) on top of the pre-existing halal-driven exit call, dragging SPXC from above $230 toward its 52-week low. Latest triangulated data: 52-week low $172.55-$172.64 (Sep 22-23), $173.60 (Sep 23), versus one less-trusted $179.88 snapshot — all still below the $186.90 stop. Exit decision now 32 calendar days / ~23 trading days overdue. Still no IBKR confirmation of a fill either way — needs an immediate IBKR check: confirm fill or cancel the bracket and exit at market/aggressive marketable limit at Monday's open. UPDATE 2026-10-01 — LIKELY RESOLVED, NEEDS CONFIRMATION: the Sept 29 stock-finder routine pulled live IBKR account data and found NO SPXC position (only GOOG open; cash $432.16 vs. the $330.60 this file still shows). Cash delta ($101.56) matches the $205.00 GTC exit-limit filling (0.5 sh × $205 − ~$1 commission ≈ $101.50) far better than the $186.90 stop (~$92.45 net) — so this was most likely a small-profit exit via the TP1 limit, not the stop. This is inference from account-level cash math, not a confirmed trade record. daily-portfolio-check does not write position/cash changes to this file (portfolio-manager's job) — flagging here only as context until that reconciliation happens. NEXT STEP: pull the actual SPXC fill (price, date, P&L) from IBKR and run portfolio-manager to remove this position and sync cash_available. UPDATE 2026-10-04: still unreconciled, now 40 calendar days overdue. Fresh 52-week low $167.69-$172.56 (range now $166.17-$251.08) with 13 analysts still consensus 'Strong Buy' / $265.62 avg target (RSI oversold) — a persistent price/sentiment gap consistent with a plain STOP at $186.90 that would have fired weeks ago, reinforcing the already-exited-via-$205-limit read. Still needs a direct IBKR confirmation and portfolio-manager sync. UPDATE 2026-10-07: now confirmed by a SECOND independent IBKR snapshot, not just one. Yesterday's (Oct 6) stock-finder routine again pulled live IBKR data and again found only GOOG open, cash $432.16 — identical to the Sept 29 figure, 8 days apart, with zero drift. Two matching independent reads is well past coincidence. This is now effectively confirmed closed via the $205 exit-limit (net approx +$3.54); the only remaining step is mechanical — run portfolio-manager to remove this position and set cash_available to $432.16 (or today's fresh IBKR figure), 48 calendar days after the original exit decision. UPDATE 2026-10-09: still unreconciled, now 45 calendar days overdue (second week running flagged with no action taken). Most recent price data found (Oct 2, $173.09) remains well below the $186.90 stop, still consistent with the already-exited-via-$205-limit read. No new IBKR snapshot available today (price feed fully down, see GOOG notes) to add a third confirmation. Needs you to confirm the fill in IBKR and run portfolio-manager to remove this position and sync cash_available."
+      "notes": "EXITING ON DEFENSE RULE (decision logged 2026-08-25). GTC limit buy from Aug 4 filled unattended Aug 24 with no bracket attached. stock-analyzer 2026-08-25: conviction 3/11, post-earnings pop fully retraced. Holding only until the $205 exit-limit or $186.90 stop fills. IBKR alert live: email at LAST<=186.90. FLAGGED OVERDUE 2026-09-08, 2026-09-09, 2026-09-10, 2026-09-16, 2026-09-17, and again 2026-09-18 by daily-portfolio-check: now ~24 calendar days / ~18 trading days past the 2026-08-25 exit decision, still resting on a passive bracket instead of an active market exit — recommend cancelling the limit and exiting at market/aggressive marketable limit regardless of price. 2026-09-15: SPXC announced a $410M bolt-on acquisition of FIS Water (HVAC/water side of the business, unrelated to the Kranze defense segment) and was initiated Outperform at Wolfe Research the same day — neither changes the exit decision. FLAGGED URGENT 2026-09-21: unverified web snapshot puts the Sept 18 close at $181.77 — BELOW the $186.90 stop trigger. Exit now 27 calendar days / ~19 trading days overdue. Since the stop is a plain STOP (market-on-trigger), if price touched $186.90 intraday it should already have filled — daily-portfolio-check cannot confirm this without live price/IBKR access and flagged it as the lead urgent item in today's email. Needs immediate IBKR check for a fill; if still open, cancel the bracket and exit at market/aggressive marketable limit today. FLAGGED URGENT AGAIN 2026-09-23: unverified snapshot put Sept 22 close at $174.65, a fresh 52-week low, still below stop and unconfirmed. FLAGGED URGENT AGAIN 2026-09-24: price feed still fully blocked (15th+ consecutive day). Today's unverified web snapshots are wildly inconsistent across sources ($174.65-$197.29), but most cluster below the $186.90 stop. Exit decision now 30 calendar days / ~21 trading days overdue with no confirmation either way — this is now the single most time-critical item in the daily report. Needs immediate IBKR check today: confirm fill or cancel bracket and exit at market/aggressive marketable limit. FLAGGED URGENT AGAIN 2026-09-25: price feed still fully blocked (16th consecutive day). Three independent web sources now confirm a fresh 52-week low of $172.56 around Sept 22-23 (well below the $186.90 stop), consistent with the Sept 18/19 snapshots ($181.77, $176.57-$182.01) — the data now triangulates to a clear multi-day breach of the stop, not a single-source glitch. Exit decision now 31 calendar days / ~22 trading days overdue. Still no IBKR confirmation of a fill. This is the single most time-critical item in the daily report for the second day running — needs an immediate IBKR check today: confirm fill or cancel the bracket and exit at market/aggressive marketable limit. FLAGGED URGENT AGAIN 2026-09-26: price feed still fully blocked (17th consecutive day). Nvidia's warm-water-cooling keynote comments triggered a sector-wide selloff in air-cooling names (SPXC, Trane, Modine, Johnson Controls, Carrier) on top of the pre-existing halal-driven exit call, dragging SPXC from above $230 toward its 52-week low. Latest triangulated data: 52-week low $172.55-$172.64 (Sep 22-23), $173.60 (Sep 23), versus one less-trusted $179.88 snapshot — all still below the $186.90 stop. Exit decision now 32 calendar days / ~23 trading days overdue. Still no IBKR confirmation of a fill either way — needs an immediate IBKR check: confirm fill or cancel the bracket and exit at market/aggressive marketable limit at Monday's open. UPDATE 2026-10-01 — LIKELY RESOLVED, NEEDS CONFIRMATION: the Sept 29 stock-finder routine pulled live IBKR account data and found NO SPXC position (only GOOG open; cash $432.16 vs. the $330.60 this file still shows). Cash delta ($101.56) matches the $205.00 GTC exit-limit filling (0.5 sh × $205 − ~$1 commission ≈ $101.50) far better than the $186.90 stop (~$92.45 net) — so this was most likely a small-profit exit via the TP1 limit, not the stop. This is inference from account-level cash math, not a confirmed trade record. daily-portfolio-check does not write position/cash changes to this file (portfolio-manager's job) — flagging here only as context until that reconciliation happens. NEXT STEP: pull the actual SPXC fill (price, date, P&L) from IBKR and run portfolio-manager to remove this position and sync cash_available. UPDATE 2026-10-04: still unreconciled, now 40 calendar days overdue. Fresh 52-week low $167.69-$172.56 (range now $166.17-$251.08) with 13 analysts still consensus 'Strong Buy' / $265.62 avg target (RSI oversold) — a persistent price/sentiment gap consistent with a plain STOP at $186.90 that would have fired weeks ago, reinforcing the already-exited-via-$205-limit read. Still needs a direct IBKR confirmation and portfolio-manager sync. UPDATE 2026-10-07: now confirmed by a SECOND independent IBKR snapshot, not just one. Yesterday's (Oct 6) stock-finder routine again pulled live IBKR data and again found only GOOG open, cash $432.16 — identical to the Sept 29 figure, 8 days apart, with zero drift. Two matching independent reads is well past coincidence. This is now effectively confirmed closed via the $205 exit-limit (net approx +$3.54); the only remaining step is mechanical — run portfolio-manager to remove this position and set cash_available to $432.16 (or today's fresh IBKR figure), 48 calendar days after the original exit decision. UPDATE 2026-10-09: still unreconciled, now 45 calendar days overdue (second week running flagged with no action taken). Most recent price data found (Oct 2, $173.09) remains well below the $186.90 stop, still consistent with the already-exited-via-$205-limit read. No new IBKR snapshot available today (price feed fully down, see GOOG notes) to add a third confirmation. Needs you to confirm the fill in IBKR and run portfolio-manager to remove this position and sync cash_available. UPDATE 2026-10-10: still unreconciled, now 46 calendar days overdue — third consecutive weekly flag with no action taken. No new IBKR snapshot today (price feed fully down). Nothing new; same ask as the last two weeks: confirm the fill in IBKR and run portfolio-manager to remove this position and sync cash_available to ~$432.16."
     }
   ],
   "pending_orders": [],
@@ -176,9 +176,9 @@
     "concentration_warning": "GOOG is 52.2% of invested capital (but only ~20.6% of the $535.68 net liq — cash is 61.7% of the account, so real concentration risk is low). Net liq $535.68, cash $330.60, IBKR-verified 2026-08-25. AXTI GTC buy (2 @ $58, order 359742884) CANCELLED by Abbas 2026-08-25 — would have consumed $116 of cash on a stale Aug-4 thesis. Both positions now carry OCA brackets (TP + stop) as of 2026-08-25; the 20-day unprotected-GOOG / unsynced-state flag from daily-portfolio-check is RESOLVED. STALE AS OF 2026-10-01 — see SPXC position notes: Sept 29 IBKR data (via stock-finder) shows only GOOG open, cash $432.16, net liq $533.80. positions_count, cash_available and this warning all need a portfolio-manager sync. UPDATE 2026-10-07: now confirmed by a second IBKR snapshot (Oct 6, via stock-finder): cash $432.16 again, net liq $535.17, still only GOOG open. Two independent reads, 8 days apart, agree exactly on cash — portfolio-manager sync is now overdue, not speculative. UPDATE 2026-10-09: still unreconciled, 45 calendar days since the SPXC exit decision and 10 days since the first IBKR-confirmed cash delta. No new IBKR snapshot today (price feed fully down) to add a third confirmation, but nothing in today's research contradicts the $432.16 / GOOG-only read. Sync is still pending, not newly discovered."
   },
   "education_tracker": {
-    "last_concept_number": 99,
-    "last_concept_name": "Quiet Period — Why Companies Go Dark Before They Report",
-    "last_taught_date": "2026-10-09",
+    "last_concept_number": 100,
+    "last_concept_name": "Sell-the-News",
+    "last_taught_date": "2026-10-10",
     "taught_concepts": [
       "Forward P/E vs Trailing P/E",
       "EV/EBITDA",
@@ -278,7 +278,8 @@
       "Working Blind, Part 3 — The Cost of a Month-Long Blackout",
       "Reconciliation by Cash Delta — and Why a Second Snapshot Beats a First",
       "Working Blind, Part 4 — A Total Block Isn't the Same Failure as a Blocked Host",
-      "Quiet Period — Why Companies Go Dark Before They Report"
+      "Quiet Period — Why Companies Go Dark Before They Report",
+      "Sell-the-News"
     ]
   },
   "history": [
@@ -287,287 +288,6 @@
       "action": "BUY",
       "ticker": "NVDA",
       "shares": 1.3799,
-      "price": 217.4,
-      "amount": 300.06,
-      "notes": "Initial allocation"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "LLY",
-      "shares": 0.1407,
-      "price": 994.87,
-      "amount": 139.98,
-      "notes": "Healthcare diversifier"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "AVGO",
-      "shares": 0.315,
-      "price": 412.04,
-      "amount": 129.79,
-      "notes": "AI ureadth"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "TSM",
-      "shares": 0.224,
-      "price": 388.35,
-      "amount": 86.99,
-      "notes": "Foundry pure-play"
-    },
-    {
-      "date": "2026-05-11",
-      "action": "BUY",
-      "ticker": "AMD",
-      "shares": 0.117,
-      "price": 428.84,
-      "amount": 50.17,
-      "notes": "Server CPU"
-    },
-    {
-      "date": "2026-06-08",
-      "action": "SELL",
-      "ticker": "LLY",
-      "shares": 0.0421,
-      "price": 1152.76,
-      "gross_proceeds": 48.53,
-      "commission": 3.0,
-      "net_proceeds": 45.53,
-      "cost_basis_sold": 41.87,
-      "net_pnl": 3.66,
-      "notes": "Partial trim +16.0%"
-    },
-    {
-      "date": "2026-06-09",
-      "action": "SELL",
-      "ticker": "AMD",
-      "shares": 0.117,
-      "price": 498.12,
-      "gross_proceeds": 58.28,
-      "commission": 3.0,
-      "net_proceeds": 55.28,
-      "cost_basis_sold": 50.17,
-      "net_pnl": 5.11,
-      "notes": "Full exit +16.2%"
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "NVDA",
-      "shares": 1.3799,
-      "price": 195.72,
-      "gross_proceeds": 270.07,
-      "commission": 3.0,
-      "net_proceeds": 267.07,
-      "cost_basis_sold": 300.06,
-      "net_pnl": -32.99,
-      "notes": "Full exit at loss. Stop breached."
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "AVGO",
-      "shares": 0.315,
-      "price": 383.31,
-      "gross_proceeds": 120.74,
-      "commission": 3.0,
-      "net_proceeds": 117.74,
-      "cost_basis_sold": 129.79,
-      "net_pnl": -12.05,
-      "notes": "Full exit at loss. Sector sentiment exit."
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "LLY",
-      "shares": 0.0986,
-      "price": 1141.03,
-      "gross_proceeds": 112.51,
-      "commission": 3.0,
-      "net_proceeds": 109.51,
-      "cost_basis_sold": 98.11,
-      "net_pnl": 11.4,
-      "notes": "Full exit +14.7%. IBKR migration."
-    },
-    {
-      "date": "2026-06-25",
-      "action": "SELL",
-      "ticker": "TSM",
-      "shares": 0.224,
-      "price": 441.15,
-      "gross_proceeds": 98.82,
-      "commission": 3.0,
-      "net_proceeds": 95.82,
-      "cost_basis_sold": 86.99,
-      "net_pnl": 8.83,
-      "notes": "Full exit +13.6%. IBKR migration."
-    },
-    {
-      "date": "2026-06-29",
-      "action": "BUY",
-      "ticker": "VERA",
-      "shares": 6,
-      "price": 42.0,
-      "amount": 252.0,
-      "commission": 0.5,
-      "notes": "PDUFA play July 7. Entry above $34 target."
-    },
-    {
-      "date": "2026-06-29",
-      "action": "BUY",
-      "ticker": "ANET",
-      "shares": 1.27,
-      "price": 157.0,
-      "amount": 199.39,
-      "commission": 0.5,
-      "notes": "AI uEthernet momentum. TP $185, SL $144. Exit by July 25."
-    },
-    {
-      "date": "2026-07-02",
-      "action": "BUY",
-      "ticker": "VERA",
-      "shares": 2,
-      "price": 40.2,
-      "amount": 80.4,
-      "commission": 0.8,
-      "notes": "Added 2 shares pre-PDUFA. IBKR fill $40.20 (dark pool). Blended avg $41.7755 across all 8 shares (commissions included in IBKR avg)."
-    },
-    {
-      "date": "2026-07-09",
-      "action": "SELL",
-      "ticker": "ANET",
-      "shares": 1.27,
-      "price_blended": 187.26,
-      "gross_proceeds": 237.83,
-      "commission": 1.01,
-      "net_proceeds": 236.82,
-      "cost_basis_sold": 199.39,
-      "net_pnl": 36.43,
-      "notes": "Full exit. Two GTC fills: 1 share @ $187 (NYSE) + 0.27 shares @ $188.25 (IBKR partial). Net +18.2% (+$36.43). IBKR commission $1.01."
-    },
-    {
-      "date": "2026-07-15",
-      "action": "BUY",
-      "ticker": "CELC",
-      "shares": 2,
-      "price": 104.29,
-      "amount": 208.58,
-      "commission": 1.0,
-      "notes": "Pre-PDUFA entry. PDUFA July 17. IBKR avg $104.29. Strategy: sell same day as PDUFA result."
-    },
-    {
-      "date": "2026-07-15",
-      "action": "SELL",
-      "ticker": "CELC",
-      "shares": 2,
-      "price": 91.63,
-      "gross_proceeds": 183.26,
-      "commission": 1.0,
-      "net_proceeds": 182.26,
-      "cost_basis_sold": 208.58,
-      "net_pnl": -26.32,
-      "notes": "Cut loss. REVTORPYK FDA approved Jul 14 (3 days early) but sell-the-news on delayed commercial launch (late Q3) + tolerability concerns. Stock peaked ~$111 on approval, declined to $91.63. GTC at $152 never filled – approval move only +7% not +45%. Redeploying to CAPR pre-AdCom Jul 29."
-    },
-    {
-      "date": "2026-07-15",
-      "action": "BUY",
-      "ticker": "CAPR",
-      "shares": 16,
-      "price": 20.35,
-      "amount": 325.6,
-      "commission": 1.0,
-      "notes": "AdCom play. CTGTAC advisory committee Jul 29. PDUFA Aug 22. GTC sell $33-35 set. FDA briefing docs due Jul 25 — read before holding to AdCom. Prior CRL resubmission — HOPE-3 Phase 3 met all endpoints. Updated probability 55-65%."
-    },
-    {
-      "date": "2026-07-17",
-      "action": "SELL",
-      "ticker": "VERA",
-      "shares": 8,
-      "price": 37.74,
-      "gross_proceeds": 301.92,
-      "commission": 1.0,
-      "net_proceeds": 300.92,
-      "cost_basis_sold": 334.2,
-      "net_pnl": -33.28,
-      "notes": "SL triggered @ $37.74. Classic post-approval drift — TRUTAKNA FDA approved Jul 7 (IgAN) but sell-the-news continued below $38 support. Entry blended avg $41.7755. Net loss −9.9%."
-    },
-    {
-      "date": "2026-07-20",
-      "action": "BUY",
-      "ticker": "META",
-      "shares": 0.6,
-      "price": 645.55,
-      "amount": 387.33,
-      "commission": 0.01,
-      "notes": "Momentum hold into Q2 earnings (~Jul 29-30). TP $700+. SL $610. Same-week catalyst as CAPR AdCom — plan both exits."
-    },
-    {
-      "date": "2026-07-21",
-      "action": "SELL",
-      "ticker": "META",
-      "shares": 0.6,
-      "price": 654.71,
-      "gross_proceeds": 392.83,
-      "commission": 1.01,
-      "net_proceeds": 391.82,
-      "cost_basis_sold": 387.33,
-      "net_pnl": 4.49,
-      "notes": "Full exit. Closed before Q2 earnings. +1.2% in 1 day. Net P&L +$4.49."
-    },
-    {
-      "date": "2026-07-27",
-      "action": "SELL",
-      "ticker": "CAPR",
-      "shares": 16,
-      "price": 5.8,
-      "gross_proceeds": 92.8,
-      "commission": 0.93,
-      "net_proceeds": 91.87,
-      "cost_basis_sold": 326.6,
-      "net_pnl": -234.73,
-      "notes": "GTC STOP order filled 13:30 UTC on DARK exchange, order described as '5.8 Stop, Gtc'. Two days BEFORE the Jul 29 AdCom vote this trade was built around. Stop was correctly placed at $14.00 per entry notes; market gapped down hard at the open pre-AdCom and the plain STOP order triggered as a market order, filling 59% below trigger. Net -71.9%. Root cause and strategy pivot documented in decisions.md (2026-07-27)."
-    },
-    {
-      "date": "2026-07-31",
-      "action": "BUY",
-      "ticker": "IQV",
-      "shares": 0.4005,
-      "price": 234.67,
-      "amount": 93.99,
-      "commission": 0.94,
-      "notes": "GTC limit $234.67 filled 13:35 UTC (order 130630487). Pullback entry inside $234-237 zone per 7/29 plan after the 7/28 earnings breakout. Fractional shares confirmed working. Total cost incl. commission $94.93."
-    },
-    {
-      "date": "2026-08-04",
-      "action": "SELL",
-      "ticker": "IQV",
-      "shares": 0.4005,
-      "price": 227.91,
-      "gross_proceeds": 91.28,
-      "commission": 0.91,
-      "net_proceeds": 90.36,
-      "cost_basis_sold": 94.93,
-      "net_pnl": -4.56,
-      "notes": "STOP-LOSS EXIT. Plain STOP $228 (order 61789563) triggered 13:49 UTC, filled $227.91 — only $0.09 slippage this time (liquid large-cap, no gap). The planned cancel/replace to stop-limit 231.50/228.50 flagged on 8/4 never happened before the trigger. Full exit, account all cash. IBKR-verified via trade log."
-    },
-    {
-      "date": "2026-08-05",
-      "action": "BUY",
-      "ticker": "GOOG",
-      "shares": 0.3,
-      "price": 364.83,
-      "amount": 109.45,
-      "commission": 1.0,
-      "notes": "GTC limit $365 (Aug 4) filled @ $364.83. Went unnoticed/unsynced for 20 days — surfaced by stock-finder 2026-08-23, fully reconciled via portfolio-manager 2026-08-25."
-    },
-    {
-      "date": "2026-08-24",
-      "action": "BUY",
-      "ticker": "SPXC",
-      "shares": 0.5,
       "price": 199.92,
       "amount": 99.96,
       "commission": 1.0,
@@ -581,15 +301,6 @@
       "price": 333.9,
       "amount": 0,
       "notes": "Exit Strategy OCA bracket placed: TP $408 / plain STOP $333.90 GTC. Plain stop is Abbas's explicit preference over stop-limit (guaranteed crash exit)."
-    },
-    {
-      "date": "2026-08-25",
-      "action": "STOP_UPDATE",
-      "ticker": "SPXC",
-      "shares": 0.5,
-      "price": 186.9,
-      "amount": 0,
-      "notes": "Exit Strategy OCA bracket placed: exit-limit $205 / plain STOP $186.90 GTC. Defense-rule exit in progress."
     }
   ]
 }
